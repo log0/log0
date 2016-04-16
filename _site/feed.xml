@@ -5,36 +5,9 @@
     <description>Things I left Hanging Around</description>
     <link>http://www.chioka.in/</link>
     <atom:link href="http://www.chioka.in/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 16 Apr 2016 16:08:53 -0700</pubDate>
-    <lastBuildDate>Sat, 16 Apr 2016 16:08:53 -0700</lastBuildDate>
+    <pubDate>Sat, 16 Apr 2016 16:28:53 -0700</pubDate>
+    <lastBuildDate>Sat, 16 Apr 2016 16:28:53 -0700</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
-    
-      <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;def print_hi(name)
-  puts &amp;quot;Hi, #{name}&amp;quot;
-end
-print_hi(&amp;#39;Tom&amp;#39;)
-#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 16 Apr 2016 15:08:48 -0700</pubDate>
-        <link>http://www.chioka.in/jekyll/update/2016/04/16/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://www.chioka.in/jekyll/update/2016/04/16/welcome-to-jekyll.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
     
       <item>
         <title>How Does the Number of Hidden Neurons Affect a Neural Network&amp;#8217;s Performance</title>
@@ -517,7 +490,7 @@ Using [1] number of hidden neurons yields. Accuracy score: 0.2919
       &lt;/h3&gt;
       
       &lt;p&gt;
-        From here we can see the the number of hidden neurons does affect the model performance. When a neural network has too few hidden neurons (&lt; 16), it does not have the capacity to learn enough of the underlying patterns to distinguish between 0 &amp;#8211; 9 effectively. When the neural network has &gt;= 16 neurons, the neural network start to do better. At increasing number of hidden neurons (&gt;= 128), the number of hidden neurons does not help too much for this problem.
+        From here we can see the the number of hidden neurons does affect the model performance. When a neural network has too few hidden neurons (&amp;lt; 16), it does not have the capacity to learn enough of the underlying patterns to distinguish between 0 &amp;#8211; 9 effectively. When the neural network has &amp;gt;= 16 neurons, the neural network start to do better. At increasing number of hidden neurons (&amp;gt;= 128), the number of hidden neurons does not help too much for this problem.
       &lt;/p&gt;
       
       &lt;p&gt;
@@ -557,35 +530,35 @@ Using [1] number of hidden neurons yields. Accuracy score: 0.2919
         <title>Why is Keras Running So Slow?</title>
         <description>&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg&quot; alt=&quot;meme&quot; width=&quot;512&quot; height=&quot;340&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;More notes for myself&amp;#8230; so it may not be helpful for you who bumped into here. 😉&lt;/p&gt;
+&lt;p&gt;More notes for myself… so it may not be helpful for you who bumped into here. 😉&lt;/p&gt;
 
-&lt;h1&gt;Why This Article?&lt;/h1&gt;
+&lt;h1 id=&quot;why-this-article&quot;&gt;Why This Article?&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/&quot; target=&quot;_blank&quot;&gt;Setting Theano correctly&lt;/a&gt; &lt;strong&gt;is not enough&lt;/strong&gt; to ensure you can run deep learning software correctly. In our case, it will be Keras, and it can slow to a crawl if not setup properly.&lt;/p&gt;
 
 &lt;p&gt;Again, there could be many causes but I try to outline a clean step what I did, the performance I run a good setup, so you can compare. Hopefully you can glean some places where you did wrong.&lt;/p&gt;
 
-&lt;h1&gt;Specifications&lt;/h1&gt;
+&lt;h1 id=&quot;specifications&quot;&gt;Specifications&lt;/h1&gt;
 
 &lt;p&gt;My server has the following specifications finished running the steps outlined &lt;a href=&quot;http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;OS: Ubuntu 14.04 LTS, X64&lt;/li&gt;
-&lt;li&gt;GPU: Nvidia Geforce GTX 780&lt;/li&gt;
-&lt;li&gt;Ubuntu 14.04 LTS&lt;/li&gt;
-&lt;li&gt;CUDA 7.5&lt;/li&gt;
-&lt;li&gt;Theano 0.7.0&lt;/li&gt;
-&lt;li&gt;Numpy 1.8.2&lt;/li&gt;
-&lt;li&gt;Kera 0.2.0&lt;/li&gt;
-&lt;li&gt;Scipy 0.13.3&lt;/li&gt;
-&lt;li&gt;NVIDIA-SMI 352.39&lt;/li&gt;
-&lt;li&gt;Graphics Driver Version: 352.39&lt;/li&gt;
+  &lt;li&gt;OS: Ubuntu 14.04 LTS, X64&lt;/li&gt;
+  &lt;li&gt;GPU: Nvidia Geforce GTX 780&lt;/li&gt;
+  &lt;li&gt;Ubuntu 14.04 LTS&lt;/li&gt;
+  &lt;li&gt;CUDA 7.5&lt;/li&gt;
+  &lt;li&gt;Theano 0.7.0&lt;/li&gt;
+  &lt;li&gt;Numpy 1.8.2&lt;/li&gt;
+  &lt;li&gt;Kera 0.2.0&lt;/li&gt;
+  &lt;li&gt;Scipy 0.13.3&lt;/li&gt;
+  &lt;li&gt;NVIDIA-SMI 352.39&lt;/li&gt;
+  &lt;li&gt;Graphics Driver Version: 352.39&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1&gt;Instructions&lt;/h1&gt;
+&lt;h1 id=&quot;instructions&quot;&gt;Instructions&lt;/h1&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Make sure your Theano configuration file, located at ~/.theanorc, is correct:&lt;/li&gt;
+  &lt;li&gt;Make sure your Theano configuration file, located at ~/.theanorc, is correct:&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;$ cat ~/.theanorc
@@ -603,7 +576,7 @@ fastmath = True
 [blas]
 ldflags = -llapack -lblas&lt;/pre&gt;
 
-Use this to see your Theano settings in runtime and make sure it matches what you have above. Only some output is shown since it is very long:
+&lt;p&gt;Use this to see your Theano settings in runtime and make sure it matches what you have above. Only some output is shown since it is very long:&lt;/p&gt;
 
 &lt;pre&gt;$ python -c &lt;span class=&quot;s1&quot;&gt;&#39;import theano; print theano.config&#39;
 &lt;/span&gt;
@@ -625,7 +598,7 @@ warn_float64 ((&#39;ignore&#39;, &#39;warn&#39;, &#39;raise&#39;, &#39;pdb&#39;)
 &lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Install Theano bleeding edge (0.7.0), since the Keras examples needs &amp;#8216;relu&amp;#8217;.&lt;/li&gt;
+  &lt;li&gt;Install Theano bleeding edge (0.7.0), since the Keras examples needs ‘relu’.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git&lt;/pre&gt;
@@ -702,10 +675,10 @@ sys 0m1.328s
 &lt;p&gt;As you can see, the whole run takes only 25 seconds, and it may take even less or maybe 2 minutes for you. Anything longer than that looks strange and you should inspect.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Install &lt;a href=&quot;https://developer.nvidia.com/cuDNN&quot; target=&quot;_blank&quot;&gt;CuDNN&lt;/a&gt; if you are using ConvNet. The basic implementations of convolution in Theano are significantly slower.&lt;/li&gt;
+  &lt;li&gt;Install &lt;a href=&quot;https://developer.nvidia.com/cuDNN&quot; target=&quot;_blank&quot;&gt;CuDNN&lt;/a&gt; if you are using ConvNet. The basic implementations of convolution in Theano are significantly slower.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Downloading CuDNN is problematic, because you have to register an account on Nvidia and wait for hours or days for manual approval. Someone uploaded a version of CuDNN 6.5 for download on Google Drive &lt;a href=&quot;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; if you don&amp;#8217;t want to wait.&lt;/p&gt;
+&lt;p&gt;Downloading CuDNN is problematic, because you have to register an account on Nvidia and wait for hours or days for manual approval. Someone uploaded a version of CuDNN 6.5 for download on Google Drive &lt;a href=&quot;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; if you don’t want to wait.&lt;/p&gt;
 
 &lt;p&gt;Once you have it, just unzip the tgz file.&lt;/p&gt;
 
@@ -717,15 +690,18 @@ $ pwd
 /home/echio/src/cudnn-6.5-linux-x64-v2&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Make sure your CUDA and CuDNN are both accessible to Theano.&lt;/li&gt;
+  &lt;li&gt;Make sure your CUDA and CuDNN are both accessible to Theano.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;To check if your Theano is using CuDNN. Run this Python code below:&lt;/p&gt;
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# Run this python code
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Run this python code
 from theano.sandbox.cuda.dnn import *
 print(dnn_available())
 print(dnn_available.msg)
-&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;I also captured the environment variables, replace echio with your username:&lt;/p&gt;
 
 &lt;pre&gt;$ echo $CPATH
@@ -749,7 +725,7 @@ False
  ^
 compilation terminated.&lt;/pre&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://goo.gl/bTW22Q&quot; target=&quot;_blank&quot;&gt;Googling the error message&lt;/a&gt; doesn&amp;#8217;t help too much.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://goo.gl/bTW22Q&quot; target=&quot;_blank&quot;&gt;Googling the error message&lt;/a&gt; doesn’t help too much.&lt;/p&gt;
 
 &lt;p&gt;You need to add the location of the 3. into CPATH, LD_LIBRARY_PATH and LIBRARY_PATH. This is what my .bashrc looks like this (replace echio with your username):&lt;/p&gt;
 
@@ -763,16 +739,17 @@ export PATH=$PATH:/usr/local/cuda-7.5/bin&lt;/pre&gt;
 
 &lt;pre&gt;ERROR (theano.sandbox.cuda): Failed to compile cuda_ndarray.cu: libcublas.so.7.5: cannot open shared object file: No such file or directory&lt;/pre&gt;
 
-&lt;p&gt;You probably didn&amp;#8217;t have CUDA environment variables setup properly. See the above ~/.bashrc lines for correct setup.&lt;/p&gt;
+&lt;p&gt;You probably didn’t have CUDA environment variables setup properly. See the above ~/.bashrc lines for correct setup.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Run this code again.&lt;/p&gt;
+  &lt;li&gt;
+    &lt;p&gt;Run this code again.&lt;/p&gt;
 
-&lt;h1&gt;Run this python code&lt;/h1&gt;
-
-&lt;p&gt;from theano.sandbox.cuda.dnn import *
-print(dnn&lt;em&gt;available())
-print(dnn&lt;/em&gt;available.msg)&lt;/p&gt;&lt;/li&gt;
+    &lt;p&gt;# Run this python code
+ from theano.sandbox.cuda.dnn import *
+ print(dnn_available())
+ print(dnn_available.msg)&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;You should see below when executed in a Python REPL.&lt;/p&gt;
@@ -784,21 +761,21 @@ True
 &amp;gt;&amp;gt;&amp;gt; print(dnn_available.msg)
 None&lt;/pre&gt;
 
-&lt;p&gt;This is good! Re-run your Keras code and hopefully it will be fast this time&amp;#8230;&lt;/p&gt;
+&lt;p&gt;This is good! Re-run your Keras code and hopefully it will be fast this time…&lt;/p&gt;
 
-&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 
 &lt;p&gt;This may or may not solve your problem, but it certainly solved some of my problems. You will probably have to learn to debug things a bit to figure out how to get it to run well.&lt;/p&gt;
 
-&lt;h4&gt;References&lt;/h4&gt;
+&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://deeplearning.net/software/theano/library/config.html&quot; target=&quot;_blank&quot;&gt;&lt;a href=&quot;http://deeplearning.net/software/theano/library/config.html&quot;&gt;http://deeplearning.net/software/theano/library/config.html&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&quot; target=&quot;_blank&quot;&gt;&lt;a href=&quot;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&quot;&gt;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ&quot; target=&quot;_blank&quot;&gt;&lt;a href=&quot;https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ&quot;&gt;https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://deeplearning.net/software/theano/library/config.html&quot; target=&quot;_blank&quot;&gt;http://deeplearning.net/software/theano/library/config.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&quot; target=&quot;_blank&quot;&gt;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ&quot; target=&quot;_blank&quot;&gt;https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
 </description>
         <pubDate>Sat, 05 Dec 2015 08:31:15 -0800</pubDate>
         <link>http://www.chioka.in/why-is-keras-running-so-slow/</link>
@@ -827,17 +804,17 @@ None&lt;/pre&gt;
         <title>How to Setup Theano to Run on GPU on Ubuntu 14.04 with Nvidia Geforce GTX 780</title>
         <description>&lt;p&gt;Documenting the steps how to setup Theano to run on GPU on Ubuntu 14.04 so I can refer to this in the future. With this successfully installed, you can run Keras, convnet, Theano, etc properly.&lt;/p&gt;
 
-&lt;h1&gt;Why This Article?&lt;/h1&gt;
+&lt;h1 id=&quot;whythis-article&quot;&gt;Why This Article?&lt;/h1&gt;
 
 &lt;p&gt;Have you ever met those painful issues just trying to setup your GPU for scientific programming:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Getting a blinking cursor after installing the &amp;#8220;latest&amp;#8221; Nvidia drivers?&lt;/li&gt;
-&lt;li&gt;Getting a blinking cursor after installing the &amp;#8220;latest&amp;#8221; CUDA toolkit?&lt;/li&gt;
-&lt;li&gt;Login loop in Ubuntu login screen?&lt;/li&gt;
-&lt;li&gt;NVRM: rm_init_adapter(0) failed?&lt;/li&gt;
-&lt;li&gt;NVIDIA: could not open the device file /dev/nvidia0 (input/output error)&lt;/li&gt;
-&lt;li&gt;&amp;#8230;&lt;/li&gt;
+  &lt;li&gt;Getting a blinking cursor after installing the “latest” Nvidia drivers?&lt;/li&gt;
+  &lt;li&gt;Getting a blinking cursor after installing the “latest” CUDA toolkit?&lt;/li&gt;
+  &lt;li&gt;Login loop in Ubuntu login screen?&lt;/li&gt;
+  &lt;li&gt;NVRM: rm_init_adapter(0) failed?&lt;/li&gt;
+  &lt;li&gt;NVIDIA: could not open the device file /dev/nvidia0 (input/output error)&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;If yes, then read on.&lt;/p&gt;
@@ -846,22 +823,22 @@ None&lt;/pre&gt;
 
 &lt;p&gt;You may want to read the &lt;em&gt;Things That Does Not Work For Me&lt;/em&gt; part below first before following the &lt;em&gt;instructions&lt;/em&gt;.&lt;/p&gt;
 
-&lt;h1&gt;Specifications&lt;/h1&gt;
+&lt;h1 id=&quot;specifications&quot;&gt;Specifications&lt;/h1&gt;
 
 &lt;p&gt;My server has the following specifications:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;OS: Ubuntu 14.04 LTS, X64&lt;/li&gt;
-&lt;li&gt;GPU: Nvidia Geforce GTX 780&lt;/li&gt;
-&lt;li&gt;Fresh install of Ubuntu 14.04 LTS&lt;/li&gt;
+  &lt;li&gt;OS: Ubuntu 14.04 LTS, X64&lt;/li&gt;
+  &lt;li&gt;GPU: Nvidia Geforce GTX 780&lt;/li&gt;
+  &lt;li&gt;Fresh install of Ubuntu 14.04 LTS&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1&gt;Instructions&lt;/h1&gt;
+&lt;h1 id=&quot;instructions&quot;&gt;Instructions&lt;/h1&gt;
 
-&lt;p&gt;If you fail in the middle of any of this steps, you are advised to restart and follow the steps carefully again. Use common sense. and if you don&amp;#8217;t know how to fix it, too bad,&lt;/p&gt;
+&lt;p&gt;If you fail in the middle of any of this steps, you are advised to restart and follow the steps carefully again. Use common sense. and if you don’t know how to fix it, too bad,&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Download latest (or very recent) Nvidia display driver for Linux:&lt;/li&gt;
+  &lt;li&gt;Download latest (or very recent) Nvidia display driver for Linux:&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;wget http://us.download.nvidia.com/XFree86/Linux-x86_64/352.63/NVIDIA-Linux-x86_64-352.63.run&lt;/pre&gt;
@@ -875,24 +852,28 @@ None&lt;/pre&gt;
 &lt;pre&gt;reboot&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Once you are in GRUB, select &amp;#8220;Advanced Options for Ubuntu&amp;#8221;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;In the recovery mode, select &amp;#8220;network&amp;#8221;, press yes. Once the networking has been enabled, this will also set your drive to read/write mode.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once you are in GRUB, select “Advanced Options for Ubuntu”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the recovery mode, select “network”, press yes. Once the networking has been enabled, this will also set your drive to read/write mode.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;6. In the recovery mode, select &amp;#8220;root&amp;#8221; to get a root prompt.&lt;/p&gt;
+&lt;p&gt;6. In the recovery mode, select “root” to get a root prompt.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Go to where you downloaded the previous files at, and &lt;strong&gt;run NVIDIA-Linux-x86_64-352.63.run &lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Go to where you downloaded the previous files at, and &lt;strong&gt;run NVIDIA-Linux-x86_64-352.63.run &lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;chmod +x NVIDIA-Linux-x86_64-352.63.run # Make it executable
 
 ./NVIDIA-Linux-x86_64-352.63.run # Install Nvidia display driver&lt;/pre&gt;
 
-&lt;p&gt;For yes/no questions, take &amp;#8220;yes&amp;#8221;. For locations, press &amp;#8220;enter&amp;#8221; to take default values.&lt;/p&gt;
+&lt;p&gt;For yes/no questions, take “yes”. For locations, press “enter” to take default values.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Setup your environment variables.&lt;/li&gt;
+  &lt;li&gt;Setup your environment variables.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Make sure your LD_LIBRARY_PATH, LIBRARY_PATH and PATH includes the places it needs to include:&lt;/p&gt;
@@ -902,21 +883,21 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:
 export LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:
 export PATH=$PATH:/usr/local/cuda-7.5/bin&lt;/pre&gt;
 
-&lt;p&gt;Don&amp;#8217;t forget to:&lt;/p&gt;
+&lt;p&gt;Don’t forget to:&lt;/p&gt;
 
 &lt;pre&gt;$ source ~./.bashrc&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Run nvidia-smi&lt;/strong&gt; to confirm that your setup is correct.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Run nvidia-smi&lt;/strong&gt; to confirm that your setup is correct.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;nvidia-smi&lt;/pre&gt;
 
-&lt;p&gt;nvidia-smi should be on your path already, so this should work. If it doesn&amp;#8217;t:&lt;/p&gt;
+&lt;p&gt;nvidia-smi should be on your path already, so this should work. If it doesn’t:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;You must have done something wrong, better go back to step 1. and do it all over again.&lt;/li&gt;
-&lt;li&gt;You can see if it&amp;#8217;s at /usr/bin/nvidia-smi .&lt;/li&gt;
+  &lt;li&gt;You must have done something wrong, better go back to step 1. and do it all over again.&lt;/li&gt;
+  &lt;li&gt;You can see if it’s at /usr/bin/nvidia-smi .&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;You should then see something similar to this:&lt;/p&gt;
@@ -940,17 +921,17 @@ export PATH=$PATH:/usr/local/cuda-7.5/bin&lt;/pre&gt;
 +-----------------------------------------------------------------------------+&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Go to where you downloaded the previous files at, and &lt;strong&gt;run cuda_7.5.18_linux.run&lt;/strong&gt; .&lt;/li&gt;
+  &lt;li&gt;Go to where you downloaded the previous files at, and &lt;strong&gt;run cuda_7.5.18_linux.run&lt;/strong&gt; .&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;chmod +x cuda_7.5.18_linux.run # Make it executable
 
 ./cuda_7.5.18_linux.run # Install Nvidia display driver&lt;/pre&gt;
 
-&lt;p&gt;For yes/no questions, take &amp;#8220;yes&amp;#8221;. For locations, press &amp;#8220;enter&amp;#8221; to take default values.&lt;/p&gt;
+&lt;p&gt;For yes/no questions, take “yes”. For locations, press “enter” to take default values.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Re-run nvidia-smi&lt;/strong&gt; just to be sure everything is still working well.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Re-run nvidia-smi&lt;/strong&gt; just to be sure everything is still working well.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;nvidia-smi&lt;/pre&gt;
@@ -980,14 +961,14 @@ export PATH=$PATH:/usr/local/cuda-7.5/bin&lt;/pre&gt;
 &lt;pre&gt;reboot&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Time to install Theano and python, basically the first part of &lt;a href=&quot;http://deeplearning.net/software/theano/install_ubuntu.html&quot; target=&quot;_blank&quot;&gt;this guide&lt;/a&gt;. Run the following commands:&lt;/li&gt;
+  &lt;li&gt;Time to install Theano and python, basically the first part of &lt;a href=&quot;http://deeplearning.net/software/theano/install_ubuntu.html&quot; target=&quot;_blank&quot;&gt;this guide&lt;/a&gt;. Run the following commands:&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;sudo apt-get install python-numpy python-scipy python-dev python-pip python-nose g++ libopenblas-dev git
 sudo pip install Theano&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Copy and paste the below code into check1.py&lt;/strong&gt;. Now we need to make sure GPU is indeed working. I am copying the instructions from &lt;a href=&quot;http://deeplearning.net/software/theano/tutorial/using_gpu.html&quot; target=&quot;_blank&quot;&gt;deeplearning.net&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Copy and paste the below code into check1.py&lt;/strong&gt;. Now we need to make sure GPU is indeed working. I am copying the instructions from &lt;a href=&quot;http://deeplearning.net/software/theano/tutorial/using_gpu.html&quot; target=&quot;_blank&quot;&gt;deeplearning.net&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;theano&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sandbox&lt;/span&gt;
@@ -1014,7 +995,7 @@ sudo pip install Theano&lt;/pre&gt;
     &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Used the gpu&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Run the check1.py to confirm that Theano is working correctly with CPU&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Run the check1.py to confirm that Theano is working correctly with CPU&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;THEANO_FLAGS=mode=FAST_RUN,device=cpu,floatX=float32 python check1.py&lt;/pre&gt;
@@ -1028,7 +1009,7 @@ Result is [ 1.23178029 1.61879337 1.52278066 ..., 2.20771813 2.29967761
 &lt;strong&gt;Used the cpu&lt;/strong&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Run the check.py to confirm that Theano is working correctly with GPU&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Run the check.py to confirm that Theano is working correctly with GPU&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python check1.py&lt;/pre&gt;
@@ -1045,13 +1026,13 @@ Result is [ 1.23178029 1.61879349 1.52278066 ..., 2.20771813 2.29967761
 &lt;p&gt;Note that: computation time has decreased, and it is indeed using GPU now.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Done! If you reached here and did not meet any issues, I hope you can comment and confirm that this does help you, so others can trust this guide. If you have still spent hours/days, &lt;strong&gt;blame Linux.&lt;/strong&gt; =]&lt;/li&gt;
+  &lt;li&gt;Done! If you reached here and did not meet any issues, I hope you can comment and confirm that this does help you, so others can trust this guide. If you have still spent hours/days, &lt;strong&gt;blame Linux.&lt;/strong&gt; =]&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h1&gt;Things That Does Not Work For Me&lt;/h1&gt;
+&lt;h1 id=&quot;things-that-does-not-work-for-me&quot;&gt;Things That Does Not Work For Me&lt;/h1&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Installing current nvidia drivers from apt-get.&lt;/li&gt;
+  &lt;li&gt;Installing current nvidia drivers from apt-get.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;$ apt-get install nvidia-current&lt;/pre&gt;
@@ -1059,14 +1040,14 @@ Result is [ 1.23178029 1.61879349 1.52278066 ..., 2.20771813 2.29967761
 &lt;p&gt;Normally you would think apt-get install the latest nvidia drivers would be the best to go. Nope, after the installation 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Install CUDA from apt-get.&lt;/li&gt;
+  &lt;li&gt;Install CUDA from apt-get.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;$ apt-get install nvidia-cuda-toolkit&lt;/pre&gt;
 
 &lt;p&gt;The same as 1., equally disastrous: 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log&lt;/p&gt;
 
-&lt;p&gt;3. Installing current nvidia from another &amp;#8220;defacto&amp;#8221; repository.&lt;/p&gt;
+&lt;p&gt;3. Installing current nvidia from another “defacto” repository.&lt;/p&gt;
 
 &lt;pre&gt;sudo apt-add-repository ppa:ubuntu-x-swat/x-updates
 sudo apt-get update
@@ -1078,23 +1059,23 @@ sudo apt-get install nvidia-current&lt;/pre&gt;
 
 &lt;p&gt;Not sure what this is, just not related. Forget about it.&lt;/p&gt;
 
-&lt;p&gt;5. Also, I don&amp;#8217;t have advice trying to repair a broken Ubuntu if you did anything of the above. But maybe you can try removing nvidia drivers and reinstalling the desktop, but doesn&amp;#8217;t work for me either.&lt;/p&gt;
+&lt;p&gt;5. Also, I don’t have advice trying to repair a broken Ubuntu if you did anything of the above. But maybe you can try removing nvidia drivers and reinstalling the desktop, but doesn’t work for me either.&lt;/p&gt;
 
 &lt;pre&gt;apt-get remove --purge nvidia*
 apt-get install --reinstall ubuntu-desktop unity
 apt-get install nvidia-current&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Using any nvidia driver like 340 or 304 version. They do not work.&lt;/li&gt;
+  &lt;li&gt;Using any nvidia driver like 340 or 304 version. They do not work.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;The only thing that works for me is a fresh reinstall of Ubuntu 14.04. Nothing else.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 
-&lt;h1&gt;Final Words&lt;/h1&gt;
+&lt;h1 id=&quot;final-words&quot;&gt;Final Words&lt;/h1&gt;
 
 &lt;p&gt;The &lt;a href=&quot;http://deeplearning.net/software/theano/install_ubuntu.html&quot; target=&quot;_blank&quot;&gt;installation guide&lt;/a&gt; from DeepLearning.net is very helpful, but it contains poison advice that messed up my display of my OS completely.&lt;/p&gt;
 
-&lt;p&gt;BTW, ever heard of &lt;strong&gt;&amp;#8220;Linux is user-friendly but it is very selective of its friends.&amp;#8221;&lt;/strong&gt;? I know I am certainly not its friend&amp;#8230; 😉&lt;/p&gt;
+&lt;p&gt;BTW, ever heard of &lt;strong&gt;“Linux is user-friendly but it is very selective of its friends.”&lt;/strong&gt;? I know I am certainly not its friend… 😉&lt;/p&gt;
 </description>
         <pubDate>Tue, 24 Nov 2015 05:32:19 -0800</pubDate>
         <link>http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/</link>
@@ -1122,184 +1103,33 @@ apt-get install nvidia-current&lt;/pre&gt;
       </item>
     
       <item>
-        <title>Hello, User!</title>
-        <description>&lt;p&gt;Hi, thanks for viewing my theme! Feel free to edit it in any way you want, just be cool and leave the necessary credits somewhere visible. If you could star the repository, that&amp;#39;d be pretty cool as well.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;#39;s a list of things you should probably do after installing this theme:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Edit &lt;code&gt;_config.yml&lt;/code&gt; with your actual information. Classic Jekyll.&lt;/li&gt;
-&lt;li&gt;Edit &lt;code&gt;about.md&lt;/code&gt; with your actual information&lt;/li&gt;
-&lt;li&gt;Go to &lt;code&gt;css/main.scss&lt;/code&gt; and edit &lt;code&gt;brand-color&lt;/code&gt; to any color you want to change the header color! If you want to use an image instead, check out &lt;code&gt;_sass/_layout.scss&lt;/code&gt; and edit line 6. &lt;/li&gt;
-&lt;li&gt;Delete these icky filler posts.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 25 May 2015 00:00:00 -0700</pubDate>
-        <link>http://www.chioka.in/2015/05/25/hello.html</link>
-        <guid isPermaLink="true">http://www.chioka.in/2015/05/25/hello.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Formatting Samples</title>
-        <description>&lt;p&gt;Arctic Fox supports GFM!
-The following text has been taken from &lt;a href=&quot;https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet&quot;&gt;this page&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1&gt;H1&lt;/h1&gt;
-
-&lt;h2&gt;H2&lt;/h2&gt;
-
-&lt;h3&gt;H3&lt;/h3&gt;
-
-&lt;h4&gt;H4&lt;/h4&gt;
-
-&lt;h5&gt;H5&lt;/h5&gt;
-
-&lt;h6&gt;H6&lt;/h6&gt;
-
-&lt;p&gt;Emphasis, aka italics, with &lt;em&gt;asterisks&lt;/em&gt; or &lt;em&gt;underscores&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;Strong emphasis, aka bold, with &lt;strong&gt;asterisks&lt;/strong&gt; or &lt;strong&gt;underscores&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Combined emphasis with &lt;strong&gt;asterisks and &lt;em&gt;underscores&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Strikethrough uses two tildes. &lt;del&gt;Scratch this.&lt;/del&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;First ordered list item&lt;/li&gt;
-&lt;li&gt;Another item
-
-&lt;ul&gt;
-&lt;li&gt;Unordered sub-list. &lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Actual numbers don&amp;#39;t matter, just that it&amp;#39;s a number
-
-&lt;ol&gt;
-&lt;li&gt;Ordered sub-list&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;li&gt;And another item.&lt;br&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Some text that should be aligned with the above item.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Unordered list can use asterisks&lt;/li&gt;
-&lt;li&gt;Or minuses&lt;/li&gt;
-&lt;li&gt;Or pluses&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.google.com&quot;&gt;I&amp;#39;m an inline-style link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.mozilla.org&quot;&gt;I&amp;#39;m a reference-style link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://slashdot.org&quot;&gt;You can use numbers for reference-style link definitions&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Or leave it empty and use the &lt;a href=&quot;http://www.reddit.com&quot;&gt;link text itself&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Some text to show that the reference links can follow later.&lt;/p&gt;
-
-&lt;p&gt;Inline &lt;code&gt;code&lt;/code&gt; has &lt;code&gt;back-ticks around&lt;/code&gt; it.&lt;/p&gt;
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;var s = &amp;quot;JavaScript syntax highlighting&amp;quot;;
-alert(s);
-&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;s = &amp;quot;Python syntax highlighting&amp;quot;
-print s
-&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;No language indicated, so no syntax highlighting. 
-But let&amp;#39;s throw in a &amp;lt;b&amp;gt;tag&amp;lt;/b&amp;gt;.
-&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;p&gt;Colons can be used to align columns.&lt;/p&gt;
-
-&lt;table&gt;&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Tables&lt;/th&gt;
-&lt;th style=&quot;text-align: center&quot;&gt;Are&lt;/th&gt;
-&lt;th style=&quot;text-align: right&quot;&gt;Cool&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;col 3 is&lt;/td&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;right-aligned&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;$1600&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;col 2 is&lt;/td&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;centered&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;$12&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;zebra stripes&lt;/td&gt;
-&lt;td style=&quot;text-align: center&quot;&gt;are neat&lt;/td&gt;
-&lt;td style=&quot;text-align: right&quot;&gt;$1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-
-&lt;p&gt;The outer pipes (|) are optional, and you don&amp;#39;t need to make the raw Markdown line up prettily. You can also use inline Markdown.&lt;/p&gt;
-
-&lt;table&gt;&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Markdown&lt;/th&gt;
-&lt;th&gt;Less&lt;/th&gt;
-&lt;th&gt;Pretty&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;em&gt;Still&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;renders&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;strong&gt;nicely&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Blockquotes are very handy in email to emulate reply text.
-This line is part of the same quote.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Quote break.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;This is a very long line that will still be quoted properly when it wraps. Oh boy let&amp;#39;s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can &lt;em&gt;put&lt;/em&gt; &lt;strong&gt;Markdown&lt;/strong&gt; into a blockquote. &lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Mon, 25 May 2015 00:00:00 -0700</pubDate>
-        <link>http://www.chioka.in/2015/05/25/formatting-samples.html</link>
-        <guid isPermaLink="true">http://www.chioka.in/2015/05/25/formatting-samples.html</guid>
-        
-        
-      </item>
-    
-      <item>
         <title>What is Motion-To-Photon Latency?</title>
-        <description>&lt;p&gt;The term &amp;#8220;motion-to-photon latency&amp;#8221; comes up a lot when talking about virtual reality. What is that?&lt;/p&gt;
+        <description>&lt;p&gt;The term “motion-to-photon latency” comes up a lot when talking about virtual reality. What is that?&lt;/p&gt;
 
-&lt;h1&gt;Definition&lt;/h1&gt;
+&lt;h1 id=&quot;definition&quot;&gt;Definition&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Motion-to-Photon latency is the time needed for a user movement to be fully reflected on a display screen&lt;/strong&gt;. If it takes 100ms to reflect your movements on the screen of your virtual reality headset when you make a movement (e.g. look to the left), the 100ms is the motion-to-photon latency.&lt;/p&gt;
 
-&lt;h1&gt;Why is this important?&lt;/h1&gt;
+&lt;h1 id=&quot;why-is-this-important&quot;&gt;Why is this important?&lt;/h1&gt;
 
 &lt;p&gt;Everyone emphasize the importance of motion-to-photon latency. There are two major reasons why this is so:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Low motion-to-photon (&amp;lt; 20ms) latency is necessary to convince your mind that you&amp;#8217;re in another place (Presence).&lt;/strong&gt; This is also called presence. &lt;a href=&quot;http://en.wikipedia.org/wiki/Immersion_%28virtual_reality%29#Presence&quot; target=&quot;_blank&quot;&gt;Presence&lt;/a&gt; is the state in virtual reality that you feel you&amp;#8217;re in the simulated world. To achieve presence, one of the requirements is low latency. This means a &lt;a href=&quot;http://media.steampowered.com/apps/abrashblog/Abrash%20Dev%20Days%202014.pdf&quot; target=&quot;_blank&quot;&gt;motion-to-photon latency of &amp;lt; 20ms&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;A high motion-to-photon latency makes a poor virtual reality experience (motion sickness and nausea).&lt;/strong&gt; When a user makes a movement wearing the VR headset, the mind expects the screen to be updated correctly to reflect that action. When the screen lags behind the user movement, the user can experience disorientation and motion sickness. This completely breaks the VR experience for the user.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Low motion-to-photon (&amp;lt; 20ms) latency is necessary to convince your mind that you’re in another place (Presence).&lt;/strong&gt; This is also called presence. &lt;a href=&quot;http://en.wikipedia.org/wiki/Immersion_%28virtual_reality%29#Presence&quot; target=&quot;_blank&quot;&gt;Presence&lt;/a&gt; is the state in virtual reality that you feel you’re in the simulated world. To achieve presence, one of the requirements is low latency. This means a &lt;a href=&quot;http://media.steampowered.com/apps/abrashblog/Abrash%20Dev%20Days%202014.pdf&quot; target=&quot;_blank&quot;&gt;motion-to-photon latency of &amp;lt; 20ms&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;A high motion-to-photon latency makes a poor virtual reality experience (motion sickness and nausea).&lt;/strong&gt; When a user makes a movement wearing the VR headset, the mind expects the screen to be updated correctly to reflect that action. When the screen lags behind the user movement, the user can experience disorientation and motion sickness. This completely breaks the VR experience for the user.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h1&gt;How do you improve that?&lt;/h1&gt;
+&lt;h1 id=&quot;how-do-you-improve-that&quot;&gt;How do you improve that?&lt;/h1&gt;
 
 &lt;p&gt;Since a high motion-to-photon latency could induce motion sickness and nausea, and a low motion-to-photon latency (&amp;lt; 20 ms) is a necessary condition for presence, it makes sense to minimize the motion-to-photon latency. To know how we can improve motion-to-photon latency, we need to know what makes up this number.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/Motion-to-Photons-Latency.png&quot;&gt;&lt;img class=&quot;aligncenter size-medium wp-image-565&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/Motion-to-Photons-Latency-580x320.png&quot; alt=&quot;Motion-to-Photons Latency&quot; width=&quot;580&quot; height=&quot;320&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2015/03/Motion-to-Photons-Latency-580x320.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/Motion-to-Photons-Latency-940x519.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/Motion-to-Photons-Latency-624x344.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/Motion-to-Photons-Latency.png 1000w&quot; sizes=&quot;(max-width: 580px) 100vw, 580px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;To improve motion-to-photon latency, every component in the motion-to-photon pipeline needs to be optimized.&lt;/strong&gt; For a movement to be reflected on the screen, it involves the &lt;a href=&quot;http://en.wikipedia.org/wiki/Head-mounted_display&quot; target=&quot;_blank&quot;&gt;head mounted display&lt;/a&gt;, connecting cables, CPU, GPU, game engine, display technology (display refresh rate and pixel switching time). This is not exhaustive and there are probably some more bits in the list, but includes the major elements. I&amp;#8217;ll go through some of the common techniques to decrease the motion-to-photon latency.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;To improve motion-to-photon latency, every component in the motion-to-photon pipeline needs to be optimized.&lt;/strong&gt; For a movement to be reflected on the screen, it involves the &lt;a href=&quot;http://en.wikipedia.org/wiki/Head-mounted_display&quot; target=&quot;_blank&quot;&gt;head mounted display&lt;/a&gt;, connecting cables, CPU, GPU, game engine, display technology (display refresh rate and pixel switching time). This is not exhaustive and there are probably some more bits in the list, but includes the major elements. I’ll go through some of the common techniques to decrease the motion-to-photon latency.&lt;/p&gt;
 
-&lt;h2&gt;Display Technology&lt;/h2&gt;
+&lt;h2 id=&quot;display-technology&quot;&gt;Display Technology&lt;/h2&gt;
 
-&lt;h3&gt;Pixel Switching Time&lt;/h3&gt;
+&lt;h3 id=&quot;pixel-switching-time&quot;&gt;Pixel Switching Time&lt;/h3&gt;
 
 &lt;p&gt;Pixel switching time is known as the time needed to update all the pixels on the display. For an image to be seen on the display, it has to be drawn. To draw the image means each pixel on the display has to be updated to reflect that image. This is best illustrated as follows:&lt;/p&gt;
 
@@ -1311,30 +1141,46 @@ This line is part of the same quote.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;To decrease pixel switching time, use a faster display technology that has faster pixel switching time.&lt;/strong&gt; For instance, we can cut down on the latency if OLED is used instead of LCD displays.&lt;/p&gt;
 
-&lt;h3&gt;Refresh Rate&lt;/h3&gt;
+&lt;h3 id=&quot;refresh-rate&quot;&gt;Refresh Rate&lt;/h3&gt;
 
 &lt;p&gt;The refresh rate is the frequency the display fetches a new image to be drawn from the graphics card, which determines how long the latency to wait between each image. For a 60Hz display, the latency is calculated as (1000ms / 60Hz =) 16.67ms. This means even if the image takes zero latency to be drawn at the graphics card, and have zero pixel switching time, the image can only be updated as fast as 1 image every 16.67ms.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;To decrease latency of getting an image, a higher refresh rate display is needed because latency (ms) = 1000ms / refresh rate (Hz).&lt;/strong&gt; For instance, a 120Hz will decrease this latency to 8.33ms.&lt;/p&gt;
 
-&lt;h2&gt;Host Level (CPU, GPU, Game Engine)&lt;/h2&gt;
+&lt;h2 id=&quot;host-level-cpu-gpu-game-engine&quot;&gt;Host Level (CPU, GPU, Game Engine)&lt;/h2&gt;
 
 &lt;p&gt;The host level offers a lot of potential to improve the motion-to-photon latency. John Carmack has written an excellent article about how to reduce latency on the host level, mainly focusing on the CPU, GPU, and rendering techniques. This original article is no longer available but can still be found in the &lt;a href=&quot;https://web.archive.org/web/20140719053303/http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&quot; target=&quot;_blank&quot;&gt;archive&lt;/a&gt;. Before we go deeper, a little background information will help a lot.&lt;/p&gt;
 
 &lt;p&gt;The classic processing model for a game or VR application is:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Read user input (I)&lt;/li&gt;
-&lt;li&gt;Run simulation (S)&lt;/li&gt;
-&lt;li&gt;Issue rendering commands (R)&lt;/li&gt;
-&lt;li&gt;Graphics drawing (G)&lt;/li&gt;
-&lt;li&gt;Wait for Vsync (The &amp;#8216;|&amp;#8217;)&lt;/li&gt;
-&lt;li&gt;Scanout (V)&lt;/li&gt;
+  &lt;li&gt;Read user input (I)&lt;/li&gt;
+  &lt;li&gt;Run simulation (S)&lt;/li&gt;
+  &lt;li&gt;Issue rendering commands (R)&lt;/li&gt;
+  &lt;li&gt;Graphics drawing (G)&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Wait for Vsync (The ‘&lt;/td&gt;
+          &lt;td&gt;’)&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Scanout (V)&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;A sample pipeline may look like this below. CPU1 reads user input and run simulation, CPU2 issues rendering commands, GPU draws the scene and converts to drawing commands to display, and write it to display to be screen (V, the scanout).&lt;/p&gt;
 
-&lt;p&gt;Each frame (each interval between the &amp;#8216;|&amp;#8217;) takes 16ms. The whole rendering took 4 frames, so the pipeline took at least 48ms ~ 64ms.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Each frame (each interval between the ‘&lt;/td&gt;
+      &lt;td&gt;’) takes 16ms. The whole rendering took 4 frames, so the pipeline took at least 48ms ~ 64ms.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;div id=&quot;attachment_578&quot; style=&quot;width: 841px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
   &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_basic.png&quot;&gt;&lt;img class=&quot;wp-image-578 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_basic.png&quot; alt=&quot;render_pipeline_basic&quot; width=&quot;831&quot; height=&quot;128&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_basic.png 831w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_basic-580x89.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_basic-624x96.png 624w&quot; sizes=&quot;(max-width: 831px) 100vw, 831px&quot; /&gt;&lt;/a&gt;
@@ -1344,9 +1190,9 @@ This line is part of the same quote.&lt;/p&gt;
   &lt;/p&gt;
 &lt;/div&gt;
 
-&lt;p&gt;With this in mind, let&amp;#8217;s go through some of the more important techniques in the article.&lt;/p&gt;
+&lt;p&gt;With this in mind, let’s go through some of the more important techniques in the article.&lt;/p&gt;
 
-&lt;h3&gt;Prevent GPU Buffering&lt;/h3&gt;
+&lt;h3 id=&quot;prevent-gpu-buffering&quot;&gt;Prevent GPU Buffering&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Prevent GPU buffering decreases latency by having the GPU start drawing (G) after receiving issuing the rendering commands (R), rather than waiting for all the rendering to be completed.&lt;/strong&gt; Following the example above, a frame can be saved using this technique (reducing 16ms latency). Illustrated as follows:&lt;/p&gt;
 
@@ -1363,19 +1209,19 @@ This line is part of the same quote.&lt;/p&gt;
 &lt;p&gt;Well, the GPU has to wait. That is why the (G) above happens one frame later than the (R). However, once the GPU received the first rendering command, it can immediately start drawing to the display. An example can explain this. Consider a scene where a leaf is falling off a tree.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;CPU calculates the scene containing the tree and leaf.&lt;/li&gt;
-&lt;li&gt;CPU asks GPU to draw the scene at 1).&lt;/li&gt;
-&lt;li&gt;GPU takes scene at 1) and starts converting the scene to drawing commands and write to display.&lt;/li&gt;
-&lt;li&gt;Before GPU is done at 3), CPU calculates the next scene of how the leaf is falling off in the air, and sends this scene to GPU to be drawn.&lt;/li&gt;
-&lt;li&gt;GPU takes scene at 4) and starts converting the scene to drawing commands and write to display.&lt;/li&gt;
-&lt;li&gt;&amp;#8230;&lt;/li&gt;
+  &lt;li&gt;CPU calculates the scene containing the tree and leaf.&lt;/li&gt;
+  &lt;li&gt;CPU asks GPU to draw the scene at 1).&lt;/li&gt;
+  &lt;li&gt;GPU takes scene at 1) and starts converting the scene to drawing commands and write to display.&lt;/li&gt;
+  &lt;li&gt;Before GPU is done at 3), CPU calculates the next scene of how the leaf is falling off in the air, and sends this scene to GPU to be drawn.&lt;/li&gt;
+  &lt;li&gt;GPU takes scene at 4) and starts converting the scene to drawing commands and write to display.&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;In this way, even though the GPU drawing work could take a long time, the next scene that the CPU is calculating is independent of the GPU drawing activity.&lt;/p&gt;
 
 &lt;p&gt;This is an over-simplified understanding of how things work, but should give a high level idea. Note that this technique can have more dropped frames during heavily loaded situation.&lt;/p&gt;
 
-&lt;h3&gt;Timewarping (a.k.a. Asynchronous Timewarping or ATW)&lt;/h3&gt;
+&lt;h3 id=&quot;timewarping-aka-asynchronous-timewarping-or-atw&quot;&gt;Timewarping (a.k.a. Asynchronous Timewarping or ATW)&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Timewarping reduces the perceived lag from reading user input to seeing an updated image on display screen. It does so by just calculating an update of a scene mathematically bypassing all the heavy CPU and GPU work, which is very slow.&lt;/strong&gt; For certain actions such as the user looking slightly to the left, the change to the scene is very small. What timewarping does is just before rendering, it takes the current image displayed and the most recent input from &lt;a href=&quot;http://en.wikipedia.org/wiki/Inertial_measurement_unit&quot; target=&quot;_blank&quot;&gt;IMU&lt;/a&gt; (inertial measurement unit) and apply a mathematical transformation to get the updated image that reflects the user action. The pipeline looks like this:&lt;/p&gt;
 
@@ -1389,26 +1235,26 @@ This line is part of the same quote.&lt;/p&gt;
 
 &lt;p&gt;This process is extremely fast (multiplying matrices) compared to issuing rendering commands and doing all the graphics drawing. As long as the action is not complicated, the calculated scene resembles closely to the actual scene calculated from the heavy work done by the CPU and GPU. This technique can introduce artifacts especially when there are other effects such as smoke, but is still generally acceptable to the user of the virtual reality headset.&lt;/p&gt;
 
-&lt;h2&gt;Bonus: Head Tracking&lt;/h2&gt;
+&lt;h2 id=&quot;bonushead-tracking&quot;&gt;Bonus: Head Tracking&lt;/h2&gt;
 
-&lt;p&gt;This only applies in virtual reality headsets that tracks head movements like Oculus Rift, but not Google Cardboard or Gear VR. Head tracking is used to track a user&amp;#8217;s head movement as another form of user input (e.g. head forward =&amp;gt; move forward).&lt;/p&gt;
+&lt;p&gt;This only applies in virtual reality headsets that tracks head movements like Oculus Rift, but not Google Cardboard or Gear VR. Head tracking is used to track a user’s head movement as another form of user input (e.g. head forward =&amp;gt; move forward).&lt;/p&gt;
 
-&lt;h3&gt;Predicting Head Movement&lt;/h3&gt;
+&lt;h3 id=&quot;predicting-head-movement&quot;&gt;Predicting Head Movement&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;This technique works by predicting the user head movement earlier &lt;em&gt;correctly&lt;/em&gt; and react to this movement, thus decreasing the time used in taking user input in the motion-to-photon pipeline&lt;/strong&gt;. Oculus Rift takes about 80ms~90ms to track head movement and respond to it, and &lt;a href=&quot;https://www.reddit.com/r/oculus/comments/21zr2e/dk2_is_capable_of_beating_20ms_palmer_regarding/&quot; target=&quot;_blank&quot;&gt;down to about ~50ms with predictive head tracking&lt;/a&gt;. However, if the prediction is wrong, it can increase latency and render incorrectly causing more nausea to the user.&lt;/p&gt;
 
-&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 
-&lt;p&gt;By now, I hope that you have a better idea of what motion-to-photon latency is and why this is important. You also learnt how to contributes to this latency and some techniques that decrease the number. The motion-to-photon latency is very critical to a quality VR experience. I think is also the hardest one we have to solve before achieving presence. Let&amp;#8217;s look forward to what will come to us in 2015 and onwards!&lt;/p&gt;
+&lt;p&gt;By now, I hope that you have a better idea of what motion-to-photon latency is and why this is important. You also learnt how to contributes to this latency and some techniques that decrease the number. The motion-to-photon latency is very critical to a quality VR experience. I think is also the hardest one we have to solve before achieving presence. Let’s look forward to what will come to us in 2015 and onwards!&lt;/p&gt;
 
 &lt;p&gt;References:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&quot; target=&quot;_blank&quot;&gt;&lt;a href=&quot;http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&quot;&gt;http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.oculus.com/blog/details-on-new-display-for-developer-kits/&quot; target=&quot;_blank&quot;&gt;&lt;a href=&quot;https://www.oculus.com/blog/details-on-new-display-for-developer-kits/&quot;&gt;https://www.oculus.com/blog/details-on-new-display-for-developer-kits/&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://dsky9.com/rift/presence-technical-requirements/&quot; target=&quot;_blank&quot;&gt;&lt;a href=&quot;http://dsky9.com/rift/presence-technical-requirements/&quot;&gt;http://dsky9.com/rift/presence-technical-requirements/&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.oculus.com/blog/asynchronous-timewarp/&quot; target=&quot;_blank&quot;&gt;&lt;a href=&quot;https://www.oculus.com/blog/asynchronous-timewarp/&quot;&gt;https://www.oculus.com/blog/asynchronous-timewarp/&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.digitaltrends.com/home-theater/oled-vs-led-which-is-the-better-tv-technology/&quot; target=&quot;_blank&quot;&gt;&lt;a href=&quot;http://www.digitaltrends.com/home-theater/oled-vs-led-which-is-the-better-tv-technology/&quot;&gt;http://www.digitaltrends.com/home-theater/oled-vs-led-which-is-the-better-tv-technology/&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&quot; target=&quot;_blank&quot;&gt;http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.oculus.com/blog/details-on-new-display-for-developer-kits/&quot; target=&quot;_blank&quot;&gt;https://www.oculus.com/blog/details-on-new-display-for-developer-kits/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dsky9.com/rift/presence-technical-requirements/&quot; target=&quot;_blank&quot;&gt;http://dsky9.com/rift/presence-technical-requirements/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.oculus.com/blog/asynchronous-timewarp/&quot; target=&quot;_blank&quot;&gt;https://www.oculus.com/blog/asynchronous-timewarp/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.digitaltrends.com/home-theater/oled-vs-led-which-is-the-better-tv-technology/&quot; target=&quot;_blank&quot;&gt;http://www.digitaltrends.com/home-theater/oled-vs-led-which-is-the-better-tv-technology/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 18 Mar 2015 04:08:51 -0700</pubDate>
@@ -1428,9 +1274,9 @@ This line is part of the same quote.&lt;/p&gt;
     
       <item>
         <title>How to Move a Servo Using A Keyboard</title>
-        <description>&lt;p&gt;Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can&amp;#8217;t resist!). I am absolutely zero in hardware, so I&amp;#8217;ll just as well document it here for my own reading.&lt;/p&gt;
+        <description>&lt;p&gt;Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can’t resist!). I am absolutely zero in hardware, so I’ll just as well document it here for my own reading.&lt;/p&gt;
 
-&lt;h2&gt;What&amp;#8217;s that servo thing in the title?&lt;/h2&gt;
+&lt;h2 id=&quot;what8217s-that-servo-thing-in-the-title&quot;&gt;What’s that servo thing in the title?&lt;/h2&gt;
 
 &lt;div id=&quot;attachment_545&quot; style=&quot;width: 287px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
   &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/01/servo.gif&quot;&gt;&lt;img class=&quot;wp-image-545 &quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/01/servo.gif&quot; alt=&quot;A servo&quot; width=&quot;277&quot; height=&quot;245&quot; /&gt;&lt;/a&gt;
@@ -1442,11 +1288,11 @@ This line is part of the same quote.&lt;/p&gt;
 
 &lt;p&gt;One component is the prototype is that there are movable components. How do you move something programmatically? In robotics, you get this nifty thing called the &lt;a href=&quot;http://en.wikipedia.org/wiki/Servo_(radio_control)&quot; target=&quot;_blank&quot;&gt;servo&lt;/a&gt;. A simple servo is just a small component that can move in 1d direction. So if you ask it to rotate to some angle at 30 degrees, or 110 degrees, you can just give it an analog signal to do it. Of course, analog signals are not precise, so it may end up at 29 degrees or 108 degrees.&lt;/p&gt;
 
-&lt;p&gt;It has three wires: Generally a red wire which is the power, a yellow/white wire which is the signal, and the brown/black wire which is the ground. We&amp;#8217;ll need to connect these wires to the Arduino board.&lt;/p&gt;
+&lt;p&gt;It has three wires: Generally a red wire which is the power, a yellow/white wire which is the signal, and the brown/black wire which is the ground. We’ll need to connect these wires to the Arduino board.&lt;/p&gt;
 
-&lt;p&gt;You can screw something onto the servo, so that thing will move along with the servo. For example, it is common to tie some &amp;#8220;hands&amp;#8221; to the servo which will serve as a robot&amp;#8217;s hand.&lt;/p&gt;
+&lt;p&gt;You can screw something onto the servo, so that thing will move along with the servo. For example, it is common to tie some “hands” to the servo which will serve as a robot’s hand.&lt;/p&gt;
 
-&lt;h2&gt;How to control a servo?&lt;/h2&gt;
+&lt;h2 id=&quot;how-to-control-a-servo&quot;&gt;How to control a servo?&lt;/h2&gt;
 
 &lt;p&gt;A servo is generally analog, so you need to use an Arduino board to control it. Arduino can take digital input (computer) and output analog signal to control analog components (servo).  Here is how an Arduino board Meta 2560 looks like:&lt;/p&gt;
 
@@ -1510,9 +1356,9 @@ void loop()
 } 
 &lt;/pre&gt;
 
-&lt;p&gt;Basically, what the program does is that if a char &amp;#8216;e&amp;#8217; is received, it will move the servo in one direction, and other chars will move the servo in another direction.&lt;/p&gt;
+&lt;p&gt;Basically, what the program does is that if a char ‘e’ is received, it will move the servo in one direction, and other chars will move the servo in another direction.&lt;/p&gt;
 
-&lt;p&gt;Once the program is uploaded to Arduino, you should open Putty and connect to the serial port, and then start to press a series of &amp;#8216;e&amp;#8217; and then ENTER, and other chars will reverse the servo.&lt;/p&gt;
+&lt;p&gt;Once the program is uploaded to Arduino, you should open Putty and connect to the serial port, and then start to press a series of ‘e’ and then ENTER, and other chars will reverse the servo.&lt;/p&gt;
 
 &lt;p&gt;There! Your first movable component at the command of your finger tips!&lt;/p&gt;
 
@@ -1612,7 +1458,7 @@ if __name__ == &#39;__main__&#39;:
     
       <item>
         <title>Visualizing the Differences In L1-norm and L2-norm Loss Function</title>
-        <description>&lt;p&gt;In an earlier post about the &lt;a href=&quot;www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/&quot; target=&quot;_blank&quot;&gt;differences between L1 and L2 as loss function and regularization&lt;/a&gt;, one of the graph about L1-norm and L2-norm loss function is rather confusing to many readers, as I have seen from the comments. Reviewing it after a year, it wasn&amp;#8217;t very clear as well, so today I generated some data and run a model over them. Here is how it looks like:&lt;/p&gt;
+        <description>&lt;p&gt;In an earlier post about the &lt;a href=&quot;www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/&quot; target=&quot;_blank&quot;&gt;differences between L1 and L2 as loss function and regularization&lt;/a&gt;, one of the graph about L1-norm and L2-norm loss function is rather confusing to many readers, as I have seen from the comments. Reviewing it after a year, it wasn’t very clear as well, so today I generated some data and run a model over them. Here is how it looks like:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-515&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot; alt=&quot;programmatic L1 vs L2 visualization&quot; width=&quot;1096&quot; height=&quot;716&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w&quot; sizes=&quot;(max-width: 1096px) 100vw, 1096px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -1646,6 +1492,221 @@ if __name__ == &#39;__main__&#39;:
         <category>Machine Learning</category>
         
         <category>Mathematics</category>
+        
+      </item>
+    
+      <item>
+        <title>First Look in Virtual Reality: Stereoscopy, Panoramas and Panoramic Videos</title>
+        <description>&lt;p&gt;I got the &lt;a href=&quot;http://g.co/cardboard&quot; target=&quot;_blank&quot;&gt;Google Cardboard&lt;/a&gt; recently, and I’m playing with it. Google Cardboard is a very simple piece of gadget that turns your phone into a virtual reality headset. It was released in &lt;a href=&quot;https://www.google.com/events/io&quot; target=&quot;_blank&quot;&gt;Google I/O 2014&lt;/a&gt;. If you have an Android phone, you can download the &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.google.samples.apps.cardboarddemo&amp;amp;hl=en&quot; target=&quot;_blank&quot;&gt;Cardboard application&lt;/a&gt; which has works very well with Google Cardboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/11/google-cardboard.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-505&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/11/google-cardboard.jpg&quot; alt=&quot;google cardboard&quot; width=&quot;490&quot; height=&quot;490&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2014/11/google-cardboard.jpg 490w, http://ckieric.webfactional.com/wp-content/uploads/2014/11/google-cardboard-150x150.jpg 150w&quot; sizes=&quot;(max-width: 490px) 100vw, 490px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;One of the function provided by the Cardboard application is viewing Photo Sphere in a virtual reality setting. &lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; is a kind of photo that is (360 x 180) degrees panoramic, that is, not just 360 degrees horizontally, but also you can look up and down. It is very cool.&lt;/p&gt;
+
+&lt;p&gt;Check out &lt;a href=&quot;http://360gigapixels.com/tokyo-tower-panorama-photo/&quot; target=&quot;_blank&quot;&gt;this panoramic view&lt;/a&gt; from Tokyo Tower by 360cities for something similar in concept.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-506&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot; alt=&quot;tokyo tower panorama&quot; width=&quot;1353&quot; height=&quot;683&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2014/11/tokyo-tower-panorama.png 1353w, http://ckieric.webfactional.com/wp-content/uploads/2014/11/tokyo-tower-panorama-580x292.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/11/tokyo-tower-panorama-940x474.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2014/11/tokyo-tower-panorama-624x314.png 624w&quot; sizes=&quot;(max-width: 1353px) 100vw, 1353px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is the cool thing:  The Cardboard application pushes the Photo Sphere further by putting you in an immersive experience. The experience is as if you’re at the scene looking around &lt;em&gt;in person&lt;/em&gt;. Yes, I know it’s not stereoscopic, but hey!&lt;/p&gt;
+
+&lt;p&gt;I know I know! It’s hard to visualize that. You can only really experience that when you acutally play with a virtual reality headset. In that case, I highly encourage you to get a virtual reality headset like Google Cardboard, or even build one yourself! =]&lt;/p&gt;
+
+&lt;h1 id=&quot;panoramic-videos&quot;&gt;Panoramic Videos!&lt;/h1&gt;
+
+&lt;p&gt;However, I am actually more excited not just with photos, but videos. Check these out:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.bubl.io/experiences/648c1828-17dc-48b6-b7c1-4f859389f66b&quot; target=&quot;_blank&quot;&gt;Panoramic video of a tour around NYC in a Taxi&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.bubl.io/experiences/ca20efe4-925e-458f-826f-4c7cb77d2e39&quot; target=&quot;_blank&quot;&gt;Panoramic video of skydiving in Toronto&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Google Cardboard doesn’t work with these though. So I haven’t try viewing it in a Cardboard for now. I will hope to try it out.&lt;/p&gt;
+
+&lt;h1 id=&quot;stereoscopic-panoramic-videos&quot;&gt;Stereoscopic Panoramic Videos?!!&lt;/h1&gt;
+
+&lt;p&gt;What if the panoramic videos are stereoscopic? WOW!&lt;/p&gt;
+
+&lt;p&gt;Though, I don’t think we’re there yet. This area seems to be still in its infancy. The closest thing I’ve seen is the &lt;a href=&quot;http://www.panocam3d.com/&quot; target=&quot;_blank&quot;&gt;Panocam3D&lt;/a&gt;, which is a hexagonal device with 2 cameras on each direction.&lt;/p&gt;
+
+&lt;p&gt;The idea to capture stereoscopic panoramic videos is explained &lt;a href=&quot;http://www.video-stitch.com/whats-stereographic-3d-panoramic-video/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;, though this may not be the ideal solution since we still only get 360 degrees and not (360 x 180) degrees.&lt;/p&gt;
+
+&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
+
+&lt;p&gt;I studied a little bit about stereoscopy, panoramas and panoramic videos. Here are some resources if you’re interested (and notes for myself).&lt;/p&gt;
+
+&lt;p&gt;Demonstration of panoramic images and videos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://video.airpano.com/Video-Dubai-UAE/video-normal-en.html&quot; target=&quot;_blank&quot;&gt;Dubai panoramic video by AirPano&lt;/a&gt; – They have a lot of other panoramic videos too.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.360cities.net/&quot; target=&quot;_blank&quot;&gt;360cities&lt;/a&gt; – Panoramic images of many cities in the world.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Devices that can capture (360 x 180) degrees panorama:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.bublcam.com&quot; target=&quot;_blank&quot;&gt;Bublcam&lt;/a&gt; – A spherical device with multiple cameras on it. The above videos are from Bublcam. It looks a pixelated but still acceptable. Not available for sale yet.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://geonaute.com&quot; target=&quot;_blank&quot;&gt;Geonaute&lt;/a&gt; – Another one that looks pretty good, though the demos seem to see the apex (the top area where the corners join) seems to be a bit badly stitched. Still very good.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.360heros.com/&quot; target=&quot;_blank&quot;&gt;360heros&lt;/a&gt; – Actually it’s a gadget to clamp together 6 GoPro cameras in all 6 directions (front back left right up and down). I would think getting the Bublcam and Geonaute may be better, but GoPro probably have better resolution.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Devices that can capture (360) degrees panorama:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.gopano.com&quot; target=&quot;_blank&quot;&gt;GoPano &lt;/a&gt;– A special lens attachable to iPhone that allows you to take panoramas and panoramic videos. It works by having a 360 degree lens and bend the light into the iPhone camera. Works for iPhone only. 360 degrees horizontally only.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://kogeto.com/&quot; target=&quot;_blank&quot;&gt;Kageto&lt;/a&gt; – A company manufacturing the Dot, Lucy, and Jo. They are successive versions of a special lens attachable to iPhone or Android to take panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;www.bubblescope.com&quot; target=&quot;_blank&quot;&gt;BubbleScope&lt;/a&gt; – Another attachable lens to iPhone for capturing panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Software Apps that takes panoramic pictures without using another external cam/device. Apparently, you cannot do panoramic videos from these (it’ll look like a mess):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; – Take panoramic photos using built-in Android Camera app developed by Google.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.photosynth.net&quot; target=&quot;_blank&quot;&gt;Photo Synth&lt;/a&gt; – Take panoramic photos using this app developed by Microsoft Research.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Readings about stereoscopy, panoramas, and panoramic videos;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://nzphoto.tripod.com/stereo/3dtake/&quot; target=&quot;_blank&quot;&gt;Principles of stereoscopic photography using an ordinary camera&lt;/a&gt; – How to shoot your own stereoscopic photo. Seems like a very old page but the ideas are very clearly explained.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.video-stitch.com/whats-stereographic-3d-panoramic-video/&quot; target=&quot;_blank&quot;&gt;What’s up with stereographic 3D panoramic video&lt;/a&gt; – An article that talks about how to shoot stereoscopic panoramic videos, in theory. We don’t know if this is the best way though.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Stereoscopy&quot; target=&quot;_blank&quot;&gt;Stereoscopy on Wikipedia&lt;/a&gt; – As usual, Wikipedia is a good place to look at.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://photocreations.ca/3D/index.html&quot; target=&quot;_blank&quot;&gt;PhotoCreation&lt;/a&gt; – Apparently someone very enthusiastic in stereoscopic panoramic videos.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 03 Nov 2014 02:53:56 -0800</pubDate>
+        <link>http://www.chioka.in/first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/</link>
+        <guid isPermaLink="true">http://www.chioka.in/first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/</guid>
+        
+        <category>Android</category>
+        
+        <category>Computer Vision</category>
+        
+        <category>Google Cardboard</category>
+        
+        <category>Panomara</category>
+        
+        <category>Stereoscopy</category>
+        
+        <category>Virtual Reality</category>
+        
+        
+        <category>Virtual Reality</category>
+        
+      </item>
+    
+      <item>
+        <title>How to Select Your Final Models in a Kaggle Competition</title>
+        <description>&lt;p&gt;Did your rank just drop sharp in the private leaderboard in a Kaggle competition?&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-493&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg&quot; alt=&quot;picard palm&quot; width=&quot;490&quot; height=&quot;317&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I’ve been through that, too. We all learn about overfitting when we started machine learning, but Kaggle makes you really feel the pain of overfitting. Should I have been more careful in the &lt;a href=&quot;http://www.kaggle.com/c/higgs-boson/&quot; target=&quot;_blank&quot;&gt;Higgs Boson Machine Learning competition&lt;/a&gt;, I would have selected a solution that would gave me a rank 4 than rank 22.&lt;/p&gt;
+
+&lt;p&gt;I vow to come out with some principles systematically select final models. Here are the lessons learnt:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Always do cross-validation to get a reliable metric.&lt;/strong&gt; If you don’t, the validation score you get on a single validation set is unlikely to reflect the model performance in general. Then, you will likely see a model improvement in that single validation set, but actually performs worse in general. &lt;strong&gt;&lt;em&gt;Keep in mind the CV score can be optimistic, but your model is still overfitting.&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Trust your CV score, and not LB score.&lt;/strong&gt; The leaderboard score is scored only on a small percentage of the full test set. In some cases, it’s only a few hundred test cases. Your cross-validation score will be much more reliable in general.
+    &lt;ul&gt;
+      &lt;li&gt;If your CV score is not stable (perhaps due to ensembling methods), you can run your CV with more folds and multiple times to take average.&lt;/li&gt;
+      &lt;li&gt;If a single CV run is very slow, use a subset of the data to run the CV. This will help your CV loop to run faster. Of course, the subset should not be too small or else the CV score will not be representative.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For the final 2 models, pick very different models.&lt;/strong&gt; Picking two very similar solutions means that your solutions either fail together or win together, effectively meaning that you only pick one model. You should reduce your risk by picking two confident but very different models. &lt;em&gt;&lt;strong&gt;You should not depend on the leaderboard score at all.&lt;/strong&gt;&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Try to group your solutions by methodologies. Then, pick the best CV score model from each group. Then compare these best candidates of each group, pick two.
+        &lt;ul&gt;
+          &lt;li&gt;Example: I have different groups 1) Bagging of SVMs 2) RandomForest 3) Neural Networks 4) LinearModels. Then, each group should produce one single best model, then you pick 2 out of these.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Pick a robust methodology.&lt;/strong&gt; Here is the tricky part which depends on experience, even if you have done cross validation, you can still get burned: Sketchy methods of improving the CV score like making cubic features, cubic root features, boosting like crazy, magical numbers(without understanding it), etc, will likely be a bad model to pick even if the CV score is good. Unfortunately, you will probably have to make this mistake once to know what this means. =]&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Applying the above principles to the recent competition &lt;a href=&quot;http://www.kaggle.com/c/afsis-soil-properties&quot; target=&quot;_blank&quot;&gt;Africa Soil Property Prediction Challenge&lt;/a&gt;, plus a bit of luck, I picked the top 1 and top 2 models.&lt;/p&gt;
+
+&lt;div id=&quot;attachment_491&quot; style=&quot;width: 687px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
+  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/10/top-score.png&quot;&gt;&lt;img class=&quot;wp-image-491 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/10/top-score.png&quot; alt=&quot;top score&quot; width=&quot;677&quot; height=&quot;425&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score.png 677w, http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score-580x364.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score-624x391.png 624w&quot; sizes=&quot;(max-width: 677px) 100vw, 677px&quot; /&gt;&lt;/a&gt;
+  
+  &lt;p class=&quot;wp-caption-text&quot;&gt;
+    Sorted by private score
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I ended up Top 10% with a rank of 90 by spending just a week time and mostly in Mexico in a vacation. I guess, not too bad?&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Oct 2014 02:33:55 -0700</pubDate>
+        <link>http://www.chioka.in/how-to-select-your-final-models-in-a-kaggle-competitio/</link>
+        <guid isPermaLink="true">http://www.chioka.in/how-to-select-your-final-models-in-a-kaggle-competitio/</guid>
+        
+        <category>Cross Validation</category>
+        
+        <category>Kaggle</category>
+        
+        <category>Machine Learning</category>
+        
+        <category>Overfitting</category>
+        
+        
+        <category>Kaggle</category>
+        
+        <category>Machine Learning</category>
+        
+      </item>
+    
+      <item>
+        <title>Do You Re-train on the Whole Dataset After Validating the Model?</title>
+        <description>&lt;p&gt;Suppose we have a dataset split into 80% for training and 20% for validation, do you do A) or B?&lt;/p&gt;
+
+&lt;p&gt;Method A)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Train on 80%&lt;/li&gt;
+  &lt;li&gt;Validate on 20%&lt;/li&gt;
+  &lt;li&gt;Model is good, train on 100%.&lt;/li&gt;
+  &lt;li&gt;Predict test set.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Method B)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Train on 80%&lt;/li&gt;
+  &lt;li&gt;Validate on 20%&lt;/li&gt;
+  &lt;li&gt;Model is good, use this model as is.&lt;/li&gt;
+  &lt;li&gt;Predict test set.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In this post, I’ve posted &lt;a href=&quot;http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/&quot; target=&quot;_blank&quot;&gt;this question on Kaggle&lt;/a&gt; and I’ll summarize the answers here.&lt;/p&gt;
+
+&lt;p&gt;For myself, I do A), with the following reasons aggregated:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/35179.pdf&quot; target=&quot;_blank&quot;&gt;More data is better&lt;/a&gt;. In case of time time series, including more recent data is always better.&lt;/li&gt;
+  &lt;li&gt;Cross validation is used to validate the hyper-parameters to train a model, rather than the model itself. You then pick the best parameters to re-train a model.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;References:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation&quot; target=&quot;_blank&quot;&gt;http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/&quot; target=&quot;_blank&quot;&gt;http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 28 Jul 2014 02:48:48 -0700</pubDate>
+        <link>http://www.chioka.in/do-you-re-train-on-the-whole-dataset-after-validating-the-model/</link>
+        <guid isPermaLink="true">http://www.chioka.in/do-you-re-train-on-the-whole-dataset-after-validating-the-model/</guid>
+        
+        <category>Cross Validation</category>
+        
+        <category>Machine Learning</category>
+        
+        <category>Python</category>
+        
+        
+        <category>In Practice</category>
+        
+        <category>Machine Learning</category>
         
       </item>
     

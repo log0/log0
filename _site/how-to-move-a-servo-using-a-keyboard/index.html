@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>How to Move a Servo Using A Keyboard</title>
-  <meta name="description" content="Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can&#8217;t resist!). I am absolutely zero in hardwar...">
+  <meta name="description" content="Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can’t resist!). I am absolutely zero in hardware, so ...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://www.chioka.in/how-to-move-a-servo-using-a-keyboard/">
@@ -58,9 +58,9 @@
   </header>
 
   <article class="post-content">
-    <p>Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can&#8217;t resist!). I am absolutely zero in hardware, so I&#8217;ll just as well document it here for my own reading.</p>
+    <p>Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can’t resist!). I am absolutely zero in hardware, so I’ll just as well document it here for my own reading.</p>
 
-<h2>What&#8217;s that servo thing in the title?</h2>
+<h2 id="what8217s-that-servo-thing-in-the-title">What’s that servo thing in the title?</h2>
 
 <div id="attachment_545" style="width: 287px" class="wp-caption aligncenter">
   <a href="http://www.chioka.in/wp-content/uploads/2015/01/servo.gif"><img class="wp-image-545 " src="http://www.chioka.in/wp-content/uploads/2015/01/servo.gif" alt="A servo" width="277" height="245" /></a>
@@ -72,11 +72,11 @@
 
 <p>One component is the prototype is that there are movable components. How do you move something programmatically? In robotics, you get this nifty thing called the <a href="http://en.wikipedia.org/wiki/Servo_(radio_control)" target="_blank">servo</a>. A simple servo is just a small component that can move in 1d direction. So if you ask it to rotate to some angle at 30 degrees, or 110 degrees, you can just give it an analog signal to do it. Of course, analog signals are not precise, so it may end up at 29 degrees or 108 degrees.</p>
 
-<p>It has three wires: Generally a red wire which is the power, a yellow/white wire which is the signal, and the brown/black wire which is the ground. We&#8217;ll need to connect these wires to the Arduino board.</p>
+<p>It has three wires: Generally a red wire which is the power, a yellow/white wire which is the signal, and the brown/black wire which is the ground. We’ll need to connect these wires to the Arduino board.</p>
 
-<p>You can screw something onto the servo, so that thing will move along with the servo. For example, it is common to tie some &#8220;hands&#8221; to the servo which will serve as a robot&#8217;s hand.</p>
+<p>You can screw something onto the servo, so that thing will move along with the servo. For example, it is common to tie some “hands” to the servo which will serve as a robot’s hand.</p>
 
-<h2>How to control a servo?</h2>
+<h2 id="how-to-control-a-servo">How to control a servo?</h2>
 
 <p>A servo is generally analog, so you need to use an Arduino board to control it. Arduino can take digital input (computer) and output analog signal to control analog components (servo).  Here is how an Arduino board Meta 2560 looks like:</p>
 
@@ -140,9 +140,9 @@ void loop()
 } 
 </pre>
 
-<p>Basically, what the program does is that if a char &#8216;e&#8217; is received, it will move the servo in one direction, and other chars will move the servo in another direction.</p>
+<p>Basically, what the program does is that if a char ‘e’ is received, it will move the servo in one direction, and other chars will move the servo in another direction.</p>
 
-<p>Once the program is uploaded to Arduino, you should open Putty and connect to the serial port, and then start to press a series of &#8216;e&#8217; and then ENTER, and other chars will reverse the servo.</p>
+<p>Once the program is uploaded to Arduino, you should open Putty and connect to the serial port, and then start to press a series of ‘e’ and then ENTER, and other chars will reverse the servo.</p>
 
 <p>There! Your first movable component at the command of your finger tips!</p>
 

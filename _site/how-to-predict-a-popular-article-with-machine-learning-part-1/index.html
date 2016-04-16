@@ -64,22 +64,23 @@
 
 <p><strong>Our task is to build a model to predict if an article on Lifehack will get more than shared over 3000 times.</strong> I will explain why it is 3000 below.</p>
 
-<h1>Data Preparation Process</h1>
+<h1 id="data-preparation-process">Data Preparation Process</h1>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">Before we could throw our data into the algorithms automagically for results. There are a few things we need to do:</span></p>
 
 <ol>
-<li><strong style="line-height: 1.714285714; font-size: 1rem;">Data collection. </strong>Without data, machine learning cannot be applied. I used Scrapy to collect data from Lifehack.</li>
-<li><strong>Data preprocessing.</strong> The data needs to be cleaned of problems such as duplicated posts, invalid share counts, and other problems. We also need to construct the training and test ing set here.</li>
-<li><strong>Data transformation.</strong> The data has to be in a format that is friendly to our machine learning before we can throw it to the algorithm.</li>
+  <li><strong style="line-height: 1.714285714; font-size: 1rem;">Data collection. </strong>Without data, machine learning cannot be applied. I used Scrapy to collect data from Lifehack.</li>
+  <li><strong>Data preprocessing.</strong> The data needs to be cleaned of problems such as duplicated posts, invalid share counts, and other problems. We also need to construct the training and test ing set here.</li>
+  <li><strong>Data transformation.</strong> The data has to be in a format that is friendly to our machine learning before we can throw it to the algorithm.</li>
 </ol>
 
-<h2>Step 1: Data collection</h2>
+<h2 id="step-1-data-collection">Step 1: Data collection</h2>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">I used </span><a style="line-height: 1.714285714; font-size: 1rem;" href="http://www.scrapy.org">Scrapy</a><span style="line-height: 1.714285714; font-size: 1rem;"> to collect the data. It is a wonderful library that makes web scraping a lot easier than you write one yourself handling the exceptional cases. I will not go into the technical details of writing the scraper.</span></p>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">In summary, we will collect the HTML and the URL of the post. I also collected the title, share count, category, publication date of the article, but this can all be extracted at later stages from the HTML of the article. As follows:</span></p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text"># items.py
+
+<div class="highlighter-rouge"><pre class="highlight"><code># items.py
 from scrapy.item import Item, Field
 class PopItem(Item):
     title = Field()
@@ -89,29 +90,31 @@ class PopItem(Item):
     raw_content = Field() # the main body of the post, with HTML tags
     text_content = Field() # the main body of the post, stripped of HTML tags
     posted_at = Field()
-</code></pre></figure>
+</code></pre>
+</div>
+
 <p>I collected a total of 10,000 articles. But as you will see in the next step, a portion of them is unusable.</p>
 
-<h2>Step 2: Data preprocessing</h2>
+<h2 id="step-2-data-preprocessing">Step 2: Data preprocessing</h2>
 
 <p><strong>You will most likely get wrong results without inspecting your data for problems.</strong> And unless you are doing Kaggle or homework, no one will give you the training and testing set.</p>
 
-<h3>Cleaning potential invalid data</h3>
+<h3 id="cleaning-potential-invalid-data">Cleaning potential invalid data</h3>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">We will check for <strong>data-duplication</strong>, which there are actually a lot due to the scraper considering URLs like these as equals:</span></p>
 
 <pre>http://www.lifehack.org/articles/lifehack/fifty-50-tools-which-can-help-you-in-writing.html
-http://www.lifehack.org/articles/lifehack/fifty-50-tools-which-can-help-you-in-writing.html?utm_campaign=innerlink&utm_medium=feellikethemediaistrollingyou&utm_source=post</pre>
+http://www.lifehack.org/articles/lifehack/fifty-50-tools-which-can-help-you-in-writing.html?utm_campaign=innerlink&amp;utm_medium=feellikethemediaistrollingyou&amp;utm_source=post</pre>
 
 <p>They should be equal, so we must clean up these duplicate data.</p>
 
-<p>There are many other checks such as <strong>checking for negative or unusually high share count data, etc</strong>. For instance, there are two articles which have like 100 times more than 3rd most shared article, you&#8217;ll want to confirm if it&#8217;s the a problem of the website or our data collection script.</p>
+<p>There are many other checks such as <strong>checking for negative or unusually high share count data, etc</strong>. For instance, there are two articles which have like 100 times more than 3rd most shared article, you’ll want to confirm if it’s the a problem of the website or our data collection script.</p>
 
-<h3>Assign classes to articles</h3>
+<h3 id="assign-classes-to-articles">Assign classes to articles</h3>
 
 <p>By inspecting the the raw share counts, we can see that most articles have zero shares or at most hundred of shares. Ideally, an article having more than 10,000 shares seems like a good candidate. However, very few articles match this criteria (less than 300), which you will see will affect us badly due to a classic problem called <strong><a href="http://www.chioka.in/class-imbalance-problem/">Class Imbalance Problem</a></strong>. As such, I will select a lower threshold. All articles with more than 3000 shares are considered positive examples of a popular article, while the rest are considered negative examples.</p>
 
-<h3>Constructing the training and testing sets</h3>
+<h3 id="constructing-the-training-and-testing-sets">Constructing the training and testing sets</h3>
 
 <p><strong>Because we want to benchmark our data consistently, we need to have a consistent testing set.</strong> Also note that we have a very imbalance data set where there are far more negative examples than positive examples.</p>
 
@@ -121,23 +124,23 @@ http://www.lifehack.org/articles/lifehack/fifty-50-tools-which-can-help-you-in-w
 
 <p>Lastly, note that<strong> it is very important that the training and testing data do not overlap at all, or you will get optimistically biased results. </strong>We will not touch our testing set from now own.</p>
 
-<h2><span style="font-size: 1.285714286rem; line-height: 1.6;">Step 3: Data transformation</span></h2>
+<h2 id="span-stylefont-size-1285714286rem-line-height-16step-3-data-transformationspan"><span style="font-size: 1.285714286rem; line-height: 1.6;">Step 3: Data transformation</span></h2>
 
 <p>We need to make sure our data is friendly to the input of the model algorithms. Concretely, we need to:</p>
 
 <ol>
-<li>Extract the <strong>raw </strong><strong>content</strong> of the article body, but removing all those headers, footers, non-article related information.</li>
-<li>Extract the <strong>textual content</strong> out of the raw content, which we will strip all the HTML tags away for simplicity, and we can build a TF-IDF matrix later.</li>
-<li>Extract the <strong>title</strong> from the article, which we hypothesize to be very important (we get caught by titles first).</li>
+  <li>Extract the <strong>raw </strong><strong>content</strong> of the article body, but removing all those headers, footers, non-article related information.</li>
+  <li>Extract the <strong>textual content</strong> out of the raw content, which we will strip all the HTML tags away for simplicity, and we can build a TF-IDF matrix later.</li>
+  <li>Extract the <strong>title</strong> from the article, which we hypothesize to be very important (we get caught by titles first).</li>
 </ol>
 
 <p>There are a lot of other features we can extract but for simplicity, we will just use these features in this post.</p>
 
 <p>In the next post, I will address how we will get the data into the model and get the results out.</p>
 
-<p>&nbsp;</p>
+<p> </p>
 
-<p>&nbsp;</p>
+<p> </p>
 
   </article>
 

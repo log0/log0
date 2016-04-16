@@ -58,26 +58,26 @@
   </header>
 
   <article class="post-content">
-    <h4>How does the volatile variable work behind the scenes?</h4>
+    <h4 id="how-does-the-volatile-variable-work-behind-the-scenes">How does the volatile variable work behind the scenes?</h4>
 
 <p>Google volatile variable and you know that without the volatile keyword the compiler will cache results and cause programs incorrectness. But, why does it get wrong? Ever checked the assembly code?</p>
 
 <p>First, the definition of volatile according to <a href="http://www.drdobbs.com/cpp/volatile-the-multithreaded-programmers-b/184403766">a great article</a> on Dr.Dobbs by Andrei Alexandrescu has written about, very well:</p>
 
 <blockquote>
-<p>The <code>volatile</code> keyword was devised to prevent compiler optimizations that might render code incorrect in the presence of certain asynchronous events.</p>
+  <p>The <code class="highlighter-rouge">volatile</code> keyword was devised to prevent compiler optimizations that might render code incorrect in the presence of certain asynchronous events.</p>
 </blockquote>
 
 <p>So what effect does volatile have on a compiler?</p>
 
-<p>Concretely, let&#8217;s check out two examples with the help of constants (const). We know that constants are, well, constants. So it is impossible to modify the value, except in C++. So take these programs A and B which tries to modify a constant but one with a volatile keyword.</p>
+<p>Concretely, let’s check out two examples with the help of constants (const). We know that constants are, well, constants. So it is impossible to modify the value, except in C++. So take these programs A and B which tries to modify a constant but one with a volatile keyword.</p>
 
 <pre>// Program A
 #include &lt;cstdio&gt;</pre>
 
 <pre>int main(){
     const volatile int i = 50;
-    int * pi = const_cast&lt;int *&gt;(&i);
+    int * pi = const_cast&lt;int *&gt;(&amp;i);
     printf("%d\n", i);
     *pi = 20;
     printf("%d\n", i);
@@ -90,7 +90,7 @@
 
 <pre>int main(){
     const int i = 50;
-    int * pi = const_cast&lt;int *&gt;(&i);
+    int * pi = const_cast&lt;int *&gt;(&amp;i);
     printf("%d\n", i);
     *pi = 20;
     printf("%d\n", i);
@@ -106,14 +106,14 @@
 <pre>50
 50</pre>
 
-<p>OK. These are facts, why? What happened? Let&#8217;s do some debugging via gdb. Compile the programs with symbols ( g++ -o <output> <source> -ggdb ):</p>
+<p>OK. These are facts, why? What happened? Let’s do some debugging via gdb. Compile the programs with symbols ( g++ -o <output> <source /> -ggdb ):</output></p>
 
 <p>Program A gdb output:</p>
 
 <pre>main () at const_cast.cpp:4
 4 const volatile int i = 50;
 (gdb) s
-5 int * pi = const_cast&lt;int *&gt;(&i);
+5 int * pi = const_cast&lt;int *&gt;(&amp;i);
 (gdb) p i
 $1 = 50
 (gdb) s
@@ -135,7 +135,7 @@ $3 = 20
 
 <pre>main () at const_cast2.cpp:44 const int i = 50;
  (gdb) s
- 5 int * pi = const_cast&lt;int *&gt;(&i);
+ 5 int * pi = const_cast&lt;int *&gt;(&amp;i);
  (gdb) s
  6 printf("%d\n", i);
  (gdb) p i
@@ -157,9 +157,9 @@ $3 = 20
  50
  9 }</pre>
 
-<p>The gdb output of program B mysteriously prints the *pi as 50 and not 20, even though we have checked that *pi is really 20. Why? Now, we need some truth serums &#8211; assembly code.</p>
+<p>The gdb output of program B mysteriously prints the *pi as 50 and not 20, even though we have checked that *pi is really 20. Why? Now, we need some truth serums – assembly code.</p>
 
-<p>Let&#8217;s get some assembly code ( g++ -g -c -Wa,-alh <source> ):</p>
+<p>Let’s get some assembly code ( g++ -g -c -Wa,-alh <source /> ):</p>
 
 <p>Assembly of program A, take note at bolded parts.</p>
 
@@ -191,9 +191,9 @@ $3 = 20
  46 000000
  47 0046 E8FCFFFF call printf</pre>
 
-<p>Note in Program B, line 45 indicates that the compiler just push the value &#8220;50&#8221; into the second argument of printf, rather than in Program Line 46 it pushes the value of <strong>i</strong> from the stack.</p>
+<p>Note in Program B, line 45 indicates that the compiler just push the value “50” into the second argument of printf, rather than in Program Line 46 it pushes the value of <strong>i</strong> from the stack.</p>
 
-<p>It should be obvious now : Program B, without the volatile keyword on , has led the compiler to believe the constant variable <strong>i</strong> does not change. As thus, the compiler optimizes and assumes value pointed by pi (<em>pi) is 50. However, *</em>the compiler is wrong**. By adding the volatile keyword, we tell the compiler not to be too smart to get things wrong.</p>
+<p>It should be obvious now : Program B, without the volatile keyword on , has led the compiler to believe the constant variable <strong>i</strong> does not change. As thus, the compiler optimizes and assumes value pointed by pi (*pi) is 50. However, <strong>the compiler is wrong</strong>. By adding the volatile keyword, we tell the compiler not to be too smart to get things wrong.</p>
 
   </article>
 

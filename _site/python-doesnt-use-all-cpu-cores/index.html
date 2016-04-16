@@ -64,7 +64,7 @@
 
 <p>As it turns out, some modules mess with the core affinity on import, which end up forcing your Python script to use only one CPU core in the end. Just add this before you run the Python script:</p>
 
-<pre class="lang-py prettyprint prettyprinted" style="color: #000000;"><code>&lt;span class="pln">os&lt;/span>&lt;span class="pun">.&lt;/span>&lt;span class="pln">system&lt;/span>&lt;span class="pun">(&lt;/span>&lt;span class="str" style="color: #800000;">"taskset -p 0xffffffff %d"&lt;/span>&lt;span class="pun">%&lt;/span>&lt;span class="pln"> os&lt;/span>&lt;span class="pun">.&lt;/span>&lt;span class="pln">getpid&lt;/span>&lt;span class="pun">())&lt;/span></code></pre>
+<pre class="lang-py prettyprint prettyprinted" style="color: #000000;"><code>&lt;span class="pln"&gt;os&lt;/span&gt;&lt;span class="pun"&gt;.&lt;/span&gt;&lt;span class="pln"&gt;system&lt;/span&gt;&lt;span class="pun"&gt;(&lt;/span&gt;&lt;span class="str" style="color: #800000;"&gt;"taskset -p 0xffffffff %d"&lt;/span&gt;&lt;span class="pun"&gt;%&lt;/span&gt;&lt;span class="pln"&gt; os&lt;/span&gt;&lt;span class="pun"&gt;.&lt;/span&gt;&lt;span class="pln"&gt;getpid&lt;/span&gt;&lt;span class="pun"&gt;())&lt;/span&gt;</code></pre>
 
 <p>And then voila! It looks right now!</p>
 

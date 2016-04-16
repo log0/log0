@@ -58,18 +58,18 @@
   </header>
 
   <article class="post-content">
-    <p><a href="http://www.chioka.in/wp-content/uploads/2014/03/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-07-%E5%8D%88%E5%89%8D9.02.54.png"><img class="aligncenter size-medium wp-image-326" alt="Cascade Classifier" src="http://www.chioka.in/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-580x343.png" width="580" height="343" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-580x343.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-940x557.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-624x369.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54.png 1184w" sizes="(max-width: 580px) 100vw, 580px" /></a></p>
+    <p><a href="http://www.chioka.in/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54.png"><img class="aligncenter size-medium wp-image-326" alt="Cascade Classifier" src="http://www.chioka.in/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-580x343.png" width="580" height="343" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-580x343.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-940x557.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-624x369.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54.png 1184w" sizes="(max-width: 580px) 100vw, 580px" /></a></p>
 
-<p>Available <a href="https://www.cs.cmu.edu/%7Eefros/courses/LBMV07/Papers/viola-cvpr-01.pdf">here</a>. The <a href="http://en.wikipedia.org/wiki/Cascading_classifiers">Cascade Classifier</a> is one of the most popular face detection algorithms and the default choice in OpenCV libraries as well. Some notes after reading:</p>
+<p>Available <a href="https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf">here</a>. The <a href="http://en.wikipedia.org/wiki/Cascading_classifiers">Cascade Classifier</a> is one of the most popular face detection algorithms and the default choice in OpenCV libraries as well. Some notes after reading:</p>
 
 <ul>
-<li>One of the most influential papers in computer vision research.</li>
-<li>Introduced an approach of face detection that is highly accurate and very fast at that time.</li>
-<li>Fast enough for face detection in real time video feeds.</li>
-<li>15 times faster than any of the previous work at the time.</li>
-<li><strong>Intuition: Accurate and complex models are computational expensive. The input are subjected to a series of increasing accurate and expensive models, and the most expensive model will be used on only the most promising input.</strong> So it asks a series of questions like: 1) Does model one thinks it is a face? If no, stop. If Yes, ask model two. 2) Does model two thinks it is a face? If no, stop. If yes, ask model three. And so on, until the last model also say yes.</li>
-<li><strong>Feature-based than pixel-based.</strong>  Haar-like features were created for the images using a fast algorithm enabled by the use of Integral Images. Note that working with pixels are generally very computational expensive.</li>
-<li><strong><a href="http://en.wikipedia.org/wiki/Haar-like_features">Haar-like features</a> are basically high-level features over pixels.</strong> For example, the feature observation that the region of the eyes is darker than the region of the cheeks. This can be used as a feature input to the model.</li>
+  <li>One of the most influential papers in computer vision research.</li>
+  <li>Introduced an approach of face detection that is highly accurate and very fast at that time.</li>
+  <li>Fast enough for face detection in real time video feeds.</li>
+  <li>15 times faster than any of the previous work at the time.</li>
+  <li><strong>Intuition: Accurate and complex models are computational expensive. The input are subjected to a series of increasing accurate and expensive models, and the most expensive model will be used on only the most promising input.</strong> So it asks a series of questions like: 1) Does model one thinks it is a face? If no, stop. If Yes, ask model two. 2) Does model two thinks it is a face? If no, stop. If yes, ask model three. And so on, until the last model also say yes.</li>
+  <li><strong>Feature-based than pixel-based.</strong>  Haar-like features were created for the images using a fast algorithm enabled by the use of Integral Images. Note that working with pixels are generally very computational expensive.</li>
+  <li><strong><a href="http://en.wikipedia.org/wiki/Haar-like_features">Haar-like features</a> are basically high-level features over pixels.</strong> For example, the feature observation that the region of the eyes is darker than the region of the cheeks. This can be used as a feature input to the model.</li>
 </ul>
 
 <p>Similar ideas can definitely be applied to areas even outside of machine learning, where you want to use the simple approaches first before going deep into the big guns (more complex model). Only use it on areas where the returns are promising. In reality, you will want to do the same occasionally too: Only apply the more expensive solutions if the simpler ones do not work.</p>

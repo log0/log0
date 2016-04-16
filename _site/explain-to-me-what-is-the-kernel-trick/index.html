@@ -60,11 +60,11 @@
   <article class="post-content">
     <p>The Kernel Trick is a technique in machine learning to avoid some intensive computation in some algorithms, which makes some computation goes from infeasible to feasible.</p>
 
-<h2>So how is it applied?</h2>
+<h2 id="so-how-is-it-applied">So how is it applied?</h2>
 
 <p>Concretely, when you see the pattern of <strong>x<sub>i</sub><sup>T</sup></strong> <strong>x<sub>j</sub></strong> ( the dot product of <strong>x<sub>i</sub></strong> transpose and <strong>x<sub>j</sub></strong> , where <strong>x</strong> is an observation ): <strong>x<sub>i</sub><sup>T</sup> x<sub>j</sub></strong> can be replaced by K(<strong>x<sub>i</sub></strong> <strong>x<sub>j</sub></strong>). Here, K is a kernel, which has many implementations: linear, polynomial, RBF, etc.</p>
 
-<h2>Give me an example.</h2>
+<h2 id="give-me-an-example">Give me an example.</h2>
 
 <p>The most well-known case would be the Support Vector Machines. The problem state of SVM is a constrained optimization problem as follows:</p>
 
@@ -78,13 +78,13 @@
 
 <p><strong>It means it is ~10000 times faster.</strong></p>
 
-<h2>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>Machine learning, in practice, will always try to model problems into above or other ways such that the problem can be solved much more efficiently. The Kernel Trick is one of the most important one. The above is an extremely simplified version of what happened only, interested readers should dive deeper into related literature.</p>
 
-<p>&nbsp;</p>
+<p> </p>
 
-<p><sup>[1]</sup> &#8211; The primal and dual (together called the duality) are the two sides of the problem, which solving the dual problem statement gives the optimal solution to the primal problem statement (under some constraints). This is grossly simplified.</p>
+<p><sup>[1]</sup> – The primal and dual (together called the duality) are the two sides of the problem, which solving the dual problem statement gives the optimal solution to the primal problem statement (under some constraints). This is grossly simplified.</p>
 
 <h4 style="color: #333333; font-style: normal;">
   Ref:
@@ -99,7 +99,7 @@
   </li>
 </ul>
 
-<p>&nbsp;</p>
+<p> </p>
 
   </article>
 

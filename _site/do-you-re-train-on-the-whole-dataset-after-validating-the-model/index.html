@@ -63,35 +63,35 @@
 <p>Method A)</p>
 
 <ol>
-<li>Train on 80%</li>
-<li>Validate on 20%</li>
-<li>Model is good, train on 100%.</li>
-<li>Predict test set.</li>
+  <li>Train on 80%</li>
+  <li>Validate on 20%</li>
+  <li>Model is good, train on 100%.</li>
+  <li>Predict test set.</li>
 </ol>
 
 <p>Method B)</p>
 
 <ol>
-<li>Train on 80%</li>
-<li>Validate on 20%</li>
-<li>Model is good, use this model as is.</li>
-<li>Predict test set.</li>
+  <li>Train on 80%</li>
+  <li>Validate on 20%</li>
+  <li>Model is good, use this model as is.</li>
+  <li>Predict test set.</li>
 </ol>
 
-<p>In this post, I&#8217;ve posted <a href="http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/" target="_blank">this question on Kaggle</a> and I&#8217;ll summarize the answers here.</p>
+<p>In this post, I’ve posted <a href="http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/" target="_blank">this question on Kaggle</a> and I’ll summarize the answers here.</p>
 
 <p>For myself, I do A), with the following reasons aggregated:</p>
 
 <ul>
-<li><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/35179.pdf" target="_blank">More data is better</a>. In case of time time series, including more recent data is always better.</li>
-<li>Cross validation is used to validate the hyper-parameters to train a model, rather than the model itself. You then pick the best parameters to re-train a model.</li>
+  <li><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/35179.pdf" target="_blank">More data is better</a>. In case of time time series, including more recent data is always better.</li>
+  <li>Cross validation is used to validate the hyper-parameters to train a model, rather than the model itself. You then pick the best parameters to re-train a model.</li>
 </ul>
 
 <p>References:</p>
 
 <ul>
-<li><a href="http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation" target="_blank"><a href="http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation">http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation</a></a></li>
-<li><a href="http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/" target="_blank"><a href="http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/">http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/</a></a></li>
+  <li><a href="http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation" target="_blank">http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation</a></li>
+  <li><a href="http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/" target="_blank">http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/</a></li>
 </ul>
 
   </article>

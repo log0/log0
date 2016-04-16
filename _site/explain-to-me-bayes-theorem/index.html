@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Explain to Me : Bayes Theorem</title>
-  <meta name="description" content="You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?">
+  <meta name="description" content="You heard of Bayes Theorem, right? You’ve seen this formula, in some form or others, right?">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://www.chioka.in/explain-to-me-bayes-theorem/">
@@ -58,7 +58,7 @@
   </header>
 
   <article class="post-content">
-    <p>You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?</p>
+    <p>You heard of Bayes Theorem, right? You’ve seen this formula, in some form or others, right?</p>
 
 <p style="text-align: center;">
   <a href="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
@@ -77,56 +77,82 @@
 <p>We can also think of it as:</p>
 
 <blockquote>
-<p style="text-align: left;">
+  <p style="text-align: left;">
   <strong>P(true probability of an event) = P(true positive) / P(positive)</strong>
 </p>
 </blockquote>
 
-<p>read as &#8216;<em>the true probability of an event is equal to the probability of true positives divided by the chance of a positive result</em>&#8216;. <strong>P(positive)</strong> is actually <strong>P(true positive) + P(false positive)</strong>, as the sum of the probabilities of true positives and false positives equals the probability of observing a positive.</p>
+<p>read as ‘<em>the true probability of an event is equal to the probability of true positives divided by the chance of a positive result</em>‘. <strong>P(positive)</strong> is actually <strong>P(true positive) + P(false positive)</strong>, as the sum of the probabilities of true positives and false positives equals the probability of observing a positive.</p>
 
-<p>Let&#8217;s take an example. There is a cancer test out there. If the patient has cancer, 90% of the times it will return positive result (a true positive). Suppose you took the cancer test, and it returns a positive result.</p>
+<p>Let’s take an example. There is a cancer test out there. If the patient has cancer, 90% of the times it will return positive result (a true positive). Suppose you took the cancer test, and it returns a positive result.</p>
 
 <p>Does it mean you have 90% chance of having cancer?</p>
 
-<p>You can&#8217;t tell, not without knowing 1) what is the probability of people having cancer 2) how many times the cancer test returns positive on a healthy human (false positives).</p>
+<p>You can’t tell, not without knowing 1) what is the probability of people having cancer 2) how many times the cancer test returns positive on a healthy human (false positives).</p>
 
 <p>Now, if you are told that only 1% of the people in the world get cancer, and the cancer test actually returns a positive on a perfectly health human 17% of the time. Using the Bayes formula to help us:</p>
 
 <blockquote>
-<p><strong>P(you have cancer, given the cancer test returns positive) = P(true positive) / P(positive)</strong></p>
+  <p><strong>P(you have cancer, given the cancer test returns positive) = P(true positive) / P(positive)</strong></p>
 </blockquote>
 
 <p>Remembering that:</p>
 
 <blockquote>
-<p><strong>P(positive) = P(true positive) + P(false positive) = P(TP) + P(FP)</strong> :</p>
+  <p><strong>P(positive) = P(true positive) + P(false positive) = P(TP) + P(FP)</strong> :</p>
 </blockquote>
 
 <p>And simplifying some notion, we have:</p>
 
 <blockquote>
-<p><strong>P(cancer|positive)</strong></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>**P(cancer</td>
+        <td>positive)**</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-<p><strong>= P(TP) / ( P(TP) + P(FP) )</strong></p>
+<blockquote>
+  <p><strong>= P(TP) / ( P(TP) + P(FP) )</strong></p>
+</blockquote>
 
-<p><strong>= (P(positive|cancer) * P(cancer)) / ( P(positive|cancer) * P(cancer) + P(positive|no cancer) * P(no cancer) )</strong></p>
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>**= (P(positive</td>
+        <td>cancer) * P(cancer)) / ( P(positive</td>
+        <td>cancer) * P(cancer) + P(positive</td>
+        <td>no cancer) * P(no cancer) )**</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-<p>**= (90% * 1%) / (90% * 1% + 17% * (1 &#8211; 1%))</p>
+<blockquote>
+  <p>**= (90% * 1%) / (90% * 1% + 17% * (1 – 1%))</p>
+</blockquote>
 
-<p><strong>= (90% * 1%) / (90% * 1% + 17% * 99%)</strong>**</p>
+<blockquote>
+  <p><strong>= (90% * 1%) / (90% * 1% + 17% * 99%)</strong>**</p>
+</blockquote>
 
-<p><strong>= 5.07%</strong></p>
+<blockquote>
+  <p><strong>= 5.07%</strong></p>
 </blockquote>
 
 <p>As it turns out, in this case, you are not having 90% of really having cancer but 5.07% only. Why does the cancer test that can returns positive on people having cancer 90% of the time, actually means you only have 5.07% chance of really getting a cancer?</p>
 
-<p>The intuition is : Even though the test is accurate on cancer patients, but the test get it wrong 17% of the times on healthy humans. Couldn&#8217;t you be likely part of the mistaken ones?</p>
+<p>The intuition is : Even though the test is accurate on cancer patients, but the test get it wrong 17% of the times on healthy humans. Couldn’t you be likely part of the mistaken ones?</p>
 
 <p>So, this is it! Bayes Theorem is just about correcting and measuring the real probabilities of an event given some conditions.</p>
 
 <p>References:</p>
 
-<p>[You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?</p>
+<p>[You heard of Bayes Theorem, right? You’ve seen this formula, in some form or others, right?</p>
 
 <p style="text-align: center;">
   <a href="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
@@ -145,56 +171,82 @@
 <p>We can also think of it as:</p>
 
 <blockquote>
-<p style="text-align: left;">
+  <p style="text-align: left;">
   <strong>P(true probability of an event) = P(true positive) / P(positive)</strong>
 </p>
 </blockquote>
 
-<p>read as &#8216;<em>the true probability of an event is equal to the probability of true positives divided by the chance of a positive result</em>&#8216;. <strong>P(positive)</strong> is actually <strong>P(true positive) + P(false positive)</strong>, as the sum of the probabilities of true positives and false positives equals the probability of observing a positive.</p>
+<p>read as ‘<em>the true probability of an event is equal to the probability of true positives divided by the chance of a positive result</em>‘. <strong>P(positive)</strong> is actually <strong>P(true positive) + P(false positive)</strong>, as the sum of the probabilities of true positives and false positives equals the probability of observing a positive.</p>
 
-<p>Let&#8217;s take an example. There is a cancer test out there. If the patient has cancer, 90% of the times it will return positive result (a true positive). Suppose you took the cancer test, and it returns a positive result.</p>
+<p>Let’s take an example. There is a cancer test out there. If the patient has cancer, 90% of the times it will return positive result (a true positive). Suppose you took the cancer test, and it returns a positive result.</p>
 
 <p>Does it mean you have 90% chance of having cancer?</p>
 
-<p>You can&#8217;t tell, not without knowing 1) what is the probability of people having cancer 2) how many times the cancer test returns positive on a healthy human (false positives).</p>
+<p>You can’t tell, not without knowing 1) what is the probability of people having cancer 2) how many times the cancer test returns positive on a healthy human (false positives).</p>
 
 <p>Now, if you are told that only 1% of the people in the world get cancer, and the cancer test actually returns a positive on a perfectly health human 17% of the time. Using the Bayes formula to help us:</p>
 
 <blockquote>
-<p><strong>P(you have cancer, given the cancer test returns positive) = P(true positive) / P(positive)</strong></p>
+  <p><strong>P(you have cancer, given the cancer test returns positive) = P(true positive) / P(positive)</strong></p>
 </blockquote>
 
 <p>Remembering that:</p>
 
 <blockquote>
-<p><strong>P(positive) = P(true positive) + P(false positive) = P(TP) + P(FP)</strong> :</p>
+  <p><strong>P(positive) = P(true positive) + P(false positive) = P(TP) + P(FP)</strong> :</p>
 </blockquote>
 
 <p>And simplifying some notion, we have:</p>
 
 <blockquote>
-<p><strong>P(cancer|positive)</strong></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>**P(cancer</td>
+        <td>positive)**</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-<p><strong>= P(TP) / ( P(TP) + P(FP) )</strong></p>
+<blockquote>
+  <p><strong>= P(TP) / ( P(TP) + P(FP) )</strong></p>
+</blockquote>
 
-<p><strong>= (P(positive|cancer) * P(cancer)) / ( P(positive|cancer) * P(cancer) + P(positive|no cancer) * P(no cancer) )</strong></p>
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>**= (P(positive</td>
+        <td>cancer) * P(cancer)) / ( P(positive</td>
+        <td>cancer) * P(cancer) + P(positive</td>
+        <td>no cancer) * P(no cancer) )**</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-<p>**= (90% * 1%) / (90% * 1% + 17% * (1 &#8211; 1%))</p>
+<blockquote>
+  <p>**= (90% * 1%) / (90% * 1% + 17% * (1 – 1%))</p>
+</blockquote>
 
-<p><strong>= (90% * 1%) / (90% * 1% + 17% * 99%)</strong>**</p>
+<blockquote>
+  <p><strong>= (90% * 1%) / (90% * 1% + 17% * 99%)</strong>**</p>
+</blockquote>
 
-<p><strong>= 5.07%</strong></p>
+<blockquote>
+  <p><strong>= 5.07%</strong></p>
 </blockquote>
 
 <p>As it turns out, in this case, you are not having 90% of really having cancer but 5.07% only. Why does the cancer test that can returns positive on people having cancer 90% of the time, actually means you only have 5.07% chance of really getting a cancer?</p>
 
-<p>The intuition is : Even though the test is accurate on cancer patients, but the test get it wrong 17% of the times on healthy humans. Couldn&#8217;t you be likely part of the mistaken ones?</p>
+<p>The intuition is : Even though the test is accurate on cancer patients, but the test get it wrong 17% of the times on healthy humans. Couldn’t you be likely part of the mistaken ones?</p>
 
 <p>So, this is it! Bayes Theorem is just about correcting and measuring the real probabilities of an event given some conditions.</p>
 
 <p>References:</p>
 
-<p>](<a href="http://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/">http://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/</a>) [You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?</p>
+<p>](http://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/) [You heard of Bayes Theorem, right? You’ve seen this formula, in some form or others, right?</p>
 
 <p style="text-align: center;">
   <a href="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
@@ -213,56 +265,82 @@
 <p>We can also think of it as:</p>
 
 <blockquote>
-<p style="text-align: left;">
+  <p style="text-align: left;">
   <strong>P(true probability of an event) = P(true positive) / P(positive)</strong>
 </p>
 </blockquote>
 
-<p>read as &#8216;<em>the true probability of an event is equal to the probability of true positives divided by the chance of a positive result</em>&#8216;. <strong>P(positive)</strong> is actually <strong>P(true positive) + P(false positive)</strong>, as the sum of the probabilities of true positives and false positives equals the probability of observing a positive.</p>
+<p>read as ‘<em>the true probability of an event is equal to the probability of true positives divided by the chance of a positive result</em>‘. <strong>P(positive)</strong> is actually <strong>P(true positive) + P(false positive)</strong>, as the sum of the probabilities of true positives and false positives equals the probability of observing a positive.</p>
 
-<p>Let&#8217;s take an example. There is a cancer test out there. If the patient has cancer, 90% of the times it will return positive result (a true positive). Suppose you took the cancer test, and it returns a positive result.</p>
+<p>Let’s take an example. There is a cancer test out there. If the patient has cancer, 90% of the times it will return positive result (a true positive). Suppose you took the cancer test, and it returns a positive result.</p>
 
 <p>Does it mean you have 90% chance of having cancer?</p>
 
-<p>You can&#8217;t tell, not without knowing 1) what is the probability of people having cancer 2) how many times the cancer test returns positive on a healthy human (false positives).</p>
+<p>You can’t tell, not without knowing 1) what is the probability of people having cancer 2) how many times the cancer test returns positive on a healthy human (false positives).</p>
 
 <p>Now, if you are told that only 1% of the people in the world get cancer, and the cancer test actually returns a positive on a perfectly health human 17% of the time. Using the Bayes formula to help us:</p>
 
 <blockquote>
-<p><strong>P(you have cancer, given the cancer test returns positive) = P(true positive) / P(positive)</strong></p>
+  <p><strong>P(you have cancer, given the cancer test returns positive) = P(true positive) / P(positive)</strong></p>
 </blockquote>
 
 <p>Remembering that:</p>
 
 <blockquote>
-<p><strong>P(positive) = P(true positive) + P(false positive) = P(TP) + P(FP)</strong> :</p>
+  <p><strong>P(positive) = P(true positive) + P(false positive) = P(TP) + P(FP)</strong> :</p>
 </blockquote>
 
 <p>And simplifying some notion, we have:</p>
 
 <blockquote>
-<p><strong>P(cancer|positive)</strong></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>**P(cancer</td>
+        <td>positive)**</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-<p><strong>= P(TP) / ( P(TP) + P(FP) )</strong></p>
+<blockquote>
+  <p><strong>= P(TP) / ( P(TP) + P(FP) )</strong></p>
+</blockquote>
 
-<p><strong>= (P(positive|cancer) * P(cancer)) / ( P(positive|cancer) * P(cancer) + P(positive|no cancer) * P(no cancer) )</strong></p>
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>**= (P(positive</td>
+        <td>cancer) * P(cancer)) / ( P(positive</td>
+        <td>cancer) * P(cancer) + P(positive</td>
+        <td>no cancer) * P(no cancer) )**</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-<p>**= (90% * 1%) / (90% * 1% + 17% * (1 &#8211; 1%))</p>
+<blockquote>
+  <p>**= (90% * 1%) / (90% * 1% + 17% * (1 – 1%))</p>
+</blockquote>
 
-<p><strong>= (90% * 1%) / (90% * 1% + 17% * 99%)</strong>**</p>
+<blockquote>
+  <p><strong>= (90% * 1%) / (90% * 1% + 17% * 99%)</strong>**</p>
+</blockquote>
 
-<p><strong>= 5.07%</strong></p>
+<blockquote>
+  <p><strong>= 5.07%</strong></p>
 </blockquote>
 
 <p>As it turns out, in this case, you are not having 90% of really having cancer but 5.07% only. Why does the cancer test that can returns positive on people having cancer 90% of the time, actually means you only have 5.07% chance of really getting a cancer?</p>
 
-<p>The intuition is : Even though the test is accurate on cancer patients, but the test get it wrong 17% of the times on healthy humans. Couldn&#8217;t you be likely part of the mistaken ones?</p>
+<p>The intuition is : Even though the test is accurate on cancer patients, but the test get it wrong 17% of the times on healthy humans. Couldn’t you be likely part of the mistaken ones?</p>
 
 <p>So, this is it! Bayes Theorem is just about correcting and measuring the real probabilities of an event given some conditions.</p>
 
 <p>References:</p>
 
-<p>[You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?</p>
+<p>[You heard of Bayes Theorem, right? You’ve seen this formula, in some form or others, right?</p>
 
 <p style="text-align: center;">
   <a href="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
@@ -281,56 +359,82 @@
 <p>We can also think of it as:</p>
 
 <blockquote>
-<p style="text-align: left;">
+  <p style="text-align: left;">
   <strong>P(true probability of an event) = P(true positive) / P(positive)</strong>
 </p>
 </blockquote>
 
-<p>read as &#8216;<em>the true probability of an event is equal to the probability of true positives divided by the chance of a positive result</em>&#8216;. <strong>P(positive)</strong> is actually <strong>P(true positive) + P(false positive)</strong>, as the sum of the probabilities of true positives and false positives equals the probability of observing a positive.</p>
+<p>read as ‘<em>the true probability of an event is equal to the probability of true positives divided by the chance of a positive result</em>‘. <strong>P(positive)</strong> is actually <strong>P(true positive) + P(false positive)</strong>, as the sum of the probabilities of true positives and false positives equals the probability of observing a positive.</p>
 
-<p>Let&#8217;s take an example. There is a cancer test out there. If the patient has cancer, 90% of the times it will return positive result (a true positive). Suppose you took the cancer test, and it returns a positive result.</p>
+<p>Let’s take an example. There is a cancer test out there. If the patient has cancer, 90% of the times it will return positive result (a true positive). Suppose you took the cancer test, and it returns a positive result.</p>
 
 <p>Does it mean you have 90% chance of having cancer?</p>
 
-<p>You can&#8217;t tell, not without knowing 1) what is the probability of people having cancer 2) how many times the cancer test returns positive on a healthy human (false positives).</p>
+<p>You can’t tell, not without knowing 1) what is the probability of people having cancer 2) how many times the cancer test returns positive on a healthy human (false positives).</p>
 
 <p>Now, if you are told that only 1% of the people in the world get cancer, and the cancer test actually returns a positive on a perfectly health human 17% of the time. Using the Bayes formula to help us:</p>
 
 <blockquote>
-<p><strong>P(you have cancer, given the cancer test returns positive) = P(true positive) / P(positive)</strong></p>
+  <p><strong>P(you have cancer, given the cancer test returns positive) = P(true positive) / P(positive)</strong></p>
 </blockquote>
 
 <p>Remembering that:</p>
 
 <blockquote>
-<p><strong>P(positive) = P(true positive) + P(false positive) = P(TP) + P(FP)</strong> :</p>
+  <p><strong>P(positive) = P(true positive) + P(false positive) = P(TP) + P(FP)</strong> :</p>
 </blockquote>
 
 <p>And simplifying some notion, we have:</p>
 
 <blockquote>
-<p><strong>P(cancer|positive)</strong></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>**P(cancer</td>
+        <td>positive)**</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-<p><strong>= P(TP) / ( P(TP) + P(FP) )</strong></p>
+<blockquote>
+  <p><strong>= P(TP) / ( P(TP) + P(FP) )</strong></p>
+</blockquote>
 
-<p><strong>= (P(positive|cancer) * P(cancer)) / ( P(positive|cancer) * P(cancer) + P(positive|no cancer) * P(no cancer) )</strong></p>
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>**= (P(positive</td>
+        <td>cancer) * P(cancer)) / ( P(positive</td>
+        <td>cancer) * P(cancer) + P(positive</td>
+        <td>no cancer) * P(no cancer) )**</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-<p>**= (90% * 1%) / (90% * 1% + 17% * (1 &#8211; 1%))</p>
+<blockquote>
+  <p>**= (90% * 1%) / (90% * 1% + 17% * (1 – 1%))</p>
+</blockquote>
 
-<p><strong>= (90% * 1%) / (90% * 1% + 17% * 99%)</strong>**</p>
+<blockquote>
+  <p><strong>= (90% * 1%) / (90% * 1% + 17% * 99%)</strong>**</p>
+</blockquote>
 
-<p><strong>= 5.07%</strong></p>
+<blockquote>
+  <p><strong>= 5.07%</strong></p>
 </blockquote>
 
 <p>As it turns out, in this case, you are not having 90% of really having cancer but 5.07% only. Why does the cancer test that can returns positive on people having cancer 90% of the time, actually means you only have 5.07% chance of really getting a cancer?</p>
 
-<p>The intuition is : Even though the test is accurate on cancer patients, but the test get it wrong 17% of the times on healthy humans. Couldn&#8217;t you be likely part of the mistaken ones?</p>
+<p>The intuition is : Even though the test is accurate on cancer patients, but the test get it wrong 17% of the times on healthy humans. Couldn’t you be likely part of the mistaken ones?</p>
 
 <p>So, this is it! Bayes Theorem is just about correcting and measuring the real probabilities of an event given some conditions.</p>
 
 <p>References:</p>
 
-<p>](<a href="http://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/)%5D(http://yudkowsky.net/rational/bayes">http://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/)](http://yudkowsky.net/rational/bayes</a>) <a href="http://lesswrong.com/lw/2b0/bayes_theorem_illustrated_my_way/">http://lesswrong.com/lw/2b0/bayes_theorem_illustrated_my_way/</a></p>
+<p>](http://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/)](http://yudkowsky.net/rational/bayes) <a href="http://lesswrong.com/lw/2b0/bayes_theorem_illustrated_my_way/">http://lesswrong.com/lw/2b0/bayes_theorem_illustrated_my_way/</a></p>
 
   </article>
 

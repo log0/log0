@@ -127,20 +127,26 @@
 <p>It is given by the general formula of:</p>
 
 <blockquote>
-<p>error_rate_of_ensemble = 0</p>
+  <p>error_rate_of_ensemble = 0</p>
+</blockquote>
 
-<p>for i in [floor(n/2)+1, n]:</p>
+<blockquote>
+  <p>for i in [floor(n/2)+1, n]:</p>
+</blockquote>
 
-<p>error_rate_of_ensemble += nCr(i, n) * error_rate^i * (1 &#8211; error_rate)^(n-i)</p>
+<blockquote>
+  <p>error_rate_of_ensemble += nCr(i, n) * error_rate^i * (1 – error_rate)^(n-i)</p>
 
-<p>where n = number of classifiers,</p>
+  <p>where n = number of classifiers,</p>
+</blockquote>
 
-<p>error_rate = error rate of each classifier (assumed equal here)</p>
+<blockquote>
+  <p>error_rate = error rate of each classifier (assumed equal here)</p>
 </blockquote>
 
 <p>In our case, if the error rate of a single classifier is 0.15, the error rate of the ensemble would be only 0.01.</p>
 
-<p>&nbsp;</p>
+<p> </p>
 
   </article>
 
