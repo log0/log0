@@ -4,7 +4,7 @@ name: Garbled Notes
 url: http://www.chioka.in
 github_username: log0
 description: Things I left Hanging Around
-highlighter: true
+rouge: true
 
 kramdown: redcarpet
 markdown_ext: markdown,mkdown,mkdn,mkd,md
