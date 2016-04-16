@@ -1,0 +1,528 @@
+---
+id: 647
+title: 'How Does the Number of Hidden Neurons Affect a Neural Network&#8217;s Performance'
+date: 2016-01-03T12:26:42+00:00
+author: lo
+layout: post
+guid: http://www.chioka.in/?p=647
+permalink: /how-does-the-number-of-hidden-neurons-affect-a-neural-networks-performance/
+nkweb_code_in_head:
+  - default
+nkweb_Use_Custom_js:
+  - default
+nkweb_Custom_js:
+  - 
+nkweb_Use_Custom_Values:
+  - default
+nkweb_Custom_Values:
+  - 
+nkweb_Use_Custom:
+  - 'false'
+nkweb_Custom_Code:
+  - 
+categories:
+  - Machine Learning
+  - Python
+tags:
+  - Keras
+  - Tutorial
+---
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="prompt input_prompt">
+    You can find the original notebook <a href="https://github.com/log0/digit_recognizer_2/blob/master/notebooks/impact_of_number_of_hidden_neurons_to_model_performance/Impact%20of%20number%20of%20hidden%20neurons%20to%20model%20performance.ipynb" target="_blank">here</a> at <a href="https://github.com/log0/digit_recognizer_2" target="_blank">https://github.com/log0/digit_recognizer_2</a>.
+  </div>
+  
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      <h2 id="Impact-of-number-of-hidden-neurons-to-model-performance">
+        Impact of number of hidden neurons to model performance<a class="anchor-link" href="#Impact-of-number-of-hidden-neurons-to-model-performance">¶</a>
+      </h2>
+      
+      <p>
+        This notebook investigates how the number of hidden neurons affect the model performance. We will see that increasing the number of hidden neurons increases the performance of a model using the MNIST dataset. The MNIST dataset is a common standard dataset used to evaluate machine learning models performance, which is just a task of recognizing digits from 0 to 9.
+      </p>
+      
+      <p>
+        This notebook has dependencies on Keras, Scikit-Learn and MatPlotLib.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="prompt input_prompt">
+      In [30]:
+    </div>
+    
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython3">
+          <pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">from</span> <span class="nn">keras.models</span> <span class="k">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">keras.layers.core</span> <span class="k">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Activation</span><span class="p">,</span> <span class="n">Dropout</span>
+<span class="kn">from</span> <span class="nn">keras.optimizers</span> <span class="k">import</span> <span class="n">SGD</span><span class="p">,</span> <span class="n">Adam</span><span class="p">,</span> <span class="n">RMSprop</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="o">*</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="prompt input_prompt">
+      In [31]:
+    </div>
+    
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython3">
+          <pre><span class="n">TRAIN_FILE</span> <span class="o">=</span> <span class="s">'data/train.csv'</span>
+<span class="n">TEST_FILE</span> <span class="o">=</span> <span class="s">'data/test.csv'</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="prompt input_prompt">
+      In [32]:
+    </div>
+    
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython3">
+          <pre><span class="n">train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">TRAIN_FILE</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">delimiter</span> <span class="o">=</span> <span class="s">','</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s">'float'</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+<span class="c"># Preprocess the data to make features fall between 0 and 1. Neural networks perform a lot better in this way.</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">/</span><span class="mi">255</span>
+<span class="n">raw_Y</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[:,</span> <span class="mi"></span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="prompt input_prompt">
+      In [33]:
+    </div>
+    
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython3">
+          <pre><span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">TEST_FILE</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">delimiter</span> <span class="o">=</span> <span class="s">','</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s">'float'</span><span class="p">)</span>
+<span class="c"># Preprocess the data to make features fall between 0 and 1. Neural networks perform a lot better in this way.</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">/</span><span class="mi">255</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="prompt input_prompt">
+      In [34]:
+    </div>
+    
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython3">
+          <pre><span class="n">X_train</span><span class="p">,</span> <span class="n">X_cv</span><span class="p">,</span> <span class="n">raw_Y_train</span><span class="p">,</span> <span class="n">raw_Y_cv</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">raw_Y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.20</span><span class="p">)</span>
+
+<span class="c"># Converter to transform input into one hot encoding, i.e. [3] =&gt; [0, 0, 1, 0, 0, 0, 0, 0, 0, 0].</span>
+<span class="c"># Can use the np_utils from Keras instead.</span>
+<span class="n">Y_expander</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">raw_Y</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">Y_expander</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">raw_Y_train</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">Y_cv</span> <span class="o">=</span> <span class="n">Y_expander</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">raw_Y_cv</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="prompt input_prompt">
+      In [35]:
+    </div>
+    
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython3">
+          <pre><span class="n">n_hiddens</span> <span class="o">=</span> <span class="p">[</span><span class="mi">512</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n_hidden</span> <span class="ow">in</span> <span class="n">n_hiddens</span><span class="p">:</span>
+    <span class="c"># Build a simple neural network.</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">input_dim</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">output_dim</span> <span class="o">=</span> <span class="n">n_hidden</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s">'tanh'</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">output_dim</span> <span class="o">=</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s">'softmax'</span><span class="p">))</span>
+    <span class="n">sgd</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s">'categorical_crossentropy'</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s">'sgd'</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">nb_epoch</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">show_accuracy</span> <span class="o">=</span> <span class="k">True</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">Y_cv_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_classes</span><span class="p">(</span><span class="n">X_cv</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">score</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">raw_Y_cv</span><span class="p">,</span> <span class="n">Y_cv_pred</span><span class="p">)</span>
+    <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">'Using [%d] number of hidden neurons yields. Accuracy score: %.4f'</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_hidden</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">''</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+        
+        <div class="output_subarea output_stream output_stdout output_text">
+          <pre>Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.4771 - acc: 0.8713 - val_loss: 0.3271 - val_acc: 0.9054
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3105 - acc: 0.9121 - val_loss: 0.2945 - val_acc: 0.9119
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2806 - acc: 0.9207 - val_loss: 0.2707 - val_acc: 0.9185
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2605 - acc: 0.9250 - val_loss: 0.2533 - val_acc: 0.9232
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2416 - acc: 0.9320 - val_loss: 0.2368 - val_acc: 0.9262
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.2240 - acc: 0.9367 - val_loss: 0.2233 - val_acc: 0.9321
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.2068 - acc: 0.9407 - val_loss: 0.2104 - val_acc: 0.9357
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1913 - acc: 0.9461 - val_loss: 0.1997 - val_acc: 0.9387
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1771 - acc: 0.9506 - val_loss: 0.1872 - val_acc: 0.9411
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1640 - acc: 0.9540 - val_loss: 0.1785 - val_acc: 0.9429
+8400/8400 [==============================] - 0s     
+Using [512] number of hidden neurons yields. Accuracy score: 0.9412
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.4966 - acc: 0.8655 - val_loss: 0.3360 - val_acc: 0.9048
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3118 - acc: 0.9112 - val_loss: 0.2957 - val_acc: 0.9137
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2772 - acc: 0.9205 - val_loss: 0.2687 - val_acc: 0.9155
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2527 - acc: 0.9278 - val_loss: 0.2465 - val_acc: 0.9292
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2305 - acc: 0.9350 - val_loss: 0.2358 - val_acc: 0.9286
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.2110 - acc: 0.9404 - val_loss: 0.2155 - val_acc: 0.9357
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.1932 - acc: 0.9459 - val_loss: 0.2009 - val_acc: 0.9393
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1774 - acc: 0.9512 - val_loss: 0.1895 - val_acc: 0.9440
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1632 - acc: 0.9552 - val_loss: 0.1836 - val_acc: 0.9446
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1510 - acc: 0.9592 - val_loss: 0.1714 - val_acc: 0.9476
+8400/8400 [==============================] - 0s     
+Using [256] number of hidden neurons yields. Accuracy score: 0.9454
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.5168 - acc: 0.8630 - val_loss: 0.3357 - val_acc: 0.9030
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3111 - acc: 0.9107 - val_loss: 0.2855 - val_acc: 0.9125
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2703 - acc: 0.9223 - val_loss: 0.2552 - val_acc: 0.9220
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2401 - acc: 0.9312 - val_loss: 0.2340 - val_acc: 0.9351
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2161 - acc: 0.9386 - val_loss: 0.2131 - val_acc: 0.9435
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.1956 - acc: 0.9452 - val_loss: 0.2018 - val_acc: 0.9429
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.1791 - acc: 0.9503 - val_loss: 0.1865 - val_acc: 0.9476
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1644 - acc: 0.9544 - val_loss: 0.1789 - val_acc: 0.9476
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1518 - acc: 0.9578 - val_loss: 0.1695 - val_acc: 0.9476
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1412 - acc: 0.9619 - val_loss: 0.1625 - val_acc: 0.9512
+8400/8400 [==============================] - 0s     
+Using [128] number of hidden neurons yields. Accuracy score: 0.9483
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.5449 - acc: 0.8554 - val_loss: 0.3485 - val_acc: 0.9012
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3154 - acc: 0.9113 - val_loss: 0.2837 - val_acc: 0.9202
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2685 - acc: 0.9234 - val_loss: 0.2516 - val_acc: 0.9214
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2377 - acc: 0.9321 - val_loss: 0.2304 - val_acc: 0.9315
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2135 - acc: 0.9388 - val_loss: 0.2114 - val_acc: 0.9357
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.1942 - acc: 0.9449 - val_loss: 0.1982 - val_acc: 0.9423
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.1785 - acc: 0.9501 - val_loss: 0.1849 - val_acc: 0.9423
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1651 - acc: 0.9538 - val_loss: 0.1764 - val_acc: 0.9470
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1532 - acc: 0.9571 - val_loss: 0.1712 - val_acc: 0.9458
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1433 - acc: 0.9596 - val_loss: 0.1581 - val_acc: 0.9512
+8400/8400 [==============================] - 0s     
+Using [64] number of hidden neurons yields. Accuracy score: 0.9485
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.5879 - acc: 0.8494 - val_loss: 0.3675 - val_acc: 0.8982
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3271 - acc: 0.9102 - val_loss: 0.2959 - val_acc: 0.9149
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2780 - acc: 0.9222 - val_loss: 0.2647 - val_acc: 0.9226
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2481 - acc: 0.9306 - val_loss: 0.2408 - val_acc: 0.9333
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2257 - acc: 0.9376 - val_loss: 0.2268 - val_acc: 0.9381
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.2085 - acc: 0.9421 - val_loss: 0.2116 - val_acc: 0.9440
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.1940 - acc: 0.9470 - val_loss: 0.2033 - val_acc: 0.9452
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1816 - acc: 0.9498 - val_loss: 0.1938 - val_acc: 0.9482
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1714 - acc: 0.9526 - val_loss: 0.1903 - val_acc: 0.9482
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1628 - acc: 0.9547 - val_loss: 0.1879 - val_acc: 0.9458
+8400/8400 [==============================] - 0s     
+Using [32] number of hidden neurons yields. Accuracy score: 0.9396
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.6751 - acc: 0.8353 - val_loss: 0.4077 - val_acc: 0.8929
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3600 - acc: 0.9049 - val_loss: 0.3196 - val_acc: 0.9101
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.3040 - acc: 0.9168 - val_loss: 0.2844 - val_acc: 0.9202
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2735 - acc: 0.9251 - val_loss: 0.2576 - val_acc: 0.9208
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2531 - acc: 0.9294 - val_loss: 0.2460 - val_acc: 0.9310
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.2372 - acc: 0.9344 - val_loss: 0.2364 - val_acc: 0.9315
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.2249 - acc: 0.9367 - val_loss: 0.2261 - val_acc: 0.9321
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.2143 - acc: 0.9406 - val_loss: 0.2254 - val_acc: 0.9363
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.2054 - acc: 0.9430 - val_loss: 0.2173 - val_acc: 0.9369
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1974 - acc: 0.9453 - val_loss: 0.2181 - val_acc: 0.9339
+8400/8400 [==============================] - 0s     
+Using [16] number of hidden neurons yields. Accuracy score: 0.9305
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.9143 - acc: 0.7975 - val_loss: 0.5725 - val_acc: 0.8679
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.4821 - acc: 0.8799 - val_loss: 0.4302 - val_acc: 0.8875
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.3984 - acc: 0.8942 - val_loss: 0.3778 - val_acc: 0.9000
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.3587 - acc: 0.9017 - val_loss: 0.3469 - val_acc: 0.9077
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.3345 - acc: 0.9081 - val_loss: 0.3352 - val_acc: 0.9065
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.3178 - acc: 0.9123 - val_loss: 0.3209 - val_acc: 0.9131
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.3048 - acc: 0.9143 - val_loss: 0.3136 - val_acc: 0.9101
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.2941 - acc: 0.9167 - val_loss: 0.3106 - val_acc: 0.9125
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.2862 - acc: 0.9176 - val_loss: 0.3100 - val_acc: 0.9131
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.2788 - acc: 0.9202 - val_loss: 0.3049 - val_acc: 0.9131
+8400/8400 [==============================] - 0s     
+Using [8] number of hidden neurons yields. Accuracy score: 0.9081
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 1.2546 - acc: 0.6927 - val_loss: 0.8366 - val_acc: 0.7988
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.7538 - acc: 0.7991 - val_loss: 0.6797 - val_acc: 0.8185
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.6600 - acc: 0.8143 - val_loss: 0.6277 - val_acc: 0.8304
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.6239 - acc: 0.8230 - val_loss: 0.6077 - val_acc: 0.8268
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.6027 - acc: 0.8256 - val_loss: 0.5839 - val_acc: 0.8351
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.5892 - acc: 0.8306 - val_loss: 0.5785 - val_acc: 0.8315
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.5790 - acc: 0.8316 - val_loss: 0.5758 - val_acc: 0.8321
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.5709 - acc: 0.8342 - val_loss: 0.5739 - val_acc: 0.8339
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.5654 - acc: 0.8342 - val_loss: 0.5581 - val_acc: 0.8345
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.5599 - acc: 0.8374 - val_loss: 0.5736 - val_acc: 0.8256
+8400/8400 [==============================] - 0s     
+Using [4] number of hidden neurons yields. Accuracy score: 0.8177
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 1.6598 - acc: 0.3836 - val_loss: 1.4273 - val_acc: 0.4155
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 1.3708 - acc: 0.4233 - val_loss: 1.3183 - val_acc: 0.4298
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 1.2975 - acc: 0.4403 - val_loss: 1.2685 - val_acc: 0.4536
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 1.2581 - acc: 0.4591 - val_loss: 1.2310 - val_acc: 0.4542
+Epoch 5/10
+31920/31920 [==============================] - 2s - loss: 1.2294 - acc: 0.4855 - val_loss: 1.2125 - val_acc: 0.5048
+Epoch 6/10
+31920/31920 [==============================] - 2s - loss: 1.2047 - acc: 0.5040 - val_loss: 1.1922 - val_acc: 0.5310
+Epoch 7/10
+31920/31920 [==============================] - 2s - loss: 1.1818 - acc: 0.5237 - val_loss: 1.2201 - val_acc: 0.5262
+Epoch 8/10
+31920/31920 [==============================] - 2s - loss: 1.1645 - acc: 0.5443 - val_loss: 1.1387 - val_acc: 0.5780
+Epoch 9/10
+31920/31920 [==============================] - 2s - loss: 1.1491 - acc: 0.5534 - val_loss: 1.1416 - val_acc: 0.5542
+Epoch 10/10
+31920/31920 [==============================] - 2s - loss: 1.1351 - acc: 0.5653 - val_loss: 1.1171 - val_acc: 0.6000
+8400/8400 [==============================] - 0s     
+Using [2] number of hidden neurons yields. Accuracy score: 0.5676
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 1.9758 - acc: 0.2119 - val_loss: 1.8660 - val_acc: 0.2583
+Epoch 2/10
+31920/31920 [==============================] - 2s - loss: 1.8501 - acc: 0.2623 - val_loss: 1.8218 - val_acc: 0.3000
+Epoch 3/10
+31920/31920 [==============================] - 2s - loss: 1.8202 - acc: 0.2602 - val_loss: 1.7980 - val_acc: 0.3018
+Epoch 4/10
+31920/31920 [==============================] - 2s - loss: 1.8035 - acc: 0.2698 - val_loss: 1.7855 - val_acc: 0.2565
+Epoch 5/10
+31920/31920 [==============================] - 2s - loss: 1.7889 - acc: 0.2808 - val_loss: 1.7755 - val_acc: 0.3083
+Epoch 6/10
+31920/31920 [==============================] - 2s - loss: 1.7775 - acc: 0.2811 - val_loss: 1.7672 - val_acc: 0.3357
+Epoch 7/10
+31920/31920 [==============================] - 2s - loss: 1.7674 - acc: 0.3117 - val_loss: 1.7552 - val_acc: 0.3375
+Epoch 8/10
+31920/31920 [==============================] - 2s - loss: 1.7580 - acc: 0.3014 - val_loss: 1.7477 - val_acc: 0.2982
+Epoch 9/10
+31920/31920 [==============================] - 2s - loss: 1.7489 - acc: 0.3145 - val_loss: 1.7322 - val_acc: 0.3476
+Epoch 10/10
+31920/31920 [==============================] - 2s - loss: 1.7419 - acc: 0.3189 - val_loss: 1.8143 - val_acc: 0.2798
+8400/8400 [==============================] - 0s     
+Using [1] number of hidden neurons yields. Accuracy score: 0.2919
+
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="prompt input_prompt">
+      In [78]:
+    </div>
+    
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython3">
+          <pre><span class="c"># Plot the results for comparison</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">'(Test validation score) against (Number of hidden neurons) on MNIST data'</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_hiddens</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="s">'-o'</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">markerfacecolor</span> <span class="o">=</span> <span class="s">'r'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Number of hidden neurons'</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Accuracy score'</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="prompt output_prompt">
+          Out[78]:
+        </div>
+        
+        <div class="output_text output_subarea output_execute_result">
+          <pre>&lt;matplotlib.text.Text at 0x7f98e4af1e10&gt;</pre>
+        </div>
+      </div>
+      
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+        
+        <div class="output_png output_subarea ">
+          <img src="data:image/png;base64,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 IPhZ42fNzC9Ras/sFRHNPtNYrKI8fNdv5wJKzZp5MXrTlv0oNXt+kplnN8w7ng21m+q9gRLofbz+ Oq3b/828k7I/35wNJZmZ+V+U2jOvbbJcp+6xtXW9KzPX1q1rLeVlweZsfJ69mXJPeX/jd2JmLqN8 bz41Ojfs5uHZUAJZVT9/BeWF0pENebiMUuK+Bc33WzfvR23dz4E3suF8aeyX4whKzbmDmyzXzvFq SZaaFOdSmn3Vauv+E+Xz/08bqzqOUjvu3VHa27ctS+2yIygvyN9OeRF2U5TmJF+OiCeNZb0tGst1 3/HnwybnQ81nKM8vnXi+U5+xmr3qPaT6fVuH1reA8uXz6Ig4ssn8PSg3u8dQvkwupJQE/1NE7Eqp xvcb4MKGAG7MMjMj4quU0t+XUX1ZVVW7nwac03hzjjIM1RGUm+iOlAea+1bJhs6a2lVrq3fOMPN/ RSlR2kiU4bXeRQkSd6G8ma91pjKe/NSrtRFr/FIjMy+JiNuAuVW1zvV1s//cEEDX1DpKmw2M1qnY 9yhNCb4cES+mlFz9pjGAqI7LDsAfmwSsNKR9GKUq5hXZvNO2WpW+Zm3jLqwP/uvsU/1+6DDn9/Zs OL8b1aoTtjzEWRXsvIcSYD2cjXuRrx33i6r/5zFMlfLMXBVlqKBm59ajKOf6wir/9S+82j23Lmic kJlrI+JvlPOgpuvXfRXAzaaUvLTqvZSSoWMj4sfZnWHRNtlHbHhobNZJ3w3V7+ECpk3uJZl5aUTc CuwREZtV+7Tde3O9dtus7lVta5N7SaVWpXkeG87f8bisegHV6LpqG7OAv42wfC2/zfbluog4j007 BKvdN0ba/42jPiyglCQfXFoLbaQ2YaeImJEbN6noxD22Zojm+7x+XfX5BZhf3Sca7Vj9fgzjLxC4 bZiX1ntSnluXNr4AqfwS+Bea38e7dj/KzHsi4nZav5+P9P36l+r+PC8idmp4HmnneLXj85SmdC+J iLMpzXm+lZmro4wsMaoswxh/mPKC5GjG2H4+M4+LiJMpTRb2oeyrJ1OGS35dRLwvN23u1Qljue47 /nwYEZtTaq28glJrYks27t+sE8936jMG86pXC1g61cvmg6p1vWaUbc6E+74Qn0Z54/5SytvQAFZH xBeAD2Xz4VPa9WVKyc0b2PDm+Q3V71PrE1bt8y6kBE/nAV+kVH+9l/LFfQhjH5qr9iW5SYlrZZMe 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 tcZjBAAAgGu1tQ7zeyW5YO7xhdl8WH9mkg+v6ogAAABgZKq71+5kVY9P8ojuftbw+D8mWdfdhy/T 9nczK8k/sLt/vMzzazdwAAAAWGHdXdv72l1XciBb4aIke889vtVw7Gqq6u5Jjk1y8HJBPtmxiwYA AIAxW+sy+9OS7FtV+1TV7kkOTXLSfIOq2jvJiUme0t3nrvH4AAAA4FpvTVfmu/uqqnpukpMz+yLh uO7eUFXPnj3dxyb5yyS/neSNVVVJruzudWs5TgAAALg2W9N75gEAAIAdt9Zl9iuiqg6uqrOq6uyq OmJnj4frjqo6rqouraqvzR3bo6pOrqpvVNVHq+rGc8+9qKrOqaoNVfXwnTNqxq6qblVVn6iqr1fV GVV1+HDc3GPVVNX1quoLVXX6MPdeORw371hVVbVLVX25qk4aHptzrLqq+k5VfXX4nXfqcMzcY1VV 1Y2r6r3DPPp6Vd1vJefd6MJ8Ve2S2S73j0hy1yRPrKo77dxRcR1yQmZza94Lk3ysu++Y5BNJXpQk VXWXJH+Q5M5JHplf3xoC2+qXSf60u++a5P5JDht+r5l7rJru/kWS3+3u/ZPcPclBVfXAmHesvucl OXPusTnHWtiYZH137z93C6+5x2p7fZIPdfedk9wjyVlZwXk3ujCfZF2Sc7r7vO6+Msm7kxyyk8fE dUR3fybJ0r+gcEiStw0/vy3J44afH5vk3d39y+7+TpJzMpufsE26+5Lu/srw82VJNmT21z7MPVZV d18x/Hi9zP6f4Mcx71hFVXWrJI9K8pa5w+Yca6Fyzexj7rFqquq3kjyou09IkmE+/SQrOO/GGOb3 SnLB3OMLh2OwWm7e3Zcms9CV5ObD8aVz8aKYi+ygqrpNknsmOSXJnuYeq2kodz49ySVJFrr7zJh3 rK7/keT5SeY3bTLnWAud5B+r6rSqeuZwzNxjNd02yQ+q6oTh1qJjq+o3s4LzboxhHnY2u0ayKqrq Rkn+LsnzhhX6pXPN3GNFdffGocz+VkkeVFXrY96xSqrq0UkuHSqRNlc6as6xGh7Y3ffKrDLksKp6 UPy+Y3XtmuReSY4Z5t7lmZXYr9i8G2OYvyjJ3nOPbzUcg9VyaVXtmSRV9TtJvjccvyjJrefamYts t6raNbMg//bu/sBw2NxjTXT3T5N8KMl9Yt6xeh6Y5LFV9a0k/yezfRrenuQSc47V1t3fHf77/STv z6x82e87VtOFSS7o7i8Oj0/MLNyv2LwbY5g/Lcm+VbVPVe2e5NAkJ+3kMXHdUrn6isFJSZ4+/Py0 JB+YO35oVe1eVbdNsm+SU9dqkFznHJ/kzO5+/dwxc49VU1U3W9xBt6pukORhSU6Peccq6e4Xd/fe 3X27zP7/7RPd/ZQkH4w5xyqqqt8cqt9SVTdM8vAkZ8TvO1bRUEp/QVXdYTj00CRfzwrOu11XetCr rbuvqqrnJjk5sy8jjuvuDTt5WFxHVNW7kqxPctOqOj/JS5O8Ksl7q+oPk5yX2S6T6e4zq+o9me3I e2WS/9zdyrPYZsMO4k9OcsZw/3IneXGSo5K8x9xjldwiyduGnXJ3yawq5OPDHDTvWEuvijnH6toz yfuqqjPLP+/s7pOr6osx91hdhyd5Z1XtluRbSZ6R5DeyQvOuzEsAAAAYlzGW2QMAAMCkCfMAAAAw MsI8AAAAjIwwDwAAACMjzAMAAMDICPMAAAAwMsI8AGyFqjqhqk7a2eOYV1WHVNXZVfUvVXX8Jtp8 u6r+dAv9bE2bn1XVUzfz/E2ramNVPXjrRg8A7AhhHoBrvap66xAUX7Lk+EOG47+9s8a2k70lyXuT 7J3keTvQz32SvHEFxtMr0AcAsBWEeQDGoJP8PMnzq+qmyzw3WlW163a+7iZJbprk5O6+pLt/tr1j 6O4fdvf/297Xzw9rBfq41qqq3Xb2GABgkTAPwFh8Msl3kvzXTTVYbqW+qvYZjt1rSZuDq+pLVXVF VX26qvaqqoOq6qtDSflJQ2Beeo6XVNUlQ5vjq+p6S55/QVV9c+j3q1X15GXGcmhVfbyqLk/yrE1c y02q6m1V9aOhr3+sqrssXkOSH2X2RcYnq+qqLZS336Cq3lRVP6mqC6rqz5ec62pl9lV1+6paqKqf V9WGqnr0MuO7b1V9cWjzpST3W6bNXarqH6rqp1V1aVW9q6r2nHv+hKr6YFUdXlUXDtd6fFVdf1MX Mvf5HVRVp1TV5VV1WlXtv6TdA4ZruHzo+41V9a/mnv9kVb1hyWuudivF0OaNVfWaqvpeks8Mx29d Ve8bruunVXViVe0197qXVtUZVfWEYS78dGg/Py/3q6qPDZ/Jz6rq9OFzBYCtIswDMBYbk7wwyR9V 1W030265lfrljh2Z5I+TrEuyR5L3JHlJkv+U5CFJ9kvy0iWvWZ/k7kkOSvL7SR6e5KjFJ6vqFUme keQ5Se6c5L8neVNVPXJJP69McnSSuyR5/yau421J7pvkMcN/r0jy4eHLg88muWtmK+H/Lsktknxu E/0kyZ8k+VqS/YfxvrqqrhG+h2uouTHdL8kfZvZe7T7X5oZJ/iHJN5PcK7PP5bWZe5+r6neSfGo4 732SPDTJDZN8YMkpHzRcy0OT/MFwPVtzy8Ark7xguKYfJnnH3LnvluSjw3XcbejzHkmW3VdgCxa/ jDkwyVOH9+ekJP86s3myPsktk7xvyetuM1zPIUkeNozzFXPPvyvJxZm9N/fI7D1eieoIACZiu0r7 AGBn6O6PVNVnMwtFT9qGly5X/v0X3f25JKmqNyV5Q5J7dfdXh2NvS/L4Ja/5ZZKnd/fPk5xZVUck eUtVvWg4x39J8rDu/uzQ/rwhNB+W5MNz/byhu5eGv18PtmrfzEL8gxb7qqqnJDk/yZO7+/hhpThJ ftzd39tEV4tO7u7Fe+KPrqrDMwvPX1im7cOS3CnJbbr7ouHcf5Lkn+baPDnJbkmeMbwXG4YvMv73 XJvnJPlKd7947rqenuSHVXWf7v7icPgnSf6ouzvJN6rqvcPYjsrm/UV3f3ro978l+aequmV3X5zk z5O8u7tfN7T9VlUdluTLVXWz7v7BFvqe9+3ufv7cNTwssy96btfdFwzHnpTkm1V1UHd/Ymj6G0me 1t2XDW2OTfL0uX73SfKa7j5ncYzbMCYAEOYBGJ0jknyuql6zA310kjPmHl86/Pf/Ljl28yWv+9oQ Xhd9PrMV69snuf7w7yOzxdtf2TXJt5f086UtjO/OSa5KcsqvBtz906o6I7PV/G31tSWPL841r23R nZJctBjkB1/IrDJivs1y78X8hd87yUOqaum9/J3Z+7UY5s8cgvz82NZt6kLm+pj//C4ezn3z4ed7 J7l9VR0616bmzr0tYX7pZ3WnJBcvBvkk6e5vV9XFmX02i2H+vMUgPzfG+ff8b5IcN3zB8fEkJ3b3 N7ZhXABMnDAPwKh092lV9fdJXpPkZUueXgyc86FyU5uWXTnf7dD3VUuObc3taIvnWmz7e0kuWNLm yiWPL9+Kfjdlezb8W3r+rb22HbFLZqX4f5ZrVkZcOvfz9o7tGp/f3Ot2yWyn/79Z5tyLX1JsXOa5 5ebKtnxW85/NZq+ru/+qqt6R5JFJDk7y0qp6dne/dRvOB8CECfMAjNGLk5yZWQia9/3MAtotMruP Opndq7xSO97frapuMLciff8kv0hybmZl1b/IrDz9Uzt4ng2ZBb/759ebrv1WZvd/b89939t67r2q aq+51fn75eoBe0OSpy3zXsy/z19O8h+SnL/kS5K18OUkd+3upRUR876f2TyZd49cs4piqQ1JbllV e3f3+UlSVbfL7L75r2/LILv73Mz2Tji6qt6Y5JlJ3rotfQAwXTbAA2B0hhD05lxzo7RvZrYqfmRV /Zuqenhmm9ottb1/Qm3XJMcPu7Q/LLMN7o7t7p8PJdWvTfLaqnrGsCP8Parq2VX1zG05SXd/M7NN 1t5cVQcOG7q9I7P7y9+1nWPfWh9L8o0kbx/Gf//MVrjnV5rfldltACfMvRcvXtLPMUlunOQ9VbWu qm5bVf+2qt48bKC3I7b0+R2VZF1V/W1V3XP4LH5v2Bth0SeSPLKqHlNVd6iqv05y6y2duLs/llmJ /zur6t5VdZ/MPpsvdvfCVg2+6vpVdfSwM/8+w74KB2YbvwwAYNqEeQDG6mWZbUj3q9Xg7v5lkick uV2Sr2S2G/2Llnnt9q7UfyqzwPXJJCdmFnyPmDv/X2a2K/mfZXb//cmZ7Xo/v9q7ted+epJTM9v9 /ZQk10tycHf/Yhv72prd/effw07yuMwC8ymZrRS/LLOqg8U2lyd5dJJ9M7un/NWZ7SyfuTbfTfLA zEL/hzN7P/5nZju2z1/D9tjsNXX3GUkenNkmcwuZzYVXJLlkrv3xw7/jMqt++GmSv9+K8yTJYzNb 2f9EZve7X5zZjvlb66rM/oLCCUnOymwufTazeQMAW6WuvucMAAAAcG1nZR4AAABGRpgHAACAkRHm AQAAYGSEeQAAABgZYR4AAABGRpgHAACAkRHmAQAAYGSEeQAAABiZ/w8Z/QTL9ilLHwAAAABJRU5E rkJggg==" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="prompt input_prompt">
+  </div>
+  
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      <h3 id="What-can-we-learn?">
+        What can we learn?<a class="anchor-link" href="#What-can-we-learn?">¶</a>
+      </h3>
+      
+      <p>
+        From here we can see the the number of hidden neurons does affect the model performance. When a neural network has too few hidden neurons (< 16), it does not have the capacity to learn enough of the underlying patterns to distinguish between 0 &#8211; 9 effectively. When the neural network has >= 16 neurons, the neural network start to do better. At increasing number of hidden neurons (>= 128), the number of hidden neurons does not help too much for this problem.
+      </p>
+      
+      <p>
+        Note that I am only illustrating one single parameter here. There are a lot of other parameters like how the neural network is structured, the learning rate, and many other parameters to tune. Do play around with it to learn how neural networks behave.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="prompt input_prompt">
+      In [ ]:
+    </div>
+    
+    <div class="inner_cell">
+    </div>
+  </div>
+</div>

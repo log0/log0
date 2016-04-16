@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Improving Classifier Performance With Synthetic Features</title>
+  <meta name="description" content="When you train a classifier on a dataset, often that you are stuck at a certain performance and are unable to get past it. At this time, you may add new trai...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ckieric.webfactional.com/improving-classifier-performance-with-synthetic-features/">
+  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Improving Classifier Performance With Synthetic Features</h1>
+    <p class="post-meta"><time datetime="2013-09-01T16:16:48-07:00" itemprop="datePublished">Sep 1, 2013</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>When you train a classifier on a dataset, often that you are stuck at a certain performance and are unable to get past it. At this time, you may add new training data, use a more complex model, etc to boost the performance of the classifier. However, you may not always be able to add more training data, or may have a large dataset such that using a more complex model is infeasible computationally.</p>
+
+<h2 id="so-what-can-i-do">So, what can I do?</h2>
+
+<p>We can add synthetic features to the dataset, which is a form of feature engineering. You can view it as adding a higher level representation of the raw dataset.</p>
+
+<p>For instance, if you have to predict whether it is feasible to drive between two pairs of latitude and longitude points. Let’s say feasible is that we are driving our car and we can’t drive for many days. Then, the dataset would look something like this:</p>
+
+<p><a href="http://www.chioka.in/wp-content/uploads/2013/09/harversine_distance_dataset_without_synthetic_features1.png"><img class="alignnone size-full wp-image-120" alt="harversine_distance_dataset_without_synthetic_features" src="http://www.chioka.in/wp-content/uploads/2013/09/harversine_distance_dataset_without_synthetic_features1.png" width="496" height="115" /></a></p>
+
+<p>As you can see, the first two examples are feasible because they are rather close by, and we give it TRUE. However, the third and forth examples are clearly not feasible since they are too far away, so we give it a FALSE.</p>
+
+<p>Now the distance is actually calculated via a very complicated formula called the <a href="http://en.wikipedia.org/wiki/Haversine_formula">Harversine Distance</a>. A classifier may not be able to learn this complicated formula very well. (As always, if you have the mathematical formula, just use it, it gives you perfect answers, quickly. We use machine learning when we cannot pin the problem down mathematically.)</p>
+
+<p>However, if we add a new synthetic feature which is to calculate the harversine distance and feed it to the classifier for training, the classifier can easily correlate this feature with the output. This acts as a higher level representation of the latitude and longitude points. The dataset now looks like this, with an extra column called “Distance” below:</p>
+
+<p><a href="http://www.chioka.in/wp-content/uploads/2013/09/harversine_distance_dataset_with_synthetic_features.png"><img alt="harversine_distance_dataset_with_synthetic_features" src="http://www.chioka.in/wp-content/uploads/2013/09/harversine_distance_dataset_with_synthetic_features-580x110.png" width="580" height="110" /></a></p>
+
+<p>Here is a dataset that I generated and trained via Logistic Regression. The results are as follows:</p>
+
+<blockquote>
+  <p>Best cross validation score without synthetic feature : <strong>0.714285714286</strong></p>
+</blockquote>
+
+<blockquote>
+  <p>Best cross validation score with synthetic feature : <strong>1.0</strong></p>
+</blockquote>
+
+<p>Clearly, we can see a major boost to the classifier performance with the new synthetic feature.</p>
+
+<h2 id="but-but-how-do-we-know-what-feature-to-engineer">But, but, how do we know what feature to engineer?!</h2>
+
+<p>Yup. I bet you are asking the question : how do I know what feature to add in my case? We know the Harversine for calculating distance between two pairs of points, but how about other general datasets? Unfortunately, to my knowledge, there is no clear science as to how you find out what features to engineer. There is also very little literature on this topic in a practical environment. I would love to write more about it when I have a more consolidated understanding.</p>
+
+<h2 id="so-are-we-doomed">So, are we doomed?</h2>
+
+<p>Not really, one way to do it is to find it out using bruteforce. I think this will be really slow and not really the craftsman way, but nevertheless seems to be a feasible approach. You may also look into previous literature on how they deal with the problem as well.</p>
+
+<p>The general methodology is to try to construct new features via some operations on the initial features through all binary (or more) combinations. Perhaps you may for each pairwise feature (assuming real-valued) multiply them together, or sum them together, and append each result as a new synthetic feature. Yes, I know this sounds odd but then, use this unless you have no better solutions at the moment. Using the <a href="http://archive.ics.uci.edu/ml/datasets/Vertebral+Column">Vertebral dataset</a>, here is what I got using Logistic Regression to train with different sets of synthetic features:</p>
+
+<blockquote>
+  <p>1) Run without any modifications to original dataset</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Final best score : 0.854368932039</strong></p>
+</blockquote>
+
+<blockquote>
+  <p>2) Construct a variable from every pair of two features via multiple / divide / add / subtract , use the feature one at</p>
+</blockquote>
+
+<blockquote>
+  <p>a time</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Final best score : 0.870550161812</strong></p>
+</blockquote>
+
+<blockquote>
+  <p>3) Construct two variables from every pair of three features via multiple / divide / add / subtract , use the feature two at a time</p>
+</blockquote>
+
+<blockquote>
+  <p>Final best score : 0.870550161812</p>
+</blockquote>
+
+<blockquote>
+  <p>4) Construct three variables from every pair of four features via multiple / divide / add / subtract , use the feature three at a time</p>
+</blockquote>
+
+<blockquote>
+  <p>Final best score : 0.870550161812</p>
+</blockquote>
+
+<blockquote>
+  <p>5) Construct n^2 features (n = number of features) for each pair of features via multiple / divide / add / subtract , and use the features all at the same time</p>
+</blockquote>
+
+<blockquote>
+  <p>Final best score : 0.844660194175</p>
+</blockquote>
+
+<p>As you can see, on a training dataset without synthetic features, you have 0.854 performance, but with synthetic features, you can boost it up to 0.87055 performance, which is not too bad to have depending on your application. Of course, we do not really know why it boosted performance, but <strong>it just works</strong>.</p>
+
+<p>Now that you see the power of adding synthetic features, a form of feature engineering, you may go improve your prediction rates!</p>
+
+<p>You may find all the code <a href="https://github.com/log0/vertebral">here</a>.</p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Things I left Hanging Around</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

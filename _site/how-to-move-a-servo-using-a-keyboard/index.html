@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>How to Move a Servo Using A Keyboard</title>
+  <meta name="description" content="Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can’t resist!). I am absolutely zero in hardware, so ...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ckieric.webfactional.com/how-to-move-a-servo-using-a-keyboard/">
+  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">How to Move a Servo Using A Keyboard</h1>
+    <p class="post-meta"><time datetime="2015-01-31T00:27:20-08:00" itemprop="datePublished">Jan 31, 2015</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can’t resist!). I am absolutely zero in hardware, so I’ll just as well document it here for my own reading.</p>
+
+<h2 id="what8217s-that-servo-thing-in-the-title">What’s that servo thing in the title?</h2>
+
+<div id="attachment_545" style="width: 287px" class="wp-caption aligncenter">
+  <a href="http://www.chioka.in/wp-content/uploads/2015/01/servo.gif"><img class="wp-image-545 " src="http://www.chioka.in/wp-content/uploads/2015/01/servo.gif" alt="A servo" width="277" height="245" /></a>
+  
+  <p class="wp-caption-text">
+    A servo
+  </p>
+</div>
+
+<p>One component is the prototype is that there are movable components. How do you move something programmatically? In robotics, you get this nifty thing called the <a href="http://en.wikipedia.org/wiki/Servo_(radio_control)" target="_blank">servo</a>. A simple servo is just a small component that can move in 1d direction. So if you ask it to rotate to some angle at 30 degrees, or 110 degrees, you can just give it an analog signal to do it. Of course, analog signals are not precise, so it may end up at 29 degrees or 108 degrees.</p>
+
+<p>It has three wires: Generally a red wire which is the power, a yellow/white wire which is the signal, and the brown/black wire which is the ground. We’ll need to connect these wires to the Arduino board.</p>
+
+<p>You can screw something onto the servo, so that thing will move along with the servo. For example, it is common to tie some “hands” to the servo which will serve as a robot’s hand.</p>
+
+<h2 id="how-to-control-a-servo">How to control a servo?</h2>
+
+<p>A servo is generally analog, so you need to use an Arduino board to control it. Arduino can take digital input (computer) and output analog signal to control analog components (servo).  Here is how an Arduino board Meta 2560 looks like:</p>
+
+<p><a href="http://www.chioka.in/wp-content/uploads/2015/01/mega2560.jpg"><img class="aligncenter size-full wp-image-543" src="http://www.chioka.in/wp-content/uploads/2015/01/mega2560.jpg" alt="mega2560" width="450" height="296" /></a></p>
+
+<p>You will need to connect the servo power to the 5V pin, ground to the GRD pin, and the signal wire to pin 9. Why pin 9? Because the program I wrote assume it is pin 9.</p>
+
+<p>Then, you need to upload this program to the Arduino board using the Arduino IDE:</p>
+
+<pre>// This program demonstrates how to control a servo to move in either direction
+// with the keyboard.
+//
+// Setup:
+// - Power (RED) to 5V. Ground (BROWN) to GRD/GRC. Signal (YELLOW) to pin 9.
+// - Upload this program to Arduino and connect Servo to board.
+// - Download Putty. (http://www.chiark.greenend.org.uk/~sgtatham/putty/)
+// 
+// Usage:
+// - Open putty, connect to the COM port.
+// - Input a series of 'e' and press ENTER.
+// - Input a series of 'd' (or other char other than 'e') and press ENTER.
+// - You should see the servo move in either direction depending if the char
+//   is 'e' or non-'e'.
+
+// Ref: http://arduino.cc/en/reference/servo
+#include  
+ 
+Servo servo;
+ 
+int pos = 0;  // Stores the position (angle) of the servo. Range is [0, 180].
+ 
+void setup() 
+{ 
+  Serial.begin(9600);
+  servo.attach(9);  // Attaches the servo on pin 9 to the servo object.
+  servo.write(0);  // Resets the position.
+} 
+ 
+void loop() 
+{
+  if (Serial.available()) {  // Returns true if there is serial input.
+    char ch = Serial.read();
+    
+    if (ch == 'e') {
+      // Make sure not to exceed the mechanical limitation.
+      if (pos &lt; 180) {
+        pos += 1;
+      }
+    } else {
+      // Make sure not to exceed the mechanical limitation.
+      if (pos &gt; 0) {
+        pos -= 1;
+      }
+    }
+    
+    // Now ask the servo to move to that position.
+    servo.write(pos);
+    // Mechnical limitation to the frequency of commands given.
+    delay(50);
+  }
+} 
+</pre>
+
+<p>Basically, what the program does is that if a char ‘e’ is received, it will move the servo in one direction, and other chars will move the servo in another direction.</p>
+
+<p>Once the program is uploaded to Arduino, you should open Putty and connect to the serial port, and then start to press a series of ‘e’ and then ENTER, and other chars will reverse the servo.</p>
+
+<p>There! Your first movable component at the command of your finger tips!</p>
+
+<p>Source code is on github <a href="https://github.com/log0/some_arduino_scripts/blob/master/move_servo_by_keyboard.c" target="_blank">here</a>.</p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Things I left Hanging Around</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

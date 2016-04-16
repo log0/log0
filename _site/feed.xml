@@ -1,0 +1,1686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description>Things I left Hanging Around</description>
+    <link>http://ckieric.webfactional.com/</link>
+    <atom:link href="http://ckieric.webfactional.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 16 Apr 2016 15:20:22 -0700</pubDate>
+    <lastBuildDate>Sat, 16 Apr 2016 15:20:22 -0700</lastBuildDate>
+    <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;def print_hi(name)
+  puts &amp;quot;Hi, #{name}&amp;quot;
+end
+print_hi(&amp;#39;Tom&amp;#39;)
+#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 16 Apr 2016 15:08:48 -0700</pubDate>
+        <link>http://ckieric.webfactional.com/jekyll/update/2016/04/16/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/jekyll/update/2016/04/16/welcome-to-jekyll.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>How Does the Number of Hidden Neurons Affect a Neural Network&amp;#8217;s Performance</title>
+        <description>&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;
+  &lt;div class=&quot;prompt input_prompt&quot;&gt;
+    You can find the original notebook &lt;a href=&quot;https://github.com/log0/digit_recognizer_2/blob/master/notebooks/impact_of_number_of_hidden_neurons_to_model_performance/Impact%20of%20number%20of%20hidden%20neurons%20to%20model%20performance.ipynb&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; at &lt;a href=&quot;https://github.com/log0/digit_recognizer_2&quot; target=&quot;_blank&quot;&gt;https://github.com/log0/digit_recognizer_2&lt;/a&gt;.
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;inner_cell&quot;&gt;
+    &lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
+      &lt;h2 id=&quot;Impact-of-number-of-hidden-neurons-to-model-performance&quot;&gt;
+        Impact of number of hidden neurons to model performance&lt;a class=&quot;anchor-link&quot; href=&quot;#Impact-of-number-of-hidden-neurons-to-model-performance&quot;&gt;¶&lt;/a&gt;
+      &lt;/h2&gt;
+      
+      &lt;p&gt;
+        This notebook investigates how the number of hidden neurons affect the model performance. We will see that increasing the number of hidden neurons increases the performance of a model using the MNIST dataset. The MNIST dataset is a common standard dataset used to evaluate machine learning models performance, which is just a task of recognizing digits from 0 to 9.
+      &lt;/p&gt;
+      
+      &lt;p&gt;
+        This notebook has dependencies on Keras, Scikit-Learn and MatPlotLib.
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
+  &lt;div class=&quot;input&quot;&gt;
+    &lt;div class=&quot;prompt input_prompt&quot;&gt;
+      In [30]:
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;inner_cell&quot;&gt;
+      &lt;div class=&quot;input_area&quot;&gt;
+        &lt;div class=&quot; highlight hl-ipython3&quot;&gt;
+          &lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;mpl_toolkits.mplot3d&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Axes3D&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;matplotlib&lt;/span&gt; inline
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;keras.models&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sequential&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;keras.layers.core&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dropout&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;keras.optimizers&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SGD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Adam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RMSprop&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.preprocessing&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.cross_validation&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.metrics&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
+  &lt;div class=&quot;input&quot;&gt;
+    &lt;div class=&quot;prompt input_prompt&quot;&gt;
+      In [31]:
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;inner_cell&quot;&gt;
+      &lt;div class=&quot;input_area&quot;&gt;
+        &lt;div class=&quot; highlight hl-ipython3&quot;&gt;
+          &lt;pre&gt;&lt;span class=&quot;n&quot;&gt;TRAIN_FILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;data/train.csv&#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;TEST_FILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;data/test.csv&#39;&lt;/span&gt;
+&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
+  &lt;div class=&quot;input&quot;&gt;
+    &lt;div class=&quot;prompt input_prompt&quot;&gt;
+      In [32]:
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;inner_cell&quot;&gt;
+      &lt;div class=&quot;input_area&quot;&gt;
+        &lt;div class=&quot; highlight hl-ipython3&quot;&gt;
+          &lt;pre&gt;&lt;span class=&quot;n&quot;&gt;train_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loadtxt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TRAIN_FILE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;skiprows&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delimiter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;,&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;float&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Preprocess the data to make features fall between 0 and 1. Neural networks perform a lot better in this way.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;raw_Y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
+  &lt;div class=&quot;input&quot;&gt;
+    &lt;div class=&quot;prompt input_prompt&quot;&gt;
+      In [33]:
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;inner_cell&quot;&gt;
+      &lt;div class=&quot;input_area&quot;&gt;
+        &lt;div class=&quot; highlight hl-ipython3&quot;&gt;
+          &lt;pre&gt;&lt;span class=&quot;n&quot;&gt;X_test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loadtxt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TEST_FILE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;skiprows&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delimiter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;,&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;float&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Preprocess the data to make features fall between 0 and 1. Neural networks perform a lot better in this way.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;X_test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;
+&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
+  &lt;div class=&quot;input&quot;&gt;
+    &lt;div class=&quot;prompt input_prompt&quot;&gt;
+      In [34]:
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;inner_cell&quot;&gt;
+      &lt;div class=&quot;input_area&quot;&gt;
+        &lt;div class=&quot; highlight hl-ipython3&quot;&gt;
+          &lt;pre&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_cv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;raw_Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;raw_Y_cv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_test_split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;raw_Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Converter to transform input into one hot encoding, i.e. [3] =&amp;gt; [0, 0, 1, 0, 0, 0, 0, 0, 0, 0].&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Can use the np_utils from Keras instead.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_expander&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OneHotEncoder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_expander&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Y_cv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_expander&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_Y_cv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
+  &lt;div class=&quot;input&quot;&gt;
+    &lt;div class=&quot;prompt input_prompt&quot;&gt;
+      In [35]:
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;inner_cell&quot;&gt;
+      &lt;div class=&quot;input_area&quot;&gt;
+        &lt;div class=&quot; highlight hl-ipython3&quot;&gt;
+          &lt;pre&gt;&lt;span class=&quot;n&quot;&gt;n_hiddens&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scores&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_hidden&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_hiddens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# Build a simple neural network.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sequential&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;output_dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Activation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;tanh&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output_dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Activation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;softmax&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sgd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SGD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;momentum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nesterov&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loss&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;categorical_crossentropy&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;optimizer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;sgd&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nb_epoch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;show_accuracy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verbose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validation_split&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Y_cv_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict_classes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_cv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;batch_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verbose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accuracy_score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_Y_cv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Y_cv_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Using [%d] number of hidden neurons yields. Accuracy score: %.4f&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;output_wrapper&quot;&gt;
+    &lt;div class=&quot;output&quot;&gt;
+      &lt;div class=&quot;output_area&quot;&gt;
+        &lt;div class=&quot;prompt&quot;&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;output_subarea output_stream output_stdout output_text&quot;&gt;
+          &lt;pre&gt;Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.4771 - acc: 0.8713 - val_loss: 0.3271 - val_acc: 0.9054
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3105 - acc: 0.9121 - val_loss: 0.2945 - val_acc: 0.9119
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2806 - acc: 0.9207 - val_loss: 0.2707 - val_acc: 0.9185
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2605 - acc: 0.9250 - val_loss: 0.2533 - val_acc: 0.9232
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2416 - acc: 0.9320 - val_loss: 0.2368 - val_acc: 0.9262
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.2240 - acc: 0.9367 - val_loss: 0.2233 - val_acc: 0.9321
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.2068 - acc: 0.9407 - val_loss: 0.2104 - val_acc: 0.9357
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1913 - acc: 0.9461 - val_loss: 0.1997 - val_acc: 0.9387
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1771 - acc: 0.9506 - val_loss: 0.1872 - val_acc: 0.9411
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1640 - acc: 0.9540 - val_loss: 0.1785 - val_acc: 0.9429
+8400/8400 [==============================] - 0s     
+Using [512] number of hidden neurons yields. Accuracy score: 0.9412
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.4966 - acc: 0.8655 - val_loss: 0.3360 - val_acc: 0.9048
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3118 - acc: 0.9112 - val_loss: 0.2957 - val_acc: 0.9137
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2772 - acc: 0.9205 - val_loss: 0.2687 - val_acc: 0.9155
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2527 - acc: 0.9278 - val_loss: 0.2465 - val_acc: 0.9292
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2305 - acc: 0.9350 - val_loss: 0.2358 - val_acc: 0.9286
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.2110 - acc: 0.9404 - val_loss: 0.2155 - val_acc: 0.9357
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.1932 - acc: 0.9459 - val_loss: 0.2009 - val_acc: 0.9393
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1774 - acc: 0.9512 - val_loss: 0.1895 - val_acc: 0.9440
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1632 - acc: 0.9552 - val_loss: 0.1836 - val_acc: 0.9446
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1510 - acc: 0.9592 - val_loss: 0.1714 - val_acc: 0.9476
+8400/8400 [==============================] - 0s     
+Using [256] number of hidden neurons yields. Accuracy score: 0.9454
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.5168 - acc: 0.8630 - val_loss: 0.3357 - val_acc: 0.9030
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3111 - acc: 0.9107 - val_loss: 0.2855 - val_acc: 0.9125
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2703 - acc: 0.9223 - val_loss: 0.2552 - val_acc: 0.9220
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2401 - acc: 0.9312 - val_loss: 0.2340 - val_acc: 0.9351
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2161 - acc: 0.9386 - val_loss: 0.2131 - val_acc: 0.9435
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.1956 - acc: 0.9452 - val_loss: 0.2018 - val_acc: 0.9429
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.1791 - acc: 0.9503 - val_loss: 0.1865 - val_acc: 0.9476
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1644 - acc: 0.9544 - val_loss: 0.1789 - val_acc: 0.9476
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1518 - acc: 0.9578 - val_loss: 0.1695 - val_acc: 0.9476
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1412 - acc: 0.9619 - val_loss: 0.1625 - val_acc: 0.9512
+8400/8400 [==============================] - 0s     
+Using [128] number of hidden neurons yields. Accuracy score: 0.9483
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.5449 - acc: 0.8554 - val_loss: 0.3485 - val_acc: 0.9012
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3154 - acc: 0.9113 - val_loss: 0.2837 - val_acc: 0.9202
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2685 - acc: 0.9234 - val_loss: 0.2516 - val_acc: 0.9214
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2377 - acc: 0.9321 - val_loss: 0.2304 - val_acc: 0.9315
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2135 - acc: 0.9388 - val_loss: 0.2114 - val_acc: 0.9357
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.1942 - acc: 0.9449 - val_loss: 0.1982 - val_acc: 0.9423
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.1785 - acc: 0.9501 - val_loss: 0.1849 - val_acc: 0.9423
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1651 - acc: 0.9538 - val_loss: 0.1764 - val_acc: 0.9470
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1532 - acc: 0.9571 - val_loss: 0.1712 - val_acc: 0.9458
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1433 - acc: 0.9596 - val_loss: 0.1581 - val_acc: 0.9512
+8400/8400 [==============================] - 0s     
+Using [64] number of hidden neurons yields. Accuracy score: 0.9485
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.5879 - acc: 0.8494 - val_loss: 0.3675 - val_acc: 0.8982
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3271 - acc: 0.9102 - val_loss: 0.2959 - val_acc: 0.9149
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.2780 - acc: 0.9222 - val_loss: 0.2647 - val_acc: 0.9226
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2481 - acc: 0.9306 - val_loss: 0.2408 - val_acc: 0.9333
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2257 - acc: 0.9376 - val_loss: 0.2268 - val_acc: 0.9381
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.2085 - acc: 0.9421 - val_loss: 0.2116 - val_acc: 0.9440
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.1940 - acc: 0.9470 - val_loss: 0.2033 - val_acc: 0.9452
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.1816 - acc: 0.9498 - val_loss: 0.1938 - val_acc: 0.9482
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.1714 - acc: 0.9526 - val_loss: 0.1903 - val_acc: 0.9482
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1628 - acc: 0.9547 - val_loss: 0.1879 - val_acc: 0.9458
+8400/8400 [==============================] - 0s     
+Using [32] number of hidden neurons yields. Accuracy score: 0.9396
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.6751 - acc: 0.8353 - val_loss: 0.4077 - val_acc: 0.8929
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.3600 - acc: 0.9049 - val_loss: 0.3196 - val_acc: 0.9101
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.3040 - acc: 0.9168 - val_loss: 0.2844 - val_acc: 0.9202
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.2735 - acc: 0.9251 - val_loss: 0.2576 - val_acc: 0.9208
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.2531 - acc: 0.9294 - val_loss: 0.2460 - val_acc: 0.9310
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.2372 - acc: 0.9344 - val_loss: 0.2364 - val_acc: 0.9315
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.2249 - acc: 0.9367 - val_loss: 0.2261 - val_acc: 0.9321
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.2143 - acc: 0.9406 - val_loss: 0.2254 - val_acc: 0.9363
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.2054 - acc: 0.9430 - val_loss: 0.2173 - val_acc: 0.9369
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.1974 - acc: 0.9453 - val_loss: 0.2181 - val_acc: 0.9339
+8400/8400 [==============================] - 0s     
+Using [16] number of hidden neurons yields. Accuracy score: 0.9305
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 0.9143 - acc: 0.7975 - val_loss: 0.5725 - val_acc: 0.8679
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.4821 - acc: 0.8799 - val_loss: 0.4302 - val_acc: 0.8875
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.3984 - acc: 0.8942 - val_loss: 0.3778 - val_acc: 0.9000
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.3587 - acc: 0.9017 - val_loss: 0.3469 - val_acc: 0.9077
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.3345 - acc: 0.9081 - val_loss: 0.3352 - val_acc: 0.9065
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.3178 - acc: 0.9123 - val_loss: 0.3209 - val_acc: 0.9131
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.3048 - acc: 0.9143 - val_loss: 0.3136 - val_acc: 0.9101
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.2941 - acc: 0.9167 - val_loss: 0.3106 - val_acc: 0.9125
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.2862 - acc: 0.9176 - val_loss: 0.3100 - val_acc: 0.9131
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.2788 - acc: 0.9202 - val_loss: 0.3049 - val_acc: 0.9131
+8400/8400 [==============================] - 0s     
+Using [8] number of hidden neurons yields. Accuracy score: 0.9081
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 1.2546 - acc: 0.6927 - val_loss: 0.8366 - val_acc: 0.7988
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 0.7538 - acc: 0.7991 - val_loss: 0.6797 - val_acc: 0.8185
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 0.6600 - acc: 0.8143 - val_loss: 0.6277 - val_acc: 0.8304
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 0.6239 - acc: 0.8230 - val_loss: 0.6077 - val_acc: 0.8268
+Epoch 5/10
+31920/31920 [==============================] - 3s - loss: 0.6027 - acc: 0.8256 - val_loss: 0.5839 - val_acc: 0.8351
+Epoch 6/10
+31920/31920 [==============================] - 3s - loss: 0.5892 - acc: 0.8306 - val_loss: 0.5785 - val_acc: 0.8315
+Epoch 7/10
+31920/31920 [==============================] - 3s - loss: 0.5790 - acc: 0.8316 - val_loss: 0.5758 - val_acc: 0.8321
+Epoch 8/10
+31920/31920 [==============================] - 3s - loss: 0.5709 - acc: 0.8342 - val_loss: 0.5739 - val_acc: 0.8339
+Epoch 9/10
+31920/31920 [==============================] - 3s - loss: 0.5654 - acc: 0.8342 - val_loss: 0.5581 - val_acc: 0.8345
+Epoch 10/10
+31920/31920 [==============================] - 3s - loss: 0.5599 - acc: 0.8374 - val_loss: 0.5736 - val_acc: 0.8256
+8400/8400 [==============================] - 0s     
+Using [4] number of hidden neurons yields. Accuracy score: 0.8177
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 1.6598 - acc: 0.3836 - val_loss: 1.4273 - val_acc: 0.4155
+Epoch 2/10
+31920/31920 [==============================] - 3s - loss: 1.3708 - acc: 0.4233 - val_loss: 1.3183 - val_acc: 0.4298
+Epoch 3/10
+31920/31920 [==============================] - 3s - loss: 1.2975 - acc: 0.4403 - val_loss: 1.2685 - val_acc: 0.4536
+Epoch 4/10
+31920/31920 [==============================] - 3s - loss: 1.2581 - acc: 0.4591 - val_loss: 1.2310 - val_acc: 0.4542
+Epoch 5/10
+31920/31920 [==============================] - 2s - loss: 1.2294 - acc: 0.4855 - val_loss: 1.2125 - val_acc: 0.5048
+Epoch 6/10
+31920/31920 [==============================] - 2s - loss: 1.2047 - acc: 0.5040 - val_loss: 1.1922 - val_acc: 0.5310
+Epoch 7/10
+31920/31920 [==============================] - 2s - loss: 1.1818 - acc: 0.5237 - val_loss: 1.2201 - val_acc: 0.5262
+Epoch 8/10
+31920/31920 [==============================] - 2s - loss: 1.1645 - acc: 0.5443 - val_loss: 1.1387 - val_acc: 0.5780
+Epoch 9/10
+31920/31920 [==============================] - 2s - loss: 1.1491 - acc: 0.5534 - val_loss: 1.1416 - val_acc: 0.5542
+Epoch 10/10
+31920/31920 [==============================] - 2s - loss: 1.1351 - acc: 0.5653 - val_loss: 1.1171 - val_acc: 0.6000
+8400/8400 [==============================] - 0s     
+Using [2] number of hidden neurons yields. Accuracy score: 0.5676
+
+Train on 31920 samples, validate on 1680 samples
+Epoch 1/10
+31920/31920 [==============================] - 3s - loss: 1.9758 - acc: 0.2119 - val_loss: 1.8660 - val_acc: 0.2583
+Epoch 2/10
+31920/31920 [==============================] - 2s - loss: 1.8501 - acc: 0.2623 - val_loss: 1.8218 - val_acc: 0.3000
+Epoch 3/10
+31920/31920 [==============================] - 2s - loss: 1.8202 - acc: 0.2602 - val_loss: 1.7980 - val_acc: 0.3018
+Epoch 4/10
+31920/31920 [==============================] - 2s - loss: 1.8035 - acc: 0.2698 - val_loss: 1.7855 - val_acc: 0.2565
+Epoch 5/10
+31920/31920 [==============================] - 2s - loss: 1.7889 - acc: 0.2808 - val_loss: 1.7755 - val_acc: 0.3083
+Epoch 6/10
+31920/31920 [==============================] - 2s - loss: 1.7775 - acc: 0.2811 - val_loss: 1.7672 - val_acc: 0.3357
+Epoch 7/10
+31920/31920 [==============================] - 2s - loss: 1.7674 - acc: 0.3117 - val_loss: 1.7552 - val_acc: 0.3375
+Epoch 8/10
+31920/31920 [==============================] - 2s - loss: 1.7580 - acc: 0.3014 - val_loss: 1.7477 - val_acc: 0.2982
+Epoch 9/10
+31920/31920 [==============================] - 2s - loss: 1.7489 - acc: 0.3145 - val_loss: 1.7322 - val_acc: 0.3476
+Epoch 10/10
+31920/31920 [==============================] - 2s - loss: 1.7419 - acc: 0.3189 - val_loss: 1.8143 - val_acc: 0.2798
+8400/8400 [==============================] - 0s     
+Using [1] number of hidden neurons yields. Accuracy score: 0.2919
+
+&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
+  &lt;div class=&quot;input&quot;&gt;
+    &lt;div class=&quot;prompt input_prompt&quot;&gt;
+      In [78]:
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;inner_cell&quot;&gt;
+      &lt;div class=&quot;input_area&quot;&gt;
+        &lt;div class=&quot; highlight hl-ipython3&quot;&gt;
+          &lt;pre&gt;&lt;span class=&quot;c&quot;&gt;# Plot the results for comparison&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;suptitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;(Test validation score) against (Number of hidden neurons) on MNIST data&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_figwidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_figheight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;111&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_hiddens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;-o&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;markersize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;markerfacecolor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;r&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Number of hidden neurons&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Accuracy score&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;output_wrapper&quot;&gt;
+    &lt;div class=&quot;output&quot;&gt;
+      &lt;div class=&quot;output_area&quot;&gt;
+        &lt;div class=&quot;prompt output_prompt&quot;&gt;
+          Out[78]:
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;output_text output_subarea output_execute_result&quot;&gt;
+          &lt;pre&gt;&amp;lt;matplotlib.text.Text at 0x7f98e4af1e10&amp;gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      
+      &lt;div class=&quot;output_area&quot;&gt;
+        &lt;div class=&quot;prompt&quot;&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;output_png output_subarea &quot;&gt;
+          &lt;img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA/MAAAIbCAYAAACnnM74AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz AAALEgAACxIB0t1+/AAAIABJREFUeJzs3XmYXGWZsPH7SQiKJkBwQQUDCCMIQQ1iDG5EcUFRcVd0 XPBz1AHUQR3RcSGMMMqAgiiDy7igI+7rKOCCRMRBEyCAYTGIQABBWRJNWEP6+f54T5FKpbq7qruq u6vq/l1XX919znvOeetsdZ7zbpGZSJIkSZKk3jFtsjMgSZIkSZLaYzAvSZIkSVKPMZiXJEmSJKnH GMxLkiRJktRjDOYlSZIkSeoxBvOSJEmSJPUYg3k1FRFfioi/RMQDJjsvvSYivhMRQxGxTd20Papp J7WxnkOrZV7anZzet51N8qvuiIgjI+KOiNh+svPSCRFxfkSsmex8tKO6rtZHxB6TnZdO6cdrOCK2 j4ivR8T11fFaHxHDPrNExAOrffCjNrZxQLXMu9pY5vhqmb3aWOb8iPh7q+nVGyJi3+pcePlk50Xd NZbrXpooBvPaREQ8DngdcHxm3hERO1Q3sVZ/1kfE07ucx7aD4wmU1U+r00db17i08CWUwNB4t6OW nAjcDRwz2RnpkAk9d8Z73UfELOBI4DuZeWnDvFuqdd8SEVsOs/z5VZqHjmX7XTSWe8tU9w3gZcAv gH8HFmVmN861sdyTJ/w+rqknM38F/Ar4aERsNtn5aVVEHFf3vPbpEdIdUJfukoZ5e9TN+8Uwy9de sF02zLKXNFnmARHx/ohYEhF/i4i7I+KG6v9PRsQ+VbpDo73n0vG+TOvIPbYfX7xq8vXMzUcT6iPA HcDJ1f+rgUVN0i2i3NwWAdEw75qu5Kx3/QF4DLBqErY92pfQ24EPMDl5GyiZ+beI+Czwnog4JjNX THaexumlwP0mOxNtOBx4EHBsk3m162Q28EHgvSOkURdFxFbAk4HvZuYbu7ipX1Luy3/t4jbU344F TgcOBj4/yXlp1zrgNRHxnsy8q8n8N1dpRooVEnhGRDw/M08fT2YiYmvgXGB34Hrgm8BfgK2AxwNv A2YA5wFL2PS59NHAa4AVwGkN8+4eT946yO8QdZzBvDYSEY8Eng98LTPvgBKAUEpGGtMuquZ/ZCLz WNv8JGxzzDLzXsoXzGQYcV9l5k3ATROUF8H/UALFtwLvnuS8jEtmXjfBmxzzdV9V0X4zcEVmXjhM snXAjcBhEfHpzFw51u1pXLarft/YzY1k5p1M3n1Z/eHnlJdBb6W3gvkEfgy8GHgF8NX6mRHxMOAA 4EeUl7bDuRrYATg2Is7IzPEEqu+jBPLfA17ZWBMnImYDuwBk5lJgacP8A6iC+czc5Jl1ioiG39K4 Wc1ejQ6m3GS+2akVVtX0PxsRV0fEXRFxc0R8t6rO35h264j4SERcGhF/r6pZrYiI/4mqjWtEHAdc QvkyOqyhKtWwXzoRMStKe+WrR0jz1Wo9T6+b9sqIOC0iroyI2yNiTUT8LiLe2sY+GLZ6cETsFhE/ iIhV1brPiYj9RljXsyPiCxFxebWPbo+IiyPifY1V/SLiZqDWHrRWRXijKmcjVfuKiNdFxG+q43B7 RFwUEe9qVqWwqp58SbWfPxkR11XH+w8R8Y5W91W1rn+I0m/DVRFxZ7XuiyPi0xExs0n610fE2RFx W5X+TxHxlYiY25Bui4j4cEQsr86F1RHxy4h4UZN13nfMImL3iPheRPw1SjOSverSPThKU4Yrqm3f FhFnRsS+zT5bZi4HLgNeHyO0AW7Iy/0j4p3Veq+t9ustEXFGRDxzhOUOjIjfVsfuloj4dkTsNNwx j4i3VOfin6r9syoiFscwbUKjSVvgqGuHHBFPjIifVufPmoj4eTRp7hFdvO7r7A9sT6m+PZwhSi2V +wMfbWGdo1b9b2Ef7RMRv6g+861R2olvW6V7THXe3VIdw59FxG4jZGd6lCqqK6pz5NqI+FgM0/dJ tHdvvq+5TkQcHBFLI2JtNKkqO8y2HhPlPvrnKFVnr4tyH9uhId3NwHI2Pc7t9DeybUR8OUq/L3dG uXe8ukm6YdvM1x2XNdV1cEZEzBtlu2+Mco+8MyJurD7fg0dZ5kXVcb21OgYrIuKYiHhgk7SdvMee X11rMyJiUZR77V0RcU1E/HtETB9mubkR8bUofRncXR3PL0fETsNtY5j1NO0Tpu4zzo6IT1Xn8Lr6 Y1TNOz7Kd3LtXvjjiHhqk+105X5Uk5nrge8A85pdNyOJiOdX59iq6py5PCKOGubYj+l4jeL7wK3A PzWZ9yZgOqO/oFgBfAnYg/KydDz2oVz3/9WsSU1mrqqC+K5p97qPFp8Po2pyQHkxEsDNdfe2S+rS PSkiTq6ugdp5cUVEfDSaPPtIYMm8NvVsys30N51YWUQ8mVIF7YHAGcC3gG2BlwDPi4j9M/OcKu00 SrXHxwG/rpYbAuYAzwJ+BlwK/BTYAjiEUtWqvmrXRm2z6mXmmoj4HnBQROxbtXerz+vMKl9/quWp cjxwG2Wf/BnYmrKfTomIx2bmoe3ul7pt7ll91pmUN+CXAbtR9tWZwyz2Yco+/B3wg2rZpwH/ATwF eGFd2mOrz7QA+FyVf9i4ylnTal9RHp4Po5TanwrcVa37eOCZEfHChrfwSTkuZ1d5+iHlS+ulwIkR MT0zTxhxh5Tt7gCcD2xOKTn4JvAAYGfKy6b/BNZWaYNyTr2syue3KMfqkZRz5iJKYEBE3B9YDDyR EhSeBGxJKZX4QUT8W2Z+rEmW5lL29TLgK8As4PZqnY+mnLMPrz73j6t1vgg4KyL+MTObBY/nUh6g nkBD6cIwtqPs93Mp58Ut1bQXAT+PiNdk5kYv4CLiTcB/A2uArwE3A/tSqij+kYZjXj0Mfqb6rL+k VG98CPAC4FsRcURmHteQr5FKYZ5G6RvgbOCzwKMo5+LZETG3Vqrf7eu+zrNo4d6WmadFxOHAqyLi hMw8v4V1j7jKEebtS7luf0bZR3sBrwJ2j4jXAecAF1AelncBDgR+GhG7ZOa6Juv7PKV6+rco18gB lFog+0TEM6vAA2jv3lz3OWrNqp4B/C+lVPL+o+2AiHhatY37UQKIKykP/wcDB1b341ofBscCO7Lp cV4y2nYqDwV+S7kPnFZ9vlcBX4uIuzPz+w3pm937nkW5lmv3l2sp941zq59mn/FDwFGUa/O/KfeI AyjndFMR8Z/AeyjX2g8p1+gTgPcDz4mIpzVUf+7IPbZuXUEpBX0c5b5yO+Ue/0FK1eZ3NuT3JcDX q2V/xIZS2VcDL4iIp2bmFQ3bGC0PzaY9gHLuz6AchzuB2v3iIZR72E7A/1GOz8OAVwL7R8QbMvNr Tdbb6ftRvXMp5+tzgItH+cxU23kX5Z6+mg3fW88CPgQcEBFPr9WOrNsvbR2vFtxD+U47PCIe3dDs 602U787ftrCeDwEHAUdFxNca8t2OW6vfte/VCTWW657Wnw/vodw7X0V5xvtPynkNGzfzOYxyfz2H coxnVHk4Anh2RDw5M+8Z72dVn8lMf/whM6EET3dSqqG2kn4IWD/C/PtR2j39HXhCw7w5lBvYVcC0 atqCap1fbrKuacCWdf/vUaU9qc3P+KxquS82mXdwNe/DDdN3apI2gG8D64HHNMyrTd9mtPxSHkbW A29smH5Qbf8CL22Yt+Mwn+3jVfrnNUw/rpq+1zDLNcvvs6vtXwFsXTd9M8oD/HrgsIb13FxN/yYw o2769pTA4s8tHqP3Ndsn1bwHApvV/f+uKp+/BLZocs48tO7/Y6q03wSibvrDKV/C64DHNjlm64Ej hsnr+ZQv6QMaps8GLqc8qG3ZZLk3Vet+d4v75P7Atk2mz6YERtfXrqNq+oOqfb4G+IeGZU6q+1zb NMzb5NyiXMe/oTw4zm6YtxT4e8O0A+rW/5KGebXj9bG6aV2/7qtll1R5mjXM/JuBO6q/9622s7jJ 513fcF6NmKcW9tELGuZ9vZq3mk2vsY9Vyxzc5Boeqs6D+rxNowQj64F3NhzTlu/N1fTjqm3cBuza xn6fTulDpdlnrd1zlzZMb/s4U+4NtX36iYZ5T6im/3aY4/CuhvxeW6V/RkP699dtY6+66btR7h83 UHed1u3/oSbnwAuq6T8DHtAw75Bq3lFNztFx32PrzsshqpfJddNnUgLnO9n42tuWcj+5nobvRGBe lf5Xo537dfMOpfn3W+0zfh/YvMlyX6vmH9cwfXfKPWot8JBhrrWO3o/qpj+qWuZ/W9z3u1bny1+B OQ3zvlzl9fjxHK9Rtl97Jnhlde4O1e9PNjwnHUZ5STAEXDLMNXp69f+R1f+LmlyTlw2zbOM6X1VN v4PSWez+1N3PWvhctWP9o1aXqVu27eu+mjfu58OG+XOGmf72arl/bvez+dP/P1azV71HsOEhrxNe Xq3zuMy8oH5GlraoJ1JKYJ7csNwmHbFk5lBmdmJon7Mon+9lEbFFw7w3UG7YG7Udy8yrm+QngU9R btrPHUtGqlLdBcClmfnlhvV/nRIobiIzrxlmlZ8cT34avIlSEnBkZq6u2/a9lHbeQfMqdQm8PetK DTPzesob5m0jYk6L2w+anwe3V3moeTtwL/DWLO1f69MOZWb9G++DKQ9Q76mOXy3djZQgaTrlcze6 hvIWfeMMlpLNvYCvZuZPGra9itKR5CxK6Xmj2jX2qCbzNpGZd2XmX5pMX0UpWXk48Ni6WS+nlG79 d2Ze2bDYkZSHpWbbuabJtLspJfb3pwS5rTozNy0F/Vz1e36T9N287qHs6zWZOepQellq7fwYeFo0 aYLRQWdk5o8bpn2l+n1dZjb2NP0VyrXx+CbrSuA/68/5LFVV/7Vapv7cHuu9OSkB9h9G+Vz19qO8 IPhZ42fNzC9Ras/sFRHNPtNYrKI8fNdv5wJKzZp5MXrTlv0oNXt+kplnN8w7ng21m+q9gRLofbz+ Oq3b/828k7I/35wNJZmZ+V+U2jOvbbJcp+6xtXW9KzPX1q1rLeVlweZsfJ69mXJPeX/jd2JmLqN8 bz41Ojfs5uHZUAJZVT9/BeWF0pENebiMUuK+Bc33WzfvR23dz4E3suF8aeyX4whKzbmDmyzXzvFq SZaaFOdSmn3Vauv+E+Xz/08bqzqOUjvu3VHa27ctS+2yIygvyN9OeRF2U5TmJF+OiCeNZb0tGst1 3/HnwybnQ81nKM8vnXi+U5+xmr3qPaT6fVuH1reA8uXz6Ig4ssn8PSg3u8dQvkwupJQE/1NE7Eqp xvcb4MKGAG7MMjMj4quU0t+XUX1ZVVW7nwac03hzjjIM1RGUm+iOlAea+1bJhs6a2lVrq3fOMPN/ RSlR2kiU4bXeRQkSd6G8ma91pjKe/NSrtRFr/FIjMy+JiNuAuVW1zvV1s//cEEDX1DpKmw2M1qnY 9yhNCb4cES+mlFz9pjGAqI7LDsAfmwSsNKR9GKUq5hXZvNO2WpW+Zm3jLqwP/uvsU/1+6DDn9/Zs OL8b1aoTtjzEWRXsvIcSYD2cjXuRrx33i6r/5zFMlfLMXBVlqKBm59ajKOf6wir/9S+82j23Lmic kJlrI+JvlPOgpuvXfRXAzaaUvLTqvZSSoWMj4sfZnWHRNtlHbHhobNZJ3w3V7+ECpk3uJZl5aUTc CuwREZtV+7Tde3O9dtus7lVta5N7SaVWpXkeG87f8bisegHV6LpqG7OAv42wfC2/zfbluog4j007 BKvdN0ba/42jPiyglCQfXFoLbaQ2YaeImJEbN6noxD22Zojm+7x+XfX5BZhf3Sca7Vj9fgzjLxC4 bZiX1ntSnluXNr4AqfwS+Bea38e7dj/KzHsi4nZav5+P9P36l+r+PC8idmp4HmnneLXj85SmdC+J iLMpzXm+lZmro4wsMaoswxh/mPKC5GjG2H4+M4+LiJMpTRb2oeyrJ1OGS35dRLwvN23u1Qljue47 /nwYEZtTaq28glJrYks27t+sE8936jMG86pXC1g61cvmg6p1vWaUbc6E+74Qn0Z54/5SytvQAFZH xBeAD2Xz4VPa9WVKyc0b2PDm+Q3V71PrE1bt8y6kBE/nAV+kVH+9l/LFfQhjH5qr9iW5SYlrZZMe 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 tcZjBAAAgGu1tQ7zeyW5YO7xhdl8WH9mkg+v6ogAAABgZKq71+5kVY9P8ojuftbw+D8mWdfdhy/T 9nczK8k/sLt/vMzzazdwAAAAWGHdXdv72l1XciBb4aIke889vtVw7Gqq6u5Jjk1y8HJBPtmxiwYA AIAxW+sy+9OS7FtV+1TV7kkOTXLSfIOq2jvJiUme0t3nrvH4AAAA4FpvTVfmu/uqqnpukpMz+yLh uO7eUFXPnj3dxyb5yyS/neSNVVVJruzudWs5TgAAALg2W9N75gEAAIAdt9Zl9iuiqg6uqrOq6uyq OmJnj4frjqo6rqouraqvzR3bo6pOrqpvVNVHq+rGc8+9qKrOqaoNVfXwnTNqxq6qblVVn6iqr1fV GVV1+HDc3GPVVNX1quoLVXX6MPdeORw371hVVbVLVX25qk4aHptzrLqq+k5VfXX4nXfqcMzcY1VV 1Y2r6r3DPPp6Vd1vJefd6MJ8Ve2S2S73j0hy1yRPrKo77dxRcR1yQmZza94Lk3ysu++Y5BNJXpQk VXWXJH+Q5M5JHplf3xoC2+qXSf60u++a5P5JDht+r5l7rJru/kWS3+3u/ZPcPclBVfXAmHesvucl OXPusTnHWtiYZH137z93C6+5x2p7fZIPdfedk9wjyVlZwXk3ujCfZF2Sc7r7vO6+Msm7kxyyk8fE dUR3fybJ0r+gcEiStw0/vy3J44afH5vk3d39y+7+TpJzMpufsE26+5Lu/srw82VJNmT21z7MPVZV d18x/Hi9zP6f4Mcx71hFVXWrJI9K8pa5w+Yca6Fyzexj7rFqquq3kjyou09IkmE+/SQrOO/GGOb3 SnLB3OMLh2OwWm7e3Zcms9CV5ObD8aVz8aKYi+ygqrpNknsmOSXJnuYeq2kodz49ySVJFrr7zJh3 rK7/keT5SeY3bTLnWAud5B+r6rSqeuZwzNxjNd02yQ+q6oTh1qJjq+o3s4LzboxhHnY2u0ayKqrq Rkn+LsnzhhX6pXPN3GNFdffGocz+VkkeVFXrY96xSqrq0UkuHSqRNlc6as6xGh7Y3ffKrDLksKp6 UPy+Y3XtmuReSY4Z5t7lmZXYr9i8G2OYvyjJ3nOPbzUcg9VyaVXtmSRV9TtJvjccvyjJrefamYts t6raNbMg//bu/sBw2NxjTXT3T5N8KMl9Yt6xeh6Y5LFV9a0k/yezfRrenuQSc47V1t3fHf77/STv z6x82e87VtOFSS7o7i8Oj0/MLNyv2LwbY5g/Lcm+VbVPVe2e5NAkJ+3kMXHdUrn6isFJSZ4+/Py0 JB+YO35oVe1eVbdNsm+SU9dqkFznHJ/kzO5+/dwxc49VU1U3W9xBt6pukORhSU6Peccq6e4Xd/fe 3X27zP7/7RPd/ZQkH4w5xyqqqt8cqt9SVTdM8vAkZ8TvO1bRUEp/QVXdYTj00CRfzwrOu11XetCr rbuvqqrnJjk5sy8jjuvuDTt5WFxHVNW7kqxPctOqOj/JS5O8Ksl7q+oPk5yX2S6T6e4zq+o9me3I e2WS/9zdyrPYZsMO4k9OcsZw/3IneXGSo5K8x9xjldwiyduGnXJ3yawq5OPDHDTvWEuvijnH6toz yfuqqjPLP+/s7pOr6osx91hdhyd5Z1XtluRbSZ6R5DeyQvOuzEsAAAAYlzGW2QMAAMCkCfMAAAAw MsI8AAAAjIwwDwAAACMjzAMAAMDICPMAAAAwMsI8AGyFqjqhqk7a2eOYV1WHVNXZVfUvVXX8Jtp8 u6r+dAv9bE2bn1XVUzfz/E2ramNVPXjrRg8A7AhhHoBrvap66xAUX7Lk+EOG47+9s8a2k70lyXuT 7J3keTvQz32SvHEFxtMr0AcAsBWEeQDGoJP8PMnzq+qmyzw3WlW163a+7iZJbprk5O6+pLt/tr1j 6O4fdvf/297Xzw9rBfq41qqq3Xb2GABgkTAPwFh8Msl3kvzXTTVYbqW+qvYZjt1rSZuDq+pLVXVF VX26qvaqqoOq6qtDSflJQ2Beeo6XVNUlQ5vjq+p6S55/QVV9c+j3q1X15GXGcmhVfbyqLk/yrE1c y02q6m1V9aOhr3+sqrssXkOSH2X2RcYnq+qqLZS336Cq3lRVP6mqC6rqz5ec62pl9lV1+6paqKqf V9WGqnr0MuO7b1V9cWjzpST3W6bNXarqH6rqp1V1aVW9q6r2nHv+hKr6YFUdXlUXDtd6fFVdf1MX Mvf5HVRVp1TV5VV1WlXtv6TdA4ZruHzo+41V9a/mnv9kVb1hyWuudivF0OaNVfWaqvpeks8Mx29d Ve8bruunVXViVe0197qXVtUZVfWEYS78dGg/Py/3q6qPDZ/Jz6rq9OFzBYCtIswDMBYbk7wwyR9V 1W030265lfrljh2Z5I+TrEuyR5L3JHlJkv+U5CFJ9kvy0iWvWZ/k7kkOSvL7SR6e5KjFJ6vqFUme keQ5Se6c5L8neVNVPXJJP69McnSSuyR5/yau421J7pvkMcN/r0jy4eHLg88muWtmK+H/Lsktknxu E/0kyZ8k+VqS/YfxvrqqrhG+h2uouTHdL8kfZvZe7T7X5oZJ/iHJN5PcK7PP5bWZe5+r6neSfGo4 732SPDTJDZN8YMkpHzRcy0OT/MFwPVtzy8Ark7xguKYfJnnH3LnvluSjw3XcbejzHkmW3VdgCxa/ jDkwyVOH9+ekJP86s3myPsktk7xvyetuM1zPIUkeNozzFXPPvyvJxZm9N/fI7D1eieoIACZiu0r7 AGBn6O6PVNVnMwtFT9qGly5X/v0X3f25JKmqNyV5Q5J7dfdXh2NvS/L4Ja/5ZZKnd/fPk5xZVUck eUtVvWg4x39J8rDu/uzQ/rwhNB+W5MNz/byhu5eGv18PtmrfzEL8gxb7qqqnJDk/yZO7+/hhpThJ ftzd39tEV4tO7u7Fe+KPrqrDMwvPX1im7cOS3CnJbbr7ouHcf5Lkn+baPDnJbkmeMbwXG4YvMv73 XJvnJPlKd7947rqenuSHVXWf7v7icPgnSf6ouzvJN6rqvcPYjsrm/UV3f3ro978l+aequmV3X5zk z5O8u7tfN7T9VlUdluTLVXWz7v7BFvqe9+3ufv7cNTwssy96btfdFwzHnpTkm1V1UHd/Ymj6G0me 1t2XDW2OTfL0uX73SfKa7j5ncYzbMCYAEOYBGJ0jknyuql6zA310kjPmHl86/Pf/Ljl28yWv+9oQ Xhd9PrMV69snuf7w7yOzxdtf2TXJt5f086UtjO/OSa5KcsqvBtz906o6I7PV/G31tSWPL841r23R nZJctBjkB1/IrDJivs1y78X8hd87yUOqaum9/J3Z+7UY5s8cgvz82NZt6kLm+pj//C4ezn3z4ed7 J7l9VR0616bmzr0tYX7pZ3WnJBcvBvkk6e5vV9XFmX02i2H+vMUgPzfG+ff8b5IcN3zB8fEkJ3b3 N7ZhXABMnDAPwKh092lV9fdJXpPkZUueXgyc86FyU5uWXTnf7dD3VUuObc3taIvnWmz7e0kuWNLm yiWPL9+Kfjdlezb8W3r+rb22HbFLZqX4f5ZrVkZcOvfz9o7tGp/f3Ot2yWyn/79Z5tyLX1JsXOa5 5ebKtnxW85/NZq+ru/+qqt6R5JFJDk7y0qp6dne/dRvOB8CECfMAjNGLk5yZWQia9/3MAtotMruP Opndq7xSO97frapuMLciff8kv0hybmZl1b/IrDz9Uzt4ng2ZBb/759ebrv1WZvd/b89939t67r2q aq+51fn75eoBe0OSpy3zXsy/z19O8h+SnL/kS5K18OUkd+3upRUR876f2TyZd49cs4piqQ1JbllV e3f3+UlSVbfL7L75r2/LILv73Mz2Tji6qt6Y5JlJ3rotfQAwXTbAA2B0hhD05lxzo7RvZrYqfmRV /Zuqenhmm9ottb1/Qm3XJMcPu7Q/LLMN7o7t7p8PJdWvTfLaqnrGsCP8Parq2VX1zG05SXd/M7NN 1t5cVQcOG7q9I7P7y9+1nWPfWh9L8o0kbx/Gf//MVrjnV5rfldltACfMvRcvXtLPMUlunOQ9VbWu qm5bVf+2qt48bKC3I7b0+R2VZF1V/W1V3XP4LH5v2Bth0SeSPLKqHlNVd6iqv05y6y2duLs/llmJ /zur6t5VdZ/MPpsvdvfCVg2+6vpVdfSwM/8+w74KB2YbvwwAYNqEeQDG6mWZbUj3q9Xg7v5lkick uV2Sr2S2G/2Llnnt9q7UfyqzwPXJJCdmFnyPmDv/X2a2K/mfZXb//cmZ7Xo/v9q7ted+epJTM9v9 /ZQk10tycHf/Yhv72prd/effw07yuMwC8ymZrRS/LLOqg8U2lyd5dJJ9M7un/NWZ7SyfuTbfTfLA zEL/hzN7P/5nZju2z1/D9tjsNXX3GUkenNkmcwuZzYVXJLlkrv3xw7/jMqt++GmSv9+K8yTJYzNb 2f9EZve7X5zZjvlb66rM/oLCCUnOymwufTazeQMAW6WuvucMAAAAcG1nZR4AAABGRpgHAACAkRHm AQAAYGSEeQAAABgZYR4AAABGRpgHAACAkRHmAQAAYGSEeQAAABiZ/w8Z/QTL9ilLHwAAAABJRU5E rkJggg==&quot; alt=&quot;&quot; /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;
+  &lt;div class=&quot;prompt input_prompt&quot;&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;inner_cell&quot;&gt;
+    &lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
+      &lt;h3 id=&quot;What-can-we-learn?&quot;&gt;
+        What can we learn?&lt;a class=&quot;anchor-link&quot; href=&quot;#What-can-we-learn?&quot;&gt;¶&lt;/a&gt;
+      &lt;/h3&gt;
+      
+      &lt;p&gt;
+        From here we can see the the number of hidden neurons does affect the model performance. When a neural network has too few hidden neurons (&amp;lt; 16), it does not have the capacity to learn enough of the underlying patterns to distinguish between 0 &amp;#8211; 9 effectively. When the neural network has &amp;gt;= 16 neurons, the neural network start to do better. At increasing number of hidden neurons (&amp;gt;= 128), the number of hidden neurons does not help too much for this problem.
+      &lt;/p&gt;
+      
+      &lt;p&gt;
+        Note that I am only illustrating one single parameter here. There are a lot of other parameters like how the neural network is structured, the learning rate, and many other parameters to tune. Do play around with it to learn how neural networks behave.
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
+  &lt;div class=&quot;input&quot;&gt;
+    &lt;div class=&quot;prompt input_prompt&quot;&gt;
+      In [ ]:
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;inner_cell&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 03 Jan 2016 04:26:42 -0800</pubDate>
+        <link>http://ckieric.webfactional.com/how-does-the-number-of-hidden-neurons-affect-a-neural-networks-performance/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/how-does-the-number-of-hidden-neurons-affect-a-neural-networks-performance/</guid>
+        
+        <category>Keras</category>
+        
+        <category>Tutorial</category>
+        
+        
+        <category>Machine Learning</category>
+        
+        <category>Python</category>
+        
+      </item>
+    
+      <item>
+        <title>Why is Keras Running So Slow?</title>
+        <description>&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg&quot; alt=&quot;meme&quot; width=&quot;512&quot; height=&quot;340&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;More notes for myself… so it may not be helpful for you who bumped into here. 😉&lt;/p&gt;
+
+&lt;h1 id=&quot;why-this-article&quot;&gt;Why This Article?&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/&quot; target=&quot;_blank&quot;&gt;Setting Theano correctly&lt;/a&gt; &lt;strong&gt;is not enough&lt;/strong&gt; to ensure you can run deep learning software correctly. In our case, it will be Keras, and it can slow to a crawl if not setup properly.&lt;/p&gt;
+
+&lt;p&gt;Again, there could be many causes but I try to outline a clean step what I did, the performance I run a good setup, so you can compare. Hopefully you can glean some places where you did wrong.&lt;/p&gt;
+
+&lt;h1 id=&quot;specifications&quot;&gt;Specifications&lt;/h1&gt;
+
+&lt;p&gt;My server has the following specifications finished running the steps outlined &lt;a href=&quot;http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;OS: Ubuntu 14.04 LTS, X64&lt;/li&gt;
+  &lt;li&gt;GPU: Nvidia Geforce GTX 780&lt;/li&gt;
+  &lt;li&gt;Ubuntu 14.04 LTS&lt;/li&gt;
+  &lt;li&gt;CUDA 7.5&lt;/li&gt;
+  &lt;li&gt;Theano 0.7.0&lt;/li&gt;
+  &lt;li&gt;Numpy 1.8.2&lt;/li&gt;
+  &lt;li&gt;Kera 0.2.0&lt;/li&gt;
+  &lt;li&gt;Scipy 0.13.3&lt;/li&gt;
+  &lt;li&gt;NVIDIA-SMI 352.39&lt;/li&gt;
+  &lt;li&gt;Graphics Driver Version: 352.39&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;instructions&quot;&gt;Instructions&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Make sure your Theano configuration file, located at ~/.theanorc, is correct:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;$ cat ~/.theanorc
+[global]
+floatX = float32
+device = gpu
+optimizer = fast_run
+
+[lib]
+cnmem = 0.8
+
+[nvcc]
+fastmath = True
+
+[blas]
+ldflags = -llapack -lblas&lt;/pre&gt;
+
+&lt;p&gt;Use this to see your Theano settings in runtime and make sure it matches what you have above. Only some output is shown since it is very long:&lt;/p&gt;
+
+&lt;pre&gt;$ python -c &lt;span class=&quot;s1&quot;&gt;&#39;import theano; print theano.config&#39;
+&lt;/span&gt;
+Using gpu device 0: GeForce GTX 780 (CNMeM is enabled)
+floatX ((&#39;float64&#39;, &#39;float32&#39;, &#39;float16&#39;)) 
+ Doc: Default floating-point precision for python casts.
+
+Note: float16 support is experimental, use at your own risk.
+ Value: float32
+
+warn_float64 ((&#39;ignore&#39;, &#39;warn&#39;, &#39;raise&#39;, &#39;pdb&#39;)) 
+ Doc: Do an action when a tensor variable with float64 dtype is created. They can&#39;t be run on the GPU with the current(old) gpu back-end and are slow with gamer GPUs.
+ Value: ignore
+
+...
+...
+...
+
+&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Install Theano bleeding edge (0.7.0), since the Keras examples needs ‘relu’.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git&lt;/pre&gt;
+
+&lt;p&gt;Detailed instructions &lt;a href=&quot;http://deeplearning.net/software/theano/install.html#bleeding-edge-install-instructions&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;3. Get Keras source and run the mnist_mlp.py to check the performance.&lt;/p&gt;
+
+&lt;pre&gt;$ git clone https://github.com/fchollet/keras.git
+Cloning into &#39;keras&#39;...
+remote: Counting objects: 6572, done.
+remote: Total 6572 (delta 0), reused 0 (delta 0), pack-reused 6572
+Receiving objects: 100% (6572/6572), 1.29 MiB | 894.00 KiB/s, done.
+Resolving deltas: 100% (4571/4571), done.
+Checking connectivity... done.&lt;/pre&gt;
+
+&lt;pre&gt;$ cd keras/examples
+$ $ time python mnist_mlp.py 
+Using Theano backend.
+Using gpu device 0: GeForce GTX 780 (CNMeM is enabled)
+60000 train samples
+10000 test samples
+Train on 60000 samples, validate on 10000 samples
+Epoch 1/20
+0s - loss: 0.2805 - acc: 0.9148 - val_loss: 0.1165 - val_acc: 0.9636
+Epoch 2/20
+0s - loss: 0.1151 - acc: 0.9651 - val_loss: 0.0960 - val_acc: 0.9685
+Epoch 3/20
+0s - loss: 0.0800 - acc: 0.9754 - val_loss: 0.0670 - val_acc: 0.9787
+Epoch 4/20
+0s - loss: 0.0624 - acc: 0.9806 - val_loss: 0.0703 - val_acc: 0.9775
+Epoch 5/20
+0s - loss: 0.0506 - acc: 0.9837 - val_loss: 0.0622 - val_acc: 0.9795
+Epoch 6/20
+0s - loss: 0.0414 - acc: 0.9867 - val_loss: 0.0641 - val_acc: 0.9803
+Epoch 7/20
+0s - loss: 0.0347 - acc: 0.9892 - val_loss: 0.0665 - val_acc: 0.9802
+Epoch 8/20
+0s - loss: 0.0295 - acc: 0.9906 - val_loss: 0.0769 - val_acc: 0.9789
+Epoch 9/20
+0s - loss: 0.0258 - acc: 0.9915 - val_loss: 0.0586 - val_acc: 0.9830
+Epoch 10/20
+0s - loss: 0.0215 - acc: 0.9928 - val_loss: 0.0577 - val_acc: 0.9841
+Epoch 11/20
+1s - loss: 0.0197 - acc: 0.9932 - val_loss: 0.0605 - val_acc: 0.9844
+Epoch 12/20
+0s - loss: 0.0180 - acc: 0.9940 - val_loss: 0.0560 - val_acc: 0.9863
+Epoch 13/20
+0s - loss: 0.0163 - acc: 0.9945 - val_loss: 0.0630 - val_acc: 0.9838
+Epoch 14/20
+0s - loss: 0.0136 - acc: 0.9956 - val_loss: 0.0608 - val_acc: 0.9857
+Epoch 15/20
+0s - loss: 0.0130 - acc: 0.9958 - val_loss: 0.0616 - val_acc: 0.9838
+Epoch 16/20
+0s - loss: 0.0114 - acc: 0.9960 - val_loss: 0.0584 - val_acc: 0.9854
+Epoch 17/20
+0s - loss: 0.0098 - acc: 0.9967 - val_loss: 0.0672 - val_acc: 0.9849
+Epoch 18/20
+0s - loss: 0.0106 - acc: 0.9964 - val_loss: 0.0678 - val_acc: 0.9846
+Epoch 19/20
+0s - loss: 0.0082 - acc: 0.9974 - val_loss: 0.0749 - val_acc: 0.9835
+Epoch 20/20
+0s - loss: 0.0085 - acc: 0.9971 - val_loss: 0.0685 - val_acc: 0.9843
+Test score: 0.0685058810504
+Test accuracy: 0.9843
+
+&lt;span style=&quot;color: #00ff00;&quot;&gt;&lt;strong&gt;real 0m24.560s&lt;/strong&gt;&lt;/span&gt;
+user 0m23.216s
+sys 0m1.328s
+
+
+&lt;/pre&gt;
+
+&lt;p&gt;As you can see, the whole run takes only 25 seconds, and it may take even less or maybe 2 minutes for you. Anything longer than that looks strange and you should inspect.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Install &lt;a href=&quot;https://developer.nvidia.com/cuDNN&quot; target=&quot;_blank&quot;&gt;CuDNN&lt;/a&gt; if you are using ConvNet. The basic implementations of convolution in Theano are significantly slower.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Downloading CuDNN is problematic, because you have to register an account on Nvidia and wait for hours or days for manual approval. Someone uploaded a version of CuDNN 6.5 for download on Google Drive &lt;a href=&quot;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; if you don’t want to wait.&lt;/p&gt;
+
+&lt;p&gt;Once you have it, just unzip the tgz file.&lt;/p&gt;
+
+&lt;pre&gt;$ tar zxvf cudnn-6.5-linux-x64-v2.tgz
+$ cd cudnn-6.5-linux-x64-v2
+$ ls
+cudnn.h CUDNN_License.pdf INSTALL.txt libcudnn.so libcudnn.so.6.5 libcudnn.so.6.5.48 libcudnn_static.a
+$ pwd
+/home/echio/src/cudnn-6.5-linux-x64-v2&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Make sure your CUDA and CuDNN are both accessible to Theano.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To check if your Theano is using CuDNN. Run this Python code below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Run this python code
+from theano.sandbox.cuda.dnn import *
+print(dnn_available())
+print(dnn_available.msg)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I also captured the environment variables, replace echio with your username:&lt;/p&gt;
+
+&lt;pre&gt;$ echo $CPATH
+
+$ echo $LD_LIBRARY_PATH
+/usr/local/cuda-7.5/lib64:
+$ echo $LIBRARY_PATH
+/usr/local/cuda-7.5/lib64:
+$ python
+Python 2.7.6 (default, Jun 22 2015, 17:58:13) 
+[GCC 4.8.2] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&amp;gt;&amp;gt;&amp;gt; from theano.sandbox.cuda.dnn import *
+Using gpu device 0: GeForce GTX 780 (CNMeM is enabled)
+&amp;gt;&amp;gt;&amp;gt; print(dnn_available())
+False
+&amp;gt;&amp;gt;&amp;gt; print(dnn_available.msg)
+&lt;strong&gt;Theano can not compile with cuDNN. We got this error:&lt;/strong&gt;
+&lt;strong&gt;/tmp/try_flags_sbkMKM.c:5:19: fatal error: cudnn.h: No such file or directory&lt;/strong&gt;
+ #include &amp;lt;cudnn.h&amp;gt;
+ ^
+compilation terminated.&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://goo.gl/bTW22Q&quot; target=&quot;_blank&quot;&gt;Googling the error message&lt;/a&gt; doesn’t help too much.&lt;/p&gt;
+
+&lt;p&gt;You need to add the location of the 3. into CPATH, LD_LIBRARY_PATH and LIBRARY_PATH. This is what my .bashrc looks like this (replace echio with your username):&lt;/p&gt;
+
+&lt;pre&gt;# ~/.bashrc
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:/home/echio/src/cudnn-6.5-linux-x64-v2:
+export LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:/home/echio/src/cudnn-6.5-linux-x64-v2:
+export CPATH=$CPATH:/home/echio/src/cudnn-6.5-linux-x64-v2:
+export PATH=$PATH:/usr/local/cuda-7.5/bin&lt;/pre&gt;
+
+&lt;p&gt;If you instead see this error message:&lt;/p&gt;
+
+&lt;pre&gt;ERROR (theano.sandbox.cuda): Failed to compile cuda_ndarray.cu: libcublas.so.7.5: cannot open shared object file: No such file or directory&lt;/pre&gt;
+
+&lt;p&gt;You probably didn’t have CUDA environment variables setup properly. See the above ~/.bashrc lines for correct setup.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Run this code again.&lt;/p&gt;
+
+    &lt;p&gt;# Run this python code
+ from theano.sandbox.cuda.dnn import *
+ print(dnn_available())
+ print(dnn_available.msg)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You should see below when executed in a Python REPL.&lt;/p&gt;
+
+&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; from theano.sandbox.cuda.dnn import *
+Using gpu device 0: GeForce GTX 780 (CNMeM is enabled)
+&amp;gt;&amp;gt;&amp;gt; print(dnn_available())
+True
+&amp;gt;&amp;gt;&amp;gt; print(dnn_available.msg)
+None&lt;/pre&gt;
+
+&lt;p&gt;This is good! Re-run your Keras code and hopefully it will be fast this time…&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;This may or may not solve your problem, but it certainly solved some of my problems. You will probably have to learn to debug things a bit to figure out how to get it to run well.&lt;/p&gt;
+
+&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://deeplearning.net/software/theano/library/config.html&quot; target=&quot;_blank&quot;&gt;http://deeplearning.net/software/theano/library/config.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&quot; target=&quot;_blank&quot;&gt;http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ&quot; target=&quot;_blank&quot;&gt;https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; &lt;/p&gt;
+</description>
+        <pubDate>Sat, 05 Dec 2015 08:31:15 -0800</pubDate>
+        <link>http://ckieric.webfactional.com/why-is-keras-running-so-slow/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/why-is-keras-running-so-slow/</guid>
+        
+        <category>Advice</category>
+        
+        <category>I Hate Linux</category>
+        
+        <category>Keras</category>
+        
+        <category>Linux</category>
+        
+        <category>Theano</category>
+        
+        <category>Tutorial</category>
+        
+        
+        <category>In Practice</category>
+        
+        <category>Machine Learning</category>
+        
+      </item>
+    
+      <item>
+        <title>How to Setup Theano to Run on GPU on Ubuntu 14.04 with Nvidia Geforce GTX 780</title>
+        <description>&lt;p&gt;Documenting the steps how to setup Theano to run on GPU on Ubuntu 14.04 so I can refer to this in the future. With this successfully installed, you can run Keras, convnet, Theano, etc properly.&lt;/p&gt;
+
+&lt;h1 id=&quot;whythis-article&quot;&gt;Why This Article?&lt;/h1&gt;
+
+&lt;p&gt;Have you ever met those painful issues just trying to setup your GPU for scientific programming:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Getting a blinking cursor after installing the “latest” Nvidia drivers?&lt;/li&gt;
+  &lt;li&gt;Getting a blinking cursor after installing the “latest” CUDA toolkit?&lt;/li&gt;
+  &lt;li&gt;Login loop in Ubuntu login screen?&lt;/li&gt;
+  &lt;li&gt;NVRM: rm_init_adapter(0) failed?&lt;/li&gt;
+  &lt;li&gt;NVIDIA: could not open the device file /dev/nvidia0 (input/output error)&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If yes, then read on.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color: #ff0000;&quot;&gt;&lt;strong&gt;I cannot guarantee your OS does not break after running the steps below, so please backup everything, run as your own risk.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;You may want to read the &lt;em&gt;Things That Does Not Work For Me&lt;/em&gt; part below first before following the &lt;em&gt;instructions&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;specifications&quot;&gt;Specifications&lt;/h1&gt;
+
+&lt;p&gt;My server has the following specifications:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;OS: Ubuntu 14.04 LTS, X64&lt;/li&gt;
+  &lt;li&gt;GPU: Nvidia Geforce GTX 780&lt;/li&gt;
+  &lt;li&gt;Fresh install of Ubuntu 14.04 LTS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;instructions&quot;&gt;Instructions&lt;/h1&gt;
+
+&lt;p&gt;If you fail in the middle of any of this steps, you are advised to restart and follow the steps carefully again. Use common sense. and if you don’t know how to fix it, too bad,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Download latest (or very recent) Nvidia display driver for Linux:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;wget http://us.download.nvidia.com/XFree86/Linux-x86_64/352.63/NVIDIA-Linux-x86_64-352.63.run&lt;/pre&gt;
+
+&lt;p&gt;2. Download latest (or very recent) CUDA Installation Run file for Ubuntu 14.04:&lt;/p&gt;
+
+&lt;pre&gt;wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run&lt;/pre&gt;
+
+&lt;p&gt;3. Get into recovery mode to install the files, because you cannot install your display driver with X server on.&lt;/p&gt;
+
+&lt;pre&gt;reboot&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once you are in GRUB, select “Advanced Options for Ubuntu”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the recovery mode, select “network”, press yes. Once the networking has been enabled, this will also set your drive to read/write mode.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;6. In the recovery mode, select “root” to get a root prompt.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Go to where you downloaded the previous files at, and &lt;strong&gt;run NVIDIA-Linux-x86_64-352.63.run &lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;chmod +x NVIDIA-Linux-x86_64-352.63.run # Make it executable
+
+./NVIDIA-Linux-x86_64-352.63.run # Install Nvidia display driver&lt;/pre&gt;
+
+&lt;p&gt;For yes/no questions, take “yes”. For locations, press “enter” to take default values.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Setup your environment variables.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Make sure your LD_LIBRARY_PATH, LIBRARY_PATH and PATH includes the places it needs to include:&lt;/p&gt;
+
+&lt;pre&gt;# ~/.bashrc
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:
+export LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:
+export PATH=$PATH:/usr/local/cuda-7.5/bin&lt;/pre&gt;
+
+&lt;p&gt;Don’t forget to:&lt;/p&gt;
+
+&lt;pre&gt;$ source ~./.bashrc&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Run nvidia-smi&lt;/strong&gt; to confirm that your setup is correct.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;nvidia-smi&lt;/pre&gt;
+
+&lt;p&gt;nvidia-smi should be on your path already, so this should work. If it doesn’t:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You must have done something wrong, better go back to step 1. and do it all over again.&lt;/li&gt;
+  &lt;li&gt;You can see if it’s at /usr/bin/nvidia-smi .&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You should then see something similar to this:&lt;/p&gt;
+
+&lt;pre&gt;Mon Nov 23 21:01:17 2015 
++------------------------------------------------------+ 
+| NVIDIA-SMI 352.39 Driver Version: 352.39 | 
+|-------------------------------+----------------------+----------------------+
+| GPU Name Persistence-M| Bus-Id Disp.A | Volatile Uncorr. ECC |
+| Fan Temp Perf Pwr:Usage/Cap| Memory-Usage | GPU-Util Compute M. |
+|===============================+======================+======================|
+| 0 GeForce GTX 780 Off | 0000:01:00.0 N/A | N/A |
+| 34% 33C P0 N/A / N/A | 137MiB / 3068MiB | N/A Default |
++-------------------------------+----------------------+----------------------+
+ 
++-----------------------------------------------------------------------------+
+| Processes: GPU Memory |
+| GPU PID Type Process name Usage |
+|=============================================================================|
+| 0 Not Supported |
++-----------------------------------------------------------------------------+&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Go to where you downloaded the previous files at, and &lt;strong&gt;run cuda_7.5.18_linux.run&lt;/strong&gt; .&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;chmod +x cuda_7.5.18_linux.run # Make it executable
+
+./cuda_7.5.18_linux.run # Install Nvidia display driver&lt;/pre&gt;
+
+&lt;p&gt;For yes/no questions, take “yes”. For locations, press “enter” to take default values.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Re-run nvidia-smi&lt;/strong&gt; just to be sure everything is still working well.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;nvidia-smi&lt;/pre&gt;
+
+&lt;p&gt;You should then (again) see something similar to this:&lt;/p&gt;
+
+&lt;pre&gt;Mon Nov 23 21:08:56 2015 
++------------------------------------------------------+ 
+| NVIDIA-SMI 352.39 Driver Version: 352.39 | 
+|-------------------------------+----------------------+----------------------+
+| GPU Name Persistence-M| Bus-Id Disp.A | Volatile Uncorr. ECC |
+| Fan Temp Perf Pwr:Usage/Cap| Memory-Usage | GPU-Util Compute M. |
+|===============================+======================+======================|
+| 0 GeForce GTX 780 Off | 0000:01:00.0 N/A | N/A |
+| 34% 28C P8 N/A / N/A | 271MiB / 3068MiB | N/A Default |
++-------------------------------+----------------------+----------------------+
+ 
++-----------------------------------------------------------------------------+
+| Processes: GPU Memory |
+| GPU PID Type Process name Usage |
+|=============================================================================|
+| 0 Not Supported |
++-----------------------------------------------------------------------------+&lt;/pre&gt;
+
+&lt;p&gt;11. Reboot now back to desktop.&lt;/p&gt;
+
+&lt;pre&gt;reboot&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Time to install Theano and python, basically the first part of &lt;a href=&quot;http://deeplearning.net/software/theano/install_ubuntu.html&quot; target=&quot;_blank&quot;&gt;this guide&lt;/a&gt;. Run the following commands:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;sudo apt-get install python-numpy python-scipy python-dev python-pip python-nose g++ libopenblas-dev git
+sudo pip install Theano&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Copy and paste the below code into check1.py&lt;/strong&gt;. Now we need to make sure GPU is indeed working. I am copying the instructions from &lt;a href=&quot;http://deeplearning.net/software/theano/tutorial/using_gpu.html&quot; target=&quot;_blank&quot;&gt;deeplearning.net&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;theano&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sandbox&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;theano.tensor&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;T&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;vlen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;768&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 10 x #cores x # threads per core&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;iters&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rng&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numpy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RandomState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numpy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;asarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;floatX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fgraph&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toposort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;t0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Looping &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%d&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; times took &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; seconds&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Result is &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%s&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numpy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;isinstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Elemwise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fgraph&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toposort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Used the cpu&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;Used the gpu&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Run the check1.py to confirm that Theano is working correctly with CPU&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;THEANO_FLAGS=mode=FAST_RUN,device=cpu,floatX=float32 python check1.py&lt;/pre&gt;
+
+&lt;p&gt;This should give:&lt;/p&gt;
+
+&lt;pre&gt;[Elemwise{exp,no_inplace}(&amp;lt;TensorType(float32, vector)&amp;gt;)]
+Looping 1000 times took 1.999963 seconds
+Result is [ 1.23178029 1.61879337 1.52278066 ..., 2.20771813 2.29967761
+ 1.62323284]
+&lt;strong&gt;Used the cpu&lt;/strong&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Run the check.py to confirm that Theano is working correctly with GPU&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python check1.py&lt;/pre&gt;
+
+&lt;p&gt;This should give:&lt;/p&gt;
+
+&lt;pre&gt;Using gpu device 0: GeForce GTX 780
+[GpuElemwise{exp,no_inplace}(&amp;lt;CudaNdarrayType(float32, vector)&amp;gt;), HostFromGpu(GpuElemwise{exp,no_inplace}.0)]
+Looping 1000 times took 0.583838 seconds
+Result is [ 1.23178029 1.61879349 1.52278066 ..., 2.20771813 2.29967761
+ 1.62323296]
+&lt;strong&gt;Used the gpu&lt;/strong&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that: computation time has decreased, and it is indeed using GPU now.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Done! If you reached here and did not meet any issues, I hope you can comment and confirm that this does help you, so others can trust this guide. If you have still spent hours/days, &lt;strong&gt;blame Linux.&lt;/strong&gt; =]&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;things-that-does-not-work-for-me&quot;&gt;Things That Does Not Work For Me&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Installing current nvidia drivers from apt-get.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;$ apt-get install nvidia-current&lt;/pre&gt;
+
+&lt;p&gt;Normally you would think apt-get install the latest nvidia drivers would be the best to go. Nope, after the installation 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Install CUDA from apt-get.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;$ apt-get install nvidia-cuda-toolkit&lt;/pre&gt;
+
+&lt;p&gt;The same as 1., equally disastrous: 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log&lt;/p&gt;
+
+&lt;p&gt;3. Installing current nvidia from another “defacto” repository.&lt;/p&gt;
+
+&lt;pre&gt;sudo apt-add-repository ppa:ubuntu-x-swat/x-updates
+sudo apt-get update
+sudo apt-get install nvidia-current&lt;/pre&gt;
+
+&lt;p&gt;The same as 1., equally disastrous: 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log&lt;/p&gt;
+
+&lt;p&gt;4. Anything about Bumblebee.&lt;/p&gt;
+
+&lt;p&gt;Not sure what this is, just not related. Forget about it.&lt;/p&gt;
+
+&lt;p&gt;5. Also, I don’t have advice trying to repair a broken Ubuntu if you did anything of the above. But maybe you can try removing nvidia drivers and reinstalling the desktop, but doesn’t work for me either.&lt;/p&gt;
+
+&lt;pre&gt;apt-get remove --purge nvidia*
+apt-get install --reinstall ubuntu-desktop unity
+apt-get install nvidia-current&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Using any nvidia driver like 340 or 304 version. They do not work.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;The only thing that works for me is a fresh reinstall of Ubuntu 14.04. Nothing else.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;final-words&quot;&gt;Final Words&lt;/h1&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://deeplearning.net/software/theano/install_ubuntu.html&quot; target=&quot;_blank&quot;&gt;installation guide&lt;/a&gt; from DeepLearning.net is very helpful, but it contains poison advice that messed up my display of my OS completely.&lt;/p&gt;
+
+&lt;p&gt;BTW, ever heard of &lt;strong&gt;“Linux is user-friendly but it is very selective of its friends.”&lt;/strong&gt;? I know I am certainly not its friend… 😉&lt;/p&gt;
+</description>
+        <pubDate>Tue, 24 Nov 2015 05:32:19 -0800</pubDate>
+        <link>http://ckieric.webfactional.com/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/</guid>
+        
+        <category>Advice</category>
+        
+        <category>GPU</category>
+        
+        <category>I Hate Linux</category>
+        
+        <category>Linux</category>
+        
+        <category>Nvidia</category>
+        
+        <category>Tutorial</category>
+        
+        <category>Ubuntu</category>
+        
+        <category>Ubuntu 14.04</category>
+        
+        
+        <category>In Practice</category>
+        
+      </item>
+    
+      <item>
+        <title>What is Motion-To-Photon Latency?</title>
+        <description>&lt;p&gt;The term “motion-to-photon latency” comes up a lot when talking about virtual reality. What is that?&lt;/p&gt;
+
+&lt;h1 id=&quot;definition&quot;&gt;Definition&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Motion-to-Photon latency is the time needed for a user movement to be fully reflected on a display screen&lt;/strong&gt;. If it takes 100ms to reflect your movements on the screen of your virtual reality headset when you make a movement (e.g. look to the left), the 100ms is the motion-to-photon latency.&lt;/p&gt;
+
+&lt;h1 id=&quot;why-is-this-important&quot;&gt;Why is this important?&lt;/h1&gt;
+
+&lt;p&gt;Everyone emphasize the importance of motion-to-photon latency. There are two major reasons why this is so:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Low motion-to-photon (&amp;lt; 20ms) latency is necessary to convince your mind that you’re in another place (Presence).&lt;/strong&gt; This is also called presence. &lt;a href=&quot;http://en.wikipedia.org/wiki/Immersion_%28virtual_reality%29#Presence&quot; target=&quot;_blank&quot;&gt;Presence&lt;/a&gt; is the state in virtual reality that you feel you’re in the simulated world. To achieve presence, one of the requirements is low latency. This means a &lt;a href=&quot;http://media.steampowered.com/apps/abrashblog/Abrash%20Dev%20Days%202014.pdf&quot; target=&quot;_blank&quot;&gt;motion-to-photon latency of &amp;lt; 20ms&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;A high motion-to-photon latency makes a poor virtual reality experience (motion sickness and nausea).&lt;/strong&gt; When a user makes a movement wearing the VR headset, the mind expects the screen to be updated correctly to reflect that action. When the screen lags behind the user movement, the user can experience disorientation and motion sickness. This completely breaks the VR experience for the user.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;how-do-you-improve-that&quot;&gt;How do you improve that?&lt;/h1&gt;
+
+&lt;p&gt;Since a high motion-to-photon latency could induce motion sickness and nausea, and a low motion-to-photon latency (&amp;lt; 20 ms) is a necessary condition for presence, it makes sense to minimize the motion-to-photon latency. To know how we can improve motion-to-photon latency, we need to know what makes up this number.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/Motion-to-Photons-Latency.png&quot;&gt;&lt;img class=&quot;aligncenter size-medium wp-image-565&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/Motion-to-Photons-Latency-580x320.png&quot; alt=&quot;Motion-to-Photons Latency&quot; width=&quot;580&quot; height=&quot;320&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2015/03/Motion-to-Photons-Latency-580x320.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/Motion-to-Photons-Latency-940x519.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/Motion-to-Photons-Latency-624x344.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/Motion-to-Photons-Latency.png 1000w&quot; sizes=&quot;(max-width: 580px) 100vw, 580px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To improve motion-to-photon latency, every component in the motion-to-photon pipeline needs to be optimized.&lt;/strong&gt; For a movement to be reflected on the screen, it involves the &lt;a href=&quot;http://en.wikipedia.org/wiki/Head-mounted_display&quot; target=&quot;_blank&quot;&gt;head mounted display&lt;/a&gt;, connecting cables, CPU, GPU, game engine, display technology (display refresh rate and pixel switching time). This is not exhaustive and there are probably some more bits in the list, but includes the major elements. I’ll go through some of the common techniques to decrease the motion-to-photon latency.&lt;/p&gt;
+
+&lt;h2 id=&quot;display-technology&quot;&gt;Display Technology&lt;/h2&gt;
+
+&lt;h3 id=&quot;pixel-switching-time&quot;&gt;Pixel Switching Time&lt;/h3&gt;
+
+&lt;p&gt;Pixel switching time is known as the time needed to update all the pixels on the display. For an image to be seen on the display, it has to be drawn. To draw the image means each pixel on the display has to be updated to reflect that image. This is best illustrated as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/pixel_switching_time.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-566&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/pixel_switching_time.png&quot; alt=&quot;pixel_switching_time&quot; width=&quot;849&quot; height=&quot;322&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2015/03/pixel_switching_time.png 849w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/pixel_switching_time-580x220.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/pixel_switching_time-624x237.png 624w&quot; sizes=&quot;(max-width: 849px) 100vw, 849px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In this example, the pixel switching time for this (3 x 3) display is 3ms. This is because it takes 1ms to update one line of pixels and 3 updates to update the whole display.&lt;/p&gt;
+
+&lt;p&gt;LCD displays have poor pixel switching time. Currently the headset Oculus Rift and many smartphones that you can use with Google Cardboard are LCD displays. Other technologies like OLED provide almost instantaneous response time.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To decrease pixel switching time, use a faster display technology that has faster pixel switching time.&lt;/strong&gt; For instance, we can cut down on the latency if OLED is used instead of LCD displays.&lt;/p&gt;
+
+&lt;h3 id=&quot;refresh-rate&quot;&gt;Refresh Rate&lt;/h3&gt;
+
+&lt;p&gt;The refresh rate is the frequency the display fetches a new image to be drawn from the graphics card, which determines how long the latency to wait between each image. For a 60Hz display, the latency is calculated as (1000ms / 60Hz =) 16.67ms. This means even if the image takes zero latency to be drawn at the graphics card, and have zero pixel switching time, the image can only be updated as fast as 1 image every 16.67ms.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To decrease latency of getting an image, a higher refresh rate display is needed because latency (ms) = 1000ms / refresh rate (Hz).&lt;/strong&gt; For instance, a 120Hz will decrease this latency to 8.33ms.&lt;/p&gt;
+
+&lt;h2 id=&quot;host-level-cpu-gpu-game-engine&quot;&gt;Host Level (CPU, GPU, Game Engine)&lt;/h2&gt;
+
+&lt;p&gt;The host level offers a lot of potential to improve the motion-to-photon latency. John Carmack has written an excellent article about how to reduce latency on the host level, mainly focusing on the CPU, GPU, and rendering techniques. This original article is no longer available but can still be found in the &lt;a href=&quot;https://web.archive.org/web/20140719053303/http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&quot; target=&quot;_blank&quot;&gt;archive&lt;/a&gt;. Before we go deeper, a little background information will help a lot.&lt;/p&gt;
+
+&lt;p&gt;The classic processing model for a game or VR application is:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Read user input (I)&lt;/li&gt;
+  &lt;li&gt;Run simulation (S)&lt;/li&gt;
+  &lt;li&gt;Issue rendering commands (R)&lt;/li&gt;
+  &lt;li&gt;Graphics drawing (G)&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Wait for Vsync (The ‘&lt;/td&gt;
+          &lt;td&gt;’)&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Scanout (V)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A sample pipeline may look like this below. CPU1 reads user input and run simulation, CPU2 issues rendering commands, GPU draws the scene and converts to drawing commands to display, and write it to display to be screen (V, the scanout).&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Each frame (each interval between the ‘&lt;/td&gt;
+      &lt;td&gt;’) takes 16ms. The whole rendering took 4 frames, so the pipeline took at least 48ms ~ 64ms.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div id=&quot;attachment_578&quot; style=&quot;width: 841px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
+  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_basic.png&quot;&gt;&lt;img class=&quot;wp-image-578 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_basic.png&quot; alt=&quot;render_pipeline_basic&quot; width=&quot;831&quot; height=&quot;128&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_basic.png 831w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_basic-580x89.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_basic-624x96.png 624w&quot; sizes=&quot;(max-width: 831px) 100vw, 831px&quot; /&gt;&lt;/a&gt;
+  
+  &lt;p class=&quot;wp-caption-text&quot;&gt;
+    Courtesy of John Carmack from &amp;#8220;Latency Mitigation Strategies&amp;#8221;
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;With this in mind, let’s go through some of the more important techniques in the article.&lt;/p&gt;
+
+&lt;h3 id=&quot;prevent-gpu-buffering&quot;&gt;Prevent GPU Buffering&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Prevent GPU buffering decreases latency by having the GPU start drawing (G) after receiving issuing the rendering commands (R), rather than waiting for all the rendering to be completed.&lt;/strong&gt; Following the example above, a frame can be saved using this technique (reducing 16ms latency). Illustrated as follows:&lt;/p&gt;
+
+&lt;div id=&quot;attachment_595&quot; style=&quot;width: 842px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
+  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png&quot;&gt;&lt;img class=&quot;wp-image-595 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png&quot; alt=&quot;render_pipeline_no_gpu_buffering&quot; width=&quot;832&quot; height=&quot;277&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png 832w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1-580x193.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1-624x208.png 624w&quot; sizes=&quot;(max-width: 832px) 100vw, 832px&quot; /&gt;&lt;/a&gt;
+  
+  &lt;p class=&quot;wp-caption-text&quot;&gt;
+    My edits on original. Original source courtesy of John Carmack from &amp;#8220;Latency Mitigation Strategies&amp;#8221;.
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You might ask: Why the GPU can start drawing without waiting for the CPU to finish issue rendering commands?&lt;/p&gt;
+
+&lt;p&gt;Well, the GPU has to wait. That is why the (G) above happens one frame later than the (R). However, once the GPU received the first rendering command, it can immediately start drawing to the display. An example can explain this. Consider a scene where a leaf is falling off a tree.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;CPU calculates the scene containing the tree and leaf.&lt;/li&gt;
+  &lt;li&gt;CPU asks GPU to draw the scene at 1).&lt;/li&gt;
+  &lt;li&gt;GPU takes scene at 1) and starts converting the scene to drawing commands and write to display.&lt;/li&gt;
+  &lt;li&gt;Before GPU is done at 3), CPU calculates the next scene of how the leaf is falling off in the air, and sends this scene to GPU to be drawn.&lt;/li&gt;
+  &lt;li&gt;GPU takes scene at 4) and starts converting the scene to drawing commands and write to display.&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In this way, even though the GPU drawing work could take a long time, the next scene that the CPU is calculating is independent of the GPU drawing activity.&lt;/p&gt;
+
+&lt;p&gt;This is an over-simplified understanding of how things work, but should give a high level idea. Note that this technique can have more dropped frames during heavily loaded situation.&lt;/p&gt;
+
+&lt;h3 id=&quot;timewarping-aka-asynchronous-timewarping-or-atw&quot;&gt;Timewarping (a.k.a. Asynchronous Timewarping or ATW)&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Timewarping reduces the perceived lag from reading user input to seeing an updated image on display screen. It does so by just calculating an update of a scene mathematically bypassing all the heavy CPU and GPU work, which is very slow.&lt;/strong&gt; For certain actions such as the user looking slightly to the left, the change to the scene is very small. What timewarping does is just before rendering, it takes the current image displayed and the most recent input from &lt;a href=&quot;http://en.wikipedia.org/wiki/Inertial_measurement_unit&quot; target=&quot;_blank&quot;&gt;IMU&lt;/a&gt; (inertial measurement unit) and apply a mathematical transformation to get the updated image that reflects the user action. The pipeline looks like this:&lt;/p&gt;
+
+&lt;div id=&quot;attachment_585&quot; style=&quot;width: 843px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
+  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_timewarping.png&quot;&gt;&lt;img class=&quot;wp-image-585 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_timewarping.png&quot; alt=&quot;render_pipeline_timewarping&quot; width=&quot;833&quot; height=&quot;266&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_timewarping.png 833w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_timewarping-580x185.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2015/03/render_pipeline_timewarping-624x199.png 624w&quot; sizes=&quot;(max-width: 833px) 100vw, 833px&quot; /&gt;&lt;/a&gt;
+  
+  &lt;p class=&quot;wp-caption-text&quot;&gt;
+    My edits on original. Original source courtesy of John Carmack from &amp;#8220;Latency Mitigation Strategies&amp;#8221;.
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This process is extremely fast (multiplying matrices) compared to issuing rendering commands and doing all the graphics drawing. As long as the action is not complicated, the calculated scene resembles closely to the actual scene calculated from the heavy work done by the CPU and GPU. This technique can introduce artifacts especially when there are other effects such as smoke, but is still generally acceptable to the user of the virtual reality headset.&lt;/p&gt;
+
+&lt;h2 id=&quot;bonushead-tracking&quot;&gt;Bonus: Head Tracking&lt;/h2&gt;
+
+&lt;p&gt;This only applies in virtual reality headsets that tracks head movements like Oculus Rift, but not Google Cardboard or Gear VR. Head tracking is used to track a user’s head movement as another form of user input (e.g. head forward =&amp;gt; move forward).&lt;/p&gt;
+
+&lt;h3 id=&quot;predicting-head-movement&quot;&gt;Predicting Head Movement&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;This technique works by predicting the user head movement earlier &lt;em&gt;correctly&lt;/em&gt; and react to this movement, thus decreasing the time used in taking user input in the motion-to-photon pipeline&lt;/strong&gt;. Oculus Rift takes about 80ms~90ms to track head movement and respond to it, and &lt;a href=&quot;https://www.reddit.com/r/oculus/comments/21zr2e/dk2_is_capable_of_beating_20ms_palmer_regarding/&quot; target=&quot;_blank&quot;&gt;down to about ~50ms with predictive head tracking&lt;/a&gt;. However, if the prediction is wrong, it can increase latency and render incorrectly causing more nausea to the user.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;By now, I hope that you have a better idea of what motion-to-photon latency is and why this is important. You also learnt how to contributes to this latency and some techniques that decrease the number. The motion-to-photon latency is very critical to a quality VR experience. I think is also the hardest one we have to solve before achieving presence. Let’s look forward to what will come to us in 2015 and onwards!&lt;/p&gt;
+
+&lt;p&gt;References:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&quot; target=&quot;_blank&quot;&gt;http://www.altdev.co/2013/02/22/latency-mitigation-strategies/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.oculus.com/blog/details-on-new-display-for-developer-kits/&quot; target=&quot;_blank&quot;&gt;https://www.oculus.com/blog/details-on-new-display-for-developer-kits/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dsky9.com/rift/presence-technical-requirements/&quot; target=&quot;_blank&quot;&gt;http://dsky9.com/rift/presence-technical-requirements/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.oculus.com/blog/asynchronous-timewarp/&quot; target=&quot;_blank&quot;&gt;https://www.oculus.com/blog/asynchronous-timewarp/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.digitaltrends.com/home-theater/oled-vs-led-which-is-the-better-tv-technology/&quot; target=&quot;_blank&quot;&gt;http://www.digitaltrends.com/home-theater/oled-vs-led-which-is-the-better-tv-technology/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 18 Mar 2015 04:08:51 -0700</pubDate>
+        <link>http://ckieric.webfactional.com/what-is-motion-to-photon-latency/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/what-is-motion-to-photon-latency/</guid>
+        
+        <category>Fundamentals</category>
+        
+        <category>motion-to-photon latency</category>
+        
+        <category>Virtual Reality</category>
+        
+        
+        <category>Virtual Reality</category>
+        
+      </item>
+    
+      <item>
+        <title>How to Move a Servo Using A Keyboard</title>
+        <description>&lt;p&gt;Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can’t resist!). I am absolutely zero in hardware, so I’ll just as well document it here for my own reading.&lt;/p&gt;
+
+&lt;h2 id=&quot;what8217s-that-servo-thing-in-the-title&quot;&gt;What’s that servo thing in the title?&lt;/h2&gt;
+
+&lt;div id=&quot;attachment_545&quot; style=&quot;width: 287px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
+  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/01/servo.gif&quot;&gt;&lt;img class=&quot;wp-image-545 &quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/01/servo.gif&quot; alt=&quot;A servo&quot; width=&quot;277&quot; height=&quot;245&quot; /&gt;&lt;/a&gt;
+  
+  &lt;p class=&quot;wp-caption-text&quot;&gt;
+    A servo
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;One component is the prototype is that there are movable components. How do you move something programmatically? In robotics, you get this nifty thing called the &lt;a href=&quot;http://en.wikipedia.org/wiki/Servo_(radio_control)&quot; target=&quot;_blank&quot;&gt;servo&lt;/a&gt;. A simple servo is just a small component that can move in 1d direction. So if you ask it to rotate to some angle at 30 degrees, or 110 degrees, you can just give it an analog signal to do it. Of course, analog signals are not precise, so it may end up at 29 degrees or 108 degrees.&lt;/p&gt;
+
+&lt;p&gt;It has three wires: Generally a red wire which is the power, a yellow/white wire which is the signal, and the brown/black wire which is the ground. We’ll need to connect these wires to the Arduino board.&lt;/p&gt;
+
+&lt;p&gt;You can screw something onto the servo, so that thing will move along with the servo. For example, it is common to tie some “hands” to the servo which will serve as a robot’s hand.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-control-a-servo&quot;&gt;How to control a servo?&lt;/h2&gt;
+
+&lt;p&gt;A servo is generally analog, so you need to use an Arduino board to control it. Arduino can take digital input (computer) and output analog signal to control analog components (servo).  Here is how an Arduino board Meta 2560 looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/01/mega2560.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-543&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/01/mega2560.jpg&quot; alt=&quot;mega2560&quot; width=&quot;450&quot; height=&quot;296&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You will need to connect the servo power to the 5V pin, ground to the GRD pin, and the signal wire to pin 9. Why pin 9? Because the program I wrote assume it is pin 9.&lt;/p&gt;
+
+&lt;p&gt;Then, you need to upload this program to the Arduino board using the Arduino IDE:&lt;/p&gt;
+
+&lt;pre&gt;// This program demonstrates how to control a servo to move in either direction
+// with the keyboard.
+//
+// Setup:
+// - Power (RED) to 5V. Ground (BROWN) to GRD/GRC. Signal (YELLOW) to pin 9.
+// - Upload this program to Arduino and connect Servo to board.
+// - Download Putty. (http://www.chiark.greenend.org.uk/~sgtatham/putty/)
+// 
+// Usage:
+// - Open putty, connect to the COM port.
+// - Input a series of &#39;e&#39; and press ENTER.
+// - Input a series of &#39;d&#39; (or other char other than &#39;e&#39;) and press ENTER.
+// - You should see the servo move in either direction depending if the char
+//   is &#39;e&#39; or non-&#39;e&#39;.
+
+// Ref: http://arduino.cc/en/reference/servo
+#include  
+ 
+Servo servo;
+ 
+int pos = 0;  // Stores the position (angle) of the servo. Range is [0, 180].
+ 
+void setup() 
+{ 
+  Serial.begin(9600);
+  servo.attach(9);  // Attaches the servo on pin 9 to the servo object.
+  servo.write(0);  // Resets the position.
+} 
+ 
+void loop() 
+{
+  if (Serial.available()) {  // Returns true if there is serial input.
+    char ch = Serial.read();
+    
+    if (ch == &#39;e&#39;) {
+      // Make sure not to exceed the mechanical limitation.
+      if (pos &amp;lt; 180) {
+        pos += 1;
+      }
+    } else {
+      // Make sure not to exceed the mechanical limitation.
+      if (pos &amp;gt; 0) {
+        pos -= 1;
+      }
+    }
+    
+    // Now ask the servo to move to that position.
+    servo.write(pos);
+    // Mechnical limitation to the frequency of commands given.
+    delay(50);
+  }
+} 
+&lt;/pre&gt;
+
+&lt;p&gt;Basically, what the program does is that if a char ‘e’ is received, it will move the servo in one direction, and other chars will move the servo in another direction.&lt;/p&gt;
+
+&lt;p&gt;Once the program is uploaded to Arduino, you should open Putty and connect to the serial port, and then start to press a series of ‘e’ and then ENTER, and other chars will reverse the servo.&lt;/p&gt;
+
+&lt;p&gt;There! Your first movable component at the command of your finger tips!&lt;/p&gt;
+
+&lt;p&gt;Source code is on github &lt;a href=&quot;https://github.com/log0/some_arduino_scripts/blob/master/move_servo_by_keyboard.c&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 31 Jan 2015 00:27:20 -0800</pubDate>
+        <link>http://ckieric.webfactional.com/how-to-move-a-servo-using-a-keyboard/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/how-to-move-a-servo-using-a-keyboard/</guid>
+        
+        <category>Arduino</category>
+        
+        <category>Embedded</category>
+        
+        
+        <category>Embedded</category>
+        
+      </item>
+    
+      <item>
+        <title>Python Live Video Streaming Example</title>
+        <description>&lt;p&gt;Miguel Grinberg has written an excellent video streaming tutorial in Python &lt;a href=&quot;http://blog.miguelgrinberg.com/post/video-streaming-with-flask&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;. I highly recommend it.&lt;/p&gt;
+
+&lt;p&gt;In short, you stream live video to clients using &lt;a href=&quot;http://en.wikipedia.org/wiki/Motion_JPEG&quot; target=&quot;_blank&quot;&gt;Motion JPEG&lt;/a&gt;, which just sends JPEG frames successively.&lt;/p&gt;
+
+&lt;p&gt;I modified the example code slightly to enable video streaming from a webcam using OpenCV. OpenCV uses VideoCapture returns raw images bytes which is not JPEG, so you need to do an extra step of encoding the image bytes to JPEG, then everything will work.&lt;/p&gt;
+
+&lt;pre&gt;# camera.py
+
+import cv2
+
+class VideoCamera(object):
+    def __init__(self):
+        # Using OpenCV to capture from device 0. If you have trouble capturing
+        # from a webcam, comment the line below out and use a video file
+        # instead.
+        self.video = cv2.VideoCapture(0)
+        # If you decide to use video.mp4, you must have this file in the folder
+        # as the main.py.
+        # self.video = cv2.VideoCapture(&#39;video.mp4&#39;)
+    
+    def __del__(self):
+        self.video.release()
+    
+    def get_frame(self):
+        success, image = self.video.read()
+        # We are using Motion JPEG, but OpenCV defaults to capture raw images,
+        # so we must encode it into JPEG in order to correctly display the
+        # video stream.
+        ret, jpeg = cv2.imencode(&#39;.jpg&#39;, image)
+        return jpeg.tobytes()&lt;/pre&gt;
+
+&lt;pre&gt;# main.py
+
+from flask import Flask, render_template, Response
+from camera import VideoCamera
+
+app = Flask(__name__)
+
+@app.route(&#39;/&#39;)
+def index():
+    return render_template(&#39;index.html&#39;)
+
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b&#39;--frame\r\n&#39;
+               b&#39;Content-Type: image/jpeg\r\n\r\n&#39; + frame + b&#39;\r\n\r\n&#39;)
+
+@app.route(&#39;/video_feed&#39;)
+def video_feed():
+    return Response(gen(VideoCamera()),
+                    mimetype=&#39;multipart/x-mixed-replace; boundary=frame&#39;)
+
+if __name__ == &#39;__main__&#39;:
+    app.run(host=&#39;0.0.0.0&#39;, debug=True)&lt;/pre&gt;
+
+&lt;p&gt;The full Github code can be found &lt;a href=&quot;https://github.com/log0/video_streaming_with_flask_example&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 21 Dec 2014 00:52:31 -0800</pubDate>
+        <link>http://ckieric.webfactional.com/python-live-video-streaming-example/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/python-live-video-streaming-example/</guid>
+        
+        <category>Code</category>
+        
+        <category>MJPEG</category>
+        
+        <category>Python</category>
+        
+        <category>Video Streaming</category>
+        
+        
+        <category>Python</category>
+        
+        <category>Virtual Reality</category>
+        
+      </item>
+    
+      <item>
+        <title>Visualizing the Differences In L1-norm and L2-norm Loss Function</title>
+        <description>&lt;p&gt;In an earlier post about the &lt;a href=&quot;www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/&quot; target=&quot;_blank&quot;&gt;differences between L1 and L2 as loss function and regularization&lt;/a&gt;, one of the graph about L1-norm and L2-norm loss function is rather confusing to many readers, as I have seen from the comments. Reviewing it after a year, it wasn’t very clear as well, so today I generated some data and run a model over them. Here is how it looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-515&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot; alt=&quot;programmatic L1 vs L2 visualization&quot; width=&quot;1096&quot; height=&quot;716&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w&quot; sizes=&quot;(max-width: 1096px) 100vw, 1096px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).&lt;/p&gt;
+
+&lt;p&gt;I gradually move the outlier point from left to right, which it will be less “outlier” in the middle and more “outlier” at the left and right side. When the outlier point is less “outlier” (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.&lt;/p&gt;
+
+&lt;p&gt;In the case of a more “outlier” point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.&lt;/p&gt;
+
+&lt;p&gt;By visualizing data, we can get a better idea what stability is with respective to these two loss functions.&lt;/p&gt;
+
+&lt;p&gt;The code that generates this plot can be found &lt;a href=&quot;https://github.com/log0/l1_and_l2_loss_function&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;, and online iPython Notebook link &lt;a href=&quot;http://nbviewer.ipython.org/github/log0/l1_and_l2_loss_function/blob/master/Validating%20Stability.ipynb&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 01 Dec 2014 03:35:21 -0800</pubDate>
+        <link>http://ckieric.webfactional.com/visualizing-the-differences-in-l1-norm-and-l2-norm-loss-function/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/visualizing-the-differences-in-l1-norm-and-l2-norm-loss-function/</guid>
+        
+        <category>L1-norm</category>
+        
+        <category>L2-norm</category>
+        
+        <category>Loss Functions</category>
+        
+        <category>Machine Learning</category>
+        
+        <category>Python</category>
+        
+        <category>Visualization</category>
+        
+        
+        <category>Machine Learning</category>
+        
+        <category>Mathematics</category>
+        
+      </item>
+    
+      <item>
+        <title>First Look in Virtual Reality: Stereoscopy, Panoramas and Panoramic Videos</title>
+        <description>&lt;p&gt;I got the &lt;a href=&quot;http://g.co/cardboard&quot; target=&quot;_blank&quot;&gt;Google Cardboard&lt;/a&gt; recently, and I’m playing with it. Google Cardboard is a very simple piece of gadget that turns your phone into a virtual reality headset. It was released in &lt;a href=&quot;https://www.google.com/events/io&quot; target=&quot;_blank&quot;&gt;Google I/O 2014&lt;/a&gt;. If you have an Android phone, you can download the &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.google.samples.apps.cardboarddemo&amp;amp;hl=en&quot; target=&quot;_blank&quot;&gt;Cardboard application&lt;/a&gt; which has works very well with Google Cardboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/11/google-cardboard.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-505&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/11/google-cardboard.jpg&quot; alt=&quot;google cardboard&quot; width=&quot;490&quot; height=&quot;490&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2014/11/google-cardboard.jpg 490w, http://ckieric.webfactional.com/wp-content/uploads/2014/11/google-cardboard-150x150.jpg 150w&quot; sizes=&quot;(max-width: 490px) 100vw, 490px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;One of the function provided by the Cardboard application is viewing Photo Sphere in a virtual reality setting. &lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; is a kind of photo that is (360 x 180) degrees panoramic, that is, not just 360 degrees horizontally, but also you can look up and down. It is very cool.&lt;/p&gt;
+
+&lt;p&gt;Check out &lt;a href=&quot;http://360gigapixels.com/tokyo-tower-panorama-photo/&quot; target=&quot;_blank&quot;&gt;this panoramic view&lt;/a&gt; from Tokyo Tower by 360cities for something similar in concept.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-506&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot; alt=&quot;tokyo tower panorama&quot; width=&quot;1353&quot; height=&quot;683&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2014/11/tokyo-tower-panorama.png 1353w, http://ckieric.webfactional.com/wp-content/uploads/2014/11/tokyo-tower-panorama-580x292.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/11/tokyo-tower-panorama-940x474.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2014/11/tokyo-tower-panorama-624x314.png 624w&quot; sizes=&quot;(max-width: 1353px) 100vw, 1353px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is the cool thing:  The Cardboard application pushes the Photo Sphere further by putting you in an immersive experience. The experience is as if you’re at the scene looking around &lt;em&gt;in person&lt;/em&gt;. Yes, I know it’s not stereoscopic, but hey!&lt;/p&gt;
+
+&lt;p&gt;I know I know! It’s hard to visualize that. You can only really experience that when you acutally play with a virtual reality headset. In that case, I highly encourage you to get a virtual reality headset like Google Cardboard, or even build one yourself! =]&lt;/p&gt;
+
+&lt;h1 id=&quot;panoramic-videos&quot;&gt;Panoramic Videos!&lt;/h1&gt;
+
+&lt;p&gt;However, I am actually more excited not just with photos, but videos. Check these out:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.bubl.io/experiences/648c1828-17dc-48b6-b7c1-4f859389f66b&quot; target=&quot;_blank&quot;&gt;Panoramic video of a tour around NYC in a Taxi&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.bubl.io/experiences/ca20efe4-925e-458f-826f-4c7cb77d2e39&quot; target=&quot;_blank&quot;&gt;Panoramic video of skydiving in Toronto&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Google Cardboard doesn’t work with these though. So I haven’t try viewing it in a Cardboard for now. I will hope to try it out.&lt;/p&gt;
+
+&lt;h1 id=&quot;stereoscopic-panoramic-videos&quot;&gt;Stereoscopic Panoramic Videos?!!&lt;/h1&gt;
+
+&lt;p&gt;What if the panoramic videos are stereoscopic? WOW!&lt;/p&gt;
+
+&lt;p&gt;Though, I don’t think we’re there yet. This area seems to be still in its infancy. The closest thing I’ve seen is the &lt;a href=&quot;http://www.panocam3d.com/&quot; target=&quot;_blank&quot;&gt;Panocam3D&lt;/a&gt;, which is a hexagonal device with 2 cameras on each direction.&lt;/p&gt;
+
+&lt;p&gt;The idea to capture stereoscopic panoramic videos is explained &lt;a href=&quot;http://www.video-stitch.com/whats-stereographic-3d-panoramic-video/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;, though this may not be the ideal solution since we still only get 360 degrees and not (360 x 180) degrees.&lt;/p&gt;
+
+&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
+
+&lt;p&gt;I studied a little bit about stereoscopy, panoramas and panoramic videos. Here are some resources if you’re interested (and notes for myself).&lt;/p&gt;
+
+&lt;p&gt;Demonstration of panoramic images and videos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://video.airpano.com/Video-Dubai-UAE/video-normal-en.html&quot; target=&quot;_blank&quot;&gt;Dubai panoramic video by AirPano&lt;/a&gt; – They have a lot of other panoramic videos too.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.360cities.net/&quot; target=&quot;_blank&quot;&gt;360cities&lt;/a&gt; – Panoramic images of many cities in the world.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Devices that can capture (360 x 180) degrees panorama:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.bublcam.com&quot; target=&quot;_blank&quot;&gt;Bublcam&lt;/a&gt; – A spherical device with multiple cameras on it. The above videos are from Bublcam. It looks a pixelated but still acceptable. Not available for sale yet.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://geonaute.com&quot; target=&quot;_blank&quot;&gt;Geonaute&lt;/a&gt; – Another one that looks pretty good, though the demos seem to see the apex (the top area where the corners join) seems to be a bit badly stitched. Still very good.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.360heros.com/&quot; target=&quot;_blank&quot;&gt;360heros&lt;/a&gt; – Actually it’s a gadget to clamp together 6 GoPro cameras in all 6 directions (front back left right up and down). I would think getting the Bublcam and Geonaute may be better, but GoPro probably have better resolution.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Devices that can capture (360) degrees panorama:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.gopano.com&quot; target=&quot;_blank&quot;&gt;GoPano &lt;/a&gt;– A special lens attachable to iPhone that allows you to take panoramas and panoramic videos. It works by having a 360 degree lens and bend the light into the iPhone camera. Works for iPhone only. 360 degrees horizontally only.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://kogeto.com/&quot; target=&quot;_blank&quot;&gt;Kageto&lt;/a&gt; – A company manufacturing the Dot, Lucy, and Jo. They are successive versions of a special lens attachable to iPhone or Android to take panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;www.bubblescope.com&quot; target=&quot;_blank&quot;&gt;BubbleScope&lt;/a&gt; – Another attachable lens to iPhone for capturing panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Software Apps that takes panoramic pictures without using another external cam/device. Apparently, you cannot do panoramic videos from these (it’ll look like a mess):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; – Take panoramic photos using built-in Android Camera app developed by Google.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.photosynth.net&quot; target=&quot;_blank&quot;&gt;Photo Synth&lt;/a&gt; – Take panoramic photos using this app developed by Microsoft Research.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Readings about stereoscopy, panoramas, and panoramic videos;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://nzphoto.tripod.com/stereo/3dtake/&quot; target=&quot;_blank&quot;&gt;Principles of stereoscopic photography using an ordinary camera&lt;/a&gt; – How to shoot your own stereoscopic photo. Seems like a very old page but the ideas are very clearly explained.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.video-stitch.com/whats-stereographic-3d-panoramic-video/&quot; target=&quot;_blank&quot;&gt;What’s up with stereographic 3D panoramic video&lt;/a&gt; – An article that talks about how to shoot stereoscopic panoramic videos, in theory. We don’t know if this is the best way though.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Stereoscopy&quot; target=&quot;_blank&quot;&gt;Stereoscopy on Wikipedia&lt;/a&gt; – As usual, Wikipedia is a good place to look at.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://photocreations.ca/3D/index.html&quot; target=&quot;_blank&quot;&gt;PhotoCreation&lt;/a&gt; – Apparently someone very enthusiastic in stereoscopic panoramic videos.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 03 Nov 2014 02:53:56 -0800</pubDate>
+        <link>http://ckieric.webfactional.com/first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/</guid>
+        
+        <category>Android</category>
+        
+        <category>Computer Vision</category>
+        
+        <category>Google Cardboard</category>
+        
+        <category>Panomara</category>
+        
+        <category>Stereoscopy</category>
+        
+        <category>Virtual Reality</category>
+        
+        
+        <category>Virtual Reality</category>
+        
+      </item>
+    
+      <item>
+        <title>How to Select Your Final Models in a Kaggle Competition</title>
+        <description>&lt;p&gt;Did your rank just drop sharp in the private leaderboard in a Kaggle competition?&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-493&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg&quot; alt=&quot;picard palm&quot; width=&quot;490&quot; height=&quot;317&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I’ve been through that, too. We all learn about overfitting when we started machine learning, but Kaggle makes you really feel the pain of overfitting. Should I have been more careful in the &lt;a href=&quot;http://www.kaggle.com/c/higgs-boson/&quot; target=&quot;_blank&quot;&gt;Higgs Boson Machine Learning competition&lt;/a&gt;, I would have selected a solution that would gave me a rank 4 than rank 22.&lt;/p&gt;
+
+&lt;p&gt;I vow to come out with some principles systematically select final models. Here are the lessons learnt:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Always do cross-validation to get a reliable metric.&lt;/strong&gt; If you don’t, the validation score you get on a single validation set is unlikely to reflect the model performance in general. Then, you will likely see a model improvement in that single validation set, but actually performs worse in general. &lt;strong&gt;&lt;em&gt;Keep in mind the CV score can be optimistic, but your model is still overfitting.&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Trust your CV score, and not LB score.&lt;/strong&gt; The leaderboard score is scored only on a small percentage of the full test set. In some cases, it’s only a few hundred test cases. Your cross-validation score will be much more reliable in general.
+    &lt;ul&gt;
+      &lt;li&gt;If your CV score is not stable (perhaps due to ensembling methods), you can run your CV with more folds and multiple times to take average.&lt;/li&gt;
+      &lt;li&gt;If a single CV run is very slow, use a subset of the data to run the CV. This will help your CV loop to run faster. Of course, the subset should not be too small or else the CV score will not be representative.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;For the final 2 models, pick very different models.&lt;/strong&gt; Picking two very similar solutions means that your solutions either fail together or win together, effectively meaning that you only pick one model. You should reduce your risk by picking two confident but very different models. &lt;em&gt;&lt;strong&gt;You should not depend on the leaderboard score at all.&lt;/strong&gt;&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Try to group your solutions by methodologies. Then, pick the best CV score model from each group. Then compare these best candidates of each group, pick two.
+        &lt;ul&gt;
+          &lt;li&gt;Example: I have different groups 1) Bagging of SVMs 2) RandomForest 3) Neural Networks 4) LinearModels. Then, each group should produce one single best model, then you pick 2 out of these.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Pick a robust methodology.&lt;/strong&gt; Here is the tricky part which depends on experience, even if you have done cross validation, you can still get burned: Sketchy methods of improving the CV score like making cubic features, cubic root features, boosting like crazy, magical numbers(without understanding it), etc, will likely be a bad model to pick even if the CV score is good. Unfortunately, you will probably have to make this mistake once to know what this means. =]&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Applying the above principles to the recent competition &lt;a href=&quot;http://www.kaggle.com/c/afsis-soil-properties&quot; target=&quot;_blank&quot;&gt;Africa Soil Property Prediction Challenge&lt;/a&gt;, plus a bit of luck, I picked the top 1 and top 2 models.&lt;/p&gt;
+
+&lt;div id=&quot;attachment_491&quot; style=&quot;width: 687px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
+  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/10/top-score.png&quot;&gt;&lt;img class=&quot;wp-image-491 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/10/top-score.png&quot; alt=&quot;top score&quot; width=&quot;677&quot; height=&quot;425&quot; srcset=&quot;http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score.png 677w, http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score-580x364.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score-624x391.png 624w&quot; sizes=&quot;(max-width: 677px) 100vw, 677px&quot; /&gt;&lt;/a&gt;
+  
+  &lt;p class=&quot;wp-caption-text&quot;&gt;
+    Sorted by private score
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I ended up Top 10% with a rank of 90 by spending just a week time and mostly in Mexico in a vacation. I guess, not too bad?&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Oct 2014 02:33:55 -0700</pubDate>
+        <link>http://ckieric.webfactional.com/how-to-select-your-final-models-in-a-kaggle-competitio/</link>
+        <guid isPermaLink="true">http://ckieric.webfactional.com/how-to-select-your-final-models-in-a-kaggle-competitio/</guid>
+        
+        <category>Cross Validation</category>
+        
+        <category>Kaggle</category>
+        
+        <category>Machine Learning</category>
+        
+        <category>Overfitting</category>
+        
+        
+        <category>Kaggle</category>
+        
+        <category>Machine Learning</category>
+        
+      </item>
+    
+  </channel>
+</rss>

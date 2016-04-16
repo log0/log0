@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tea Time With: Convolutional Deep Belief Networks for Scalable Unsupervised Learning of Hierarchical Representations</title>
+  <meta name="description" content="Goals">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ckieric.webfactional.com/tea-time-with-convolutional-deep-belief-networks-for-scalable-unsupervised-learning-of-hierarchical-representations/">
+  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Tea Time With: Convolutional Deep Belief Networks for Scalable Unsupervised Learning of Hierarchical Representations</h1>
+    <p class="post-meta"><time datetime="2014-03-27T02:38:31-07:00" itemprop="datePublished">Mar 27, 2014</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="span-stylefont-size-15rem-line-height-15goalsspan"><span style="font-size: 1.5rem; line-height: 1.5;">Goals</span></h1>
+
+<p>The deep learning algorithms at that time do not scale to high dimensional input. This <a href="http://web.eecs.umich.edu/~honglak/icml09-ConvolutionalDeepBeliefNetworks.pdf" target="_blank">paper</a> tries to address this problem.</p>
+
+<h1 id="key-points">Key Points</h1>
+
+<p>Reasons why deep learning algorithms do not scale:</p>
+
+<ul>
+  <li>At the time of the paper, <a href="http://en.wikipedia.org/wiki/Restricted_Boltzmann_machine">Restricted Boltzmann Machine</a> chokes at 30 x 30 pixels input, much lower than realistic requirements. Convolutional Deep Belief Network (CDBN) tries to scale this up to 200 x 200 pixels.</li>
+  <li>RBM choke because the same feature detector learned at a location cannot be used on another location (i.e. not translation invariant).</li>
+</ul>
+
+<p>How convoluted deep belief network works on a high level:</p>
+
+<ul>
+  <li>Deep learning stresses on having every next layer learns a higher feature representation of the lower layer’s features. For example, think of recognizing digits as three parts: 1) Detect lines from raw pixels, 2) Detect corners, contours based on lines, 3) Detect unique digits features based on corners, contours.</li>
+</ul>
+
+<p><a href="http://www.chioka.in/wp-content/uploads/2014/03/layered-features.png"><img class="aligncenter size-full wp-image-373" alt="layered-features" src="http://www.chioka.in/wp-content/uploads/2014/03/layered-features.png" width="516" height="431" /></a></p>
+
+<ul>
+  <li><span style="line-height: 1.714285714; font-size: 1rem;">Introduces the Convolutional Deep Belief Network (CDBN), which is just stacking layers of Convolutional Restricted Boltzmann Machine (CRBM) over each other. Each CRBM acts as a feature detector. The stacking for a CRBM looks like below:</span></li>
+</ul>
+
+<p><a href="http://www.chioka.in/wp-content/uploads/2014/03/convoluted-rbm.png"><img class="aligncenter size-full wp-image-372" alt="convoluted-rbm" src="http://www.chioka.in/wp-content/uploads/2014/03/convoluted-rbm.png" width="496" height="389" /></a></p>
+
+<p>How does CDBN solves the scaling problem:</p>
+
+<ul>
+  <li>A traditional Restricted Boltzmann Machine (RBM) has no pooling layer. The CRBM, which makes up the CDBN, has this extra pooling layer on top of hidden layer which shrinks the hidden layer details before feeding it to the next layer in the CDBN. Shrinking is to drop the details learnt by a factor or 2 or 3. This effectively drops some noises which allows small translations to happen, reducing computational burden as well.</li>
+  <li>In DBNs, when a given feature is learnt (i.e. the weights are learnt), it is not shared across other locations of the image. This redundancy means extra computational work. CDBNs have weights that are shared among all locations in an image.</li>
+</ul>
+
+<h1 id="findings">Findings</h1>
+
+<ul>
+  <li><a href="http://www.chioka.in/wp-content/uploads/2014/03/features-learned.png"><img class="aligncenter size-full wp-image-375" alt="features-learned" src="http://www.chioka.in/wp-content/uploads/2014/03/features-learned.png" width="1014" height="334" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/03/features-learned.png 1014w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/features-learned-580x191.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/features-learned-940x309.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/features-learned-624x205.png 624w" sizes="(max-width: 1014px) 100vw, 1014px" /></a>Above is the features learnt by the CDBN visualized. The upper row is what the 2nd layer of the CDBN ‘sees’, and the lower row is what the 3rd layer of the CDBN ‘sees’. It is pretty close to what a human would expect as well.</li>
+  <li>One interesting result is that the CDBN trained on the Kyoto natural image dataset, when tested on the Caltect 101 dataset, yielded a result of ~65.4%, on par with state of the art. Meaning that the CDBN could have built some real good generalization, and not just the things it was trained to recognize.</li>
+</ul>
+
+<p>The <a href="http://web.eecs.umich.edu/~honglak/icml09-ConvolutionalDeepBeliefNetworks.pdf" target="_blank">paper</a> contains much more insight which readers are encouraged to read the paper and <a href="http://arnetminer.org/publication/convolutional-deep-belief-networks-for-scalable-unsupervised-learning-of-hierarchical-representations-1210248.html" target="_blank">presentation</a>.</p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Things I left Hanging Around</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

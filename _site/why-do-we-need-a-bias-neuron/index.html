@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Why do We Need a Bias Neuron?</title>
+  <meta name="description" content="Have you wondered why there is always a bias neuron in a perceptron, neural network? Does the algorithm work without a bias neuron? If yes, or no, either way...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ckieric.webfactional.com/why-do-we-need-a-bias-neuron/">
+  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Why do We Need a Bias Neuron?</h1>
+    <p class="post-meta"><time datetime="2013-09-16T06:47:54-07:00" itemprop="datePublished">Sep 16, 2013</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Have you wondered why there is always a bias neuron in a perceptron, neural network? Does the algorithm work without a bias neuron? If yes, or no, either way, have you wondered why?</p>
+
+<p><strong>A bias neuron allows a classifier to shift the decision boundary left or right.</strong> In an algebraic term, the bias neuron allows a classifier to <a href="http://en.wikipedia.org/wiki/Translation_(geometry)"><strong>translate</strong></a> its decision boundary. To translation is to “move every point a constant distance in a specified direction”.</p>
+
+<p>Now, let’s illustrate with an example. Consider a 2D perceptron trying to classify 10 points below.</p>
+
+<p><a href="http://www.chioka.in/wp-content/uploads/2013/09/Learning-without-bias.png"><img class="alignnone size-medium wp-image-147" alt="Learning without bias" src="http://www.chioka.in/wp-content/uploads/2013/09/Learning-without-bias-580x580.png" width="580" height="580" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/09/Learning-without-bias-580x580.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/09/Learning-without-bias-150x150.png 150w, http://ckieric.webfactional.com/wp-content/uploads/2013/09/Learning-without-bias.png 670w" sizes="(max-width: 580px) 100vw, 580px" /></a></p>
+
+<p>Points that fall on the right side of the ideal decision boundary (green in picture) should be classified as +1, while all points on the left of the green line as -1.</p>
+
+<p>We are going to train a 2D perceptron without bias to classify the 10 points. Without the bias neuron, the perceptron <strong>is unable to shift the blue decision boundary on the left to the blue decision boundary on the right</strong>, thus being never able to learn the ideal decision boundary or the closest match (the blue decision boundary on the right). The result is the learned decision boundary (red line) which must pass through the origin (0,0), has failed to classify some of the points. Notice that since the red line must pass through the origin due to having no bias neuron, however you rotate the red line, it will always fail to classify some points. The only solution is to shift the decision boundary to the right to where the blue decision boundary is.</p>
+
+<p>You may find the code in R that demonstrates 1) <a href="https://github.com/log0/perceptron/blob/master/perceptron.r">how a perceptron will learn a decision boundary</a> 2) <a href="https://github.com/log0/perceptron/blob/master/perceptron.no_bias.r">how a perceptron fails to learn a decision boundary</a> in <a href="https://github.com/log0/perceptron">this repository</a>.</p>
+
+<p> </p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Things I left Hanging Around</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

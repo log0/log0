@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Explain To Myself : Ensemble Methods</title>
+  <meta name="description" content="What are ensemble methods?">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ckieric.webfactional.com/explain-to-myself-ensemble-methods/">
+  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Explain To Myself : Ensemble Methods</h1>
+    <p class="post-meta"><time datetime="2013-06-02T11:58:46-07:00" itemprop="datePublished">Jun 2, 2013</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><strong>What are ensemble methods?</strong></p>
+
+<p>Ensemble methods refer to an machine learning algorithm that is combination of classifiers to tackle a classification problem by using the results from all these classifications to determine a label (usually by a vote).</p>
+
+<p>A vote is a majority based voting mechanism. For instance, of 10 classifiers, 4 voted for label X and 6 voted for label Y, the voting result is label Y has 6 &gt; 4.</p>
+
+<p><strong>Why is it useful?</strong></p>
+
+<p>It can be better than using a single classifier in many cases. Suppose there are 4 independent classifiers classifying two labels X and Y, then observe that a data instance with label Y predicted by these classifiers:</p>
+
+<table border="1">
+  <tr>
+    <th>
+      Classifier
+    </th>
+    
+    <th>
+      1
+    </th>
+    
+    <th>
+      2
+    </th>
+    
+    <th>
+      3
+    </th>
+    
+    <th>
+      4
+    </th>
+  </tr>
+  
+  <tr>
+    <td>
+      Label
+    </td>
+    
+    <td>
+      Y
+    </td>
+    
+    <td>
+      X
+    </td>
+    
+    <td>
+      Y
+    </td>
+    
+    <td>
+      Y
+    </td>
+  </tr>
+</table>
+
+<p>Even though classifier 2 predicted X (which is wrong), through voting, the final result is still Y (3 Y &gt; 1 X).</p>
+
+<p>Thus, the result is wrong only if more than half of the classifiers are wrong.</p>
+
+<p><strong>When does it fail?</strong></p>
+
+<p>If the error rate is larger than 0.5 for each classifier, then the classifiers will be correct only if more than half of the classifiers are correct. The net result is that the set of classifiers predict more wrong answers, in this case do not use ensemble methods.</p>
+
+<p><strong>What is the error rate of the ensemble method, assuming the error rate of each classifier is 0.15?</strong></p>
+
+<p>It is given by the general formula of:</p>
+
+<blockquote>
+  <p>error_rate_of_ensemble = 0</p>
+</blockquote>
+
+<blockquote>
+  <p>for i in [floor(n/2)+1, n]:</p>
+</blockquote>
+
+<blockquote>
+  <p>error_rate_of_ensemble += nCr(i, n) * error_rate^i * (1 – error_rate)^(n-i)</p>
+
+  <p>where n = number of classifiers,</p>
+</blockquote>
+
+<blockquote>
+  <p>error_rate = error rate of each classifier (assumed equal here)</p>
+</blockquote>
+
+<p>In our case, if the error rate of a single classifier is 0.15, the error rate of the ensemble would be only 0.01.</p>
+
+<p> </p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Things I left Hanging Around</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

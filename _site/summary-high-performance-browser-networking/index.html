@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Summary: High Performance Browser Networking</title>
+  <meta name="description" content="  ">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ckieric.webfactional.com/summary-high-performance-browser-networking/">
+  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Summary: High Performance Browser Networking</h1>
+    <p class="post-meta"><time datetime="2013-12-29T14:45:19-08:00" itemprop="datePublished">Dec 29, 2013</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p style="text-align: center;">
+  <img class="aligncenter" alt="" src="http://orm-other.s3.amazonaws.com/hpbnsplash/hpbncover.jpg" width="360" height="472" />
+</p>
+
+<p>[edit: 12/30/2013 – Chapter 5 and 6 added.]</p>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">Earlier there is the “</span><a style="line-height: 1.714285714; font-size: 1rem;" href="http://chimera.labs.oreilly.com/books/1230000000545">High Performance Browser Networking</a><span style="line-height: 1.714285714; font-size: 1rem;">” book written by Ilya Grigorik, which is a really great book which goes into some details but not too low, but high level enough to give you a really good understanding on the whole stack. I highly recommend this book. Below I will post my chapter summaries as I read.</span></p>
+
+<h2 id="chapter-1-8211primer-on-latency-and-bandwidth">Chapter 1 – Primer on Latency and Bandwidth</h2>
+
+<ul>
+  <li>Bandwidth is the throughput of a data link.</li>
+  <li>Latency is the time to send something from A to B.</li>
+  <li>Latency can be observed consciously if there is more than 300ms of delay.</li>
+  <li>Latency is the sum of propagation delay (time from s to t), transmission delay (time to push the packet into the link, depends on link bandwidth and packet size), processing delay (time for router to read packets, etc), and queuing delay (time until packet can be processed at router).</li>
+  <li>We can improve bandwidth by adding more fibers, more links, etc. Latency, not as easy due to physical limitations (an optic fiber allows ~1.5 of speed of light, hard to get more). One way is to put servers closer to users (CDN).</li>
+</ul>
+
+<h2 id="chapter-2-8211building-blocks-of-tcp">Chapter 2 – Building Blocks of TCP</h2>
+
+<ul>
+  <li>TCP three-way handshake is expensive. If 300ms is the limit, distance from HK to California = 8031.12 miles means 43ms, rtt 86ms. That’s ~1/3 buffer gone. TCP Fast Open (TFO) tries to solve this by sending data in initial handshake.</li>
+  <li>TCP flow control solves the issue of overwhelmed receiver. It works by receiver advertising to the sender the number of bytes to transmit in order not to overwhelm the receiver (max = 65535 bytes). Very small, now we have TCP window scaling (65535 bytes – 1GB bytes), communicated at start of TCP handshake.</li>
+  <li>TCP slow start solves the issue of network congestion. It works by server sending just n := 4 packets max to the client, after client ACKs all 4 packets, sends n := 2*n of the packets. Backs off by half ( n := n/2 ) on packet loss. This resolved network congestion, but introduced high lag especially over short bursty TCP connections. (Think why we pipeline CSS in webs!). (Note: Since April 2013 RFC 6928, n := 10 at start.)</li>
+  <li>On packet loss, TCP reduces amount of inflight data by decreasing congestion window size (sender-side limit). Traditionally uses the AIMD (Additive Increase, Multiplicative Decrease), but too inefficient (above). Linux 3.2+ uses PRR (Proportional Rate Reduction), an improvement from the past (TCP Tahoe and TCP Reno) .</li>
+  <li>Head-of-line blocking: Suppose packets {1,2,3,4} are sent, but {1} is dropped, {2,3,4} has to be kept in buffer and cannot be processed until {1} arrives. To high level applications, packet always arrive in orders. But, now we have extra delays. In some applications such as Skype, we don’t need in-packet properties, (or other TCP guarantees) missing some audio packets is OK, we can just blank out the gap rather than pausing the whole video conversation. Know when to pick TCP or UDP.</li>
+  <li>In general, use linux kernel 3.2+, increase congestion window size (=10), enable window-scaling, put servers near users, use as few TCP connections as possible (pipelining) are good advice.</li>
+</ul>
+
+<h2 id="chapter-3-8211building-blocks-of-udp">Chapter 3 – Building Blocks of UDP</h2>
+
+<ul>
+  <li>UDP is loosely defined as everything that TCP isn’t. UDP has 1) no guarantee on delivery 2) no guarantee on packet order 3) no state 4) no congestion control. Application developers have to build the features you need.</li>
+  <li>NAT translators maintains a translation table of what the public (ip, port) maps to internal (ip, port) for successful routing of packets. But when should NAT translator expire a NAT record? In practice, routers nowadays drops connections after a period of time. To prevent expiration, applications have to send stay-alive packets to keep the record in translation table alive.</li>
+  <li>Inbound UDP is difficult. E.g. Google Talk is a P2P protocol based on UDP, but what if the clients are hidden behind NATs of NATs of NATs? NAT traversal algorithm to the rescue : STUN, TURN and ICE.</li>
+  <li>In general, building on top of UDP: design for the features you need selectively in TCP (add sequence id if you need ordering, etc), use keep alives due to unexpected NAT record expiration, don’t fragment your UDP (size &lt; MTU).</li>
+</ul>
+
+<h2 id="chapter-4-8211transport-layer-security-tls">Chapter 4 – Transport Layer Security (TLS)</h2>
+
+<ul>
+  <li>TLS incurs heavy latency cost – 2 RTT.</li>
+  <li>With TCP 3-way-handshake, 3 RTT.</li>
+  <li>Browsers that open new TCP connection for each resource could have latency.</li>
+  <li>In practice, 1) servers use TLS resumption to reduce 1 RTT, 2) a proxy server is setup near client, where client only suffers the RTT with the proxy server.</li>
+  <li>Proxy server pools long-living SSL tunnels with the web server. Usable even for non-cacheable data. 3) Session caching, re-use the TLS so client does not need to re-negotiate in 3 RTT time.</li>
+  <li>Monitor your session hit rates.</li>
+  <li>TLS adds extra items (certificate list, headers, etc) to packet, so limit size of TLS packet helps decreases packet fragmentation.</li>
+  <li>TLS builds on TCP, and must require all packets to be present to be processed, so if one packet dropped, unpredictable delays could happen.</li>
+  <li>Always upgrade your TLS libraries to get bug fixes and significant performance improvements.</li>
+</ul>
+
+<h2 id="chapter-5-8211-introduction-to-wireless-networks">Chapter 5 – Introduction to Wireless Networks</h2>
+
+<ul>
+  <li><strong>Many widespread wireless technologies.</strong> There are tons of widespread wireless technologies: WiFi, Bluetooth, ZigBee, BFC, WiMAX, LTE, HSPA, EV-DO, satellite services, etc. Most of them start with one purpose but evolved. e.g. Bluetooth have seamless interoperability with WiFi now (i.e. +HS).</li>
+  <li><strong>Maximum channel capacity model.</strong> All wireless technology have a maximum channel capacity governed by a mathematical equation (wiki: Shannon, Channel Capacity).</li>
+  <li>Electromagnetic waves. All wireless technology run over electromagnetic waves. This is a scarce resource you see companies fight for on news.</li>
+  <li><strong>Different frequencies offer different performance.</strong> Not all frequencies of the spectrum offer the same performance. Low-freq travel further and cover large areas, but needs bigger antennae and more competition. High-freq travel less far but more data, but need more infrastructure.</li>
+  <li><strong>Subject to constant background noise.</strong> There is always background noise, the further you are away from the sender, and the more clients compete for bandwidth, the poorer the performance you will have. Think of it 1 pair of people talking on the phone and 3 pairs of people talking on the phone.</li>
+  <li><strong>Modulation.</strong> The digital data has to go analog signal to be transferred. Different encodings affects robustness to noise and interference and the amount of data transfer.</li>
+</ul>
+
+<h2 id="chapter-6-8211-wifi">Chapter 6 – WiFi</h2>
+
+<ul>
+  <li><strong>No guarantee on throughput or latency.</strong> WiFi does not have any central scheduler, so there is no way to make guarantees. You may have QoS (Quality-of-service) for a WiFi network, but overlapping WiFi networks can compete with each other too.</li>
+  <li><strong>WiFi has a limit of bandwidth of 2.4 GHz and also newer 5 GHz bands.</strong> The b and g standards are the most deployed nowadays, operates in the 2.4 GHz band. The ac standards operates in the 5 GHz only. The n standard operates in both.</li>
+  <li><strong>WiFi is subjected to noise like general wireless technology. </strong></li>
+  <li><strong>WiFi competes with other wireless technology for bandwidth.</strong></li>
+</ul>
+
+<p>…more to come!</p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Things I left Hanging Around</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

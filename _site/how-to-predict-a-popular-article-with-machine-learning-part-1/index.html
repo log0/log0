@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>How to Predict A Popular Article with Machine Learning (Part 1)</title>
+  <meta name="description" content="This is the first post of a series of posts on applying machine learning to practical business problems. My language of choice will by Python, as our problem...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ckieric.webfactional.com/how-to-predict-a-popular-article-with-machine-learning-part-1/">
+  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">How to Predict A Popular Article with Machine Learning (Part 1)</h1>
+    <p class="post-meta"><time datetime="2013-12-28T11:16:21-08:00" itemprop="datePublished">Dec 28, 2013</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>This is the first post of a series of posts on applying machine learning to practical business problems. My language of choice will by Python, as our problem will be mainly a text classification problem.</p>
+
+<p>Recently, I was asked to see if we could predict if an article on <a href="http://www.lifehack.org">Lifehack</a> will become popular or not. If an article gets popular, it will be shared many times. This is a <strong>supervised learning problem.</strong></p>
+
+<p><strong>Our task is to build a model to predict if an article on Lifehack will get more than shared over 3000 times.</strong> I will explain why it is 3000 below.</p>
+
+<h1 id="data-preparation-process">Data Preparation Process</h1>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">Before we could throw our data into the algorithms automagically for results. There are a few things we need to do:</span></p>
+
+<ol>
+  <li><strong style="line-height: 1.714285714; font-size: 1rem;">Data collection. </strong>Without data, machine learning cannot be applied. I used Scrapy to collect data from Lifehack.</li>
+  <li><strong>Data preprocessing.</strong> The data needs to be cleaned of problems such as duplicated posts, invalid share counts, and other problems. We also need to construct the training and test ing set here.</li>
+  <li><strong>Data transformation.</strong> The data has to be in a format that is friendly to our machine learning before we can throw it to the algorithm.</li>
+</ol>
+
+<h2 id="step-1-data-collection">Step 1: Data collection</h2>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">I used </span><a style="line-height: 1.714285714; font-size: 1rem;" href="http://www.scrapy.org">Scrapy</a><span style="line-height: 1.714285714; font-size: 1rem;"> to collect the data. It is a wonderful library that makes web scraping a lot easier than you write one yourself handling the exceptional cases. I will not go into the technical details of writing the scraper.</span></p>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">In summary, we will collect the HTML and the URL of the post. I also collected the title, share count, category, publication date of the article, but this can all be extracted at later stages from the HTML of the article. As follows:</span></p>
+
+<pre><code># items.py
+from scrapy.item import Item, Field
+class PopItem(Item):
+    title = Field()
+    url = Field()
+    shares = Field()
+    category = Field()
+    raw_content = Field() # the main body of the post, with HTML tags
+    text_content = Field() # the main body of the post, stripped of HTML tags
+    posted_at = Field()
+</code></pre>
+
+<p>I collected a total of 10,000 articles. But as you will see in the next step, a portion of them is unusable.</p>
+
+<h2 id="step-2-data-preprocessing">Step 2: Data preprocessing</h2>
+
+<p><strong>You will most likely get wrong results without inspecting your data for problems.</strong> And unless you are doing Kaggle or homework, no one will give you the training and testing set.</p>
+
+<h3 id="cleaning-potential-invalid-data">Cleaning potential invalid data</h3>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">We will check for <strong>data-duplication</strong>, which there are actually a lot due to the scraper considering URLs like these as equals:</span></p>
+
+<pre>http://www.lifehack.org/articles/lifehack/fifty-50-tools-which-can-help-you-in-writing.html
+http://www.lifehack.org/articles/lifehack/fifty-50-tools-which-can-help-you-in-writing.html?utm_campaign=innerlink&amp;utm_medium=feellikethemediaistrollingyou&amp;utm_source=post</pre>
+
+<p>They should be equal, so we must clean up these duplicate data.</p>
+
+<p>There are many other checks such as <strong>checking for negative or unusually high share count data, etc</strong>. For instance, there are two articles which have like 100 times more than 3rd most shared article, you’ll want to confirm if it’s the a problem of the website or our data collection script.</p>
+
+<h3 id="assign-classes-to-articles">Assign classes to articles</h3>
+
+<p>By inspecting the the raw share counts, we can see that most articles have zero shares or at most hundred of shares. Ideally, an article having more than 10,000 shares seems like a good candidate. However, very few articles match this criteria (less than 300), which you will see will affect us badly due to a classic problem called <strong><a href="http://www.chioka.in/class-imbalance-problem/">Class Imbalance Problem</a></strong>. As such, I will select a lower threshold. All articles with more than 3000 shares are considered positive examples of a popular article, while the rest are considered negative examples.</p>
+
+<h3 id="constructing-the-training-and-testing-sets">Constructing the training and testing sets</h3>
+
+<p><strong>Because we want to benchmark our data consistently, we need to have a consistent testing set.</strong> Also note that we have a very imbalance data set where there are far more negative examples than positive examples.</p>
+
+<p>I allocated 2/3 of the positive examples to the training set, and 1/3 of the positive examples to the testing set. 2000 negative examples are allocated to the testing set, and the rest of the negative examples are put into the training set. Visualized as below:</p>
+
+<p><a href="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early.png"><img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" /></a></p>
+
+<p>Lastly, note that<strong> it is very important that the training and testing data do not overlap at all, or you will get optimistically biased results. </strong>We will not touch our testing set from now own.</p>
+
+<h2 id="span-stylefont-size-1285714286rem-line-height-16step-3-data-transformationspan"><span style="font-size: 1.285714286rem; line-height: 1.6;">Step 3: Data transformation</span></h2>
+
+<p>We need to make sure our data is friendly to the input of the model algorithms. Concretely, we need to:</p>
+
+<ol>
+  <li>Extract the <strong>raw </strong><strong>content</strong> of the article body, but removing all those headers, footers, non-article related information.</li>
+  <li>Extract the <strong>textual content</strong> out of the raw content, which we will strip all the HTML tags away for simplicity, and we can build a TF-IDF matrix later.</li>
+  <li>Extract the <strong>title</strong> from the article, which we hypothesize to be very important (we get caught by titles first).</li>
+</ol>
+
+<p>There are a lot of other features we can extract but for simplicity, we will just use these features in this post.</p>
+
+<p>In the next post, I will address how we will get the data into the model and get the results out.</p>
+
+<p> </p>
+
+<p> </p>
+
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Things I left Hanging Around</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
