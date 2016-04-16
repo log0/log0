@@ -6,7 +6,7 @@ github_username: log0
 description: Things I left Hanging Around
 highlighter: true
 
-markdown: redcarpet
+kramdown: redcarpet
 markdown_ext: markdown,mkdown,mkdn,mkd,md
 
 redcarpet:
