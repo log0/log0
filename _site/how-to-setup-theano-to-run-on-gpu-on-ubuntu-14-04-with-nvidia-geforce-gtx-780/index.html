@@ -10,29 +10,26 @@
   <meta name="description" content="Documenting the steps how to setup Theano to run on GPU on Ubuntu 14.04 so I can refer to this in the future. With this successfully installed, you can run K...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,34 +44,33 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">How to Setup Theano to Run on GPU on Ubuntu 14.04 with Nvidia Geforce GTX 780</h1>
-    <p class="post-meta"><time datetime="2015-11-24T05:32:19-08:00" itemprop="datePublished">Nov 24, 2015</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">How to Setup Theano to Run on GPU on Ubuntu 14.04 with Nvidia Geforce GTX 780</h1>
+     <p class="post-meta">Posted on Nov 24, 2015 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <article class="post-content">
     <p>Documenting the steps how to setup Theano to run on GPU on Ubuntu 14.04 so I can refer to this in the future. With this successfully installed, you can run Keras, convnet, Theano, etc properly.</p>
 
-<h1 id="whythis-article">Why This Article?</h1>
+<h1>Why This Article?</h1>
 
 <p>Have you ever met those painful issues just trying to setup your GPU for scientific programming:</p>
 
 <ul>
-  <li>Getting a blinking cursor after installing the “latest” Nvidia drivers?</li>
-  <li>Getting a blinking cursor after installing the “latest” CUDA toolkit?</li>
-  <li>Login loop in Ubuntu login screen?</li>
-  <li>NVRM: rm_init_adapter(0) failed?</li>
-  <li>NVIDIA: could not open the device file /dev/nvidia0 (input/output error)</li>
-  <li>…</li>
+<li>Getting a blinking cursor after installing the &#8220;latest&#8221; Nvidia drivers?</li>
+<li>Getting a blinking cursor after installing the &#8220;latest&#8221; CUDA toolkit?</li>
+<li>Login loop in Ubuntu login screen?</li>
+<li>NVRM: rm_init_adapter(0) failed?</li>
+<li>NVIDIA: could not open the device file /dev/nvidia0 (input/output error)</li>
+<li>&#8230;</li>
 </ul>
 
 <p>If yes, then read on.</p>
@@ -83,22 +79,22 @@
 
 <p>You may want to read the <em>Things That Does Not Work For Me</em> part below first before following the <em>instructions</em>.</p>
 
-<h1 id="specifications">Specifications</h1>
+<h1>Specifications</h1>
 
 <p>My server has the following specifications:</p>
 
 <ul>
-  <li>OS: Ubuntu 14.04 LTS, X64</li>
-  <li>GPU: Nvidia Geforce GTX 780</li>
-  <li>Fresh install of Ubuntu 14.04 LTS</li>
+<li>OS: Ubuntu 14.04 LTS, X64</li>
+<li>GPU: Nvidia Geforce GTX 780</li>
+<li>Fresh install of Ubuntu 14.04 LTS</li>
 </ul>
 
-<h1 id="instructions">Instructions</h1>
+<h1>Instructions</h1>
 
-<p>If you fail in the middle of any of this steps, you are advised to restart and follow the steps carefully again. Use common sense. and if you don’t know how to fix it, too bad,</p>
+<p>If you fail in the middle of any of this steps, you are advised to restart and follow the steps carefully again. Use common sense. and if you don&#8217;t know how to fix it, too bad,</p>
 
 <ol>
-  <li>Download latest (or very recent) Nvidia display driver for Linux:</li>
+<li>Download latest (or very recent) Nvidia display driver for Linux:</li>
 </ol>
 
 <pre>wget http://us.download.nvidia.com/XFree86/Linux-x86_64/352.63/NVIDIA-Linux-x86_64-352.63.run</pre>
@@ -112,28 +108,24 @@
 <pre>reboot</pre>
 
 <ol>
-  <li>
-    <p>Once you are in GRUB, select “Advanced Options for Ubuntu”.</p>
-  </li>
-  <li>
-    <p>In the recovery mode, select “network”, press yes. Once the networking has been enabled, this will also set your drive to read/write mode.</p>
-  </li>
+<li><p>Once you are in GRUB, select &#8220;Advanced Options for Ubuntu&#8221;.</p></li>
+<li><p>In the recovery mode, select &#8220;network&#8221;, press yes. Once the networking has been enabled, this will also set your drive to read/write mode.</p></li>
 </ol>
 
-<p>6. In the recovery mode, select “root” to get a root prompt.</p>
+<p>6. In the recovery mode, select &#8220;root&#8221; to get a root prompt.</p>
 
 <ol>
-  <li>Go to where you downloaded the previous files at, and <strong>run NVIDIA-Linux-x86_64-352.63.run </strong>.</li>
+<li>Go to where you downloaded the previous files at, and <strong>run NVIDIA-Linux-x86_64-352.63.run </strong>.</li>
 </ol>
 
 <pre>chmod +x NVIDIA-Linux-x86_64-352.63.run # Make it executable
 
 ./NVIDIA-Linux-x86_64-352.63.run # Install Nvidia display driver</pre>
 
-<p>For yes/no questions, take “yes”. For locations, press “enter” to take default values.</p>
+<p>For yes/no questions, take &#8220;yes&#8221;. For locations, press &#8220;enter&#8221; to take default values.</p>
 
 <ol>
-  <li>Setup your environment variables.</li>
+<li>Setup your environment variables.</li>
 </ol>
 
 <p>Make sure your LD_LIBRARY_PATH, LIBRARY_PATH and PATH includes the places it needs to include:</p>
@@ -143,21 +135,21 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:
 export LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:
 export PATH=$PATH:/usr/local/cuda-7.5/bin</pre>
 
-<p>Don’t forget to:</p>
+<p>Don&#8217;t forget to:</p>
 
 <pre>$ source ~./.bashrc</pre>
 
 <ol>
-  <li><strong>Run nvidia-smi</strong> to confirm that your setup is correct.</li>
+<li><strong>Run nvidia-smi</strong> to confirm that your setup is correct.</li>
 </ol>
 
 <pre>nvidia-smi</pre>
 
-<p>nvidia-smi should be on your path already, so this should work. If it doesn’t:</p>
+<p>nvidia-smi should be on your path already, so this should work. If it doesn&#8217;t:</p>
 
 <ul>
-  <li>You must have done something wrong, better go back to step 1. and do it all over again.</li>
-  <li>You can see if it’s at /usr/bin/nvidia-smi .</li>
+<li>You must have done something wrong, better go back to step 1. and do it all over again.</li>
+<li>You can see if it&#8217;s at /usr/bin/nvidia-smi .</li>
 </ul>
 
 <p>You should then see something similar to this:</p>
@@ -181,17 +173,17 @@ export PATH=$PATH:/usr/local/cuda-7.5/bin</pre>
 +-----------------------------------------------------------------------------+</pre>
 
 <ol>
-  <li>Go to where you downloaded the previous files at, and <strong>run cuda_7.5.18_linux.run</strong> .</li>
+<li>Go to where you downloaded the previous files at, and <strong>run cuda_7.5.18_linux.run</strong> .</li>
 </ol>
 
 <pre>chmod +x cuda_7.5.18_linux.run # Make it executable
 
 ./cuda_7.5.18_linux.run # Install Nvidia display driver</pre>
 
-<p>For yes/no questions, take “yes”. For locations, press “enter” to take default values.</p>
+<p>For yes/no questions, take &#8220;yes&#8221;. For locations, press &#8220;enter&#8221; to take default values.</p>
 
 <ol>
-  <li><strong>Re-run nvidia-smi</strong> just to be sure everything is still working well.</li>
+<li><strong>Re-run nvidia-smi</strong> just to be sure everything is still working well.</li>
 </ol>
 
 <pre>nvidia-smi</pre>
@@ -221,14 +213,14 @@ export PATH=$PATH:/usr/local/cuda-7.5/bin</pre>
 <pre>reboot</pre>
 
 <ol>
-  <li>Time to install Theano and python, basically the first part of <a href="http://deeplearning.net/software/theano/install_ubuntu.html" target="_blank">this guide</a>. Run the following commands:</li>
+<li>Time to install Theano and python, basically the first part of <a href="http://deeplearning.net/software/theano/install_ubuntu.html" target="_blank">this guide</a>. Run the following commands:</li>
 </ol>
 
 <pre>sudo apt-get install python-numpy python-scipy python-dev python-pip python-nose g++ libopenblas-dev git
 sudo pip install Theano</pre>
 
 <ol>
-  <li><strong>Copy and paste the below code into check1.py</strong>. Now we need to make sure GPU is indeed working. I am copying the instructions from <a href="http://deeplearning.net/software/theano/tutorial/using_gpu.html" target="_blank">deeplearning.net</a>.</li>
+<li><strong>Copy and paste the below code into check1.py</strong>. Now we need to make sure GPU is indeed working. I am copying the instructions from <a href="http://deeplearning.net/software/theano/tutorial/using_gpu.html" target="_blank">deeplearning.net</a>.</li>
 </ol>
 
 <pre><span class="kn">from</span> <span class="nn">theano</span> <span class="kn">import</span> <span class="n">function</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">shared</span><span class="p">,</span> <span class="n">sandbox</span>
@@ -255,7 +247,7 @@ sudo pip install Theano</pre>
     <span class="k">print</span><span class="p">(</span><span class="s">'Used the gpu'</span><span class="p">)</span></pre>
 
 <ol>
-  <li><strong>Run the check1.py to confirm that Theano is working correctly with CPU</strong>.</li>
+<li><strong>Run the check1.py to confirm that Theano is working correctly with CPU</strong>.</li>
 </ol>
 
 <pre>THEANO_FLAGS=mode=FAST_RUN,device=cpu,floatX=float32 python check1.py</pre>
@@ -269,7 +261,7 @@ Result is [ 1.23178029 1.61879337 1.52278066 ..., 2.20771813 2.29967761
 <strong>Used the cpu</strong></pre>
 
 <ol>
-  <li><strong>Run the check.py to confirm that Theano is working correctly with GPU</strong>.</li>
+<li><strong>Run the check.py to confirm that Theano is working correctly with GPU</strong>.</li>
 </ol>
 
 <pre>THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python check1.py</pre>
@@ -286,13 +278,13 @@ Result is [ 1.23178029 1.61879349 1.52278066 ..., 2.20771813 2.29967761
 <p>Note that: computation time has decreased, and it is indeed using GPU now.</p>
 
 <ol>
-  <li>Done! If you reached here and did not meet any issues, I hope you can comment and confirm that this does help you, so others can trust this guide. If you have still spent hours/days, <strong>blame Linux.</strong> =]</li>
+<li>Done! If you reached here and did not meet any issues, I hope you can comment and confirm that this does help you, so others can trust this guide. If you have still spent hours/days, <strong>blame Linux.</strong> =]</li>
 </ol>
 
-<h1 id="things-that-does-not-work-for-me">Things That Does Not Work For Me</h1>
+<h1>Things That Does Not Work For Me</h1>
 
 <ol>
-  <li>Installing current nvidia drivers from apt-get.</li>
+<li>Installing current nvidia drivers from apt-get.</li>
 </ol>
 
 <pre>$ apt-get install nvidia-current</pre>
@@ -300,14 +292,14 @@ Result is [ 1.23178029 1.61879349 1.52278066 ..., 2.20771813 2.29967761
 <p>Normally you would think apt-get install the latest nvidia drivers would be the best to go. Nope, after the installation 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log</p>
 
 <ol>
-  <li>Install CUDA from apt-get.</li>
+<li>Install CUDA from apt-get.</li>
 </ol>
 
 <pre>$ apt-get install nvidia-cuda-toolkit</pre>
 
 <p>The same as 1., equally disastrous: 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log</p>
 
-<p>3. Installing current nvidia from another “defacto” repository.</p>
+<p>3. Installing current nvidia from another &#8220;defacto&#8221; repository.</p>
 
 <pre>sudo apt-add-repository ppa:ubuntu-x-swat/x-updates
 sudo apt-get update
@@ -319,24 +311,30 @@ sudo apt-get install nvidia-current</pre>
 
 <p>Not sure what this is, just not related. Forget about it.</p>
 
-<p>5. Also, I don’t have advice trying to repair a broken Ubuntu if you did anything of the above. But maybe you can try removing nvidia drivers and reinstalling the desktop, but doesn’t work for me either.</p>
+<p>5. Also, I don&#8217;t have advice trying to repair a broken Ubuntu if you did anything of the above. But maybe you can try removing nvidia drivers and reinstalling the desktop, but doesn&#8217;t work for me either.</p>
 
 <pre>apt-get remove --purge nvidia*
 apt-get install --reinstall ubuntu-desktop unity
 apt-get install nvidia-current</pre>
 
 <ol>
-  <li>Using any nvidia driver like 340 or 304 version. They do not work.</li>
+<li>Using any nvidia driver like 340 or 304 version. They do not work.</li>
 </ol>
 
 <p><em><strong>The only thing that works for me is a fresh reinstall of Ubuntu 14.04. Nothing else.</strong></em></p>
 
-<h1 id="final-words">Final Words</h1>
+<h1>Final Words</h1>
 
 <p>The <a href="http://deeplearning.net/software/theano/install_ubuntu.html" target="_blank">installation guide</a> from DeepLearning.net is very helpful, but it contains poison advice that messed up my display of my OS completely.</p>
 
-<p>BTW, ever heard of <strong>“Linux is user-friendly but it is very selective of its friends.”</strong>? I know I am certainly not its friend… 😉</p>
+<p>BTW, ever heard of <strong>&#8220;Linux is user-friendly but it is very selective of its friends.&#8221;</strong>? I know I am certainly not its friend&#8230; 😉</p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -362,43 +360,18 @@ apt-get install nvidia-current</pre>
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>

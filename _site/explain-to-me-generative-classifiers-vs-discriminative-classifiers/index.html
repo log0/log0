@@ -10,29 +10,26 @@
   <meta name="description" content="What are they?">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/explain-to-me-generative-classifiers-vs-discriminative-classifiers/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/explain-to-me-generative-classifiers-vs-discriminative-classifiers/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,174 +44,93 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Explain to Me: Generative Classifiers VS Discriminative Classifiers</h1>
-    <p class="post-meta"><time datetime="2014-01-08T04:12:35-08:00" itemprop="datePublished">Jan 8, 2014</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">Explain to Me: Generative Classifiers VS Discriminative Classifiers</h1>
+     <p class="post-meta">Posted on Jan 8, 2014 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
-    <h2 id="span-stylefont-size-1285714286rem-line-height-16what-are-theyspan"><span style="font-size: 1.285714286rem; line-height: 1.6;">What are they?</span></h2>
+  <article class="post-content">
+    <h2><span style="font-size: 1.285714286rem; line-height: 1.6;">What are they?</span></h2>
 
 <p>It is a categorization of classifiers in Bayesian perspective. Recall in <a href="http://www.chioka.in/explain-to-me-bayes-theorem/">Bayes Theorem</a>, we have this formula below:</p>
 
 <p><a href="http://www.chioka.in/wp-content/uploads/2014/01/bayes-theorem.png"><img class="aligncenter size-full wp-image-281" alt="bayes theorem" src="http://www.chioka.in/wp-content/uploads/2014/01/bayes-theorem.png" width="265" height="69" /></a></p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Our goal is to find the best **P(Y</td>
-      <td>X).** This reads: Given features <strong>X</strong>, what is the probability of class <strong>Y</strong>. Concretely with an example, given that a software engineer lives in Silicon Valley <strong>(X)</strong>, what is the probability he makes over 100K salary <strong>(Y)</strong>, i.e. **P(Y</td>
-      <td>X)**?</td>
-    </tr>
-  </tbody>
-</table>
+<p>Our goal is to find the best <strong>P(Y|X).</strong> This reads: Given features <strong>X</strong>, what is the probability of class <strong>Y</strong>. Concretely with an example, given that a software engineer lives in Silicon Valley <strong>(X)</strong>, what is the probability he makes over 100K salary <strong>(Y)</strong>, i.e. <strong>P(Y|X)</strong>?</p>
 
-<h2 id="generative-classifiers">Generative Classifiers</h2>
+<h2>Generative Classifiers</h2>
 
-<p>A generative classifier tries to learn the model that generates the data behind the scenes by <em>**</em>estimating the assumptions and distributions of the model. It then uses this to predict unseen data, because it assumes the model that was learned captures the real model. As we will see, this is often not true. An example is the Naive Bayes Classifier.</p>
+<p>A generative classifier tries to learn the model that generates the data behind the scenes by ****estimating the assumptions and distributions of the model. It then uses this to predict unseen data, because it assumes the model that was learned captures the real model. As we will see, this is often not true. An example is the Naive Bayes Classifier.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>To get **P(Y</td>
-      <td>X)**, generative classifiers do this:</td>
-    </tr>
-  </tbody>
-</table>
+<p>To get <strong>P(Y|X)</strong>, generative classifiers do this:</p>
 
 <ol>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Estimate **P(X</td>
-          <td>Y)** and <strong>P(Y)</strong> from the data.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Multiply **P(X</td>
-          <td>Y)** and <strong>P(Y)</strong> according to Bayes Theorem, P(X) is a constant.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Get **P(Y</td>
-          <td>X).**</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+<li>Estimate <strong>P(X|Y)</strong> and <strong>P(Y)</strong> from the data.</li>
+<li>Multiply <strong>P(X|Y)</strong> and <strong>P(Y)</strong> according to Bayes Theorem, P(X) is a constant.</li>
+<li>Get <strong>P(Y|X).</strong></li>
 </ol>
 
-<table>
-  <tbody>
-    <tr>
-      <td>To continue with our example, a generative classifier first estimate from the data what is the probability a software developer living in Silicon Valley <strong>(X)</strong> given he makes over 100K <strong>(Y)</strong>, i.e. together it means **P(X</td>
-      <td>Y)<strong>. Then, it estimates how many software engineers make over 100K, regardless of if he is in Silicon Valley or not, i.e. **P(Y)</strong>.</td>
-    </tr>
-  </tbody>
-</table>
+<p>To continue with our example, a generative classifier first estimate from the data what is the probability a software developer living in Silicon Valley <strong>(X)</strong> given he makes over 100K <strong>(Y)</strong>, i.e. together it means <strong>P(X|Y)</strong>. Then, it estimates how many software engineers make over 100K, regardless of if he is in Silicon Valley or not, i.e. <strong>P(Y)</strong>.</p>
 
-<h2 id="discriminative-classifiers">Discriminative Classifiers</h2>
+<h2>Discriminative Classifiers</h2>
 
 <p>A discriminative classifier tries to model by just depending on the observed data. It makes fewer assumptions on the distributions but depends heavily on the quality of the data (Is it representative? Are there a lot of data?). An example is the Logistic Regression.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>To get **P(Y</td>
-      <td>X)**, discriminative classifiers do this:</td>
-    </tr>
-  </tbody>
-</table>
+<p>To get <strong>P(Y|X)</strong>, discriminative classifiers do this:</p>
 
 <ol>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Estimate **P(Y</td>
-          <td>X)** from the data.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+<li>Estimate <strong>P(Y|X)</strong> from the data.</li>
 </ol>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Yes, only one step. As with our example, a discriminative classifier estimates the probability of a software engineer making over 100K salary given he lives in Silicon Valley, i.e. **P(Y</td>
-      <td>X)**.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Yes, only one step. As with our example, a discriminative classifier estimates the probability of a software engineer making over 100K salary given he lives in Silicon Valley, i.e. <strong>P(Y|X)</strong>.</p>
 
-<h2 id="when-to-use-a-generative-classifier-or-a-discriminative-classifier">When to use a generative classifier or a discriminative classifier?</h2>
+<h2>When to use a generative classifier or a discriminative classifier?</h2>
 
 <p><strong>In practice, discriminative classifiers outperform generative classifiers, if you have a lot of data.</strong></p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Generative classifiers learn **P(Y</td>
-      <td>X)** indirectly and can get the wrong assumptions of the data distribution. Quoting Vapnik from Statistical Learning Theory:</td>
-    </tr>
-  </tbody>
-</table>
+<p>Generative classifiers learn <strong>P(Y|X)</strong> indirectly and can get the wrong assumptions of the data distribution. Quoting Vapnik from Statistical Learning Theory:</p>
 
 <blockquote>
-  <table>
-    <tbody>
-      <tr>
-        <td>one should solve the [classification] problem directly and never solve a more general problem as an intermediate step [such as modeling **P(X</td>
-        <td>Y)**].</td>
-      </tr>
-    </tbody>
-  </table>
+<p>one should solve the [classification] problem directly and never solve a more general problem as an intermediate step [such as modeling <strong>P(X|Y)</strong>].</p>
 </blockquote>
 
-<p>A very good paper from <a href="http://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf">Andrew Ng in NIPS 2001</a> concludes that:</p>
+<p>A very good paper from <a href="http://ai.stanford.edu/%7Eang/papers/nips01-discriminativegenerative.pdf">Andrew Ng in NIPS 2001</a> concludes that:</p>
 
 <blockquote>
-  <p>a) The generative model does indeed have a higher asymptotic error (as the number of training examples become large) than the discriminative model but,</p>
+<p>a) The generative model does indeed have a higher asymptotic error (as the number of training examples become large) than the discriminative model but,</p>
 
-  <p>b) The generative model may also approach its asymptotic error much faster than the discriminative model – possibly with a number of training examples that is only logarithmic, rather than linear, in the number of parameters.</p>
+<p>b) The generative model may also approach its asymptotic error much faster than the discriminative model &#8211; possibly with a number of training examples that is only logarithmic, rather than linear, in the number of parameters.</p>
 </blockquote>
 
 <p>So, simply said, if you have a lot of data, stick with the discriminative models.</p>
 
-<p> </p>
+<p>&nbsp;</p>
 
 <p>References:</p>
 
 <ul>
-  <li><a href="http://www.cs.cmu.edu/~guestrin/Class/10701-S07/Slides/logisticregression-decisiontrees.pdf">http://www.cs.cmu.edu/~guestrin/Class/10701-S07/Slides/logisticregression-decisiontrees.pdf</a></li>
-  <li><a href="http://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-discriminative-algorithm">http://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-discriminative-algorithm</a></li>
-  <li><a href="http://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf">http://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf</a></li>
-  <li><a href="http://en.wikipedia.org/wiki/Generative_model">http://en.wikipedia.org/wiki/Generative_model</a></li>
+<li><a href="http://www.cs.cmu.edu/%7Eguestrin/Class/10701-S07/Slides/logisticregression-decisiontrees.pdf">http://www.cs.cmu.edu/~guestrin/Class/10701-S07/Slides/logisticregression-decisiontrees.pdf</a></li>
+<li><a href="http://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-discriminative-algorithm">http://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-discriminative-algorithm</a></li>
+<li><a href="http://ai.stanford.edu/%7Eang/papers/nips01-discriminativegenerative.pdf">http://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Generative_model">http://en.wikipedia.org/wiki/Generative_model</a></li>
 </ul>
 
-<p> </p>
+<p>&nbsp;</p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -240,43 +156,18 @@
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>

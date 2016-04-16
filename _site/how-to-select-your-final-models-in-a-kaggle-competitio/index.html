@@ -10,29 +10,26 @@
   <meta name="description" content="Did your rank just drop sharp in the private leaderboard in a Kaggle competition?">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/how-to-select-your-final-models-in-a-kaggle-competitio/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/how-to-select-your-final-models-in-a-kaggle-competitio/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,47 +44,46 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">How to Select Your Final Models in a Kaggle Competition</h1>
-    <p class="post-meta"><time datetime="2014-10-23T02:33:55-07:00" itemprop="datePublished">Oct 23, 2014</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">How to Select Your Final Models in a Kaggle Competition</h1>
+     <p class="post-meta">Posted on Oct 23, 2014 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <article class="post-content">
     <p>Did your rank just drop sharp in the private leaderboard in a Kaggle competition?</p>
 
 <p><a href="http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg"><img class="aligncenter size-full wp-image-493" src="http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg" alt="picard palm" width="490" height="317" /></a></p>
 
-<p>I’ve been through that, too. We all learn about overfitting when we started machine learning, but Kaggle makes you really feel the pain of overfitting. Should I have been more careful in the <a href="http://www.kaggle.com/c/higgs-boson/" target="_blank">Higgs Boson Machine Learning competition</a>, I would have selected a solution that would gave me a rank 4 than rank 22.</p>
+<p>I&#8217;ve been through that, too. We all learn about overfitting when we started machine learning, but Kaggle makes you really feel the pain of overfitting. Should I have been more careful in the <a href="http://www.kaggle.com/c/higgs-boson/" target="_blank">Higgs Boson Machine Learning competition</a>, I would have selected a solution that would gave me a rank 4 than rank 22.</p>
 
 <p>I vow to come out with some principles systematically select final models. Here are the lessons learnt:</p>
 
 <ul>
-  <li><strong>Always do cross-validation to get a reliable metric.</strong> If you don’t, the validation score you get on a single validation set is unlikely to reflect the model performance in general. Then, you will likely see a model improvement in that single validation set, but actually performs worse in general. <strong><em>Keep in mind the CV score can be optimistic, but your model is still overfitting.</em></strong></li>
-  <li><strong>Trust your CV score, and not LB score.</strong> The leaderboard score is scored only on a small percentage of the full test set. In some cases, it’s only a few hundred test cases. Your cross-validation score will be much more reliable in general.
-    <ul>
-      <li>If your CV score is not stable (perhaps due to ensembling methods), you can run your CV with more folds and multiple times to take average.</li>
-      <li>If a single CV run is very slow, use a subset of the data to run the CV. This will help your CV loop to run faster. Of course, the subset should not be too small or else the CV score will not be representative.</li>
-    </ul>
-  </li>
-  <li><strong>For the final 2 models, pick very different models.</strong> Picking two very similar solutions means that your solutions either fail together or win together, effectively meaning that you only pick one model. You should reduce your risk by picking two confident but very different models. <em><strong>You should not depend on the leaderboard score at all.</strong></em>
-    <ul>
-      <li>Try to group your solutions by methodologies. Then, pick the best CV score model from each group. Then compare these best candidates of each group, pick two.
-        <ul>
-          <li>Example: I have different groups 1) Bagging of SVMs 2) RandomForest 3) Neural Networks 4) LinearModels. Then, each group should produce one single best model, then you pick 2 out of these.</li>
-        </ul>
-      </li>
-      <li><strong>Pick a robust methodology.</strong> Here is the tricky part which depends on experience, even if you have done cross validation, you can still get burned: Sketchy methods of improving the CV score like making cubic features, cubic root features, boosting like crazy, magical numbers(without understanding it), etc, will likely be a bad model to pick even if the CV score is good. Unfortunately, you will probably have to make this mistake once to know what this means. =]</li>
-    </ul>
-  </li>
+<li><strong>Always do cross-validation to get a reliable metric.</strong> If you don&#8217;t, the validation score you get on a single validation set is unlikely to reflect the model performance in general. Then, you will likely see a model improvement in that single validation set, but actually performs worse in general. <strong><em>Keep in mind the CV score can be optimistic, but your model is still overfitting.</em></strong></li>
+<li><strong>Trust your CV score, and not LB score.</strong> The leaderboard score is scored only on a small percentage of the full test set. In some cases, it&#8217;s only a few hundred test cases. Your cross-validation score will be much more reliable in general. 
+
+<ul>
+<li>If your CV score is not stable (perhaps due to ensembling methods), you can run your CV with more folds and multiple times to take average.</li>
+<li>If a single CV run is very slow, use a subset of the data to run the CV. This will help your CV loop to run faster. Of course, the subset should not be too small or else the CV score will not be representative.</li>
+</ul></li>
+<li><strong>For the final 2 models, pick very different models.</strong> Picking two very similar solutions means that your solutions either fail together or win together, effectively meaning that you only pick one model. You should reduce your risk by picking two confident but very different models. <em><strong>You should not depend on the leaderboard score at all.</strong></em> 
+
+<ul>
+<li>Try to group your solutions by methodologies. Then, pick the best CV score model from each group. Then compare these best candidates of each group, pick two. 
+
+<ul>
+<li>Example: I have different groups 1) Bagging of SVMs 2) RandomForest 3) Neural Networks 4) LinearModels. Then, each group should produce one single best model, then you pick 2 out of these.</li>
+</ul></li>
+<li><strong>Pick a robust methodology.</strong> Here is the tricky part which depends on experience, even if you have done cross validation, you can still get burned: Sketchy methods of improving the CV score like making cubic features, cubic root features, boosting like crazy, magical numbers(without understanding it), etc, will likely be a bad model to pick even if the CV score is good. Unfortunately, you will probably have to make this mistake once to know what this means. =]</li>
+</ul></li>
 </ul>
 
 <p>Applying the above principles to the recent competition <a href="http://www.kaggle.com/c/afsis-soil-properties" target="_blank">Africa Soil Property Prediction Challenge</a>, plus a bit of luck, I picked the top 1 and top 2 models.</p>
@@ -102,6 +98,12 @@
 
 <p>I ended up Top 10% with a rank of 90 by spending just a week time and mostly in Mexico in a vacation. I guess, not too bad?</p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -127,43 +129,18 @@
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>

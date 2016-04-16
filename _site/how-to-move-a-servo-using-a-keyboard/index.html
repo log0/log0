@@ -7,32 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>How to Move a Servo Using A Keyboard</title>
-  <meta name="description" content="Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can’t resist!). I am absolutely zero in hardware, so ...">
+  <meta name="description" content="Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can&#8217;t resist!). I am absolutely zero in hardwar...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/how-to-move-a-servo-using-a-keyboard/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/how-to-move-a-servo-using-a-keyboard/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,24 +44,23 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">How to Move a Servo Using A Keyboard</h1>
-    <p class="post-meta"><time datetime="2015-01-31T00:27:20-08:00" itemprop="datePublished">Jan 31, 2015</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">How to Move a Servo Using A Keyboard</h1>
+     <p class="post-meta">Posted on Jan 31, 2015 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
-    <p>Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can’t resist!). I am absolutely zero in hardware, so I’ll just as well document it here for my own reading.</p>
+  <article class="post-content">
+    <p>Recently I am playing with Arduino because I need to prototype some virtual reality thing in reality (I can&#8217;t resist!). I am absolutely zero in hardware, so I&#8217;ll just as well document it here for my own reading.</p>
 
-<h2 id="what8217s-that-servo-thing-in-the-title">What’s that servo thing in the title?</h2>
+<h2>What&#8217;s that servo thing in the title?</h2>
 
 <div id="attachment_545" style="width: 287px" class="wp-caption aligncenter">
   <a href="http://www.chioka.in/wp-content/uploads/2015/01/servo.gif"><img class="wp-image-545 " src="http://www.chioka.in/wp-content/uploads/2015/01/servo.gif" alt="A servo" width="277" height="245" /></a>
@@ -76,11 +72,11 @@
 
 <p>One component is the prototype is that there are movable components. How do you move something programmatically? In robotics, you get this nifty thing called the <a href="http://en.wikipedia.org/wiki/Servo_(radio_control)" target="_blank">servo</a>. A simple servo is just a small component that can move in 1d direction. So if you ask it to rotate to some angle at 30 degrees, or 110 degrees, you can just give it an analog signal to do it. Of course, analog signals are not precise, so it may end up at 29 degrees or 108 degrees.</p>
 
-<p>It has three wires: Generally a red wire which is the power, a yellow/white wire which is the signal, and the brown/black wire which is the ground. We’ll need to connect these wires to the Arduino board.</p>
+<p>It has three wires: Generally a red wire which is the power, a yellow/white wire which is the signal, and the brown/black wire which is the ground. We&#8217;ll need to connect these wires to the Arduino board.</p>
 
-<p>You can screw something onto the servo, so that thing will move along with the servo. For example, it is common to tie some “hands” to the servo which will serve as a robot’s hand.</p>
+<p>You can screw something onto the servo, so that thing will move along with the servo. For example, it is common to tie some &#8220;hands&#8221; to the servo which will serve as a robot&#8217;s hand.</p>
 
-<h2 id="how-to-control-a-servo">How to control a servo?</h2>
+<h2>How to control a servo?</h2>
 
 <p>A servo is generally analog, so you need to use an Arduino board to control it. Arduino can take digital input (computer) and output analog signal to control analog components (servo).  Here is how an Arduino board Meta 2560 looks like:</p>
 
@@ -144,14 +140,20 @@ void loop()
 } 
 </pre>
 
-<p>Basically, what the program does is that if a char ‘e’ is received, it will move the servo in one direction, and other chars will move the servo in another direction.</p>
+<p>Basically, what the program does is that if a char &#8216;e&#8217; is received, it will move the servo in one direction, and other chars will move the servo in another direction.</p>
 
-<p>Once the program is uploaded to Arduino, you should open Putty and connect to the serial port, and then start to press a series of ‘e’ and then ENTER, and other chars will reverse the servo.</p>
+<p>Once the program is uploaded to Arduino, you should open Putty and connect to the serial port, and then start to press a series of &#8216;e&#8217; and then ENTER, and other chars will reverse the servo.</p>
 
 <p>There! Your first movable component at the command of your finger tips!</p>
 
 <p>Source code is on github <a href="https://github.com/log0/some_arduino_scripts/blob/master/move_servo_by_keyboard.c" target="_blank">here</a>.</p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -177,43 +179,18 @@ void loop()
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>

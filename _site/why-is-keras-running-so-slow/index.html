@@ -10,29 +10,26 @@
   <meta name="description" content="">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/why-is-keras-running-so-slow/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/why-is-keras-running-so-slow/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,52 +44,51 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Why is Keras Running So Slow?</h1>
-    <p class="post-meta"><time datetime="2015-12-05T08:31:15-08:00" itemprop="datePublished">Dec 5, 2015</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">Why is Keras Running So Slow?</h1>
+     <p class="post-meta">Posted on Dec 5, 2015 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <article class="post-content">
     <p><a href="http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg"><img class="aligncenter size-full wp-image-640" src="http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg" alt="meme" width="512" height="340" /></a></p>
 
-<p>More notes for myself… so it may not be helpful for you who bumped into here. 😉</p>
+<p>More notes for myself&#8230; so it may not be helpful for you who bumped into here. 😉</p>
 
-<h1 id="why-this-article">Why This Article?</h1>
+<h1>Why This Article?</h1>
 
 <p><a href="http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/" target="_blank">Setting Theano correctly</a> <strong>is not enough</strong> to ensure you can run deep learning software correctly. In our case, it will be Keras, and it can slow to a crawl if not setup properly.</p>
 
 <p>Again, there could be many causes but I try to outline a clean step what I did, the performance I run a good setup, so you can compare. Hopefully you can glean some places where you did wrong.</p>
 
-<h1 id="specifications">Specifications</h1>
+<h1>Specifications</h1>
 
 <p>My server has the following specifications finished running the steps outlined <a href="http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/" target="_blank">here</a>.</p>
 
 <ul>
-  <li>OS: Ubuntu 14.04 LTS, X64</li>
-  <li>GPU: Nvidia Geforce GTX 780</li>
-  <li>Ubuntu 14.04 LTS</li>
-  <li>CUDA 7.5</li>
-  <li>Theano 0.7.0</li>
-  <li>Numpy 1.8.2</li>
-  <li>Kera 0.2.0</li>
-  <li>Scipy 0.13.3</li>
-  <li>NVIDIA-SMI 352.39</li>
-  <li>Graphics Driver Version: 352.39</li>
+<li>OS: Ubuntu 14.04 LTS, X64</li>
+<li>GPU: Nvidia Geforce GTX 780</li>
+<li>Ubuntu 14.04 LTS</li>
+<li>CUDA 7.5</li>
+<li>Theano 0.7.0</li>
+<li>Numpy 1.8.2</li>
+<li>Kera 0.2.0</li>
+<li>Scipy 0.13.3</li>
+<li>NVIDIA-SMI 352.39</li>
+<li>Graphics Driver Version: 352.39</li>
 </ul>
 
-<h1 id="instructions">Instructions</h1>
+<h1>Instructions</h1>
 
 <ol>
-  <li>Make sure your Theano configuration file, located at ~/.theanorc, is correct:</li>
+<li>Make sure your Theano configuration file, located at ~/.theanorc, is correct:</li>
 </ol>
 
 <pre>$ cat ~/.theanorc
@@ -110,7 +106,7 @@ fastmath = True
 [blas]
 ldflags = -llapack -lblas</pre>
 
-<p>Use this to see your Theano settings in runtime and make sure it matches what you have above. Only some output is shown since it is very long:</p>
+Use this to see your Theano settings in runtime and make sure it matches what you have above. Only some output is shown since it is very long:
 
 <pre>$ python -c <span class="s1">'import theano; print theano.config'
 </span>
@@ -132,7 +128,7 @@ warn_float64 (('ignore', 'warn', 'raise', 'pdb'))
 </pre>
 
 <ol>
-  <li>Install Theano bleeding edge (0.7.0), since the Keras examples needs ‘relu’.</li>
+<li>Install Theano bleeding edge (0.7.0), since the Keras examples needs &#8216;relu&#8217;.</li>
 </ol>
 
 <pre>pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git</pre>
@@ -209,10 +205,10 @@ sys 0m1.328s
 <p>As you can see, the whole run takes only 25 seconds, and it may take even less or maybe 2 minutes for you. Anything longer than that looks strange and you should inspect.</p>
 
 <ol>
-  <li>Install <a href="https://developer.nvidia.com/cuDNN" target="_blank">CuDNN</a> if you are using ConvNet. The basic implementations of convolution in Theano are significantly slower.</li>
+<li>Install <a href="https://developer.nvidia.com/cuDNN" target="_blank">CuDNN</a> if you are using ConvNet. The basic implementations of convolution in Theano are significantly slower.</li>
 </ol>
 
-<p>Downloading CuDNN is problematic, because you have to register an account on Nvidia and wait for hours or days for manual approval. Someone uploaded a version of CuDNN 6.5 for download on Google Drive <a href="http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html" target="_blank">here</a> if you don’t want to wait.</p>
+<p>Downloading CuDNN is problematic, because you have to register an account on Nvidia and wait for hours or days for manual approval. Someone uploaded a version of CuDNN 6.5 for download on Google Drive <a href="http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html" target="_blank">here</a> if you don&#8217;t want to wait.</p>
 
 <p>Once you have it, just unzip the tgz file.</p>
 
@@ -224,17 +220,15 @@ $ pwd
 /home/echio/src/cudnn-6.5-linux-x64-v2</pre>
 
 <ol>
-  <li>Make sure your CUDA and CuDNN are both accessible to Theano.</li>
+<li>Make sure your CUDA and CuDNN are both accessible to Theano.</li>
 </ol>
 
 <p>To check if your Theano is using CuDNN. Run this Python code below:</p>
-
-<pre><code># Run this python code
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># Run this python code
 from theano.sandbox.cuda.dnn import *
 print(dnn_available())
 print(dnn_available.msg)
-</code></pre>
-
+</code></pre></figure>
 <p>I also captured the environment variables, replace echio with your username:</p>
 
 <pre>$ echo $CPATH
@@ -258,7 +252,7 @@ False
  ^
 compilation terminated.</pre>
 
-<p><a href="https://goo.gl/bTW22Q" target="_blank">Googling the error message</a> doesn’t help too much.</p>
+<p><a href="https://goo.gl/bTW22Q" target="_blank">Googling the error message</a> doesn&#8217;t help too much.</p>
 
 <p>You need to add the location of the 3. into CPATH, LD_LIBRARY_PATH and LIBRARY_PATH. This is what my .bashrc looks like this (replace echio with your username):</p>
 
@@ -272,17 +266,16 @@ export PATH=$PATH:/usr/local/cuda-7.5/bin</pre>
 
 <pre>ERROR (theano.sandbox.cuda): Failed to compile cuda_ndarray.cu: libcublas.so.7.5: cannot open shared object file: No such file or directory</pre>
 
-<p>You probably didn’t have CUDA environment variables setup properly. See the above ~/.bashrc lines for correct setup.</p>
+<p>You probably didn&#8217;t have CUDA environment variables setup properly. See the above ~/.bashrc lines for correct setup.</p>
 
 <ol>
-  <li>
-    <p>Run this code again.</p>
+<li><p>Run this code again.</p>
 
-    <p># Run this python code
- from theano.sandbox.cuda.dnn import *
- print(dnn_available())
- print(dnn_available.msg)</p>
-  </li>
+<h1>Run this python code</h1>
+
+<p>from theano.sandbox.cuda.dnn import *
+print(dnn<em>available())
+print(dnn</em>available.msg)</p></li>
 </ol>
 
 <p>You should see below when executed in a Python REPL.</p>
@@ -294,22 +287,28 @@ True
 &gt;&gt;&gt; print(dnn_available.msg)
 None</pre>
 
-<p>This is good! Re-run your Keras code and hopefully it will be fast this time…</p>
+<p>This is good! Re-run your Keras code and hopefully it will be fast this time&#8230;</p>
 
-<h1 id="conclusion">Conclusion</h1>
+<h1>Conclusion</h1>
 
 <p>This may or may not solve your problem, but it certainly solved some of my problems. You will probably have to learn to debug things a bit to figure out how to get it to run well.</p>
 
-<h4 id="references">References</h4>
+<h4>References</h4>
 
 <ul>
-  <li><a href="http://deeplearning.net/software/theano/library/config.html" target="_blank">http://deeplearning.net/software/theano/library/config.html</a></li>
-  <li><a href="http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html" target="_blank">http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html</a></li>
-  <li><a href="https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ" target="_blank">https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ</a></li>
+<li><a href="http://deeplearning.net/software/theano/library/config.html" target="_blank"><a href="http://deeplearning.net/software/theano/library/config.html">http://deeplearning.net/software/theano/library/config.html</a></a></li>
+<li><a href="http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html" target="_blank"><a href="http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html">http://deeplearning.net/software/theano/library/sandbox/cuda/dnn.html</a></a></li>
+<li><a href="https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ" target="_blank"><a href="https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ">https://groups.google.com/forum/#!topic/keras-users/EAbpVHJBvGQ</a></a></li>
 </ul>
 
-<p> </p>
+<p>&nbsp;</p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -335,43 +334,18 @@ None</pre>
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>

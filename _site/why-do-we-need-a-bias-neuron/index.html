@@ -10,29 +10,26 @@
   <meta name="description" content="Have you wondered why there is always a bias neuron in a perceptron, neural network? Does the algorithm work without a bias neuron? If yes, or no, either way...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/why-do-we-need-a-bias-neuron/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/why-do-we-need-a-bias-neuron/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,26 +44,25 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Why do We Need a Bias Neuron?</h1>
-    <p class="post-meta"><time datetime="2013-09-16T06:47:54-07:00" itemprop="datePublished">Sep 16, 2013</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">Why do We Need a Bias Neuron?</h1>
+     <p class="post-meta">Posted on Sep 16, 2013 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <article class="post-content">
     <p>Have you wondered why there is always a bias neuron in a perceptron, neural network? Does the algorithm work without a bias neuron? If yes, or no, either way, have you wondered why?</p>
 
-<p><strong>A bias neuron allows a classifier to shift the decision boundary left or right.</strong> In an algebraic term, the bias neuron allows a classifier to <a href="http://en.wikipedia.org/wiki/Translation_(geometry)"><strong>translate</strong></a> its decision boundary. To translation is to “move every point a constant distance in a specified direction”.</p>
+<p><strong>A bias neuron allows a classifier to shift the decision boundary left or right.</strong> In an algebraic term, the bias neuron allows a classifier to <a href="http://en.wikipedia.org/wiki/Translation_(geometry)"><strong>translate</strong></a> its decision boundary. To translation is to &#8220;move every point a constant distance in a specified direction&#8221;.</p>
 
-<p>Now, let’s illustrate with an example. Consider a 2D perceptron trying to classify 10 points below.</p>
+<p>Now, let&#8217;s illustrate with an example. Consider a 2D perceptron trying to classify 10 points below.</p>
 
 <p><a href="http://www.chioka.in/wp-content/uploads/2013/09/Learning-without-bias.png"><img class="alignnone size-medium wp-image-147" alt="Learning without bias" src="http://www.chioka.in/wp-content/uploads/2013/09/Learning-without-bias-580x580.png" width="580" height="580" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/09/Learning-without-bias-580x580.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/09/Learning-without-bias-150x150.png 150w, http://ckieric.webfactional.com/wp-content/uploads/2013/09/Learning-without-bias.png 670w" sizes="(max-width: 580px) 100vw, 580px" /></a></p>
 
@@ -76,8 +72,14 @@
 
 <p>You may find the code in R that demonstrates 1) <a href="https://github.com/log0/perceptron/blob/master/perceptron.r">how a perceptron will learn a decision boundary</a> 2) <a href="https://github.com/log0/perceptron/blob/master/perceptron.no_bias.r">how a perceptron fails to learn a decision boundary</a> in <a href="https://github.com/log0/perceptron">this repository</a>.</p>
 
-<p> </p>
+<p>&nbsp;</p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -103,43 +105,18 @@
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>

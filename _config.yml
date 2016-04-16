@@ -1,4 +1,13 @@
-url: http://ckieric.webfactional.com
+# Site settings
+title: Garbled Notes
 name: Garbled Notes
+url: http://www.chioka.in
+github_username: log0
 description: Things I left Hanging Around
 highlighter: true
+
+markdown: redcarpet
+markdown_ext: markdown,mkdown,mkdn,mkd,md
+
+redcarpet:
+  extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "fenced_code_blocks"]

@@ -10,29 +10,26 @@
   <meta name="description" content="[2014/11/30: Updated the L1-norm vs L2-norm loss function via a programmatic validated diagram. Thanks readers for the pointing out the confusing diagram. Ne...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/differences-between-l1-and-l2-as-loss-function-and-regularization/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,26 +44,25 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Differences between L1 and L2 as Loss Function and Regularization</h1>
-    <p class="post-meta"><time datetime="2013-12-18T04:40:20-08:00" itemprop="datePublished">Dec 18, 2013</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">Differences between L1 and L2 as Loss Function and Regularization</h1>
+     <p class="post-meta">Posted on Dec 18, 2013 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <article class="post-content">
     <p><em><span style="line-height: 1.714285714; font-size: 1rem;">[2014/11/30: Updated the L1-norm vs L2-norm loss function via a programmatic validated diagram. Thanks readers for the pointing out the confusing diagram. Next time I will not draw mspaint but actually plot it out.]</span></em></p>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">While practicing machine learning, you may have come upon a choice of the mysterious L1 vs L2. Usually the two decisions are : 1) L1-norm vs L2-norm loss function; and 2) L1-regularization vs L2-regularization.</span></p>
 
-<h2 id="as-an-error-function">As An Error Function</h2>
+<h2>As An Error Function</h2>
 
 <p>L1-norm loss function is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences <strong>(S)</strong> between the target value (<strong>Y<sub>i</sub></strong>) and the estimated values (<strong>f(x<sub>i</sub>)</strong>):</p>
 
@@ -83,7 +79,7 @@
 <p><strong style="line-height: 1.714285714; font-size: 1rem;">Robustness</strong><span style="line-height: 1.714285714; font-size: 1rem;">, per wikipedia, is explained as:</span></p>
 
 <blockquote>
-  <p>The method of least absolute deviations finds applications in many areas, due to its robustness compared to the least squares method. Least absolute deviations is robust in that it is resistant to outliers in the data. This may be helpful in studies where outliers may be safely and effectively ignored. If it is important to pay attention to any and all outliers, the method of least squares is a better choice.</p>
+<p>The method of least absolute deviations finds applications in many areas, due to its robustness compared to the least squares method. Least absolute deviations is robust in that it is resistant to outliers in the data. This may be helpful in studies where outliers may be safely and effectively ignored. If it is important to pay attention to any and all outliers, the method of least squares is a better choice.</p>
 </blockquote>
 
 <p>Intuitively speaking, since a L2-norm squares the error (increasing by a lot if error &gt; 1), the model will see a much larger error ( e vs e^2 ) than the L1-norm, so the model is much more sensitive to this example, and adjusts the model to minimize this error. If this example is an outlier, the model will be adjusted to minimize this single outlier case, at the expense of many other common examples, since the errors of these common examples are small compared to that single outlier case.</p>
@@ -91,7 +87,7 @@
 <p><strong>Stability</strong>, per wikipedia, is explained as:</p>
 
 <blockquote>
-  <p>The instability property of the method of least absolute deviations means that, for a small horizontal adjustment of a datum, the regression line may jump a large amount. The method has continuous solutions for some data configurations; however, by moving a datum a small amount, one could “jump past” a configuration which has multiple solutions that span a region. After passing this region of solutions, the least absolute deviations line has a slope that may differ greatly from that of the previous line. In contrast, the least squares solutions is stable in that, for any small adjustment of a data point, the regression line will always move only slightly; that is, the regression parameters are continuous functions of the data.</p>
+<p>The instability property of the method of least absolute deviations means that, for a small horizontal adjustment of a datum, the regression line may jump a large amount. The method has continuous solutions for some data configurations; however, by moving a datum a small amount, one could &#8220;jump past&#8221; a configuration which has multiple solutions that span a region. After passing this region of solutions, the least absolute deviations line has a slope that may differ greatly from that of the previous line. In contrast, the least squares solutions is stable in that, for any small adjustment of a data point, the regression line will always move only slightly; that is, the regression parameters are continuous functions of the data.</p>
 </blockquote>
 
 <p>Below is a diagram generated using a real data and a real fitted model:</p>
@@ -100,13 +96,13 @@
 
 <p>The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).</p>
 
-<p>I gradually move the outlier point from left to right, which it will be less “outlier” in the middle and more “outlier” at the left and right side. When the outlier point isless “outlier” (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.</p>
+<p>I gradually move the outlier point from left to right, which it will be less &#8220;outlier&#8221; in the middle and more &#8220;outlier&#8221; at the left and right side. When the outlier point isless &#8220;outlier&#8221; (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.</p>
 
-<p>In the case of a more “outlier” point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.</p>
+<p>In the case of a more &#8220;outlier&#8221; point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.</p>
 
 <p>By visualizing data, we can get a better idea what stability is with respective to these two loss functions.</p>
 
-<h2 id="as-regularization">As Regularization</h2>
+<h2>As Regularization</h2>
 
 <p>Regularization is a very important technique in machine learning to prevent overfitting. Mathematically speaking, it adds a <em>regularization</em> <em>term</em> in order to prevent the coefficients to fit so perfectly to overfit. The difference between the L1 and L2 is just that L2 is the sum of the square of the weights, while L1 is just the sum of the weights. As follows:</p>
 
@@ -128,7 +124,7 @@
 
 <p>The green line (L2-norm) is the unique shortest path, while the red, blue, yellow (L1-norm) are all same length (=12) for the same route. Generalizing this to n-dimensions. This is why L2-norm has unique solutions while L1-norm does not.</p>
 
-<p><strong>Built-in feature selection</strong> is frequently mentioned as a useful property of the L1-norm, which the L2-norm does not. This is actually a result of the L1-norm, which tends to produces sparse coefficients (explained below). Suppose the model have 100 coefficients but only 10 of them have non-zero coefficients, this is effectively saying that “the other 90 predictors are useless in predicting the target values”. L2-norm produces non-sparse coefficients, so does not have this property.</p>
+<p><strong>Built-in feature selection</strong> is frequently mentioned as a useful property of the L1-norm, which the L2-norm does not. This is actually a result of the L1-norm, which tends to produces sparse coefficients (explained below). Suppose the model have 100 coefficients but only 10 of them have non-zero coefficients, this is effectively saying that &#8220;the other 90 predictors are useless in predicting the target values&#8221;. L2-norm produces non-sparse coefficients, so does not have this property.</p>
 
 <p><strong>Sparsity</strong> refers to that only very few entries in a matrix (or vector) is non-zero. L1-norm has the property of producing many coefficients with zero values or very small values with few large coefficients.</p>
 
@@ -140,7 +136,7 @@
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">While practicing machine learning, you may have come upon a choice of the mysterious L1 vs L2. Usually the two decisions are : 1) L1-norm vs L2-norm loss function; and 2) L1-regularization vs L2-regularization.</span></p>
 
-<h2 id="as-an-error-function-1">As An Error Function</h2>
+<h2>As An Error Function</h2>
 
 <p>L1-norm loss function is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences <strong>(S)</strong> between the target value (<strong>Y<sub>i</sub></strong>) and the estimated values (<strong>f(x<sub>i</sub>)</strong>):</p>
 
@@ -157,7 +153,7 @@
 <p><strong style="line-height: 1.714285714; font-size: 1rem;">Robustness</strong><span style="line-height: 1.714285714; font-size: 1rem;">, per wikipedia, is explained as:</span></p>
 
 <blockquote>
-  <p>The method of least absolute deviations finds applications in many areas, due to its robustness compared to the least squares method. Least absolute deviations is robust in that it is resistant to outliers in the data. This may be helpful in studies where outliers may be safely and effectively ignored. If it is important to pay attention to any and all outliers, the method of least squares is a better choice.</p>
+<p>The method of least absolute deviations finds applications in many areas, due to its robustness compared to the least squares method. Least absolute deviations is robust in that it is resistant to outliers in the data. This may be helpful in studies where outliers may be safely and effectively ignored. If it is important to pay attention to any and all outliers, the method of least squares is a better choice.</p>
 </blockquote>
 
 <p>Intuitively speaking, since a L2-norm squares the error (increasing by a lot if error &gt; 1), the model will see a much larger error ( e vs e^2 ) than the L1-norm, so the model is much more sensitive to this example, and adjusts the model to minimize this error. If this example is an outlier, the model will be adjusted to minimize this single outlier case, at the expense of many other common examples, since the errors of these common examples are small compared to that single outlier case.</p>
@@ -165,7 +161,7 @@
 <p><strong>Stability</strong>, per wikipedia, is explained as:</p>
 
 <blockquote>
-  <p>The instability property of the method of least absolute deviations means that, for a small horizontal adjustment of a datum, the regression line may jump a large amount. The method has continuous solutions for some data configurations; however, by moving a datum a small amount, one could “jump past” a configuration which has multiple solutions that span a region. After passing this region of solutions, the least absolute deviations line has a slope that may differ greatly from that of the previous line. In contrast, the least squares solutions is stable in that, for any small adjustment of a data point, the regression line will always move only slightly; that is, the regression parameters are continuous functions of the data.</p>
+<p>The instability property of the method of least absolute deviations means that, for a small horizontal adjustment of a datum, the regression line may jump a large amount. The method has continuous solutions for some data configurations; however, by moving a datum a small amount, one could &#8220;jump past&#8221; a configuration which has multiple solutions that span a region. After passing this region of solutions, the least absolute deviations line has a slope that may differ greatly from that of the previous line. In contrast, the least squares solutions is stable in that, for any small adjustment of a data point, the regression line will always move only slightly; that is, the regression parameters are continuous functions of the data.</p>
 </blockquote>
 
 <p>Below is a diagram generated using a real data and a real fitted model:</p>
@@ -174,13 +170,13 @@
 
 <p>The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).</p>
 
-<p>I gradually move the outlier point from left to right, which it will be less “outlier” in the middle and more “outlier” at the left and right side. When the outlier point isless “outlier” (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.</p>
+<p>I gradually move the outlier point from left to right, which it will be less &#8220;outlier&#8221; in the middle and more &#8220;outlier&#8221; at the left and right side. When the outlier point isless &#8220;outlier&#8221; (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.</p>
 
-<p>In the case of a more “outlier” point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.</p>
+<p>In the case of a more &#8220;outlier&#8221; point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.</p>
 
 <p>By visualizing data, we can get a better idea what stability is with respective to these two loss functions.</p>
 
-<h2 id="as-regularization-1">As Regularization</h2>
+<h2>As Regularization</h2>
 
 <p>Regularization is a very important technique in machine learning to prevent overfitting. Mathematically speaking, it adds a <em>regularization</em> <em>term</em> in order to prevent the coefficients to fit so perfectly to overfit. The difference between the L1 and L2 is just that L2 is the sum of the square of the weights, while L1 is just the sum of the weights. As follows:</p>
 
@@ -202,7 +198,7 @@
 
 <p>The green line (L2-norm) is the unique shortest path, while the red, blue, yellow (L1-norm) are all same length (=12) for the same route. Generalizing this to n-dimensions. This is why L2-norm has unique solutions while L1-norm does not.</p>
 
-<p><strong>Built-in feature selection</strong> is frequently mentioned as a useful property of the L1-norm, which the L2-norm does not. This is actually a result of the L1-norm, which tends to produces sparse coefficients (explained below). Suppose the model have 100 coefficients but only 10 of them have non-zero coefficients, this is effectively saying that “the other 90 predictors are useless in predicting the target values”. L2-norm produces non-sparse coefficients, so does not have this property.</p>
+<p><strong>Built-in feature selection</strong> is frequently mentioned as a useful property of the L1-norm, which the L2-norm does not. This is actually a result of the L1-norm, which tends to produces sparse coefficients (explained below). Suppose the model have 100 coefficients but only 10 of them have non-zero coefficients, this is effectively saying that &#8220;the other 90 predictors are useless in predicting the target values&#8221;. L2-norm produces non-sparse coefficients, so does not have this property.</p>
 
 <p><strong>Sparsity</strong> refers to that only very few entries in a matrix (or vector) is non-zero. L1-norm has the property of producing many coefficients with zero values or very small values with few large coefficients.</p>
 
@@ -210,11 +206,11 @@
 
 <p>References:</p>
 
-<p>](http://en.wikipedia.org/wiki/Least_absolute_deviations) [<em><span style="line-height: 1.714285714; font-size: 1rem;">[2014/11/30: Updated the L1-norm vs L2-norm loss function via a programmatic validated diagram. Thanks readers for the pointing out the confusing diagram. Next time I will not draw mspaint but actually plot it out.]</span></em></p>
+<p>](<a href="http://en.wikipedia.org/wiki/Least_absolute_deviations">http://en.wikipedia.org/wiki/Least_absolute_deviations</a>) [<em><span style="line-height: 1.714285714; font-size: 1rem;">[2014/11/30: Updated the L1-norm vs L2-norm loss function via a programmatic validated diagram. Thanks readers for the pointing out the confusing diagram. Next time I will not draw mspaint but actually plot it out.]</span></em></p>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">While practicing machine learning, you may have come upon a choice of the mysterious L1 vs L2. Usually the two decisions are : 1) L1-norm vs L2-norm loss function; and 2) L1-regularization vs L2-regularization.</span></p>
 
-<h2 id="as-an-error-function-2">As An Error Function</h2>
+<h2>As An Error Function</h2>
 
 <p>L1-norm loss function is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences <strong>(S)</strong> between the target value (<strong>Y<sub>i</sub></strong>) and the estimated values (<strong>f(x<sub>i</sub>)</strong>):</p>
 
@@ -231,7 +227,7 @@
 <p><strong style="line-height: 1.714285714; font-size: 1rem;">Robustness</strong><span style="line-height: 1.714285714; font-size: 1rem;">, per wikipedia, is explained as:</span></p>
 
 <blockquote>
-  <p>The method of least absolute deviations finds applications in many areas, due to its robustness compared to the least squares method. Least absolute deviations is robust in that it is resistant to outliers in the data. This may be helpful in studies where outliers may be safely and effectively ignored. If it is important to pay attention to any and all outliers, the method of least squares is a better choice.</p>
+<p>The method of least absolute deviations finds applications in many areas, due to its robustness compared to the least squares method. Least absolute deviations is robust in that it is resistant to outliers in the data. This may be helpful in studies where outliers may be safely and effectively ignored. If it is important to pay attention to any and all outliers, the method of least squares is a better choice.</p>
 </blockquote>
 
 <p>Intuitively speaking, since a L2-norm squares the error (increasing by a lot if error &gt; 1), the model will see a much larger error ( e vs e^2 ) than the L1-norm, so the model is much more sensitive to this example, and adjusts the model to minimize this error. If this example is an outlier, the model will be adjusted to minimize this single outlier case, at the expense of many other common examples, since the errors of these common examples are small compared to that single outlier case.</p>
@@ -239,7 +235,7 @@
 <p><strong>Stability</strong>, per wikipedia, is explained as:</p>
 
 <blockquote>
-  <p>The instability property of the method of least absolute deviations means that, for a small horizontal adjustment of a datum, the regression line may jump a large amount. The method has continuous solutions for some data configurations; however, by moving a datum a small amount, one could “jump past” a configuration which has multiple solutions that span a region. After passing this region of solutions, the least absolute deviations line has a slope that may differ greatly from that of the previous line. In contrast, the least squares solutions is stable in that, for any small adjustment of a data point, the regression line will always move only slightly; that is, the regression parameters are continuous functions of the data.</p>
+<p>The instability property of the method of least absolute deviations means that, for a small horizontal adjustment of a datum, the regression line may jump a large amount. The method has continuous solutions for some data configurations; however, by moving a datum a small amount, one could &#8220;jump past&#8221; a configuration which has multiple solutions that span a region. After passing this region of solutions, the least absolute deviations line has a slope that may differ greatly from that of the previous line. In contrast, the least squares solutions is stable in that, for any small adjustment of a data point, the regression line will always move only slightly; that is, the regression parameters are continuous functions of the data.</p>
 </blockquote>
 
 <p>Below is a diagram generated using a real data and a real fitted model:</p>
@@ -248,13 +244,13 @@
 
 <p>The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).</p>
 
-<p>I gradually move the outlier point from left to right, which it will be less “outlier” in the middle and more “outlier” at the left and right side. When the outlier point isless “outlier” (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.</p>
+<p>I gradually move the outlier point from left to right, which it will be less &#8220;outlier&#8221; in the middle and more &#8220;outlier&#8221; at the left and right side. When the outlier point isless &#8220;outlier&#8221; (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.</p>
 
-<p>In the case of a more “outlier” point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.</p>
+<p>In the case of a more &#8220;outlier&#8221; point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.</p>
 
 <p>By visualizing data, we can get a better idea what stability is with respective to these two loss functions.</p>
 
-<h2 id="as-regularization-2">As Regularization</h2>
+<h2>As Regularization</h2>
 
 <p>Regularization is a very important technique in machine learning to prevent overfitting. Mathematically speaking, it adds a <em>regularization</em> <em>term</em> in order to prevent the coefficients to fit so perfectly to overfit. The difference between the L1 and L2 is just that L2 is the sum of the square of the weights, while L1 is just the sum of the weights. As follows:</p>
 
@@ -276,7 +272,7 @@
 
 <p>The green line (L2-norm) is the unique shortest path, while the red, blue, yellow (L1-norm) are all same length (=12) for the same route. Generalizing this to n-dimensions. This is why L2-norm has unique solutions while L1-norm does not.</p>
 
-<p><strong>Built-in feature selection</strong> is frequently mentioned as a useful property of the L1-norm, which the L2-norm does not. This is actually a result of the L1-norm, which tends to produces sparse coefficients (explained below). Suppose the model have 100 coefficients but only 10 of them have non-zero coefficients, this is effectively saying that “the other 90 predictors are useless in predicting the target values”. L2-norm produces non-sparse coefficients, so does not have this property.</p>
+<p><strong>Built-in feature selection</strong> is frequently mentioned as a useful property of the L1-norm, which the L2-norm does not. This is actually a result of the L1-norm, which tends to produces sparse coefficients (explained below). Suppose the model have 100 coefficients but only 10 of them have non-zero coefficients, this is effectively saying that &#8220;the other 90 predictors are useless in predicting the target values&#8221;. L2-norm produces non-sparse coefficients, so does not have this property.</p>
 
 <p><strong>Sparsity</strong> refers to that only very few entries in a matrix (or vector) is non-zero. L1-norm has the property of producing many coefficients with zero values or very small values with few large coefficients.</p>
 
@@ -288,7 +284,7 @@
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">While practicing machine learning, you may have come upon a choice of the mysterious L1 vs L2. Usually the two decisions are : 1) L1-norm vs L2-norm loss function; and 2) L1-regularization vs L2-regularization.</span></p>
 
-<h2 id="as-an-error-function-3">As An Error Function</h2>
+<h2>As An Error Function</h2>
 
 <p>L1-norm loss function is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences <strong>(S)</strong> between the target value (<strong>Y<sub>i</sub></strong>) and the estimated values (<strong>f(x<sub>i</sub>)</strong>):</p>
 
@@ -305,7 +301,7 @@
 <p><strong style="line-height: 1.714285714; font-size: 1rem;">Robustness</strong><span style="line-height: 1.714285714; font-size: 1rem;">, per wikipedia, is explained as:</span></p>
 
 <blockquote>
-  <p>The method of least absolute deviations finds applications in many areas, due to its robustness compared to the least squares method. Least absolute deviations is robust in that it is resistant to outliers in the data. This may be helpful in studies where outliers may be safely and effectively ignored. If it is important to pay attention to any and all outliers, the method of least squares is a better choice.</p>
+<p>The method of least absolute deviations finds applications in many areas, due to its robustness compared to the least squares method. Least absolute deviations is robust in that it is resistant to outliers in the data. This may be helpful in studies where outliers may be safely and effectively ignored. If it is important to pay attention to any and all outliers, the method of least squares is a better choice.</p>
 </blockquote>
 
 <p>Intuitively speaking, since a L2-norm squares the error (increasing by a lot if error &gt; 1), the model will see a much larger error ( e vs e^2 ) than the L1-norm, so the model is much more sensitive to this example, and adjusts the model to minimize this error. If this example is an outlier, the model will be adjusted to minimize this single outlier case, at the expense of many other common examples, since the errors of these common examples are small compared to that single outlier case.</p>
@@ -313,7 +309,7 @@
 <p><strong>Stability</strong>, per wikipedia, is explained as:</p>
 
 <blockquote>
-  <p>The instability property of the method of least absolute deviations means that, for a small horizontal adjustment of a datum, the regression line may jump a large amount. The method has continuous solutions for some data configurations; however, by moving a datum a small amount, one could “jump past” a configuration which has multiple solutions that span a region. After passing this region of solutions, the least absolute deviations line has a slope that may differ greatly from that of the previous line. In contrast, the least squares solutions is stable in that, for any small adjustment of a data point, the regression line will always move only slightly; that is, the regression parameters are continuous functions of the data.</p>
+<p>The instability property of the method of least absolute deviations means that, for a small horizontal adjustment of a datum, the regression line may jump a large amount. The method has continuous solutions for some data configurations; however, by moving a datum a small amount, one could &#8220;jump past&#8221; a configuration which has multiple solutions that span a region. After passing this region of solutions, the least absolute deviations line has a slope that may differ greatly from that of the previous line. In contrast, the least squares solutions is stable in that, for any small adjustment of a data point, the regression line will always move only slightly; that is, the regression parameters are continuous functions of the data.</p>
 </blockquote>
 
 <p>Below is a diagram generated using a real data and a real fitted model:</p>
@@ -322,13 +318,13 @@
 
 <p>The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).</p>
 
-<p>I gradually move the outlier point from left to right, which it will be less “outlier” in the middle and more “outlier” at the left and right side. When the outlier point isless “outlier” (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.</p>
+<p>I gradually move the outlier point from left to right, which it will be less &#8220;outlier&#8221; in the middle and more &#8220;outlier&#8221; at the left and right side. When the outlier point isless &#8220;outlier&#8221; (in the middle), L2-norm has less changes while the fitted line using L1-norm has more changes.</p>
 
-<p>In the case of a more “outlier” point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.</p>
+<p>In the case of a more &#8220;outlier&#8221; point (upper left, lower right, where points are to the far left and far right), both norms still have big change, but again the L1-norm has more changes in general.</p>
 
 <p>By visualizing data, we can get a better idea what stability is with respective to these two loss functions.</p>
 
-<h2 id="as-regularization-3">As Regularization</h2>
+<h2>As Regularization</h2>
 
 <p>Regularization is a very important technique in machine learning to prevent overfitting. Mathematically speaking, it adds a <em>regularization</em> <em>term</em> in order to prevent the coefficients to fit so perfectly to overfit. The difference between the L1 and L2 is just that L2 is the sum of the square of the weights, while L1 is just the sum of the weights. As follows:</p>
 
@@ -350,7 +346,7 @@
 
 <p>The green line (L2-norm) is the unique shortest path, while the red, blue, yellow (L1-norm) are all same length (=12) for the same route. Generalizing this to n-dimensions. This is why L2-norm has unique solutions while L1-norm does not.</p>
 
-<p><strong>Built-in feature selection</strong> is frequently mentioned as a useful property of the L1-norm, which the L2-norm does not. This is actually a result of the L1-norm, which tends to produces sparse coefficients (explained below). Suppose the model have 100 coefficients but only 10 of them have non-zero coefficients, this is effectively saying that “the other 90 predictors are useless in predicting the target values”. L2-norm produces non-sparse coefficients, so does not have this property.</p>
+<p><strong>Built-in feature selection</strong> is frequently mentioned as a useful property of the L1-norm, which the L2-norm does not. This is actually a result of the L1-norm, which tends to produces sparse coefficients (explained below). Suppose the model have 100 coefficients but only 10 of them have non-zero coefficients, this is effectively saying that &#8220;the other 90 predictors are useless in predicting the target values&#8221;. L2-norm produces non-sparse coefficients, so does not have this property.</p>
 
 <p><strong>Sparsity</strong> refers to that only very few entries in a matrix (or vector) is non-zero. L1-norm has the property of producing many coefficients with zero values or very small values with few large coefficients.</p>
 
@@ -358,8 +354,14 @@
 
 <p>References:</p>
 
-<p>](http://en.wikipedia.org/wiki/Least_absolute_deviations)](http://www.quora.com/Machine-Learning/What-is-the-difference-between-L1-and-L2-regularization) <a href="http://metaoptimize.com/qa/questions/5205/when-to-use-l1-regularization-and-when-l2">http://metaoptimize.com/qa/questions/5205/when-to-use-l1-regularization-and-when-l2</a></p>
+<p>](<a href="http://en.wikipedia.org/wiki/Least_absolute_deviations)%5D(http://www.quora.com/Machine-Learning/What-is-the-difference-between-L1-and-L2-regularization">http://en.wikipedia.org/wiki/Least_absolute_deviations)](http://www.quora.com/Machine-Learning/What-is-the-difference-between-L1-and-L2-regularization</a>) <a href="http://metaoptimize.com/qa/questions/5205/when-to-use-l1-regularization-and-when-l2">http://metaoptimize.com/qa/questions/5205/when-to-use-l1-regularization-and-when-l2</a></p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -385,43 +387,18 @@
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>

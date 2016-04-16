@@ -10,29 +10,26 @@
   <meta name="description" content="This is part 2 of applying machine learning to practical business problems. Part 1 here. We are working on trying to build a model to predict if an article o...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/how-to-predict-a-popular-article-with-machine-learning-part-2/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/how-to-predict-a-popular-article-with-machine-learning-part-2/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,38 +44,37 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">How to Predict A Popular Article with Machine Learning (Part 2)</h1>
-    <p class="post-meta"><time datetime="2014-01-12T09:02:06-08:00" itemprop="datePublished">Jan 12, 2014</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">How to Predict A Popular Article with Machine Learning (Part 2)</h1>
+     <p class="post-meta">Posted on Jan 12, 2014 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <article class="post-content">
     <p>This is part 2 of applying machine learning to practical business problems. <a href="http://www.chioka.in/how-to-predict-a-popular-article-with-machine-learning-part-1/">Part 1 here</a>. We are working on trying to build a model to predict if an article on Lifehack will become popular or not.</p>
 
-<h2 id="overview">Overview</h2>
+<h2>Overview</h2>
 
 <p>In <a href="http://www.chioka.in/how-to-predict-a-popular-article-with-machine-learning-part-1/">Part 1</a> we have gone through the whole data preparation process, which involves <strong>data collection, data preprocessing</strong> and <strong>data transformation.</strong> We will now build a priliminary model with the training and testing data.</p>
 
-<h2 id="class-imbalance-problem">Class Imbalance Problem</h2>
+<h2>Class Imbalance Problem</h2>
 
 <p>Remember we partitioned our training and testing data as follows, visualized:</p>
 
 <p><a href="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early.png"><img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" /></a></p>
 
-<p> </p>
+<p>&nbsp;</p>
 
 <p>Due to having a lot more negative data than positive data in the training set, our trained model performance will be very poor, despite we supplied a lot of training data. To resolve this, one way is <strong>undersampling,</strong> which we will throw away negative data. Counter-intuitively, <a href="http://www.chioka.in/class-imbalance-problem/">this actually helps</a>. This is called the <a href="http://www.chioka.in/class-imbalance-problem/">Class Imbalance Problem</a>.</p>
 
-<h2 id="dataset-preparation-revisited">Dataset Preparation Revisited</h2>
+<h2>Dataset Preparation Revisited</h2>
 
 <p>Because of the class imbalance problem, we want to keep the training set with 1:1 ratio of positive to negative data, visualized:</p>
 
@@ -86,15 +82,15 @@
 
 <p>In step 3 of the figure, we throw away a large number of negative examples in the training set. In step 4, we see that the training set is now much smaller with equal number of positive and negative data. This will be the training set we will use. There is no change to the testing set.</p>
 
-<h2 id="how-to-choose-a-machine-learning-algorithm">How to Choose a Machine Learning Algorithm</h2>
+<h2>How to Choose a Machine Learning Algorithm</h2>
 
-<p>There are a lot of models to pick from, such as Random Forest, Support Vector Machines, Linear Regression, Logistic Regression, Gradient Boosted Models, etc… how do we start?</p>
+<p>There are a lot of models to pick from, such as Random Forest, Support Vector Machines, Linear Regression, Logistic Regression, Gradient Boosted Models, etc&#8230; how do we start?</p>
 
 <p><strong>Try something fast, and simple. Preferably with few parameters. So you have a quick turnaround to get a feeling of the dataset and problem at hand.</strong> Linear models are a good start. SVMs are not, because you would have to tune the C and gamma parameters, and they are in generally very slow compared to linear models.</p>
 
 <p>In this case, we will pick the <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeClassifier.html">Ridge Classifier</a> of Scikit-Learn as our first attempt. It is a linear model, and is relatively first. In practice, it also performs quite well.</p>
 
-<h2 id="how-to-get-data-into-the-model">How to Get Data Into the Model</h2>
+<h2>How to Get Data Into the Model</h2>
 
 <p>The Ridge expects an input matrix of shape {number of examples, number of features} and a vector, the target class. Yet, our training data is a list of text articles. What do we do?</p>
 
@@ -102,7 +98,7 @@
 
 <p>After this transformation, we now have an input matrix of shape {number of examples, number of features}.</p>
 
-<h2 id="connecting-the-above-altogether">Connecting the Above Altogether</h2>
+<h2>Connecting the Above Altogether</h2>
 
 <p>We refined our training set, converted the data to a matrix for training. We are now ready for a first run! The model in Python Scikit Learn looks like this (with parameters omitted for clarity):</p>
 
@@ -113,7 +109,7 @@
 
 <p>The Pipeline is just a construct in Scikit Learn to streamline the data transformation and training. We can now use the model to start training on the training data.</p>
 
-<h2 id="picking-a-score-function">Picking a Score Function</h2>
+<h2>Picking a Score Function</h2>
 
 <p>We want to know how good we perform. You may be attempted to use accuracy score, but no. If there are 10000 articles with only 5 positive examples, classifying all articles as negatives will give you an impressive 99.x% accuracy. Apparently, this is a bad model.</p>
 
@@ -121,7 +117,7 @@
 
 <p>If we use the example above, suppose we classify all examples as negative and get 9995 classifications right, the ROC_AUC will be just 0.5, which means it is completely random.</p>
 
-<h2 id="results-from-first-attempt">Results from First Attempt</h2>
+<h2>Results from First Attempt</h2>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">This model we use yielded and ROC_AUC score of about 0.50~60 on the testing set.</span></p>
 
@@ -129,10 +125,16 @@
 
 <p>If you have tried toy datasets, it is painfully easy to get a 95% accuracy. However, we are dealing with real data here. It needs optimization effort.</p>
 
-<p><strong>As a best practice, it is a good idea to get something work first, we will then fine tune from there. In fact, machine learning isn’t a one-shot thing. You improve it iteratively, just like you would do in software engineering.</strong></p>
+<p><strong>As a best practice, it is a good idea to get something work first, we will then fine tune from there. In fact, machine learning isn&#8217;t a one-shot thing. You improve it iteratively, just like you would do in software engineering.</strong></p>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">In part 3, I will talk about how to improve this poor preliminary model and how to make sure it performs well on testing data.</span></p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -158,43 +160,18 @@
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>

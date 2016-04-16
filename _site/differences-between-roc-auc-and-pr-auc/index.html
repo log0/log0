@@ -10,29 +10,26 @@
   <meta name="description" content="[edit 2014/04/19: Some mistakes were made, but the interpretation follows. Sorry about that.]">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ckieric.webfactional.com/differences-between-roc-auc-and-pr-auc/">
-  <link rel="alternate" type="application/rss+xml" title="" href="http://ckieric.webfactional.com/feed.xml">
+  <link rel="canonical" href="http://www.chioka.in/differences-between-roc-auc-and-pr-auc/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 </head>
 
 
   <body>
 
-    <header class="site-header">
-
-  <div class="wrapper">
-
-    <a class="site-title" href="/"></a>
+    <div class="site-header">
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
+        <i class="fa fa-navicon fa-lg"></i>
       </a>
 
       <div class="trigger">
+          <a class="page-link" href="/">Home</a>
         
           
           <a class="page-link" href="/about/">About</a>
@@ -47,39 +44,38 @@
       </div>
     </nav>
 
-  </div>
 
-</header>
+</div>
 
 
     <div class="page-content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Differences between Receiver Operating Characteristic AUC (ROC AUC) and Precision Recall AUC (PR AUC)</h1>
-    <p class="post-meta"><time datetime="2014-04-02T03:15:39-07:00" itemprop="datePublished">Apr 2, 2014</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">lo</span></span></p>
+     <h1 class="post-title">Differences between Receiver Operating Characteristic AUC (ROC AUC) and Precision Recall AUC (PR AUC)</h1>
+     <p class="post-meta">Posted on Apr 2, 2014 • lo</p>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <article class="post-content">
     <p>[edit 2014/04/19: Some mistakes were made, but the interpretation follows. Sorry about that.]</p>
 
-<h1 id="tldr">TL;DR</h1>
+<h1>TL;DR</h1>
 
 <p>Use Precision Recall area under curve for <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">class imbalance problems</a>. If not, Receiver Operating Characteristic area under curve otherwise.</p>
 
-<h1 id="introduction">Introduction</h1>
+<h1>Introduction</h1>
 
 <p>When being confronted with the <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">class imbalance problem</a>, accuracy is a <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">wrong metric to use</a>. Usually, there are two candidates as metrics:</p>
 
 <ol>
-  <li>Receiver Operating Characteristic area under curve (ROC AUC)</li>
-  <li>Precision Recall area under curve (PR AUC)</li>
+<li>Receiver Operating Characteristic area under curve (ROC AUC)</li>
+<li>Precision Recall area under curve (PR AUC)</li>
 </ol>
 
 <p>Which is better? What are the differences?</p>
 
-<h1 id="receiver-operating-characteristic-curve-roc-curve">Receiver Operating Characteristic Curve (ROC curve)</h1>
+<h1>Receiver Operating Characteristic Curve (ROC curve)</h1>
 
 <p>A ROC curve is plotting True Positive Rate (TPR) against False Positive Rate (FPR).</p>
 
@@ -97,11 +93,11 @@
 
 <p><a href="http://www.chioka.in/wp-content/uploads/2014/04/sample-ROC-curve.png"><img class="aligncenter size-full wp-image-393" src="http://www.chioka.in/wp-content/uploads/2014/04/sample-ROC-curve.png" alt="sample-ROC-curve" width="385" height="362" /></a></p>
 
-<p><span style="line-height: 1.714285714; font-size: 1rem;">The goal is to have a model be at the upper left corner, which is basically getting no false positives – a perfect classifier.</span></p>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">The goal is to have a model be at the upper left corner, which is basically getting no false positives &#8211; a perfect classifier.</span></p>
 
 <p><strong>The receiver operating characteristic area under curve (ROC AUC) is just the area under the ROC curve.</strong> The higher it is, the better the model is.</p>
 
-<h1 id="precision-recall-curve-pr-curve">Precision Recall Curve (PR Curve)</h1>
+<h1>Precision Recall Curve (PR Curve)</h1>
 
 <p>A PR curve is plotting Precision against Recall.</p>
 
@@ -115,11 +111,11 @@
 
 <p><a href="http://www.chioka.in/wp-content/uploads/2014/04/sample-PR-curve.png"><img class="aligncenter size-full wp-image-396" src="http://www.chioka.in/wp-content/uploads/2014/04/sample-PR-curve.png" alt="sample-PR-curve" width="389" height="354" /></a></p>
 
-<p>The goal is to have a model be at the upper right corner, which is basically getting only the true positives with no false positives and no false negatives – a perfect classifier.</p>
+<p>The goal is to have a model be at the upper right corner, which is basically getting only the true positives with no false positives and no false negatives &#8211; a perfect classifier.</p>
 
 <p><strong>The precision recall area under curve (PR AUC) is just the area under the PR curve.</strong> The higher it is, the better the model is.</p>
 
-<h1 id="differences-between-the-roc-auc-and-pr-auc">Differences between the ROC AUC and PR AUC</h1>
+<h1>Differences between the ROC AUC and PR AUC</h1>
 
 <p><a href="https://www.kaggle.com/users/46202/randy-c" target="_blank">Randy</a> has given a great explanation <a href="https://www.kaggle.com/forums/t/7517/precision-recall-auc-vs-roc-auc-for-class-imbalance-problems/41179#post41179" target="_blank">here</a>, plus a little of my understanding.</p>
 
@@ -128,61 +124,67 @@
 <p>A small example from Randy to illustrate this more clearly, with some <strong>bold text</strong> added myself:</p>
 
 <blockquote>
-  <p>For illustration, let’s take an example of an information retrieval problem where we want to find a set of, say, 100 relevant documents out of a list of 1 million possibilities based on some query. Let’s say we’ve got two algorithms we want to compare with the following performance:</p>
+<p>For illustration, let&#8217;s take an example of an information retrieval problem where we want to find a set of, say, 100 relevant documents out of a list of 1 million possibilities based on some query. Let&#8217;s say we&#8217;ve got two algorithms we want to compare with the following performance:</p>
 
-  <ul>
-    <li>Method 1: 100 retrieved documents, 90 relevant. <strong>Thus, TP = 90, TN = 999890, FP = 10, FN = 10.</strong></li>
-    <li>Method 2: 2000 retrieved documents, 90 relevant. <strong>Thus, TP = 90, TN = 997990, FP = 1910, FN = 10.</strong></li>
-  </ul>
+<ul>
+<li>Method 1: 100 retrieved documents, 90 relevant. <strong>Thus, TP = 90, TN = 999890, FP = 10, FN = 10.</strong></li>
+<li>Method 2: 2000 retrieved documents, 90 relevant. <strong>Thus, TP = 90, TN = 997990, FP = 1910, FN = 10.</strong></li>
+</ul>
 
-  <p>Clearly, Method 1’s result is preferable since they both come back with the same number of relevant results, but Method 2 brings a ton of false positives with it. The ROC measures of TPR and FPR will reflect that, but since the number of irrelevant documents dwarfs the number of relevant ones, the difference is mostly lost:</p>
+<p>Clearly, Method 1&#8217;s result is preferable since they both come back with the same number of relevant results, but Method 2 brings a ton of false positives with it. The ROC measures of TPR and FPR will reflect that, but since the number of irrelevant documents dwarfs the number of relevant ones, the difference is mostly lost:</p>
 
-  <ul>
-    <li>Method 1: 0.9 TPR, 0.00001 FPR
-      <ul>
-        <li><strong>TPR = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
-        <li><strong>FPR = FP/(FP + TN) = 10/(10 + 999890) = 0.00001</strong></li>
-      </ul>
-    </li>
-    <li>Method 2: 0.9 TPR, 0.00191 FPR (difference of 0.0019)
-      <ul>
-        <li><strong>TPR = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
-        <li><strong>FPR = FP/(FP + TN) = 1910/(1910 + 997990) = 0.0019</strong></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li><p>Method 1: 0.9 TPR, 0.00001 FPR </p>
 
-  <p>Precision and recall, however, don’t consider true negatives and thus won’t be affected by the relative imbalance (which is precisely why they’re used for these types of problems):</p>
+<ul>
+<li><strong>TPR = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
+<li><strong>FPR = FP/(FP + TN) = 10/(10 + 999890) = 0.00001</strong></li>
+</ul></li>
+<li><p>Method 2: 0.9 TPR, 0.00191 FPR (difference of 0.0019) </p>
 
-  <ul>
-    <li>Method 1: 0.9 precision, 0.9 recall
-      <ul>
-        <li><strong>Precision = TP/(TP + FP) = 90/(90 + 10) = 0.9</strong></li>
-        <li><strong>Recall = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
-      </ul>
-    </li>
-    <li><del>Method 2: 0.9 precision, 0.045 recall (difference of 0.855) &lt;= Randy’s post made a mistake here.</del></li>
-    <li><strong>Method 2: 0.045 precision (difference of 0.855), 0.9 recall</strong>
-      <ul>
-        <li><strong>Precision = TP/(TP + FP) = 90/(90 + 1910) = 0.045</strong></li>
-        <li><strong>Recall = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li><strong>TPR = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
+<li><strong>FPR = FP/(FP + TN) = 1910/(1910 + 997990) = 0.0019</strong></li>
+</ul></li>
+</ul>
 
-  <p>Obviously, those are just single points in ROC and PR space, but if these differences persist across various scoring thresholds, using ROC AUC, we’d see a very small difference between the two algorithms, whereas PR AUC would show quite a large difference.</p>
+<p>Precision and recall, however, don&#8217;t consider true negatives and thus won&#8217;t be affected by the relative imbalance (which is precisely why they&#8217;re used for these types of problems):</p>
+
+<ul>
+<li>Method 1: 0.9 precision, 0.9 recall 
+
+<ul>
+<li><strong>Precision = TP/(TP + FP) = 90/(90 + 10) = 0.9</strong></li>
+<li><strong>Recall = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
+</ul></li>
+<li><del>Method 2: 0.9 precision, 0.045 recall (difference of 0.855) &lt;= Randy&#8217;s post made a mistake here.</del></li>
+<li><strong>Method 2: 0.045 precision (difference of 0.855), 0.9 recall</strong> 
+
+<ul>
+<li><strong>Precision = TP/(TP + FP) = 90/(90 + 1910) = 0.045</strong></li>
+<li><strong>Recall = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
+</ul></li>
+</ul>
+
+<p>Obviously, those are just single points in ROC and PR space, but if these differences persist across various scoring thresholds, using ROC AUC, we&#8217;d see a very small difference between the two algorithms, whereas PR AUC would show quite a large difference.</p>
 </blockquote>
 
 <p>To compare both methods, using ROC_AUC, we see that the FPR has a difference of 0.0019, which is very small. However, using PR_AUC, we see that the Precision has a difference of 0.855 which is much more pronounced.</p>
 
 <p>Clearly, the PR is much better in illustrating the differences of the algorithms in the case where there are a lot more negative examples than the positive examples.</p>
 
-<h1 id="conclusion">Conclusion</h1>
+<h1>Conclusion</h1>
 
 <p>Use PR AUC for cases where the class imbalance problem occurs, otherwise use ROC AUC.</p>
 
-<p>One note though, if your problem set is small (thus having fewer points in PR curve), the PR AUC metric could be over-optimistic because AUC is calculated via the trapezoid rule, but linear interpolation on the PR curve does not work very well, which the PR curve example above looks very wiggly. Interested readers may consult this paper of <a href="http://pages.cs.wisc.edu/~jdavis/davisgoadrichcamera2.pdf">The Relationship between Precision-Recall and ROC Curves</a>. Though, practically in a class imbalance problem nowadays, you should have a lot of examples so this should not be a problem.</p>
+<p>One note though, if your problem set is small (thus having fewer points in PR curve), the PR AUC metric could be over-optimistic because AUC is calculated via the trapezoid rule, but linear interpolation on the PR curve does not work very well, which the PR curve example above looks very wiggly. Interested readers may consult this paper of <a href="http://pages.cs.wisc.edu/%7Ejdavis/davisgoadrichcamera2.pdf">The Relationship between Precision-Recall and ROC Curves</a>. Though, practically in a class imbalance problem nowadays, you should have a lot of examples so this should not be a problem.</p>
 
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
   </div>
 
   <div id="disqus_thread"></div>
@@ -208,43 +210,18 @@
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-</article>
+</div>
 
       </div>
     </div>
 
-    <footer class="site-footer">
+    <div class="footer center">
 
-  <div class="wrapper">
+  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
-    <h2 class="footer-heading"></h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li></li>
-          <li><a href="mailto:"></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          
-
-          
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>Things I left Hanging Around</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
+</div>
 
 
   </body>
-
 </html>
