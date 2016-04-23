@@ -4,7 +4,7 @@ title: How to Move a Servo Using A Keyboard
 date: 2015-01-31T08:27:20+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=542
+guid: /?p=542
 permalink: /how-to-move-a-servo-using-a-keyboard/
 categories:
   - Embedded
@@ -17,7 +17,7 @@ Recently I am playing with Arduino because I need to prototype some virtual real
 ## What&#8217;s that servo thing in the title?
 
 <div id="attachment_545" style="width: 287px" class="wp-caption aligncenter">
-  <a href="http://www.chioka.in/wp-content/uploads/2015/01/servo.gif"><img class="wp-image-545 " src="http://www.chioka.in/wp-content/uploads/2015/01/servo.gif" alt="A servo" width="277" height="245" /></a>
+  <a href="/wp-content/uploads/2015/01/servo.gif"><img class="wp-image-545 " src="/wp-content/uploads/2015/01/servo.gif" alt="A servo" width="277" height="245" /></a>
   
   <p class="wp-caption-text">
     A servo
@@ -34,7 +34,7 @@ You can screw something onto the servo, so that thing will move along with the
 
 A servo is generally analog, so you need to use an Arduino board to control it. Arduino can take digital input (computer) and output analog signal to control analog components (servo).  Here is how an Arduino board Meta 2560 looks like:
 
-[<img class="aligncenter size-full wp-image-543" src="http://www.chioka.in/wp-content/uploads/2015/01/mega2560.jpg" alt="mega2560" width="450" height="296" />](http://www.chioka.in/wp-content/uploads/2015/01/mega2560.jpg)
+[<img class="aligncenter size-full wp-image-543" src="/wp-content/uploads/2015/01/mega2560.jpg" alt="mega2560" width="450" height="296" />](/wp-content/uploads/2015/01/mega2560.jpg)
 
 You will need to connect the servo power to the 5V pin, ground to the GRD pin, and the signal wire to pin 9. Why pin 9? Because the program I wrote assume it is pin 9.
 

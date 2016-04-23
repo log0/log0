@@ -4,7 +4,7 @@ title: How to Setup Theano to Run on GPU on Ubuntu 14.04 with Nvidia Geforce GTX
 date: 2015-11-24T13:32:19+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=618
+guid: /?p=618
 permalink: /how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/
 nkweb_code_in_head:
   - default

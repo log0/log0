@@ -4,7 +4,7 @@ title: 'Explain to Me: Generative Classifiers VS Discriminative Classifiers'
 date: 2014-01-08T12:12:35+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=280
+guid: /?p=280
 permalink: /explain-to-me-generative-classifiers-vs-discriminative-classifiers/
 categories:
   - Machine Learning
@@ -17,9 +17,9 @@ tags:
 ---
 ## <span style="font-size: 1.285714286rem; line-height: 1.6;">What are they?</span>
 
-It is a categorization of classifiers in Bayesian perspective. Recall in [Bayes Theorem](http://www.chioka.in/explain-to-me-bayes-theorem/), we have this formula below:
+It is a categorization of classifiers in Bayesian perspective. Recall in [Bayes Theorem](/explain-to-me-bayes-theorem/), we have this formula below:
 
-[<img class="aligncenter size-full wp-image-281" alt="bayes theorem" src="http://www.chioka.in/wp-content/uploads/2014/01/bayes-theorem.png" width="265" height="69" />](http://www.chioka.in/wp-content/uploads/2014/01/bayes-theorem.png)
+[<img class="aligncenter size-full wp-image-281" alt="bayes theorem" src="/wp-content/uploads/2014/01/bayes-theorem.png" width="265" height="69" />](/wp-content/uploads/2014/01/bayes-theorem.png)
 
 Our goal is to find the best **P(Y|X).** This reads: Given features **X**, what is the probability of class **Y**. Concretely with an example, given that a software engineer lives in Silicon Valley **(X)**, what is the probability he makes over 100K salary **(Y)**, i.e. **P(Y|X)**?
 

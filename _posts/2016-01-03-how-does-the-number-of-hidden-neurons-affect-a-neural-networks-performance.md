@@ -4,7 +4,7 @@ title: 'How Does the Number of Hidden Neurons Affect a Neural Network&#8217;s Pe
 date: 2016-01-03T12:26:42+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=647
+guid: /?p=647
 permalink: /how-does-the-number-of-hidden-neurons-affect-a-neural-networks-performance/
 nkweb_code_in_head:
   - default

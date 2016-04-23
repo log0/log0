@@ -4,7 +4,7 @@ title: How to Select Your Final Models in a Kaggle Competition
 date: 2014-10-23T09:33:55+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=489
+guid: /?p=489
 permalink: /how-to-select-your-final-models-in-a-kaggle-competitio/
 categories:
   - Kaggle
@@ -17,7 +17,7 @@ tags:
 ---
 Did your rank just drop sharp in the private leaderboard in a Kaggle competition?
 
-[<img class="aligncenter size-full wp-image-493" src="http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg" alt="picard palm" width="490" height="317" />](http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg)
+[<img class="aligncenter size-full wp-image-493" src="/wp-content/uploads/2014/10/picard-palm.jpg" alt="picard palm" width="490" height="317" />](/wp-content/uploads/2014/10/picard-palm.jpg)
 
 I&#8217;ve been through that, too. We all learn about overfitting when we started machine learning, but Kaggle makes you really feel the pain of overfitting. Should I have been more careful in the <a href="http://www.kaggle.com/c/higgs-boson/" target="_blank">Higgs Boson Machine Learning competition</a>, I would have selected a solution that would gave me a rank 4 than rank 22.
 
@@ -35,7 +35,7 @@ I vow to come out with some principles systematically select final models. Here
 Applying the above principles to the recent competition <a href="http://www.kaggle.com/c/afsis-soil-properties" target="_blank">Africa Soil Property Prediction Challenge</a>, plus a bit of luck, I picked the top 1 and top 2 models.
 
 <div id="attachment_491" style="width: 687px" class="wp-caption aligncenter">
-  <a href="http://www.chioka.in/wp-content/uploads/2014/10/top-score.png"><img class="wp-image-491 size-full" src="http://www.chioka.in/wp-content/uploads/2014/10/top-score.png" alt="top score" width="677" height="425" srcset="/wp-content/uploads/2014/10/top-score.png 677w, /wp-content/uploads/2014/10/top-score-580x364.png 580w, /wp-content/uploads/2014/10/top-score-624x391.png 624w" sizes="(max-width: 677px) 100vw, 677px" /></a>
+  <a href="/wp-content/uploads/2014/10/top-score.png"><img class="wp-image-491 size-full" src="/wp-content/uploads/2014/10/top-score.png" alt="top score" width="677" height="425" srcset="/wp-content/uploads/2014/10/top-score.png 677w, /wp-content/uploads/2014/10/top-score-580x364.png 580w, /wp-content/uploads/2014/10/top-score-624x391.png 624w" sizes="(max-width: 677px) 100vw, 677px" /></a>
   
   <p class="wp-caption-text">
     Sorted by private score

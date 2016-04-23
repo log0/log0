@@ -4,7 +4,7 @@ title: 'First Look in Virtual Reality: Stereoscopy, Panoramas and Panoramic Vide
 date: 2014-11-03T10:53:56+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=503
+guid: /?p=503
 permalink: /first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/
 categories:
   - Virtual Reality
@@ -18,13 +18,13 @@ tags:
 ---
 I got the <a href="http://g.co/cardboard" target="_blank">Google Cardboard</a> recently, and I&#8217;m playing with it. Google Cardboard is a very simple piece of gadget that turns your phone into a virtual reality headset. It was released in <a href="https://www.google.com/events/io" target="_blank">Google I/O 2014</a>. If you have an Android phone, you can download the <a href="https://play.google.com/store/apps/details?id=com.google.samples.apps.cardboarddemo&hl=en" target="_blank">Cardboard application</a> which has works very well with Google Cardboard.
 
-[<img class="aligncenter size-full wp-image-505" src="http://www.chioka.in/wp-content/uploads/2014/11/google-cardboard.jpg" alt="google cardboard" width="490" height="490" srcset="/wp-content/uploads/2014/11/google-cardboard.jpg 490w, /wp-content/uploads/2014/11/google-cardboard-150x150.jpg 150w" sizes="(max-width: 490px) 100vw, 490px" />](http://www.chioka.in/wp-content/uploads/2014/11/google-cardboard.jpg)
+[<img class="aligncenter size-full wp-image-505" src="/wp-content/uploads/2014/11/google-cardboard.jpg" alt="google cardboard" width="490" height="490" srcset="/wp-content/uploads/2014/11/google-cardboard.jpg 490w, /wp-content/uploads/2014/11/google-cardboard-150x150.jpg 150w" sizes="(max-width: 490px) 100vw, 490px" />](/wp-content/uploads/2014/11/google-cardboard.jpg)
 
 One of the function provided by the Cardboard application is viewing Photo Sphere in a virtual reality setting. <a href="https://www.google.com/maps/about/contribute/photosphere/" target="_blank">Photo Sphere</a> is a kind of photo that is (360 x 180) degrees panoramic, that is, not just 360 degrees horizontally, but also you can look up and down. It is very cool.
 
 Check out <a href="http://360gigapixels.com/tokyo-tower-panorama-photo/" target="_blank">this panoramic view</a> from Tokyo Tower by 360cities for something similar in concept.
 
-[<img class="aligncenter size-full wp-image-506" src="http://www.chioka.in/wp-content/uploads/2014/11/tokyo-tower-panorama.png" alt="tokyo tower panorama" width="1353" height="683" srcset="/wp-content/uploads/2014/11/tokyo-tower-panorama.png 1353w, /wp-content/uploads/2014/11/tokyo-tower-panorama-580x292.png 580w, /wp-content/uploads/2014/11/tokyo-tower-panorama-940x474.png 940w, /wp-content/uploads/2014/11/tokyo-tower-panorama-624x314.png 624w" sizes="(max-width: 1353px) 100vw, 1353px" />](http://www.chioka.in/wp-content/uploads/2014/11/tokyo-tower-panorama.png)
+[<img class="aligncenter size-full wp-image-506" src="/wp-content/uploads/2014/11/tokyo-tower-panorama.png" alt="tokyo tower panorama" width="1353" height="683" srcset="/wp-content/uploads/2014/11/tokyo-tower-panorama.png 1353w, /wp-content/uploads/2014/11/tokyo-tower-panorama-580x292.png 580w, /wp-content/uploads/2014/11/tokyo-tower-panorama-940x474.png 940w, /wp-content/uploads/2014/11/tokyo-tower-panorama-624x314.png 624w" sizes="(max-width: 1353px) 100vw, 1353px" />](/wp-content/uploads/2014/11/tokyo-tower-panorama.png)
 
 Here is the cool thing:  The Cardboard application pushes the Photo Sphere further by putting you in an immersive experience. The experience is as if you&#8217;re at the scene looking around _in person_. Yes, I know it&#8217;s not stereoscopic, but hey!
 

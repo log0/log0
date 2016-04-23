@@ -4,7 +4,7 @@ title: Differences between the L1-norm and the L2-norm (Least Absolute Deviation
 date: 2013-12-01T10:57:05+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=189
+guid: /?p=189
 permalink: /differences-between-the-l1-norm-and-the-l2-norm-least-absolute-deviations-and-least-squares/
 dsq_thread_id:
   - 4752582736
@@ -17,7 +17,7 @@ tags:
   - Loss Functions
   - Machine Learning
 ---
-[edit: 12/18/2013 Please [check this updated post](http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/) for the rewritten version on this topic. I&#8217;m keeping this only for archival purposes. Thanks. ]
+[edit: 12/18/2013 Please [check this updated post](/differences-between-l1-and-l2-as-loss-function-and-regularization/) for the rewritten version on this topic. I&#8217;m keeping this only for archival purposes. Thanks. ]
 
 [edit: 12/03/2013 As Miroslaw pointed out, there is some confusion here, which I&#8217;ll address later in another post. Thanks.]
 
@@ -26,17 +26,17 @@ While practicing machine learning, you may have come upon a choice of deciding w
 L1-norm is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>)**):
 
 <p style="text-align: center;">
-   <a href="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png"><img class="alignnone size-full wp-image-191" alt="l1-norm formula" src="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png" width="170" height="50" /></a>
+   <a href="/wp-content/uploads/2013/12/l1-norm-formula.png"><img class="alignnone size-full wp-image-191" alt="l1-norm formula" src="/wp-content/uploads/2013/12/l1-norm-formula.png" width="170" height="50" /></a>
 </p>
 
 <span style="line-height: 1.714285714; font-size: 1rem;">L2-norm is also known as least squares. It is basically minimizing the sum of the square of the differences <strong>(S)</strong> between the target value (<strong>Y<sub>i</sub></strong>) and the estimated values (<strong>f(x<sub>i</sub>):</strong></span>
 
-[<img class="alignnone size-full wp-image-192 aligncenter" alt="l2-norm formula" src="http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png" width="219" height="73" />](http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png)
+[<img class="alignnone size-full wp-image-192 aligncenter" alt="l2-norm formula" src="/wp-content/uploads/2013/12/l2-norm-formula.png" width="219" height="73" />](/wp-content/uploads/2013/12/l2-norm-formula.png)
 
 The differences of L1-norm and L2-norm can be promptly summarized as follows:
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties1.png"><img class="alignnone size-full wp-image-208" alt="L1 vs L2 properties" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties1.png" width="503" height="198" /></a>
+  <a href="/wp-content/uploads/2013/12/L1-vs-L2-properties1.png"><img class="alignnone size-full wp-image-208" alt="L1 vs L2 properties" src="/wp-content/uploads/2013/12/L1-vs-L2-properties1.png" width="503" height="198" /></a>
 </p>
 
 **Robustness**, per wikipedia, is explained as:
@@ -52,7 +52,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 This is best explained with a picture below (mspaint made, sorry for the low quality):
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
+  <a href="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
 </p>
 
 The top represents L1-norm and the bottom represents L2-norm. The first column represents how a regression line fits these three points using L1-norm and L2-norm respectively.
@@ -65,7 +65,7 @@ By just a small perturbation of the data points, the regression line changes by 
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 &nbsp;
 
@@ -79,7 +79,7 @@ The green line (L2-norm) is the unique shortest path, while the red, blue, yello
 
 References:
 
-[[edit: 12/18/2013 Please [check this updated post](http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/) for the rewritten version on this topic. I&#8217;m keeping this only for archival purposes. Thanks. ]
+[[edit: 12/18/2013 Please [check this updated post](/differences-between-l1-and-l2-as-loss-function-and-regularization/) for the rewritten version on this topic. I&#8217;m keeping this only for archival purposes. Thanks. ]
 
 [edit: 12/03/2013 As Miroslaw pointed out, there is some confusion here, which I&#8217;ll address later in another post. Thanks.]
 
@@ -88,17 +88,17 @@ While practicing machine learning, you may have come upon a choice of deciding w
 L1-norm is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>)**):
 
 <p style="text-align: center;">
-   <a href="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png"><img class="alignnone size-full wp-image-191" alt="l1-norm formula" src="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png" width="170" height="50" /></a>
+   <a href="/wp-content/uploads/2013/12/l1-norm-formula.png"><img class="alignnone size-full wp-image-191" alt="l1-norm formula" src="/wp-content/uploads/2013/12/l1-norm-formula.png" width="170" height="50" /></a>
 </p>
 
 <span style="line-height: 1.714285714; font-size: 1rem;">L2-norm is also known as least squares. It is basically minimizing the sum of the square of the differences <strong>(S)</strong> between the target value (<strong>Y<sub>i</sub></strong>) and the estimated values (<strong>f(x<sub>i</sub>):</strong></span>
 
-[<img class="alignnone size-full wp-image-192 aligncenter" alt="l2-norm formula" src="http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png" width="219" height="73" />](http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png)
+[<img class="alignnone size-full wp-image-192 aligncenter" alt="l2-norm formula" src="/wp-content/uploads/2013/12/l2-norm-formula.png" width="219" height="73" />](/wp-content/uploads/2013/12/l2-norm-formula.png)
 
 The differences of L1-norm and L2-norm can be promptly summarized as follows:
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties1.png"><img class="alignnone size-full wp-image-208" alt="L1 vs L2 properties" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties1.png" width="503" height="198" /></a>
+  <a href="/wp-content/uploads/2013/12/L1-vs-L2-properties1.png"><img class="alignnone size-full wp-image-208" alt="L1 vs L2 properties" src="/wp-content/uploads/2013/12/L1-vs-L2-properties1.png" width="503" height="198" /></a>
 </p>
 
 **Robustness**, per wikipedia, is explained as:
@@ -114,7 +114,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 This is best explained with a picture below (mspaint made, sorry for the low quality):
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
+  <a href="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
 </p>
 
 The top represents L1-norm and the bottom represents L2-norm. The first column represents how a regression line fits these three points using L1-norm and L2-norm respectively.
@@ -127,7 +127,7 @@ By just a small perturbation of the data points, the regression line changes by 
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 &nbsp;
 
@@ -141,7 +141,7 @@ The green line (L2-norm) is the unique shortest path, while the red, blue, yello
 
 References:
 
-](http://en.wikipedia.org/wiki/Least_absolute_deviations) [[edit: 12/18/2013 Please [check this updated post](http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/) for the rewritten version on this topic. I&#8217;m keeping this only for archival purposes. Thanks. ]
+](http://en.wikipedia.org/wiki/Least_absolute_deviations) [[edit: 12/18/2013 Please [check this updated post](/differences-between-l1-and-l2-as-loss-function-and-regularization/) for the rewritten version on this topic. I&#8217;m keeping this only for archival purposes. Thanks. ]
 
 [edit: 12/03/2013 As Miroslaw pointed out, there is some confusion here, which I&#8217;ll address later in another post. Thanks.]
 
@@ -150,17 +150,17 @@ While practicing machine learning, you may have come upon a choice of deciding w
 L1-norm is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>)**):
 
 <p style="text-align: center;">
-   <a href="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png"><img class="alignnone size-full wp-image-191" alt="l1-norm formula" src="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png" width="170" height="50" /></a>
+   <a href="/wp-content/uploads/2013/12/l1-norm-formula.png"><img class="alignnone size-full wp-image-191" alt="l1-norm formula" src="/wp-content/uploads/2013/12/l1-norm-formula.png" width="170" height="50" /></a>
 </p>
 
 <span style="line-height: 1.714285714; font-size: 1rem;">L2-norm is also known as least squares. It is basically minimizing the sum of the square of the differences <strong>(S)</strong> between the target value (<strong>Y<sub>i</sub></strong>) and the estimated values (<strong>f(x<sub>i</sub>):</strong></span>
 
-[<img class="alignnone size-full wp-image-192 aligncenter" alt="l2-norm formula" src="http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png" width="219" height="73" />](http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png)
+[<img class="alignnone size-full wp-image-192 aligncenter" alt="l2-norm formula" src="/wp-content/uploads/2013/12/l2-norm-formula.png" width="219" height="73" />](/wp-content/uploads/2013/12/l2-norm-formula.png)
 
 The differences of L1-norm and L2-norm can be promptly summarized as follows:
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties1.png"><img class="alignnone size-full wp-image-208" alt="L1 vs L2 properties" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties1.png" width="503" height="198" /></a>
+  <a href="/wp-content/uploads/2013/12/L1-vs-L2-properties1.png"><img class="alignnone size-full wp-image-208" alt="L1 vs L2 properties" src="/wp-content/uploads/2013/12/L1-vs-L2-properties1.png" width="503" height="198" /></a>
 </p>
 
 **Robustness**, per wikipedia, is explained as:
@@ -176,7 +176,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 This is best explained with a picture below (mspaint made, sorry for the low quality):
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
+  <a href="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
 </p>
 
 The top represents L1-norm and the bottom represents L2-norm. The first column represents how a regression line fits these three points using L1-norm and L2-norm respectively.
@@ -189,7 +189,7 @@ By just a small perturbation of the data points, the regression line changes by 
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 &nbsp;
 
@@ -203,7 +203,7 @@ The green line (L2-norm) is the unique shortest path, while the red, blue, yello
 
 References:
 
-[[edit: 12/18/2013 Please [check this updated post](http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/) for the rewritten version on this topic. I&#8217;m keeping this only for archival purposes. Thanks. ]
+[[edit: 12/18/2013 Please [check this updated post](/differences-between-l1-and-l2-as-loss-function-and-regularization/) for the rewritten version on this topic. I&#8217;m keeping this only for archival purposes. Thanks. ]
 
 [edit: 12/03/2013 As Miroslaw pointed out, there is some confusion here, which I&#8217;ll address later in another post. Thanks.]
 
@@ -212,17 +212,17 @@ While practicing machine learning, you may have come upon a choice of deciding w
 L1-norm is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>)**):
 
 <p style="text-align: center;">
-   <a href="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png"><img class="alignnone size-full wp-image-191" alt="l1-norm formula" src="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png" width="170" height="50" /></a>
+   <a href="/wp-content/uploads/2013/12/l1-norm-formula.png"><img class="alignnone size-full wp-image-191" alt="l1-norm formula" src="/wp-content/uploads/2013/12/l1-norm-formula.png" width="170" height="50" /></a>
 </p>
 
 <span style="line-height: 1.714285714; font-size: 1rem;">L2-norm is also known as least squares. It is basically minimizing the sum of the square of the differences <strong>(S)</strong> between the target value (<strong>Y<sub>i</sub></strong>) and the estimated values (<strong>f(x<sub>i</sub>):</strong></span>
 
-[<img class="alignnone size-full wp-image-192 aligncenter" alt="l2-norm formula" src="http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png" width="219" height="73" />](http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png)
+[<img class="alignnone size-full wp-image-192 aligncenter" alt="l2-norm formula" src="/wp-content/uploads/2013/12/l2-norm-formula.png" width="219" height="73" />](/wp-content/uploads/2013/12/l2-norm-formula.png)
 
 The differences of L1-norm and L2-norm can be promptly summarized as follows:
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties1.png"><img class="alignnone size-full wp-image-208" alt="L1 vs L2 properties" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties1.png" width="503" height="198" /></a>
+  <a href="/wp-content/uploads/2013/12/L1-vs-L2-properties1.png"><img class="alignnone size-full wp-image-208" alt="L1 vs L2 properties" src="/wp-content/uploads/2013/12/L1-vs-L2-properties1.png" width="503" height="198" /></a>
 </p>
 
 **Robustness**, per wikipedia, is explained as:
@@ -238,7 +238,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 This is best explained with a picture below (mspaint made, sorry for the low quality):
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
+  <a href="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
 </p>
 
 The top represents L1-norm and the bottom represents L2-norm. The first column represents how a regression line fits these three points using L1-norm and L2-norm respectively.
@@ -251,7 +251,7 @@ By just a small perturbation of the data points, the regression line changes by 
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 &nbsp;
 

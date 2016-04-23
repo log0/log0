@@ -4,7 +4,7 @@ title: How to Predict A Popular Article with Machine Learning (Part 1)
 date: 2013-12-28T19:16:21+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=242
+guid: /?p=242
 permalink: /how-to-predict-a-popular-article-with-machine-learning-part-1/
 categories:
   - Machine Learning
@@ -66,7 +66,7 @@ There are many other checks such as **checking for negative or unusually high sh
 
 ### Assign classes to articles
 
-By inspecting the the raw share counts, we can see that most articles have zero shares or at most hundred of shares. Ideally, an article having more than 10,000 shares seems like a good candidate. However, very few articles match this criteria (less than 300), which you will see will affect us badly due to a classic problem called **[Class Imbalance Problem](http://www.chioka.in/class-imbalance-problem/)**. As such, I will select a lower threshold. All articles with more than 3000 shares are considered positive examples of a popular article, while the rest are considered negative examples.
+By inspecting the the raw share counts, we can see that most articles have zero shares or at most hundred of shares. Ideally, an article having more than 10,000 shares seems like a good candidate. However, very few articles match this criteria (less than 300), which you will see will affect us badly due to a classic problem called **[Class Imbalance Problem](/class-imbalance-problem/)**. As such, I will select a lower threshold. All articles with more than 3000 shares are considered positive examples of a popular article, while the rest are considered negative examples.
 
 ### Constructing the training and testing sets
 
@@ -74,7 +74,7 @@ By inspecting the the raw share counts, we can see that most articles have zero 
 
 I allocated 2/3 of the positive examples to the training set, and 1/3 of the positive examples to the testing set. 2000 negative examples are allocated to the testing set, and the rest of the negative examples are put into the training set. Visualized as below:
 
-[<img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, /wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, /wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early.png)
+[<img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, /wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, /wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" />](/wp-content/uploads/2013/12/dataset-partition-early.png)
 
 Lastly, note that** it is very important that the training and testing data do not overlap at all, or you will get optimistically biased results. **We will not touch our testing set from now own.
 

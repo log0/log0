@@ -5,8 +5,8 @@
     <description>Things I left Hanging Around</description>
     <link>http://www.chioka.in/</link>
     <atom:link href="http://www.chioka.in/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 23 Apr 2016 01:42:12 -0700</pubDate>
-    <lastBuildDate>Sat, 23 Apr 2016 01:42:12 -0700</lastBuildDate>
+    <pubDate>Sat, 23 Apr 2016 01:44:43 -0700</pubDate>
+    <lastBuildDate>Sat, 23 Apr 2016 01:44:43 -0700</lastBuildDate>
     <generator>Jekyll v3.1.3</generator>
     
       <item>
@@ -528,19 +528,19 @@ Using [1] number of hidden neurons yields. Accuracy score: 0.2919
     
       <item>
         <title>Why is Keras Running So Slow?</title>
-        <description>&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg&quot; alt=&quot;meme&quot; width=&quot;512&quot; height=&quot;340&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2015/12/meme.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2015/12/meme.jpg&quot; alt=&quot;meme&quot; width=&quot;512&quot; height=&quot;340&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;More notes for myself… so it may not be helpful for you who bumped into here. 😉&lt;/p&gt;
 
 &lt;h1 id=&quot;why-this-article&quot;&gt;Why This Article?&lt;/h1&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/&quot; target=&quot;_blank&quot;&gt;Setting Theano correctly&lt;/a&gt; &lt;strong&gt;is not enough&lt;/strong&gt; to ensure you can run deep learning software correctly. In our case, it will be Keras, and it can slow to a crawl if not setup properly.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/&quot; target=&quot;_blank&quot;&gt;Setting Theano correctly&lt;/a&gt; &lt;strong&gt;is not enough&lt;/strong&gt; to ensure you can run deep learning software correctly. In our case, it will be Keras, and it can slow to a crawl if not setup properly.&lt;/p&gt;
 
 &lt;p&gt;Again, there could be many causes but I try to outline a clean step what I did, the performance I run a good setup, so you can compare. Hopefully you can glean some places where you did wrong.&lt;/p&gt;
 
 &lt;h1 id=&quot;specifications&quot;&gt;Specifications&lt;/h1&gt;
 
-&lt;p&gt;My server has the following specifications finished running the steps outlined &lt;a href=&quot;http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My server has the following specifications finished running the steps outlined &lt;a href=&quot;/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;OS: Ubuntu 14.04 LTS, X64&lt;/li&gt;
@@ -1123,7 +1123,7 @@ apt-get install nvidia-current&lt;/pre&gt;
 
 &lt;p&gt;Since a high motion-to-photon latency could induce motion sickness and nausea, and a low motion-to-photon latency (&amp;lt; 20 ms) is a necessary condition for presence, it makes sense to minimize the motion-to-photon latency. To know how we can improve motion-to-photon latency, we need to know what makes up this number.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/Motion-to-Photons-Latency.png&quot;&gt;&lt;img class=&quot;aligncenter size-medium wp-image-565&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/Motion-to-Photons-Latency-580x320.png&quot; alt=&quot;Motion-to-Photons Latency&quot; width=&quot;580&quot; height=&quot;320&quot; srcset=&quot;/wp-content/uploads/2015/03/Motion-to-Photons-Latency-580x320.png 580w, /wp-content/uploads/2015/03/Motion-to-Photons-Latency-940x519.png 940w, /wp-content/uploads/2015/03/Motion-to-Photons-Latency-624x344.png 624w, /wp-content/uploads/2015/03/Motion-to-Photons-Latency.png 1000w&quot; sizes=&quot;(max-width: 580px) 100vw, 580px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2015/03/Motion-to-Photons-Latency.png&quot;&gt;&lt;img class=&quot;aligncenter size-medium wp-image-565&quot; src=&quot;/wp-content/uploads/2015/03/Motion-to-Photons-Latency-580x320.png&quot; alt=&quot;Motion-to-Photons Latency&quot; width=&quot;580&quot; height=&quot;320&quot; srcset=&quot;/wp-content/uploads/2015/03/Motion-to-Photons-Latency-580x320.png 580w, /wp-content/uploads/2015/03/Motion-to-Photons-Latency-940x519.png 940w, /wp-content/uploads/2015/03/Motion-to-Photons-Latency-624x344.png 624w, /wp-content/uploads/2015/03/Motion-to-Photons-Latency.png 1000w&quot; sizes=&quot;(max-width: 580px) 100vw, 580px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;To improve motion-to-photon latency, every component in the motion-to-photon pipeline needs to be optimized.&lt;/strong&gt; For a movement to be reflected on the screen, it involves the &lt;a href=&quot;http://en.wikipedia.org/wiki/Head-mounted_display&quot; target=&quot;_blank&quot;&gt;head mounted display&lt;/a&gt;, connecting cables, CPU, GPU, game engine, display technology (display refresh rate and pixel switching time). This is not exhaustive and there are probably some more bits in the list, but includes the major elements. I’ll go through some of the common techniques to decrease the motion-to-photon latency.&lt;/p&gt;
 
@@ -1133,7 +1133,7 @@ apt-get install nvidia-current&lt;/pre&gt;
 
 &lt;p&gt;Pixel switching time is known as the time needed to update all the pixels on the display. For an image to be seen on the display, it has to be drawn. To draw the image means each pixel on the display has to be updated to reflect that image. This is best illustrated as follows:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/pixel_switching_time.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-566&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/pixel_switching_time.png&quot; alt=&quot;pixel_switching_time&quot; width=&quot;849&quot; height=&quot;322&quot; srcset=&quot;/wp-content/uploads/2015/03/pixel_switching_time.png 849w, /wp-content/uploads/2015/03/pixel_switching_time-580x220.png 580w, /wp-content/uploads/2015/03/pixel_switching_time-624x237.png 624w&quot; sizes=&quot;(max-width: 849px) 100vw, 849px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2015/03/pixel_switching_time.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-566&quot; src=&quot;/wp-content/uploads/2015/03/pixel_switching_time.png&quot; alt=&quot;pixel_switching_time&quot; width=&quot;849&quot; height=&quot;322&quot; srcset=&quot;/wp-content/uploads/2015/03/pixel_switching_time.png 849w, /wp-content/uploads/2015/03/pixel_switching_time-580x220.png 580w, /wp-content/uploads/2015/03/pixel_switching_time-624x237.png 624w&quot; sizes=&quot;(max-width: 849px) 100vw, 849px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;In this example, the pixel switching time for this (3 x 3) display is 3ms. This is because it takes 1ms to update one line of pixels and 3 updates to update the whole display.&lt;/p&gt;
 
@@ -1183,7 +1183,7 @@ apt-get install nvidia-current&lt;/pre&gt;
 &lt;/table&gt;
 
 &lt;div id=&quot;attachment_578&quot; style=&quot;width: 841px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
-  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_basic.png&quot;&gt;&lt;img class=&quot;wp-image-578 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_basic.png&quot; alt=&quot;render_pipeline_basic&quot; width=&quot;831&quot; height=&quot;128&quot; srcset=&quot;/wp-content/uploads/2015/03/render_pipeline_basic.png 831w, /wp-content/uploads/2015/03/render_pipeline_basic-580x89.png 580w, /wp-content/uploads/2015/03/render_pipeline_basic-624x96.png 624w&quot; sizes=&quot;(max-width: 831px) 100vw, 831px&quot; /&gt;&lt;/a&gt;
+  &lt;a href=&quot;/wp-content/uploads/2015/03/render_pipeline_basic.png&quot;&gt;&lt;img class=&quot;wp-image-578 size-full&quot; src=&quot;/wp-content/uploads/2015/03/render_pipeline_basic.png&quot; alt=&quot;render_pipeline_basic&quot; width=&quot;831&quot; height=&quot;128&quot; srcset=&quot;/wp-content/uploads/2015/03/render_pipeline_basic.png 831w, /wp-content/uploads/2015/03/render_pipeline_basic-580x89.png 580w, /wp-content/uploads/2015/03/render_pipeline_basic-624x96.png 624w&quot; sizes=&quot;(max-width: 831px) 100vw, 831px&quot; /&gt;&lt;/a&gt;
   
   &lt;p class=&quot;wp-caption-text&quot;&gt;
     Courtesy of John Carmack from &amp;#8220;Latency Mitigation Strategies&amp;#8221;
@@ -1197,7 +1197,7 @@ apt-get install nvidia-current&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Prevent GPU buffering decreases latency by having the GPU start drawing (G) after receiving issuing the rendering commands (R), rather than waiting for all the rendering to be completed.&lt;/strong&gt; Following the example above, a frame can be saved using this technique (reducing 16ms latency). Illustrated as follows:&lt;/p&gt;
 
 &lt;div id=&quot;attachment_595&quot; style=&quot;width: 842px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
-  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png&quot;&gt;&lt;img class=&quot;wp-image-595 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png&quot; alt=&quot;render_pipeline_no_gpu_buffering&quot; width=&quot;832&quot; height=&quot;277&quot; srcset=&quot;/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png 832w, /wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1-580x193.png 580w, /wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1-624x208.png 624w&quot; sizes=&quot;(max-width: 832px) 100vw, 832px&quot; /&gt;&lt;/a&gt;
+  &lt;a href=&quot;/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png&quot;&gt;&lt;img class=&quot;wp-image-595 size-full&quot; src=&quot;/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png&quot; alt=&quot;render_pipeline_no_gpu_buffering&quot; width=&quot;832&quot; height=&quot;277&quot; srcset=&quot;/wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1.png 832w, /wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1-580x193.png 580w, /wp-content/uploads/2015/03/render_pipeline_no_gpu_buffering1-624x208.png 624w&quot; sizes=&quot;(max-width: 832px) 100vw, 832px&quot; /&gt;&lt;/a&gt;
   
   &lt;p class=&quot;wp-caption-text&quot;&gt;
     My edits on original. Original source courtesy of John Carmack from &amp;#8220;Latency Mitigation Strategies&amp;#8221;.
@@ -1226,7 +1226,7 @@ apt-get install nvidia-current&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Timewarping reduces the perceived lag from reading user input to seeing an updated image on display screen. It does so by just calculating an update of a scene mathematically bypassing all the heavy CPU and GPU work, which is very slow.&lt;/strong&gt; For certain actions such as the user looking slightly to the left, the change to the scene is very small. What timewarping does is just before rendering, it takes the current image displayed and the most recent input from &lt;a href=&quot;http://en.wikipedia.org/wiki/Inertial_measurement_unit&quot; target=&quot;_blank&quot;&gt;IMU&lt;/a&gt; (inertial measurement unit) and apply a mathematical transformation to get the updated image that reflects the user action. The pipeline looks like this:&lt;/p&gt;
 
 &lt;div id=&quot;attachment_585&quot; style=&quot;width: 843px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
-  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_timewarping.png&quot;&gt;&lt;img class=&quot;wp-image-585 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/03/render_pipeline_timewarping.png&quot; alt=&quot;render_pipeline_timewarping&quot; width=&quot;833&quot; height=&quot;266&quot; srcset=&quot;/wp-content/uploads/2015/03/render_pipeline_timewarping.png 833w, /wp-content/uploads/2015/03/render_pipeline_timewarping-580x185.png 580w, /wp-content/uploads/2015/03/render_pipeline_timewarping-624x199.png 624w&quot; sizes=&quot;(max-width: 833px) 100vw, 833px&quot; /&gt;&lt;/a&gt;
+  &lt;a href=&quot;/wp-content/uploads/2015/03/render_pipeline_timewarping.png&quot;&gt;&lt;img class=&quot;wp-image-585 size-full&quot; src=&quot;/wp-content/uploads/2015/03/render_pipeline_timewarping.png&quot; alt=&quot;render_pipeline_timewarping&quot; width=&quot;833&quot; height=&quot;266&quot; srcset=&quot;/wp-content/uploads/2015/03/render_pipeline_timewarping.png 833w, /wp-content/uploads/2015/03/render_pipeline_timewarping-580x185.png 580w, /wp-content/uploads/2015/03/render_pipeline_timewarping-624x199.png 624w&quot; sizes=&quot;(max-width: 833px) 100vw, 833px&quot; /&gt;&lt;/a&gt;
   
   &lt;p class=&quot;wp-caption-text&quot;&gt;
     My edits on original. Original source courtesy of John Carmack from &amp;#8220;Latency Mitigation Strategies&amp;#8221;.
@@ -1279,7 +1279,7 @@ apt-get install nvidia-current&lt;/pre&gt;
 &lt;h2 id=&quot;what8217s-that-servo-thing-in-the-title&quot;&gt;What’s that servo thing in the title?&lt;/h2&gt;
 
 &lt;div id=&quot;attachment_545&quot; style=&quot;width: 287px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
-  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/01/servo.gif&quot;&gt;&lt;img class=&quot;wp-image-545 &quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/01/servo.gif&quot; alt=&quot;A servo&quot; width=&quot;277&quot; height=&quot;245&quot; /&gt;&lt;/a&gt;
+  &lt;a href=&quot;/wp-content/uploads/2015/01/servo.gif&quot;&gt;&lt;img class=&quot;wp-image-545 &quot; src=&quot;/wp-content/uploads/2015/01/servo.gif&quot; alt=&quot;A servo&quot; width=&quot;277&quot; height=&quot;245&quot; /&gt;&lt;/a&gt;
   
   &lt;p class=&quot;wp-caption-text&quot;&gt;
     A servo
@@ -1296,7 +1296,7 @@ apt-get install nvidia-current&lt;/pre&gt;
 
 &lt;p&gt;A servo is generally analog, so you need to use an Arduino board to control it. Arduino can take digital input (computer) and output analog signal to control analog components (servo).  Here is how an Arduino board Meta 2560 looks like:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2015/01/mega2560.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-543&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2015/01/mega2560.jpg&quot; alt=&quot;mega2560&quot; width=&quot;450&quot; height=&quot;296&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2015/01/mega2560.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-543&quot; src=&quot;/wp-content/uploads/2015/01/mega2560.jpg&quot; alt=&quot;mega2560&quot; width=&quot;450&quot; height=&quot;296&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;You will need to connect the servo power to the 5V pin, ground to the GRD pin, and the signal wire to pin 9. Why pin 9? Because the program I wrote assume it is pin 9.&lt;/p&gt;
 
@@ -1460,7 +1460,7 @@ if __name__ == &#39;__main__&#39;:
         <title>Visualizing the Differences In L1-norm and L2-norm Loss Function</title>
         <description>&lt;p&gt;In an earlier post about the &lt;a href=&quot;www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/&quot; target=&quot;_blank&quot;&gt;differences between L1 and L2 as loss function and regularization&lt;/a&gt;, one of the graph about L1-norm and L2-norm loss function is rather confusing to many readers, as I have seen from the comments. Reviewing it after a year, it wasn’t very clear as well, so today I generated some data and run a model over them. Here is how it looks like:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-515&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot; alt=&quot;programmatic L1 vs L2 visualization&quot; width=&quot;1096&quot; height=&quot;716&quot; srcset=&quot;/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w&quot; sizes=&quot;(max-width: 1096px) 100vw, 1096px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-515&quot; src=&quot;/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot; alt=&quot;programmatic L1 vs L2 visualization&quot; width=&quot;1096&quot; height=&quot;716&quot; srcset=&quot;/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w&quot; sizes=&quot;(max-width: 1096px) 100vw, 1096px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).&lt;/p&gt;
 
@@ -1499,13 +1499,13 @@ if __name__ == &#39;__main__&#39;:
         <title>First Look in Virtual Reality: Stereoscopy, Panoramas and Panoramic Videos</title>
         <description>&lt;p&gt;I got the &lt;a href=&quot;http://g.co/cardboard&quot; target=&quot;_blank&quot;&gt;Google Cardboard&lt;/a&gt; recently, and I’m playing with it. Google Cardboard is a very simple piece of gadget that turns your phone into a virtual reality headset. It was released in &lt;a href=&quot;https://www.google.com/events/io&quot; target=&quot;_blank&quot;&gt;Google I/O 2014&lt;/a&gt;. If you have an Android phone, you can download the &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.google.samples.apps.cardboarddemo&amp;amp;hl=en&quot; target=&quot;_blank&quot;&gt;Cardboard application&lt;/a&gt; which has works very well with Google Cardboard.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/11/google-cardboard.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-505&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/11/google-cardboard.jpg&quot; alt=&quot;google cardboard&quot; width=&quot;490&quot; height=&quot;490&quot; srcset=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg 490w, /wp-content/uploads/2014/11/google-cardboard-150x150.jpg 150w&quot; sizes=&quot;(max-width: 490px) 100vw, 490px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-505&quot; src=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg&quot; alt=&quot;google cardboard&quot; width=&quot;490&quot; height=&quot;490&quot; srcset=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg 490w, /wp-content/uploads/2014/11/google-cardboard-150x150.jpg 150w&quot; sizes=&quot;(max-width: 490px) 100vw, 490px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;One of the function provided by the Cardboard application is viewing Photo Sphere in a virtual reality setting. &lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; is a kind of photo that is (360 x 180) degrees panoramic, that is, not just 360 degrees horizontally, but also you can look up and down. It is very cool.&lt;/p&gt;
 
 &lt;p&gt;Check out &lt;a href=&quot;http://360gigapixels.com/tokyo-tower-panorama-photo/&quot; target=&quot;_blank&quot;&gt;this panoramic view&lt;/a&gt; from Tokyo Tower by 360cities for something similar in concept.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-506&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot; alt=&quot;tokyo tower panorama&quot; width=&quot;1353&quot; height=&quot;683&quot; srcset=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png 1353w, /wp-content/uploads/2014/11/tokyo-tower-panorama-580x292.png 580w, /wp-content/uploads/2014/11/tokyo-tower-panorama-940x474.png 940w, /wp-content/uploads/2014/11/tokyo-tower-panorama-624x314.png 624w&quot; sizes=&quot;(max-width: 1353px) 100vw, 1353px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-506&quot; src=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot; alt=&quot;tokyo tower panorama&quot; width=&quot;1353&quot; height=&quot;683&quot; srcset=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png 1353w, /wp-content/uploads/2014/11/tokyo-tower-panorama-580x292.png 580w, /wp-content/uploads/2014/11/tokyo-tower-panorama-940x474.png 940w, /wp-content/uploads/2014/11/tokyo-tower-panorama-624x314.png 624w&quot; sizes=&quot;(max-width: 1353px) 100vw, 1353px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Here is the cool thing:  The Cardboard application pushes the Photo Sphere further by putting you in an immersive experience. The experience is as if you’re at the scene looking around &lt;em&gt;in person&lt;/em&gt;. Yes, I know it’s not stereoscopic, but hey!&lt;/p&gt;
 
@@ -1598,7 +1598,7 @@ if __name__ == &#39;__main__&#39;:
         <title>How to Select Your Final Models in a Kaggle Competition</title>
         <description>&lt;p&gt;Did your rank just drop sharp in the private leaderboard in a Kaggle competition?&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-493&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/10/picard-palm.jpg&quot; alt=&quot;picard palm&quot; width=&quot;490&quot; height=&quot;317&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2014/10/picard-palm.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-493&quot; src=&quot;/wp-content/uploads/2014/10/picard-palm.jpg&quot; alt=&quot;picard palm&quot; width=&quot;490&quot; height=&quot;317&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;I’ve been through that, too. We all learn about overfitting when we started machine learning, but Kaggle makes you really feel the pain of overfitting. Should I have been more careful in the &lt;a href=&quot;http://www.kaggle.com/c/higgs-boson/&quot; target=&quot;_blank&quot;&gt;Higgs Boson Machine Learning competition&lt;/a&gt;, I would have selected a solution that would gave me a rank 4 than rank 22.&lt;/p&gt;
 
@@ -1627,7 +1627,7 @@ if __name__ == &#39;__main__&#39;:
 &lt;p&gt;Applying the above principles to the recent competition &lt;a href=&quot;http://www.kaggle.com/c/afsis-soil-properties&quot; target=&quot;_blank&quot;&gt;Africa Soil Property Prediction Challenge&lt;/a&gt;, plus a bit of luck, I picked the top 1 and top 2 models.&lt;/p&gt;
 
 &lt;div id=&quot;attachment_491&quot; style=&quot;width: 687px&quot; class=&quot;wp-caption aligncenter&quot;&gt;
-  &lt;a href=&quot;http://www.chioka.in/wp-content/uploads/2014/10/top-score.png&quot;&gt;&lt;img class=&quot;wp-image-491 size-full&quot; src=&quot;http://www.chioka.in/wp-content/uploads/2014/10/top-score.png&quot; alt=&quot;top score&quot; width=&quot;677&quot; height=&quot;425&quot; srcset=&quot;/wp-content/uploads/2014/10/top-score.png 677w, /wp-content/uploads/2014/10/top-score-580x364.png 580w, /wp-content/uploads/2014/10/top-score-624x391.png 624w&quot; sizes=&quot;(max-width: 677px) 100vw, 677px&quot; /&gt;&lt;/a&gt;
+  &lt;a href=&quot;/wp-content/uploads/2014/10/top-score.png&quot;&gt;&lt;img class=&quot;wp-image-491 size-full&quot; src=&quot;/wp-content/uploads/2014/10/top-score.png&quot; alt=&quot;top score&quot; width=&quot;677&quot; height=&quot;425&quot; srcset=&quot;/wp-content/uploads/2014/10/top-score.png 677w, /wp-content/uploads/2014/10/top-score-580x364.png 580w, /wp-content/uploads/2014/10/top-score-624x391.png 624w&quot; sizes=&quot;(max-width: 677px) 100vw, 677px&quot; /&gt;&lt;/a&gt;
   
   &lt;p class=&quot;wp-caption-text&quot;&gt;
     Sorted by private score

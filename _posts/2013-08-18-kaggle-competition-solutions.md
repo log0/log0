@@ -4,7 +4,7 @@ title: Kaggle Competition Past Solutions
 date: 2013-08-18T21:06:35+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=75
+guid: /?p=75
 permalink: /kaggle-competition-solutions/
 dsq_thread_id:
   - 4752575785

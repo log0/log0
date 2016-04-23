@@ -4,7 +4,7 @@ title: 'Tea time with: Rapid Object Detection using a Boosted Cascade of Simple 
 date: 2014-03-07T21:52:53+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=321
+guid: /?p=321
 permalink: /tea-time-with-rapid-object-detection-using-a-boosted-cascade-of-simple-features/
 categories:
   - Machine Learning
@@ -14,7 +14,7 @@ tags:
   - Paper
   - Summary
 ---
-[<img class="aligncenter size-medium wp-image-326" alt="Cascade Classifier" src="/wp-content/uploads/2014/03/cascade.png" width="580" height="343" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2014/03/cascade.png)
+[<img class="aligncenter size-medium wp-image-326" alt="Cascade Classifier" src="/wp-content/uploads/2014/03/cascade.png" width="580" height="343" sizes="(max-width: 580px) 100vw, 580px" />](/wp-content/uploads/2014/03/cascade.png)
 
 Available [here](https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf). The [Cascade Classifier](http://en.wikipedia.org/wiki/Cascading_classifiers) is one of the most popular face detection algorithms and the default choice in OpenCV libraries as well. Some notes after reading:
 

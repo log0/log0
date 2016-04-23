@@ -4,7 +4,7 @@ title: 'Explain to Me: Why Train A Model Generatively and Discriminatively'
 date: 2014-06-09T02:19:53+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=422
+guid: /?p=422
 permalink: /why-train-a-model-generatively-and-discriminatively/
 categories:
   - Machine Learning
@@ -31,11 +31,11 @@ Suppose you are trying to distinguish between mushroom types with naked eye, ev
 
 For instance, it is not hard to tell between the coprinus comatus and jack-o-lantern below. One is white and one is orange, and their shapes are very different.
 
-[<img class="aligncenter size-full wp-image-427" src="http://www.chioka.in/wp-content/uploads/2014/06/different-set.jpg" alt="different set" width="440" height="233" />](http://www.chioka.in/wp-content/uploads/2014/06/different-set.jpg)
+[<img class="aligncenter size-full wp-image-427" src="/wp-content/uploads/2014/06/different-set.jpg" alt="different set" width="440" height="233" />](/wp-content/uploads/2014/06/different-set.jpg)
 
 However, the jack-o-lantern and chanterelle will be harder. Both are orange and have similar shapes.
 
-[<img class="aligncenter size-full wp-image-428" src="http://www.chioka.in/wp-content/uploads/2014/06/similar-set.jpg" alt="similar set" width="440" height="199" />](http://www.chioka.in/wp-content/uploads/2014/06/similar-set.jpg)
+[<img class="aligncenter size-full wp-image-428" src="/wp-content/uploads/2014/06/similar-set.jpg" alt="similar set" width="440" height="199" />](/wp-content/uploads/2014/06/similar-set.jpg)
 
 You might be tricked to think they are the same or just slightly different, but they are very different: The jack-o-lantern is a poisonous mushroom!
 
@@ -43,7 +43,7 @@ Notice that you as a human can easily distinguish betwen many mushrooms, but 
 
 # Why Train A Model Generatively and Discriminatively
 
-Generatively trained models try to model the joint distribution between the input features and the output class, **but the assumed model may not match the real model that actually generated the data,** and this causes the discriminatively trained models to perform better in practice ([see earlier post for more detailed explanations](http://www.chioka.in/explain-to-me-generative-classifiers-vs-discriminative-classifiers/)).
+Generatively trained models try to model the joint distribution between the input features and the output class, **but the assumed model may not match the real model that actually generated the data,** and this causes the discriminatively trained models to perform better in practice ([see earlier post for more detailed explanations](/explain-to-me-generative-classifiers-vs-discriminative-classifiers/)).
 
 Like the example above, if a generatively trained model can be later trained discriminatively (i.e. taught by a teacher to correct mistakes), then:
 
@@ -61,7 +61,7 @@ Specs of the experiment:
   * Training data: 400 images total. 50 images per class. Out of each batch of 50 images, only 5 are labeled, the other 45 are unlabeled.
   * Testing data: 800 images total. 100 images per class.
 
-[<img class="aligncenter size-full wp-image-434" src="http://www.chioka.in/wp-content/uploads/2014/06/bishop-object-recognition.png" alt="bishop object recognition" width="619" height="486" srcset="/wp-content/uploads/2014/06/bishop-object-recognition.png 619w, /wp-content/uploads/2014/06/bishop-object-recognition-580x455.png 580w" sizes="(max-width: 619px) 100vw, 619px" />](http://www.chioka.in/wp-content/uploads/2014/06/bishop-object-recognition.png)
+[<img class="aligncenter size-full wp-image-434" src="/wp-content/uploads/2014/06/bishop-object-recognition.png" alt="bishop object recognition" width="619" height="486" srcset="/wp-content/uploads/2014/06/bishop-object-recognition.png 619w, /wp-content/uploads/2014/06/bishop-object-recognition-580x455.png 580w" sizes="(max-width: 619px) 100vw, 619px" />](/wp-content/uploads/2014/06/bishop-object-recognition.png)
 
 The best performance is seen when alpha is about 0.95 (slightly generative mostly discriminative), which illustrates point 2 in my summary above.
 

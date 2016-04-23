@@ -4,7 +4,7 @@ title: 'Which is Better : Boosting or Bagging'
 date: 2014-03-27T20:04:57+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=382
+guid: /?p=382
 permalink: /which-is-better-boosting-or-bagging/
 categories:
   - Machine Learning

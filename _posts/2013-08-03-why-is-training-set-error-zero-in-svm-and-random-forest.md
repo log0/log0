@@ -4,7 +4,7 @@ title: Why Is Training Set Error Zero In SVM and Random Forest?
 date: 2013-08-03T13:14:40+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=61
+guid: /?p=61
 permalink: /why-is-training-set-error-zero-in-svm-and-random-forest/
 categories:
   - Machine Learning

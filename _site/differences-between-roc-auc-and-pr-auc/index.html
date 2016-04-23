@@ -62,11 +62,11 @@
 
 <h1 id="tldr">TL;DR</h1>
 
-<p>Use Precision Recall area under curve for <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">class imbalance problems</a>. If not, Receiver Operating Characteristic area under curve otherwise.</p>
+<p>Use Precision Recall area under curve for <a href="/class-imbalance-problem/" target="_blank">class imbalance problems</a>. If not, Receiver Operating Characteristic area under curve otherwise.</p>
 
 <h1 id="introduction">Introduction</h1>
 
-<p>When being confronted with the <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">class imbalance problem</a>, accuracy is a <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">wrong metric to use</a>. Usually, there are two candidates as metrics:</p>
+<p>When being confronted with the <a href="/class-imbalance-problem/" target="_blank">class imbalance problem</a>, accuracy is a <a href="/class-imbalance-problem/" target="_blank">wrong metric to use</a>. Usually, there are two candidates as metrics:</p>
 
 <ol>
   <li>Receiver Operating Characteristic area under curve (ROC AUC)</li>
@@ -81,17 +81,17 @@
 
 <p>TPR is defined as:</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2014/04/tpr-formula.png"><img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2014/04/tpr-formula.png" alt="tpr-formula" width="244" height="82" /></a></p>
+<p><a href="/wp-content/uploads/2014/04/tpr-formula.png"><img class="aligncenter" src="/wp-content/uploads/2014/04/tpr-formula.png" alt="tpr-formula" width="244" height="82" /></a></p>
 
 <p>FPR is defined as:</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2014/04/fpr-formula.png"><img class="aligncenter size-full wp-image-391" src="http://www.chioka.in/wp-content/uploads/2014/04/fpr-formula.png" alt="fpr-formula" width="217" height="79" /></a></p>
+<p><a href="/wp-content/uploads/2014/04/fpr-formula.png"><img class="aligncenter size-full wp-image-391" src="/wp-content/uploads/2014/04/fpr-formula.png" alt="fpr-formula" width="217" height="79" /></a></p>
 
 <p>where TP = true positive, TN = true negative, FP = false positive, FN = false negative.</p>
 
 <p>A typical ROC curve looks like this, which shows two ROC curves for Algorithm 1 and Algorithm 2.</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2014/04/sample-ROC-curve.png"><img class="aligncenter size-full wp-image-393" src="http://www.chioka.in/wp-content/uploads/2014/04/sample-ROC-curve.png" alt="sample-ROC-curve" width="385" height="362" /></a></p>
+<p><a href="/wp-content/uploads/2014/04/sample-ROC-curve.png"><img class="aligncenter size-full wp-image-393" src="/wp-content/uploads/2014/04/sample-ROC-curve.png" alt="sample-ROC-curve" width="385" height="362" /></a></p>
 
 <p><span style="line-height: 1.714285714; font-size: 1rem;">The goal is to have a model be at the upper left corner, which is basically getting no false positives – a perfect classifier.</span></p>
 
@@ -103,13 +103,13 @@
 
 <p>Precision is defined as:</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2014/04/precision-formula.png"><img class="aligncenter size-full wp-image-394" src="http://www.chioka.in/wp-content/uploads/2014/04/precision-formula.png" alt="precision-formula" width="248" height="79" /></a></p>
+<p><a href="/wp-content/uploads/2014/04/precision-formula.png"><img class="aligncenter size-full wp-image-394" src="/wp-content/uploads/2014/04/precision-formula.png" alt="precision-formula" width="248" height="79" /></a></p>
 
 <p>Recall is defined as:</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2014/04/recall-formula.png"><img class="aligncenter size-full wp-image-395" src="http://www.chioka.in/wp-content/uploads/2014/04/recall-formula.png" alt="recall-formula" width="201" height="65" /></a>A typical PR curve looks like this, which shows two PR curves for Algorithm 1 and Algorithm 2.</p>
+<p><a href="/wp-content/uploads/2014/04/recall-formula.png"><img class="aligncenter size-full wp-image-395" src="/wp-content/uploads/2014/04/recall-formula.png" alt="recall-formula" width="201" height="65" /></a>A typical PR curve looks like this, which shows two PR curves for Algorithm 1 and Algorithm 2.</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2014/04/sample-PR-curve.png"><img class="aligncenter size-full wp-image-396" src="http://www.chioka.in/wp-content/uploads/2014/04/sample-PR-curve.png" alt="sample-PR-curve" width="389" height="354" /></a></p>
+<p><a href="/wp-content/uploads/2014/04/sample-PR-curve.png"><img class="aligncenter size-full wp-image-396" src="/wp-content/uploads/2014/04/sample-PR-curve.png" alt="sample-PR-curve" width="389" height="354" /></a></p>
 
 <p>The goal is to have a model be at the upper right corner, which is basically getting only the true positives with no false positives and no false negatives – a perfect classifier.</p>
 

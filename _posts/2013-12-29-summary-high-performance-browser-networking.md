@@ -4,7 +4,7 @@ title: 'Summary: High Performance Browser Networking'
 date: 2013-12-29T22:45:19+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=268
+guid: /?p=268
 permalink: /summary-high-performance-browser-networking/
 categories:
   - Summaries

@@ -4,7 +4,7 @@ title: Build Your Own Real Time Traffic Data Feed
 date: 2014-03-09T12:59:19+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=314
+guid: /?p=314
 permalink: /build-your-own-real-time-traffic-data-feed/
 categories:
   - Machine Learning
@@ -23,7 +23,7 @@ Earlier someone asked me about if it is possible to build a real time traffic da
   2. A user interface presenting the information in 1) , which is usually a map like this below.
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2014/03/no-traffic-map.png"><img alt="no-traffic-map" src="http://www.chioka.in/wp-content/uploads/2014/03/no-traffic-map.png" width="373" height="422" /></a>
+  <a href="/wp-content/uploads/2014/03/no-traffic-map.png"><img alt="no-traffic-map" src="/wp-content/uploads/2014/03/no-traffic-map.png" width="373" height="422" /></a>
 </p>
 
 Inside the enclosed red rectangle, there are no green/yellow/red roads indicating traffic status. Outside of the rectangle, there&#8217;s green/yellow/red roads which indicate current traffic status.
@@ -71,21 +71,21 @@ So **if the current traffic speed is a lot lower than the average traffic speed,
 
 It is not an easy task to calculate the current traffic speed from a image sequence. However, we could try something that might yield potentially good results: **counting the number of cars on the road.** **The intuition is that if there are many cars, the traffic is probably bad. If not, the traffic is probably good.** Note that this varies from cameras to cameras, and also, traffic red lights could cause false positives. But let&#8217;s deal with those cameras that aim at the bridges like this one:
 
-[<img class="aligncenter size-full wp-image-342" alt="capture 1" src="http://www.chioka.in/wp-content/uploads/2014/03/capture-1.jpg" width="352" height="288" />](http://www.chioka.in/wp-content/uploads/2014/03/capture-1.jpg)
+[<img class="aligncenter size-full wp-image-342" alt="capture 1" src="/wp-content/uploads/2014/03/capture-1.jpg" width="352" height="288" />](/wp-content/uploads/2014/03/capture-1.jpg)
 
-[OpenCV](http://opencv.org/) library is an excellent starter for any generic computer vision tasks. I used the Python-OpenCV wrapper for it. We will use the Haar cascade classifier in OpenCV (see my [earlier post of the idea](http://www.chioka.in/tea-time-with-rapid-object-detection-using-a-boosted-cascade-of-simple-features/)) to perform the car detection, using this [exported model cars3.xml](https://code.google.com/p/opencv-lane-vehicle-track/source/browse/trunk/bin/haar/cars3.xml) as a quick starter which is already trained to detect cars in images.
+[OpenCV](http://opencv.org/) library is an excellent starter for any generic computer vision tasks. I used the Python-OpenCV wrapper for it. We will use the Haar cascade classifier in OpenCV (see my [earlier post of the idea](/tea-time-with-rapid-object-detection-using-a-boosted-cascade-of-simple-features/)) to perform the car detection, using this [exported model cars3.xml](https://code.google.com/p/opencv-lane-vehicle-track/source/browse/trunk/bin/haar/cars3.xml) as a quick starter which is already trained to detect cars in images.
 
 Directly applying the the model onto our image gives this result:
 
-[<img class="aligncenter size-full wp-image-347" alt="try 2" src="http://www.chioka.in/wp-content/uploads/2014/03/try-2.png" width="350" height="287" />](http://www.chioka.in/wp-content/uploads/2014/03/try-2.png)
+[<img class="aligncenter size-full wp-image-347" alt="try 2" src="/wp-content/uploads/2014/03/try-2.png" width="350" height="287" />](/wp-content/uploads/2014/03/try-2.png)
 
 For our first attempt, the detection on the top left seems to be just plain wrong, and we also the small van at the bottom-most. We can do better. Let&#8217;s tune our model parameters.
 
-[<img class="aligncenter size-full wp-image-348" alt="try 3" src="http://www.chioka.in/wp-content/uploads/2014/03/try-3.png" width="350" height="288" />](http://www.chioka.in/wp-content/uploads/2014/03/try-3.png)
+[<img class="aligncenter size-full wp-image-348" alt="try 3" src="/wp-content/uploads/2014/03/try-3.png" width="350" height="288" />](/wp-content/uploads/2014/03/try-3.png)
 
 Better, the top left detection looks more reasonable. We can play with the model parameters to get more optimal results. But before that, we know that the sea, the black areas are probably useless, so let&#8217;s just crop them away during the car detection phase.
 
-[<img class="aligncenter size-full wp-image-350" alt="try 4" src="http://www.chioka.in/wp-content/uploads/2014/03/try-4.png" width="733" height="311" srcset="/wp-content/uploads/2014/03/try-4.png 733w, /wp-content/uploads/2014/03/try-4-580x246.png 580w, /wp-content/uploads/2014/03/try-4-624x264.png 624w" sizes="(max-width: 733px) 100vw, 733px" />](http://www.chioka.in/wp-content/uploads/2014/03/try-4.png)
+[<img class="aligncenter size-full wp-image-350" alt="try 4" src="/wp-content/uploads/2014/03/try-4.png" width="733" height="311" srcset="/wp-content/uploads/2014/03/try-4.png 733w, /wp-content/uploads/2014/03/try-4-580x246.png 580w, /wp-content/uploads/2014/03/try-4-624x264.png 624w" sizes="(max-width: 733px) 100vw, 733px" />](/wp-content/uploads/2014/03/try-4.png)
 
 Directly applying car detection on the near roads gives a much better result!
 
@@ -115,7 +115,7 @@ I also pasted the source code here for reference.
 Author: Eric Chio &lt;ckieric[at]gmail[dot]com&gt;
 Date: 2014/03/08
 Project: Macau Real Time Traffic Data Feed
-Website: http://www.chioka.in/
+Website: /
 
 Idea:
 - Loads an image sequence

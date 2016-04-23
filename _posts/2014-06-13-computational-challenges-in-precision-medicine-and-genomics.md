@@ -4,7 +4,7 @@ title: Computational Challenges in Precision Medicine and Genomics
 date: 2014-06-13T21:18:30+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=448
+guid: /?p=448
 permalink: /computational-challenges-in-precision-medicine-and-genomics/
 categories:
   - Machine Learning

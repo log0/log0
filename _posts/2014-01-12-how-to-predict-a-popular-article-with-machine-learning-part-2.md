@@ -4,7 +4,7 @@ title: How to Predict A Popular Article with Machine Learning (Part 2)
 date: 2014-01-12T17:02:06+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=290
+guid: /?p=290
 permalink: /how-to-predict-a-popular-article-with-machine-learning-part-2/
 categories:
   - Machine Learning
@@ -15,27 +15,27 @@ tags:
   - Supervised Learning
   - Text Classification
 ---
-This is part 2 of applying machine learning to practical business problems. [Part 1 here](http://www.chioka.in/how-to-predict-a-popular-article-with-machine-learning-part-1/). We are working on trying to build a model to predict if an article on Lifehack will become popular or not.
+This is part 2 of applying machine learning to practical business problems. [Part 1 here](/how-to-predict-a-popular-article-with-machine-learning-part-1/). We are working on trying to build a model to predict if an article on Lifehack will become popular or not.
 
 ## Overview
 
-In [Part 1](http://www.chioka.in/how-to-predict-a-popular-article-with-machine-learning-part-1/) we have gone through the whole data preparation process, which involves **data collection, data preprocessing** and **data transformation.** We will now build a priliminary model with the training and testing data.
+In [Part 1](/how-to-predict-a-popular-article-with-machine-learning-part-1/) we have gone through the whole data preparation process, which involves **data collection, data preprocessing** and **data transformation.** We will now build a priliminary model with the training and testing data.
 
 ## Class Imbalance Problem
 
 Remember we partitioned our training and testing data as follows, visualized:
 
-[<img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, /wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, /wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early.png)
+[<img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, /wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, /wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" />](/wp-content/uploads/2013/12/dataset-partition-early.png)
 
 &nbsp;
 
-Due to having a lot more negative data than positive data in the training set, our trained model performance will be very poor, despite we supplied a lot of training data. To resolve this, one way is **undersampling,** which we will throw away negative data. Counter-intuitively, [this actually helps](http://www.chioka.in/class-imbalance-problem/). This is called the [Class Imbalance Problem](http://www.chioka.in/class-imbalance-problem/).
+Due to having a lot more negative data than positive data in the training set, our trained model performance will be very poor, despite we supplied a lot of training data. To resolve this, one way is **undersampling,** which we will throw away negative data. Counter-intuitively, [this actually helps](/class-imbalance-problem/). This is called the [Class Imbalance Problem](/class-imbalance-problem/).
 
 ## Dataset Preparation Revisited
 
 Because of the class imbalance problem, we want to keep the training set with 1:1 ratio of positive to negative data, visualized:
 
-[<img class="aligncenter size-medium wp-image-299" alt="dataset partition" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-580x501.png" width="580" height="501" srcset="/wp-content/uploads/2013/12/dataset-partition-580x501.png 580w, /wp-content/uploads/2013/12/dataset-partition-624x539.png 624w, /wp-content/uploads/2013/12/dataset-partition.png 735w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition.png)
+[<img class="aligncenter size-medium wp-image-299" alt="dataset partition" src="/wp-content/uploads/2013/12/dataset-partition-580x501.png" width="580" height="501" srcset="/wp-content/uploads/2013/12/dataset-partition-580x501.png 580w, /wp-content/uploads/2013/12/dataset-partition-624x539.png 624w, /wp-content/uploads/2013/12/dataset-partition.png 735w" sizes="(max-width: 580px) 100vw, 580px" />](/wp-content/uploads/2013/12/dataset-partition.png)
 
 In step 3 of the figure, we throw away a large number of negative examples in the training set. In step 4, we see that the training set is now much smaller with equal number of positive and negative data. This will be the training set we will use. There is no change to the testing set.
 

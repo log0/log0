@@ -4,7 +4,7 @@ title: 'Explain to Me : Bayes Theorem'
 date: 2013-12-03T16:51:43+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=211
+guid: /?p=211
 permalink: /explain-to-me-bayes-theorem/
 categories:
   - Mathematics
@@ -15,7 +15,7 @@ tags:
 You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
+  <a href="/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
 </p>
 
 <p style="text-align: left;">
@@ -75,7 +75,7 @@ References:
 [You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
+  <a href="/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
 </p>
 
 <p style="text-align: left;">
@@ -135,7 +135,7 @@ References:
 ](http://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/) [You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
+  <a href="/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
 </p>
 
 <p style="text-align: left;">
@@ -195,7 +195,7 @@ References:
 [You heard of Bayes Theorem, right? You&#8217;ve seen this formula, in some form or others, right?
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="http://www.chioka.in/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
+  <a href="/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png"><img class="alignnone size-full wp-image-219" alt="Bayes Theorem Formula" src="/wp-content/uploads/2013/12/Bayes-Theorem-Formula.png" width="415" height="64" /></a>
 </p>
 
 <p style="text-align: left;">

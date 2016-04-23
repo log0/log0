@@ -4,7 +4,7 @@ title: Do You Re-train on the Whole Dataset After Validating the Model?
 date: 2014-07-28T09:48:48+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=479
+guid: /?p=479
 permalink: /do-you-re-train-on-the-whole-dataset-after-validating-the-model/
 categories:
   - In Practice

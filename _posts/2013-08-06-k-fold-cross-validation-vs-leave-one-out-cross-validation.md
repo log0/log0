@@ -4,7 +4,7 @@ title: K-Fold Cross Validation VS Leave-One-Out Cross Validation
 date: 2013-08-06T13:17:20+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=70
+guid: /?p=70
 permalink: /k-fold-cross-validation-vs-leave-one-out-cross-validation/
 categories:
   - Machine Learning

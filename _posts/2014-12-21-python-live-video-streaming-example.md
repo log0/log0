@@ -4,7 +4,7 @@ title: Python Live Video Streaming Example
 date: 2014-12-21T08:52:31+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=522
+guid: /?p=522
 permalink: /python-live-video-streaming-example/
 dsq_thread_id:
   - 4752580561

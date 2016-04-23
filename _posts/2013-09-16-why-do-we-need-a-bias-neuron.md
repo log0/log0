@@ -4,7 +4,7 @@ title: Why do We Need a Bias Neuron?
 date: 2013-09-16T13:47:54+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=146
+guid: /?p=146
 permalink: /why-do-we-need-a-bias-neuron/
 categories:
   - Machine Learning
@@ -19,7 +19,7 @@ Have you wondered why there is always a bias neuron in a perceptron, neural netw
 
 Now, let&#8217;s illustrate with an example. Consider a 2D perceptron trying to classify 10 points below.
 
-[<img class="alignnone size-medium wp-image-147" alt="Learning without bias" src="http://www.chioka.in/wp-content/uploads/2013/09/Learning-without-bias-580x580.png" width="580" height="580" srcset="/wp-content/uploads/2013/09/Learning-without-bias-580x580.png 580w, /wp-content/uploads/2013/09/Learning-without-bias-150x150.png 150w, /wp-content/uploads/2013/09/Learning-without-bias.png 670w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/09/Learning-without-bias.png)
+[<img class="alignnone size-medium wp-image-147" alt="Learning without bias" src="/wp-content/uploads/2013/09/Learning-without-bias-580x580.png" width="580" height="580" srcset="/wp-content/uploads/2013/09/Learning-without-bias-580x580.png 580w, /wp-content/uploads/2013/09/Learning-without-bias-150x150.png 150w, /wp-content/uploads/2013/09/Learning-without-bias.png 670w" sizes="(max-width: 580px) 100vw, 580px" />](/wp-content/uploads/2013/09/Learning-without-bias.png)
 
 Points that fall on the right side of the ideal decision boundary (green in picture) should be classified as +1, while all points on the left of the green line as -1.
 

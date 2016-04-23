@@ -4,7 +4,7 @@ title: 'Python Doesn&#8217;t Use All CPU Cores'
 date: 2014-07-19T08:45:36+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=468
+guid: /?p=468
 permalink: /python-doesnt-use-all-cpu-cores/
 categories:
   - Python
@@ -25,6 +25,6 @@ As it turns out, some modules mess with the core affinity on import, which end u
 
 And then voila! It looks right now!
 
-[<img class="aligncenter size-full wp-image-469" src="http://www.chioka.in/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg" alt="10495829_10204248476553916_8213806856117433374_o" width="1154" height="853" srcset="/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg 1154w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-580x428.jpg 580w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-940x694.jpg 940w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-624x461.jpg 624w" sizes="(max-width: 1154px) 100vw, 1154px" />](http://www.chioka.in/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg)
+[<img class="aligncenter size-full wp-image-469" src="/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg" alt="10495829_10204248476553916_8213806856117433374_o" width="1154" height="853" srcset="/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg 1154w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-580x428.jpg 580w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-940x694.jpg 940w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-624x461.jpg 624w" sizes="(max-width: 1154px) 100vw, 1154px" />](/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg)
 
 You can find more details in this StackOverflow [thread](http://stackoverflow.com/questions/15639779/what-determines-whether-different-python-processes-are-assigned-to-the-same-or-d).

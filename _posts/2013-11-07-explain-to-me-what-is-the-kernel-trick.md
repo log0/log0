@@ -4,7 +4,7 @@ title: 'Explain to Me : What is the Kernel Trick?'
 date: 2013-11-07T22:39:20+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=173
+guid: /?p=173
 permalink: /explain-to-me-what-is-the-kernel-trick/
 categories:
   - Machine Learning
@@ -24,11 +24,11 @@ Concretely, when you see the pattern of **x<sub>i</sub><sup>T</sup>** **x<sub>j<
 
 The most well-known case would be the Support Vector Machines. The problem state of SVM is a constrained optimization problem as follows:
 
-[<img class="size-full wp-image-175 aligncenter" alt="SVM problem statement" src="http://www.chioka.in/wp-content/uploads/2013/11/pic1.png" width="319" height="86" />](http://www.chioka.in/wp-content/uploads/2013/11/pic1.png)
+[<img class="size-full wp-image-175 aligncenter" alt="SVM problem statement" src="/wp-content/uploads/2013/11/pic1.png" width="319" height="86" />](/wp-content/uploads/2013/11/pic1.png)
 
 To solve the above efficiently, usually the problem is modeled by as a Lagrange primal problem statement<sup>[1]</sup> (above) but solved by the dual version of problem statement, which becomes the following:
 
-[<img class="size-full wp-image-176 aligncenter" alt="SVM problem statement dual" src="http://www.chioka.in/wp-content/uploads/2013/11/pic2.png" width="381" height="145" />](http://www.chioka.in/wp-content/uploads/2013/11/pic2.png)
+[<img class="size-full wp-image-176 aligncenter" alt="SVM problem statement dual" src="/wp-content/uploads/2013/11/pic2.png" width="381" height="145" />](/wp-content/uploads/2013/11/pic2.png)
 
 Notice the red I boxed above, that is a **very** computationally intensive operation. Suppose **x** is a (10000 x 1) vector, the dot product would introduce 10000 * 10000 = 100000000 multiplications. Suppose you use a linear kernel K(**x<sub>i</sub>, x<sub>j</sub>**) to replace the above red boxed part, there will be only ~10000 multiplications.
 

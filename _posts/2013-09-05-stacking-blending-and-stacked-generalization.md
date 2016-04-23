@@ -4,7 +4,7 @@ title: Stacking, Blending and Stacked Generalization
 date: 2013-09-05T13:29:41+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=132
+guid: /?p=132
 permalink: /stacking-blending-and-stacked-generalization/
 categories:
   - Machine Learning
@@ -19,7 +19,7 @@ In traditional ensemble learning, we have multiple classifiers trying to fit to 
 
 In stacking, the combining mechanism is that the output of the classifiers (Level 0 classifiers) will be used as training data for another classifier (Level 1 classifier) to approximate the same target function. Basically, you let the Level 1 classifier to figure out the combining mechanism.
 
-[<img class="alignnone size-medium wp-image-133" alt="Stacking" src="http://www.chioka.in/wp-content/uploads/2013/09/stacking-580x387.png" width="580" height="387" srcset="/wp-content/uploads/2013/09/stacking-580x387.png 580w, /wp-content/uploads/2013/09/stacking.png 665w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/09/stacking.png)
+[<img class="alignnone size-medium wp-image-133" alt="Stacking" src="/wp-content/uploads/2013/09/stacking-580x387.png" width="580" height="387" srcset="/wp-content/uploads/2013/09/stacking-580x387.png 580w, /wp-content/uploads/2013/09/stacking.png 665w" sizes="(max-width: 580px) 100vw, 580px" />](/wp-content/uploads/2013/09/stacking.png)
 
 In practice, this works very well. In fact, [it is most famously used in Netflix](http://www.netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf) to achieve a very good score.
 

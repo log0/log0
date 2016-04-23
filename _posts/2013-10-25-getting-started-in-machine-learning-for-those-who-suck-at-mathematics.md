@@ -4,7 +4,7 @@ title: Getting Started In Machine Learning For Those Who Suck At Mathematics
 date: 2013-10-25T16:03:07+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=160
+guid: /?p=160
 permalink: /getting-started-in-machine-learning-for-those-who-suck-at-mathematics/
 categories:
   - Machine Learning
@@ -14,7 +14,7 @@ tags:
   - Machine Learning
   - Reading List
 ---
-Sharing a piece of reply I have on the Kaggle forum [here](http://www.kaggle.com/forums/t/5375/please-recommend-books-web-links-to-attain-skills-needed-to-take-part-in/28640#post28640). If you like to see REAL machine learning code, try starting from [this solution collection](http://www.chioka.in/kaggle-competition-solutions/) I have.
+Sharing a piece of reply I have on the Kaggle forum [here](http://www.kaggle.com/forums/t/5375/please-recommend-books-web-links-to-attain-skills-needed-to-take-part-in/28640#post28640). If you like to see REAL machine learning code, try starting from [this solution collection](/kaggle-competition-solutions/) I have.
 
 Here are my suggestions for people who are not very mathematical (i.e. you don&#8217;t breathe very difficult mathematics day-to-day), but more from a software engineer background. If you&#8217;re a very math guy (who can read without any code and start doing magic), this might not be the best approach for learning machine learning.
 

@@ -4,7 +4,7 @@ title: When Machine Learning Meets Amazon Web Services (AWS)
 date: 2014-01-09T23:48:09+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=171
+guid: /?p=171
 permalink: /when-machine-learning-meets-amazon-web-services-aws/
 categories:
   - Kaggle

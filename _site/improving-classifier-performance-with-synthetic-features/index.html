@@ -66,7 +66,7 @@
 
 <p>For instance, if you have to predict whether it is feasible to drive between two pairs of latitude and longitude points. Let’s say feasible is that we are driving our car and we can’t drive for many days. Then, the dataset would look something like this:</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2013/09/harversine_distance_dataset_without_synthetic_features1.png"><img class="alignnone size-full wp-image-120" alt="harversine_distance_dataset_without_synthetic_features" src="http://www.chioka.in/wp-content/uploads/2013/09/harversine_distance_dataset_without_synthetic_features1.png" width="496" height="115" /></a></p>
+<p><a href="/wp-content/uploads/2013/09/harversine_distance_dataset_without_synthetic_features1.png"><img class="alignnone size-full wp-image-120" alt="harversine_distance_dataset_without_synthetic_features" src="/wp-content/uploads/2013/09/harversine_distance_dataset_without_synthetic_features1.png" width="496" height="115" /></a></p>
 
 <p>As you can see, the first two examples are feasible because they are rather close by, and we give it TRUE. However, the third and forth examples are clearly not feasible since they are too far away, so we give it a FALSE.</p>
 
@@ -74,7 +74,7 @@
 
 <p>However, if we add a new synthetic feature which is to calculate the harversine distance and feed it to the classifier for training, the classifier can easily correlate this feature with the output. This acts as a higher level representation of the latitude and longitude points. The dataset now looks like this, with an extra column called “Distance” below:</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2013/09/harversine_distance_dataset_with_synthetic_features.png"><img alt="harversine_distance_dataset_with_synthetic_features" src="http://www.chioka.in/wp-content/uploads/2013/09/harversine_distance_dataset_with_synthetic_features-580x110.png" width="580" height="110" /></a></p>
+<p><a href="/wp-content/uploads/2013/09/harversine_distance_dataset_with_synthetic_features.png"><img alt="harversine_distance_dataset_with_synthetic_features" src="/wp-content/uploads/2013/09/harversine_distance_dataset_with_synthetic_features-580x110.png" width="580" height="110" /></a></p>
 
 <p>Here is a dataset that I generated and trained via Logistic Regression. The results are as follows:</p>
 

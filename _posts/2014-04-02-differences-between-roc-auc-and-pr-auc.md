@@ -4,7 +4,7 @@ title: Differences between Receiver Operating Characteristic AUC (ROC AUC) and P
 date: 2014-04-02T10:15:39+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=389
+guid: /?p=389
 permalink: /differences-between-roc-auc-and-pr-auc/
 categories:
   - Machine Learning
@@ -21,11 +21,11 @@ tags:
 
 # TL;DR
 
-Use Precision Recall area under curve for <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">class imbalance problems</a>. If not, Receiver Operating Characteristic area under curve otherwise.
+Use Precision Recall area under curve for <a href="/class-imbalance-problem/" target="_blank">class imbalance problems</a>. If not, Receiver Operating Characteristic area under curve otherwise.
 
 # Introduction
 
-When being confronted with the <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">class imbalance problem</a>, accuracy is a <a href="http://www.chioka.in/class-imbalance-problem/" target="_blank">wrong metric to use</a>. Usually, there are two candidates as metrics:
+When being confronted with the <a href="/class-imbalance-problem/" target="_blank">class imbalance problem</a>, accuracy is a <a href="/class-imbalance-problem/" target="_blank">wrong metric to use</a>. Usually, there are two candidates as metrics:
 
   1. Receiver Operating Characteristic area under curve (ROC AUC)
   2. Precision Recall area under curve (PR AUC)
@@ -38,17 +38,17 @@ A ROC curve is plotting True Positive Rate (TPR) against False Positive Rate (FP
 
 TPR is defined as:
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2014/04/tpr-formula.png" alt="tpr-formula" width="244" height="82" />](http://www.chioka.in/wp-content/uploads/2014/04/tpr-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2014/04/tpr-formula.png" alt="tpr-formula" width="244" height="82" />](/wp-content/uploads/2014/04/tpr-formula.png)
 
 FPR is defined as:
 
-[<img class="aligncenter size-full wp-image-391" src="http://www.chioka.in/wp-content/uploads/2014/04/fpr-formula.png" alt="fpr-formula" width="217" height="79" />](http://www.chioka.in/wp-content/uploads/2014/04/fpr-formula.png)
+[<img class="aligncenter size-full wp-image-391" src="/wp-content/uploads/2014/04/fpr-formula.png" alt="fpr-formula" width="217" height="79" />](/wp-content/uploads/2014/04/fpr-formula.png)
 
 where TP = true positive, TN = true negative, FP = false positive, FN = false negative.
 
 A typical ROC curve looks like this, which shows two ROC curves for Algorithm 1 and Algorithm 2.
 
-[<img class="aligncenter size-full wp-image-393" src="http://www.chioka.in/wp-content/uploads/2014/04/sample-ROC-curve.png" alt="sample-ROC-curve" width="385" height="362" />](http://www.chioka.in/wp-content/uploads/2014/04/sample-ROC-curve.png)
+[<img class="aligncenter size-full wp-image-393" src="/wp-content/uploads/2014/04/sample-ROC-curve.png" alt="sample-ROC-curve" width="385" height="362" />](/wp-content/uploads/2014/04/sample-ROC-curve.png)
 
 <span style="line-height: 1.714285714; font-size: 1rem;">The goal is to have a model be at the upper left corner, which is basically getting no false positives &#8211; a perfect classifier.</span>
 
@@ -60,13 +60,13 @@ A PR curve is plotting Precision against Recall.
 
 Precision is defined as:
 
-[<img class="aligncenter size-full wp-image-394" src="http://www.chioka.in/wp-content/uploads/2014/04/precision-formula.png" alt="precision-formula" width="248" height="79" />](http://www.chioka.in/wp-content/uploads/2014/04/precision-formula.png)
+[<img class="aligncenter size-full wp-image-394" src="/wp-content/uploads/2014/04/precision-formula.png" alt="precision-formula" width="248" height="79" />](/wp-content/uploads/2014/04/precision-formula.png)
 
 Recall is defined as:
 
-[<img class="aligncenter size-full wp-image-395" src="http://www.chioka.in/wp-content/uploads/2014/04/recall-formula.png" alt="recall-formula" width="201" height="65" />](http://www.chioka.in/wp-content/uploads/2014/04/recall-formula.png)A typical PR curve looks like this, which shows two PR curves for Algorithm 1 and Algorithm 2.
+[<img class="aligncenter size-full wp-image-395" src="/wp-content/uploads/2014/04/recall-formula.png" alt="recall-formula" width="201" height="65" />](/wp-content/uploads/2014/04/recall-formula.png)A typical PR curve looks like this, which shows two PR curves for Algorithm 1 and Algorithm 2.
 
-[<img class="aligncenter size-full wp-image-396" src="http://www.chioka.in/wp-content/uploads/2014/04/sample-PR-curve.png" alt="sample-PR-curve" width="389" height="354" />](http://www.chioka.in/wp-content/uploads/2014/04/sample-PR-curve.png)
+[<img class="aligncenter size-full wp-image-396" src="/wp-content/uploads/2014/04/sample-PR-curve.png" alt="sample-PR-curve" width="389" height="354" />](/wp-content/uploads/2014/04/sample-PR-curve.png)
 
 The goal is to have a model be at the upper right corner, which is basically getting only the true positives with no false positives and no false negatives &#8211; a perfect classifier.
 

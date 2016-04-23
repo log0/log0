@@ -4,7 +4,7 @@ title: Differences between L1 and L2 as Loss Function and Regularization
 date: 2013-12-18T12:40:20+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=228
+guid: /?p=228
 permalink: /differences-between-l1-and-l2-as-loss-function-and-regularization/
 dsq_thread_id:
   - 4752582742
@@ -27,15 +27,15 @@ _<span style="line-height: 1.714285714; font-size: 1rem;">[2014/11/30: Updated t
 
 L1-norm loss function is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>)**):
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png" alt="l1-norm formula" width="170" height="50" />](http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/l1-norm-formula.png" alt="l1-norm formula" width="170" height="50" />](/wp-content/uploads/2013/12/l1-norm-formula.png)
 
 L2-norm loss function is also known as least squares error (LSE). It is basically minimizing the sum of the square of the differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>):**
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png" alt="l2-norm formula" width="219" height="73" />](http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/l2-norm-formula.png" alt="l2-norm formula" width="219" height="73" />](/wp-content/uploads/2013/12/l2-norm-formula.png)
 
 The differences of L1-norm and L2-norm as a loss function can be promptly summarized as follows:
 
-[<img class="alignnone size-full wp-image-229 aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png" alt="L1 vs L2 properties (loss function)" width="379" height="117" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png)
+[<img class="alignnone size-full wp-image-229 aligncenter" src="/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png" alt="L1 vs L2 properties (loss function)" width="379" height="117" />](/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png)
 
 <strong style="line-height: 1.714285714; font-size: 1rem;">Robustness</strong><span style="line-height: 1.714285714; font-size: 1rem;">, per wikipedia, is explained as:</span>
 
@@ -49,7 +49,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 
 Below is a diagram generated using a real data and a real fitted model:
 
-[<img class="aligncenter size-full wp-image-515" src="http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" />](http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png)
+[<img class="aligncenter size-full wp-image-515" src="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" />](/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png)
 
 The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).
 
@@ -65,19 +65,19 @@ Regularization is a very important technique in machine learning to prevent over
 
 L1 regularization on least squares:
 
-[<img class="aligncenter size-full wp-image-420" src="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l11.png" alt="least_squares_l1" width="518" height="74" />](http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l11.png)
+[<img class="aligncenter size-full wp-image-420" src="/wp-content/uploads/2013/12/least_squares_l11.png" alt="least_squares_l1" width="518" height="74" />](/wp-content/uploads/2013/12/least_squares_l11.png)
 
 L2 regularization on least squares:
 
-<a style="color: #0f3647; line-height: 24px;" href="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l2.png"><img class="aligncenter size-full wp-image-236" src="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l2.png" alt="least_squares_l2" width="518" height="74" /></a>
+<a style="color: #0f3647; line-height: 24px;" href="/wp-content/uploads/2013/12/least_squares_l2.png"><img class="aligncenter size-full wp-image-236" src="/wp-content/uploads/2013/12/least_squares_l2.png" alt="least_squares_l2" width="518" height="74" /></a>
 
 <span style="line-height: 1.714285714; font-size: 1rem;">The difference between their properties can be promptly summarized as follows:</span>
 
-[<img class="aligncenter size-full wp-image-233" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png" alt="L1 vs L2 properties (regularization)" width="389" height="139" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png)
+[<img class="aligncenter size-full wp-image-233" src="/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png" alt="L1 vs L2 properties (regularization)" width="389" height="139" />](/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png)
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" alt="L1-norm and L2-norm distance" width="246" height="248" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" alt="L1-norm and L2-norm distance" width="246" height="248" />](/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 The green line (L2-norm) is the unique shortest path, while the red, blue, yellow (L1-norm) are all same length (=12) for the same route. Generalizing this to n-dimensions. This is why L2-norm has unique solutions while L1-norm does not.
 
@@ -97,15 +97,15 @@ References:
 
 L1-norm loss function is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>)**):
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png" alt="l1-norm formula" width="170" height="50" />](http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/l1-norm-formula.png" alt="l1-norm formula" width="170" height="50" />](/wp-content/uploads/2013/12/l1-norm-formula.png)
 
 L2-norm loss function is also known as least squares error (LSE). It is basically minimizing the sum of the square of the differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>):**
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png" alt="l2-norm formula" width="219" height="73" />](http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/l2-norm-formula.png" alt="l2-norm formula" width="219" height="73" />](/wp-content/uploads/2013/12/l2-norm-formula.png)
 
 The differences of L1-norm and L2-norm as a loss function can be promptly summarized as follows:
 
-[<img class="alignnone size-full wp-image-229 aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png" alt="L1 vs L2 properties (loss function)" width="379" height="117" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png)
+[<img class="alignnone size-full wp-image-229 aligncenter" src="/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png" alt="L1 vs L2 properties (loss function)" width="379" height="117" />](/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png)
 
 <strong style="line-height: 1.714285714; font-size: 1rem;">Robustness</strong><span style="line-height: 1.714285714; font-size: 1rem;">, per wikipedia, is explained as:</span>
 
@@ -119,7 +119,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 
 Below is a diagram generated using a real data and a real fitted model:
 
-[<img class="aligncenter size-full wp-image-515" src="http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" />](http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png)
+[<img class="aligncenter size-full wp-image-515" src="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" />](/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png)
 
 The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).
 
@@ -135,19 +135,19 @@ Regularization is a very important technique in machine learning to prevent over
 
 L1 regularization on least squares:
 
-[<img class="aligncenter size-full wp-image-420" src="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l11.png" alt="least_squares_l1" width="518" height="74" />](http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l11.png)
+[<img class="aligncenter size-full wp-image-420" src="/wp-content/uploads/2013/12/least_squares_l11.png" alt="least_squares_l1" width="518" height="74" />](/wp-content/uploads/2013/12/least_squares_l11.png)
 
 L2 regularization on least squares:
 
-<a style="color: #0f3647; line-height: 24px;" href="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l2.png"><img class="aligncenter size-full wp-image-236" src="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l2.png" alt="least_squares_l2" width="518" height="74" /></a>
+<a style="color: #0f3647; line-height: 24px;" href="/wp-content/uploads/2013/12/least_squares_l2.png"><img class="aligncenter size-full wp-image-236" src="/wp-content/uploads/2013/12/least_squares_l2.png" alt="least_squares_l2" width="518" height="74" /></a>
 
 <span style="line-height: 1.714285714; font-size: 1rem;">The difference between their properties can be promptly summarized as follows:</span>
 
-[<img class="aligncenter size-full wp-image-233" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png" alt="L1 vs L2 properties (regularization)" width="389" height="139" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png)
+[<img class="aligncenter size-full wp-image-233" src="/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png" alt="L1 vs L2 properties (regularization)" width="389" height="139" />](/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png)
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" alt="L1-norm and L2-norm distance" width="246" height="248" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" alt="L1-norm and L2-norm distance" width="246" height="248" />](/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 The green line (L2-norm) is the unique shortest path, while the red, blue, yellow (L1-norm) are all same length (=12) for the same route. Generalizing this to n-dimensions. This is why L2-norm has unique solutions while L1-norm does not.
 
@@ -167,15 +167,15 @@ References:
 
 L1-norm loss function is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>)**):
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png" alt="l1-norm formula" width="170" height="50" />](http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/l1-norm-formula.png" alt="l1-norm formula" width="170" height="50" />](/wp-content/uploads/2013/12/l1-norm-formula.png)
 
 L2-norm loss function is also known as least squares error (LSE). It is basically minimizing the sum of the square of the differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>):**
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png" alt="l2-norm formula" width="219" height="73" />](http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/l2-norm-formula.png" alt="l2-norm formula" width="219" height="73" />](/wp-content/uploads/2013/12/l2-norm-formula.png)
 
 The differences of L1-norm and L2-norm as a loss function can be promptly summarized as follows:
 
-[<img class="alignnone size-full wp-image-229 aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png" alt="L1 vs L2 properties (loss function)" width="379" height="117" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png)
+[<img class="alignnone size-full wp-image-229 aligncenter" src="/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png" alt="L1 vs L2 properties (loss function)" width="379" height="117" />](/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png)
 
 <strong style="line-height: 1.714285714; font-size: 1rem;">Robustness</strong><span style="line-height: 1.714285714; font-size: 1rem;">, per wikipedia, is explained as:</span>
 
@@ -189,7 +189,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 
 Below is a diagram generated using a real data and a real fitted model:
 
-[<img class="aligncenter size-full wp-image-515" src="http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" />](http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png)
+[<img class="aligncenter size-full wp-image-515" src="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" />](/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png)
 
 The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).
 
@@ -205,19 +205,19 @@ Regularization is a very important technique in machine learning to prevent over
 
 L1 regularization on least squares:
 
-[<img class="aligncenter size-full wp-image-420" src="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l11.png" alt="least_squares_l1" width="518" height="74" />](http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l11.png)
+[<img class="aligncenter size-full wp-image-420" src="/wp-content/uploads/2013/12/least_squares_l11.png" alt="least_squares_l1" width="518" height="74" />](/wp-content/uploads/2013/12/least_squares_l11.png)
 
 L2 regularization on least squares:
 
-<a style="color: #0f3647; line-height: 24px;" href="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l2.png"><img class="aligncenter size-full wp-image-236" src="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l2.png" alt="least_squares_l2" width="518" height="74" /></a>
+<a style="color: #0f3647; line-height: 24px;" href="/wp-content/uploads/2013/12/least_squares_l2.png"><img class="aligncenter size-full wp-image-236" src="/wp-content/uploads/2013/12/least_squares_l2.png" alt="least_squares_l2" width="518" height="74" /></a>
 
 <span style="line-height: 1.714285714; font-size: 1rem;">The difference between their properties can be promptly summarized as follows:</span>
 
-[<img class="aligncenter size-full wp-image-233" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png" alt="L1 vs L2 properties (regularization)" width="389" height="139" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png)
+[<img class="aligncenter size-full wp-image-233" src="/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png" alt="L1 vs L2 properties (regularization)" width="389" height="139" />](/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png)
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" alt="L1-norm and L2-norm distance" width="246" height="248" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" alt="L1-norm and L2-norm distance" width="246" height="248" />](/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 The green line (L2-norm) is the unique shortest path, while the red, blue, yellow (L1-norm) are all same length (=12) for the same route. Generalizing this to n-dimensions. This is why L2-norm has unique solutions while L1-norm does not.
 
@@ -237,15 +237,15 @@ References:
 
 L1-norm loss function is also known as least absolute deviations (LAD), least absolute errors (LAE). It is basically minimizing the sum of the absolute differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>)**):
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png" alt="l1-norm formula" width="170" height="50" />](http://www.chioka.in/wp-content/uploads/2013/12/l1-norm-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/l1-norm-formula.png" alt="l1-norm formula" width="170" height="50" />](/wp-content/uploads/2013/12/l1-norm-formula.png)
 
 L2-norm loss function is also known as least squares error (LSE). It is basically minimizing the sum of the square of the differences **(S)** between the target value (**Y<sub>i</sub>**) and the estimated values (**f(x<sub>i</sub>):**
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png" alt="l2-norm formula" width="219" height="73" />](http://www.chioka.in/wp-content/uploads/2013/12/l2-norm-formula.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/l2-norm-formula.png" alt="l2-norm formula" width="219" height="73" />](/wp-content/uploads/2013/12/l2-norm-formula.png)
 
 The differences of L1-norm and L2-norm as a loss function can be promptly summarized as follows:
 
-[<img class="alignnone size-full wp-image-229 aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png" alt="L1 vs L2 properties (loss function)" width="379" height="117" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png)
+[<img class="alignnone size-full wp-image-229 aligncenter" src="/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png" alt="L1 vs L2 properties (loss function)" width="379" height="117" />](/wp-content/uploads/2013/12/L1-vs-L2-properties-loss-function.png)
 
 <strong style="line-height: 1.714285714; font-size: 1rem;">Robustness</strong><span style="line-height: 1.714285714; font-size: 1rem;">, per wikipedia, is explained as:</span>
 
@@ -259,7 +259,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 
 Below is a diagram generated using a real data and a real fitted model:
 
-[<img class="aligncenter size-full wp-image-515" src="http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" />](http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png)
+[<img class="aligncenter size-full wp-image-515" src="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" />](/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png)
 
 The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).
 
@@ -275,19 +275,19 @@ Regularization is a very important technique in machine learning to prevent over
 
 L1 regularization on least squares:
 
-[<img class="aligncenter size-full wp-image-420" src="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l11.png" alt="least_squares_l1" width="518" height="74" />](http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l11.png)
+[<img class="aligncenter size-full wp-image-420" src="/wp-content/uploads/2013/12/least_squares_l11.png" alt="least_squares_l1" width="518" height="74" />](/wp-content/uploads/2013/12/least_squares_l11.png)
 
 L2 regularization on least squares:
 
-<a style="color: #0f3647; line-height: 24px;" href="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l2.png"><img class="aligncenter size-full wp-image-236" src="http://www.chioka.in/wp-content/uploads/2013/12/least_squares_l2.png" alt="least_squares_l2" width="518" height="74" /></a>
+<a style="color: #0f3647; line-height: 24px;" href="/wp-content/uploads/2013/12/least_squares_l2.png"><img class="aligncenter size-full wp-image-236" src="/wp-content/uploads/2013/12/least_squares_l2.png" alt="least_squares_l2" width="518" height="74" /></a>
 
 <span style="line-height: 1.714285714; font-size: 1rem;">The difference between their properties can be promptly summarized as follows:</span>
 
-[<img class="aligncenter size-full wp-image-233" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png" alt="L1 vs L2 properties (regularization)" width="389" height="139" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png)
+[<img class="aligncenter size-full wp-image-233" src="/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png" alt="L1 vs L2 properties (regularization)" width="389" height="139" />](/wp-content/uploads/2013/12/L1-vs-L2-properties-regularization.png)
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="aligncenter" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" alt="L1-norm and L2-norm distance" width="246" height="248" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="aligncenter" src="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" alt="L1-norm and L2-norm distance" width="246" height="248" />](/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 The green line (L2-norm) is the unique shortest path, while the red, blue, yellow (L1-norm) are all same length (=12) for the same route. Generalizing this to n-dimensions. This is why L2-norm has unique solutions while L1-norm does not.
 

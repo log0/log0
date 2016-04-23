@@ -4,7 +4,7 @@ title: 'Tea Time With: Convolutional Deep Belief Networks for Scalable Unsupervi
 date: 2014-03-27T09:38:31+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=365
+guid: /?p=365
 permalink: /tea-time-with-convolutional-deep-belief-networks-for-scalable-unsupervised-learning-of-hierarchical-representations/
 categories:
   - Machine Learning
@@ -30,11 +30,11 @@ How convoluted deep belief network works on a high level:
 
   * Deep learning stresses on having every next layer learns a higher feature representation of the lower layer&#8217;s features. For example, think of recognizing digits as three parts: 1) Detect lines from raw pixels, 2) Detect corners, contours based on lines, 3) Detect unique digits features based on corners, contours.
 
-[<img class="aligncenter size-full wp-image-373" alt="layered-features" src="http://www.chioka.in/wp-content/uploads/2014/03/layered-features.png" width="516" height="431" />](http://www.chioka.in/wp-content/uploads/2014/03/layered-features.png)
+[<img class="aligncenter size-full wp-image-373" alt="layered-features" src="/wp-content/uploads/2014/03/layered-features.png" width="516" height="431" />](/wp-content/uploads/2014/03/layered-features.png)
 
   * <span style="line-height: 1.714285714; font-size: 1rem;">Introduces the Convolutional Deep Belief Network (CDBN), which is just stacking layers of Convolutional Restricted Boltzmann Machine (CRBM) over each other. Each CRBM acts as a feature detector. The stacking for a CRBM looks like below:</span>
 
-[<img class="aligncenter size-full wp-image-372" alt="convoluted-rbm" src="http://www.chioka.in/wp-content/uploads/2014/03/convoluted-rbm.png" width="496" height="389" />](http://www.chioka.in/wp-content/uploads/2014/03/convoluted-rbm.png)
+[<img class="aligncenter size-full wp-image-372" alt="convoluted-rbm" src="/wp-content/uploads/2014/03/convoluted-rbm.png" width="496" height="389" />](/wp-content/uploads/2014/03/convoluted-rbm.png)
 
 How does CDBN solves the scaling problem:
 
@@ -43,7 +43,7 @@ How does CDBN solves the scaling problem:
 
 # Findings
 
-  * [<img class="aligncenter size-full wp-image-375" alt="features-learned" src="http://www.chioka.in/wp-content/uploads/2014/03/features-learned.png" width="1014" height="334" srcset="/wp-content/uploads/2014/03/features-learned.png 1014w, /wp-content/uploads/2014/03/features-learned-580x191.png 580w, /wp-content/uploads/2014/03/features-learned-940x309.png 940w, /wp-content/uploads/2014/03/features-learned-624x205.png 624w" sizes="(max-width: 1014px) 100vw, 1014px" />](http://www.chioka.in/wp-content/uploads/2014/03/features-learned.png)Above is the features learnt by the CDBN visualized. The upper row is what the 2nd layer of the CDBN &#8216;sees&#8217;, and the lower row is what the 3rd layer of the CDBN &#8216;sees&#8217;. It is pretty close to what a human would expect as well.
+  * [<img class="aligncenter size-full wp-image-375" alt="features-learned" src="/wp-content/uploads/2014/03/features-learned.png" width="1014" height="334" srcset="/wp-content/uploads/2014/03/features-learned.png 1014w, /wp-content/uploads/2014/03/features-learned-580x191.png 580w, /wp-content/uploads/2014/03/features-learned-940x309.png 940w, /wp-content/uploads/2014/03/features-learned-624x205.png 624w" sizes="(max-width: 1014px) 100vw, 1014px" />](/wp-content/uploads/2014/03/features-learned.png)Above is the features learnt by the CDBN visualized. The upper row is what the 2nd layer of the CDBN &#8216;sees&#8217;, and the lower row is what the 3rd layer of the CDBN &#8216;sees&#8217;. It is pretty close to what a human would expect as well.
   * One interesting result is that the CDBN trained on the Kyoto natural image dataset, when tested on the Caltect 101 dataset, yielded a result of ~65.4%, on par with state of the art. Meaning that the CDBN could have built some real good generalization, and not just the things it was trained to recognize.
 
 The <a href="http://web.eecs.umich.edu/~honglak/icml09-ConvolutionalDeepBeliefNetworks.pdf" target="_blank">paper</a> contains much more insight which readers are encouraged to read the paper and <a href="http://arnetminer.org/publication/convolutional-deep-belief-networks-for-scalable-unsupervised-learning-of-hierarchical-representations-1210248.html" target="_blank">presentation</a>.

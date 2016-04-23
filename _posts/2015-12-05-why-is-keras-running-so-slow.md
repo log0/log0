@@ -4,7 +4,7 @@ title: Why is Keras Running So Slow?
 date: 2015-12-05T16:31:15+00:00
 author: lo
 layout: post
-guid: http://www.chioka.in/?p=632
+guid: /?p=632
 permalink: /why-is-keras-running-so-slow/
 nkweb_code_in_head:
   - default
@@ -33,19 +33,19 @@ tags:
   - Theano
   - Tutorial
 ---
-[<img class="aligncenter size-full wp-image-640" src="http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg" alt="meme" width="512" height="340" />](http://www.chioka.in/wp-content/uploads/2015/12/meme.jpg)
+[<img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2015/12/meme.jpg" alt="meme" width="512" height="340" />](/wp-content/uploads/2015/12/meme.jpg)
 
 More notes for myself&#8230; so it may not be helpful for you who bumped into here. 😉
 
 # Why This Article?
 
-<a href="http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/" target="_blank">Setting Theano correctly</a> **is not enough** to ensure you can run deep learning software correctly. In our case, it will be Keras, and it can slow to a crawl if not setup properly.
+<a href="/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/" target="_blank">Setting Theano correctly</a> **is not enough** to ensure you can run deep learning software correctly. In our case, it will be Keras, and it can slow to a crawl if not setup properly.
 
 Again, there could be many causes but I try to outline a clean step what I did, the performance I run a good setup, so you can compare. Hopefully you can glean some places where you did wrong.
 
 # Specifications
 
-My server has the following specifications finished running the steps outlined <a href="http://www.chioka.in/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/" target="_blank">here</a>.
+My server has the following specifications finished running the steps outlined <a href="/how-to-setup-theano-to-run-on-gpu-on-ubuntu-14-04-with-nvidia-geforce-gtx-780/" target="_blank">here</a>.
 
   * OS: Ubuntu 14.04 LTS, X64
   * GPU: Nvidia Geforce GTX 780
