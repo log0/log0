@@ -52,7 +52,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 This is best explained with a picture below (mspaint made, sorry for the low quality):
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
+  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
 </p>
 
 The top represents L1-norm and the bottom represents L2-norm. The first column represents how a regression line fits these three points using L1-norm and L2-norm respectively.
@@ -65,7 +65,7 @@ By just a small perturbation of the data points, the regression line changes by 
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 &nbsp;
 
@@ -114,7 +114,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 This is best explained with a picture below (mspaint made, sorry for the low quality):
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
+  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
 </p>
 
 The top represents L1-norm and the bottom represents L2-norm. The first column represents how a regression line fits these three points using L1-norm and L2-norm respectively.
@@ -127,7 +127,7 @@ By just a small perturbation of the data points, the regression line changes by 
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 &nbsp;
 
@@ -176,7 +176,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 This is best explained with a picture below (mspaint made, sorry for the low quality):
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
+  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
 </p>
 
 The top represents L1-norm and the bottom represents L2-norm. The first column represents how a regression line fits these three points using L1-norm and L2-norm respectively.
@@ -189,7 +189,7 @@ By just a small perturbation of the data points, the regression line changes by 
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 &nbsp;
 
@@ -238,7 +238,7 @@ Intuitively speaking, since a L2-norm squares the error (increasing by a lot if 
 This is best explained with a picture below (mspaint made, sorry for the low quality):
 
 <p style="text-align: center;">
-  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
+  <a href="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png"><img class="alignnone size-medium wp-image-190" alt="L1 vs L2 norm visualization" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png" width="580" height="230" srcset="/wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-580x230.png 580w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-940x373.png 940w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization-624x247.png 624w, /wp-content/uploads/2013/12/L1-vs-L2-norm-visualization.png 1080w" sizes="(max-width: 580px) 100vw, 580px" /></a>
 </p>
 
 The top represents L1-norm and the bottom represents L2-norm. The first column represents how a regression line fits these three points using L1-norm and L2-norm respectively.
@@ -251,7 +251,7 @@ By just a small perturbation of the data points, the regression line changes by 
 
 **Solution uniqueness** is a simpler case but requires a bit of imagination. First, this picture below:
 
-[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
+[<img class="alignnone size-full wp-image-201 aligncenter" alt="L1-norm and L2-norm distance" src="http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png" width="246" height="248" srcset="/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png 246w, /wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance-150x150.png 150w" sizes="(max-width: 246px) 100vw, 246px" />](http://www.chioka.in/wp-content/uploads/2013/12/L1-norm-and-L2-norm-distance.png)
 
 &nbsp;
 

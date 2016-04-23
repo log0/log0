@@ -22,7 +22,7 @@ Paper can be downloaded [here](http://www.cs.cornell.edu/~caruana/ctp/ct.papers/
 
 # Key Points
 
-[<img class="aligncenter size-full wp-image-417" src="http://www.chioka.in/wp-content/uploads/2014/05/model-scores.png" alt="model scores" width="825" height="597" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/05/model-scores.png 825w, http://ckieric.webfactional.com/wp-content/uploads/2014/05/model-scores-580x419.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/05/model-scores-624x451.png 624w" sizes="(max-width: 825px) 100vw, 825px" />](http://www.chioka.in/wp-content/uploads/2014/05/model-scores.png)
+[<img class="aligncenter size-full wp-image-417" src="http://www.chioka.in/wp-content/uploads/2014/05/model-scores.png" alt="model scores" width="825" height="597" srcset="/wp-content/uploads/2014/05/model-scores.png 825w, /wp-content/uploads/2014/05/model-scores-580x419.png 580w, /wp-content/uploads/2014/05/model-scores-624x451.png 624w" sizes="(max-width: 825px) 100vw, 825px" />](http://www.chioka.in/wp-content/uploads/2014/05/model-scores.png)
 
 <div>
   <div style="color: #000000;">

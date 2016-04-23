@@ -35,7 +35,7 @@ I vow to come out with some principles systematically select final models. Here
 Applying the above principles to the recent competition <a href="http://www.kaggle.com/c/afsis-soil-properties" target="_blank">Africa Soil Property Prediction Challenge</a>, plus a bit of luck, I picked the top 1 and top 2 models.
 
 <div id="attachment_491" style="width: 687px" class="wp-caption aligncenter">
-  <a href="http://www.chioka.in/wp-content/uploads/2014/10/top-score.png"><img class="wp-image-491 size-full" src="http://www.chioka.in/wp-content/uploads/2014/10/top-score.png" alt="top score" width="677" height="425" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score.png 677w, http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score-580x364.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/10/top-score-624x391.png 624w" sizes="(max-width: 677px) 100vw, 677px" /></a>
+  <a href="http://www.chioka.in/wp-content/uploads/2014/10/top-score.png"><img class="wp-image-491 size-full" src="http://www.chioka.in/wp-content/uploads/2014/10/top-score.png" alt="top score" width="677" height="425" srcset="/wp-content/uploads/2014/10/top-score.png 677w, /wp-content/uploads/2014/10/top-score-580x364.png 580w, /wp-content/uploads/2014/10/top-score-624x391.png 624w" sizes="(max-width: 677px) 100vw, 677px" /></a>
   
   <p class="wp-caption-text">
     Sorted by private score

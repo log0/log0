@@ -61,7 +61,7 @@ Specs of the experiment:
   * Training data: 400 images total. 50 images per class. Out of each batch of 50 images, only 5 are labeled, the other 45 are unlabeled.
   * Testing data: 800 images total. 100 images per class.
 
-[<img class="aligncenter size-full wp-image-434" src="http://www.chioka.in/wp-content/uploads/2014/06/bishop-object-recognition.png" alt="bishop object recognition" width="619" height="486" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/06/bishop-object-recognition.png 619w, http://ckieric.webfactional.com/wp-content/uploads/2014/06/bishop-object-recognition-580x455.png 580w" sizes="(max-width: 619px) 100vw, 619px" />](http://www.chioka.in/wp-content/uploads/2014/06/bishop-object-recognition.png)
+[<img class="aligncenter size-full wp-image-434" src="http://www.chioka.in/wp-content/uploads/2014/06/bishop-object-recognition.png" alt="bishop object recognition" width="619" height="486" srcset="/wp-content/uploads/2014/06/bishop-object-recognition.png 619w, /wp-content/uploads/2014/06/bishop-object-recognition-580x455.png 580w" sizes="(max-width: 619px) 100vw, 619px" />](http://www.chioka.in/wp-content/uploads/2014/06/bishop-object-recognition.png)
 
 The best performance is seen when alpha is about 0.95 (slightly generative mostly discriminative), which illustrates point 2 in my summary above.
 

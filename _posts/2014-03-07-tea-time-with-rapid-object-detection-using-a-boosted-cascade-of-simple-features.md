@@ -14,7 +14,7 @@ tags:
   - Paper
   - Summary
 ---
-[<img class="aligncenter size-medium wp-image-326" alt="Cascade Classifier" src="http://www.chioka.in/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-580x343.png" width="580" height="343" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-580x343.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-940x557.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54-624x369.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54.png 1184w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2014/03/スクリーンショット-2014-03-07-午前9.02.54.png)
+[<img class="aligncenter size-medium wp-image-326" alt="Cascade Classifier" src="/wp-content/uploads/2014/03/cascade.png" width="580" height="343" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2014/03/cascade.png)
 
 Available [here](https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf). The [Cascade Classifier](http://en.wikipedia.org/wiki/Cascading_classifiers) is one of the most popular face detection algorithms and the default choice in OpenCV libraries as well. Some notes after reading:
 

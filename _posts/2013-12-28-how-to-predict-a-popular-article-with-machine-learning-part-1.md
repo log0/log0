@@ -74,7 +74,7 @@ By inspecting the the raw share counts, we can see that most articles have zero 
 
 I allocated 2/3 of the positive examples to the training set, and 1/3 of the positive examples to the testing set. 2000 negative examples are allocated to the testing set, and the rest of the negative examples are put into the training set. Visualized as below:
 
-[<img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early.png)
+[<img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, /wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, /wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early.png)
 
 Lastly, note that** it is very important that the training and testing data do not overlap at all, or you will get optimistically biased results. **We will not touch our testing set from now own.
 

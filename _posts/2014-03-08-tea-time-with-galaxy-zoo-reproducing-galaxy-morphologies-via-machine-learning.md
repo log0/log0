@@ -36,7 +36,7 @@ Galaxies are vast and many. This paper explores if a machine learning approach t
 
 I&#8217;ll capture the tables from the paper itself, which is very clear. Table 5, 8, 9 are the results of using all features for the entire sample, gold sample, and bright sample respectively.
 
-[<img class="aligncenter size-medium wp-image-332" alt="galaxy zoo 2" src="http://www.chioka.in/wp-content/uploads/2014/03/galaxy-zoo-2-580x390.png" width="580" height="390" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/03/galaxy-zoo-2-580x390.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/galaxy-zoo-2-624x420.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/galaxy-zoo-2.png 882w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2014/03/galaxy-zoo-2.png)
+[<img class="aligncenter size-medium wp-image-332" alt="galaxy zoo 2" src="http://www.chioka.in/wp-content/uploads/2014/03/galaxy-zoo-2-580x390.png" width="580" height="390" srcset="/wp-content/uploads/2014/03/galaxy-zoo-2-580x390.png 580w, /wp-content/uploads/2014/03/galaxy-zoo-2-624x420.png 624w, /wp-content/uploads/2014/03/galaxy-zoo-2.png 882w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2014/03/galaxy-zoo-2.png)
 
 <div>
 </div>

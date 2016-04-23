@@ -85,7 +85,7 @@ For our first attempt, the detection on the top left seems to be just plain wron
 
 Better, the top left detection looks more reasonable. We can play with the model parameters to get more optimal results. But before that, we know that the sea, the black areas are probably useless, so let&#8217;s just crop them away during the car detection phase.
 
-[<img class="aligncenter size-full wp-image-350" alt="try 4" src="http://www.chioka.in/wp-content/uploads/2014/03/try-4.png" width="733" height="311" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/03/try-4.png 733w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/try-4-580x246.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/try-4-624x264.png 624w" sizes="(max-width: 733px) 100vw, 733px" />](http://www.chioka.in/wp-content/uploads/2014/03/try-4.png)
+[<img class="aligncenter size-full wp-image-350" alt="try 4" src="http://www.chioka.in/wp-content/uploads/2014/03/try-4.png" width="733" height="311" srcset="/wp-content/uploads/2014/03/try-4.png 733w, /wp-content/uploads/2014/03/try-4-580x246.png 580w, /wp-content/uploads/2014/03/try-4-624x264.png 624w" sizes="(max-width: 733px) 100vw, 733px" />](http://www.chioka.in/wp-content/uploads/2014/03/try-4.png)
 
 Directly applying car detection on the near roads gives a much better result!
 

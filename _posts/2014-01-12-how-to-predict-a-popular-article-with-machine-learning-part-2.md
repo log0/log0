@@ -25,7 +25,7 @@ In [Part 1](http://www.chioka.in/how-to-predict-a-popular-article-with-machine-l
 
 Remember we partitioned our training and testing data as follows, visualized:
 
-[<img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early.png)
+[<img class="aligncenter size-medium wp-image-300" alt="dataset partition early" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early-580x281.png" width="580" height="281" srcset="/wp-content/uploads/2013/12/dataset-partition-early-580x281.png 580w, /wp-content/uploads/2013/12/dataset-partition-early-624x303.png 624w, /wp-content/uploads/2013/12/dataset-partition-early.png 708w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-early.png)
 
 &nbsp;
 
@@ -35,7 +35,7 @@ Due to having a lot more negative data than positive data in the training set, o
 
 Because of the class imbalance problem, we want to keep the training set with 1:1 ratio of positive to negative data, visualized:
 
-[<img class="aligncenter size-medium wp-image-299" alt="dataset partition" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-580x501.png" width="580" height="501" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-580x501.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition-624x539.png 624w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/dataset-partition.png 735w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition.png)
+[<img class="aligncenter size-medium wp-image-299" alt="dataset partition" src="http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition-580x501.png" width="580" height="501" srcset="/wp-content/uploads/2013/12/dataset-partition-580x501.png 580w, /wp-content/uploads/2013/12/dataset-partition-624x539.png 624w, /wp-content/uploads/2013/12/dataset-partition.png 735w" sizes="(max-width: 580px) 100vw, 580px" />](http://www.chioka.in/wp-content/uploads/2013/12/dataset-partition.png)
 
 In step 3 of the figure, we throw away a large number of negative examples in the training set. In step 4, we see that the training set is now much smaller with equal number of positive and negative data. This will be the training set we will use. There is no change to the testing set.
 

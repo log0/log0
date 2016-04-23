@@ -134,7 +134,7 @@
 
 <p>Better, the top left detection looks more reasonable. We can play with the model parameters to get more optimal results. But before that, we know that the sea, the black areas are probably useless, so let’s just crop them away during the car detection phase.</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2014/03/try-4.png"><img class="aligncenter size-full wp-image-350" alt="try 4" src="http://www.chioka.in/wp-content/uploads/2014/03/try-4.png" width="733" height="311" srcset="http://ckieric.webfactional.com/wp-content/uploads/2014/03/try-4.png 733w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/try-4-580x246.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2014/03/try-4-624x264.png 624w" sizes="(max-width: 733px) 100vw, 733px" /></a></p>
+<p><a href="http://www.chioka.in/wp-content/uploads/2014/03/try-4.png"><img class="aligncenter size-full wp-image-350" alt="try 4" src="http://www.chioka.in/wp-content/uploads/2014/03/try-4.png" width="733" height="311" srcset="/wp-content/uploads/2014/03/try-4.png 733w, /wp-content/uploads/2014/03/try-4-580x246.png 580w, /wp-content/uploads/2014/03/try-4-624x264.png 624w" sizes="(max-width: 733px) 100vw, 733px" /></a></p>
 
 <p>Directly applying car detection on the near roads gives a much better result!</p>
 
@@ -249,10 +249,19 @@ cv2.destroyAllWindows()</pre>
 
     <div class="footer center">
 
-  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
   Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8676829-1', 'auto');
+  ga('send', 'pageview');
+</script>
 
 
   </body>

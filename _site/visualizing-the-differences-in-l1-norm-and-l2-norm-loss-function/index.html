@@ -60,7 +60,7 @@
   <article class="post-content">
     <p>In an earlier post about the <a href="www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/" target="_blank">differences between L1 and L2 as loss function and regularization</a>, one of the graph about L1-norm and L2-norm loss function is rather confusing to many readers, as I have seen from the comments. Reviewing it after a year, it wasn’t very clear as well, so today I generated some data and run a model over them. Here is how it looks like:</p>
 
-<p><a href="http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png"><img class="aligncenter size-full wp-image-515" src="http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, http://ckieric.webfactional.com/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" /></a></p>
+<p><a href="http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png"><img class="aligncenter size-full wp-image-515" src="http://www.chioka.in/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png" alt="programmatic L1 vs L2 visualization" width="1096" height="716" srcset="/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w" sizes="(max-width: 1096px) 100vw, 1096px" /></a></p>
 
 <p>The base model here used is a GradientBoostingRegressor, which can take in L1-norm and L2-norm loss functions. The green and red lines represent a model using L1-norm and L2-norm loss function respectively. A solid line represents the fitted model trained also with the outlier point (orange), and the dotted line represents the fitted model trained without the outlier point (orange).</p>
 
@@ -110,10 +110,19 @@
 
     <div class="footer center">
 
-  Copyright &copy; <a href=http://diezcami.github.io target="_blank">Camille Diez</a> 2015<BR />
   Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
 
 </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8676829-1', 'auto');
+  ga('send', 'pageview');
+</script>
 
 
   </body>
