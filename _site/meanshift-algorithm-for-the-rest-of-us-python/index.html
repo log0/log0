@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Meanshift Algorithm for the Rest of Us (Python)</title>
+  <meta name="description" content="What is Meanshift?">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.chioka.in/meanshift-algorithm-for-the-rest-of-us-python/">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+</head>
+
+
+  <body>
+
+    <div class="site-header">
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <i class="fa fa-navicon fa-lg"></i>
+      </a>
+
+      <div class="trigger">
+          <a class="page-link" href="/">Home</a>
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+     <h1 class="post-title">Meanshift Algorithm for the Rest of Us (Python)</h1>
+     <p class="post-meta">Posted on May 14, 2016 • lo</p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="what-is-meanshift">What is Meanshift?</h1>
+
+<p>Meanshift is a clustering algorithm that assigns the datapoints to the clusters iteratively by shifting points towards the mode. The <a href="https://en.wikipedia.org/wiki/Mode_(statistics)">mode</a> can be understood as the highest density of datapoints (in the region, in the context of the Meanshift). As such, it is also known as the mode-seeking algorithm. Meanshift algorithm has applications in the field of image processing and computer vision.</p>
+
+<p>Given a set of datapoints, the algorithm iteratively assign each datapoint towards the closest cluster centroid. The direction to the closest cluster centroid is determined by where most of the points nearby are at. So each iteration each data point will move closer to where the most points are at, which is or will lead to the cluster center. When the algorithm stops, each point is assigned to a cluster.</p>
+
+<p>Unlike the popular <a href="https://en.wikipedia.org/wiki/K-means_clustering">K-Means algorithm</a>, meanshift does not require specifying the number of clusters in advance. The number of clusters is determined by the algorithm with respect to the data.</p>
+
+<p>I wrote this article in case I forgot what Meanshift is. Hopefully I won’t. =]</p>
+
+<p>The Meanshift code is available as a notebook on <a href="https://github.com/log0/build-your-own-meanshift/blob/master/Meanshift%20In%202D.ipynb">Github</a>.</p>
+
+<h1 id="meanshift-by-example">Meanshift by Example</h1>
+
+<p>Here is a diagram that shows what happens step-by-step in Meanshift.</p>
+
+<p><a href="/wp-content/uploads/2016/05/meanshift-step-by-step.png"><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/meanshift-step-by-step.png" alt="meanshift step-by-step" /></a></p>
+
+<p>The blue datapoints are the initial datapoints and red are the positions of those datapoints at each iteration. Description for each step:</p>
+
+<p>Iteration:</p>
+
+<ol>
+  <li>Initial state. The red and blue datapoints overlap completely in the first iteration before the Meanshift algorithm starts.</li>
+  <li>End of iteration 1. All the red datapoints move closer to clusters. Looks like there will be 4 clusters.</li>
+  <li>End of iteration 2. The clusters of upper right and lower left seems to have reached convergence just using two iterations. The center and lower right clusters looks like they are merging, since the two centroids are very close.</li>
+  <li>End of iteration 3. No change in the upper right and lower left centroids. The other two centroids’ have pulled each other together as the datapoints affect each clusters. <strong>This is a signature of Meanshift, the number of clusters are not pre-determined</strong>.</li>
+  <li>End of iteration 4. All the clusters should have converged.</li>
+  <li>End of iteration 5. All the clusters indeed have no movement. The algorithm stops here since no change is detected for all red datapoints.</li>
+</ol>
+
+<p><a href="/wp-content/uploads/2016/05/meanshift-final-state.png"><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/meanshift-final-state.png" alt="meanshift final-state" /></a></p>
+
+<p>Meanshift found 3 clusters here, which I circled out above. The original data is actually generated from 4 clusters of data, but Meanshift thinks 3 can represent the set of data better, and it’s not too bad. I used Scikit-Learn’s datasets <a href="http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_blobs.html">make_blobs</a>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>make_blobs(100, 2, centers=4, cluster_std=1.3)
+</code></pre>
+</div>
+
+<p>Now we have a big picture of how Meanshift works overall. Let’s look into what is a single datapoint is doing, and generalize that to all points.</p>
+
+<h1 id="just-a-single-datapoint">Just A Single Datapoint</h1>
+
+<p>Below we run a single datapoint through Meanshift iteratively on a new set of datapoints. The single datapoint is pointed to by the black arrow.</p>
+
+<p><a href="/wp-content/uploads/2016/05/meanshift-path-start.png"><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/meanshift-path-start.png" alt="meanshift initial state" /></a></p>
+
+<p>The closest cluster of points could be south or north of the initial datapoint. One can tell by inspecting the data that running the Meanshift algorithm should bring the datapoint closer either to the datapoints to the south or north.</p>
+
+<p><a href="/wp-content/uploads/2016/05/meanshift-path.png"><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/meanshift-path.png" alt="meanshift path" /></a></p>
+
+<p>The red path shows that the point moves closer to the southern cluster center after each iteration. One may notice the movement decreases gradually after each iteration, and that is because the datapoint is closer to the centroid so the shift is less drastic. After 10 iterations, the point is really close to the centroid. The meanshift does this for all datapoints for <em>K</em> iterations. In most cases, 5 iterations should suffice for convergence. From this we can tell <strong>the algorithm’s runtime complexity is <em>O(KN<sup>2</sup>)</em></strong>, where <em>N</em> is the number of datapoints and <em>K</em> is the number of iterations of Meanshift.</p>
+
+<p>Note that this implementation to demonstrate a single point moving is slightly different to where all the datapoints are moving, but the idea is basically the same. For the curious, if all the datapoints move, it will affect each neighbouring datapoints more drastically. The result is that the algorithm converges faster: ~3 iterations above versus ~10 iterations in this version.</p>
+
+<h1 id="the-meanshift-algorithm">The Meanshift Algorithm</h1>
+
+<p>I will have to touch lightly on the mathematics for this part. I hate math so I will try my best to explain in terms for non-math people.</p>
+
+<p>You will need a few things before you start to run Meanshift on a set of datapoints <em>X</em>:</p>
+
+<ol>
+  <li>A function <em>N(x)</em> to determine what are the neighbours of a point <em>x</em> ∈ <em>X</em>. The neighbouring points are the points within a certain distance. The distance metric is usually <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean Distance</a>.</li>
+  <li>A kernel <em>K(d)</em> to use in Meanshift. K is usually a <a href="https://en.wikipedia.org/wiki/Radial_basis_function_kernel">Gaussian Kernel</a>, and d is the distance between two datapoints.</li>
+</ol>
+
+<p>Now, with the above, this is the Meanshift algorithm for a set of datapoints <em>X</em>:</p>
+
+<ol>
+  <li>For each datapoint <em>x</em> ∈ <em>X</em>, find the neighbouring points <em>N(x)</em> of <em>x</em>.</li>
+  <li>For each datapoint <em>x</em> ∈ <em>X</em>, calculate the <strong><em>mean shift</em></strong> <em>m(x)</em> from this equation: <img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/formula-1.png" alt="meanshift formula 1" /></li>
+  <li>For each datapoint <em>x</em> ∈ <em>X</em>, update <em>x</em> ← <em>m(x)</em>.</li>
+  <li>Repeat 1. for <em>n_iteations</em> or until the points are almost not moving or not moving.</li>
+</ol>
+
+<p>The most important piece is calculating the mean shift <em>m(x)</em>. The formula in step 2. looks daunting but let’s break it down. Notice the red red encircled parts are essentially the same:</p>
+
+<p><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/formula-2.png" alt="meanshift formula 2" /></p>
+
+<p>Let’s replace that with <em>W<sub>i</sub></em>, so the formula becomes this:</p>
+
+<p><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/formula-3.png" alt="meanshift formula 3" /></p>
+
+<p>Look at the general formula for <a href="https://en.wikipedia.org/wiki/Weighted_arithmetic_mean">weighted average</a> in Wikipedia gives us this:</p>
+
+<p><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/weighted-average.png" alt="weighted average formula" /></p>
+
+<p>Which is just the same thing! Essentially, the meanshift is just calculating <strong>the <em>weighted average</em> of the affected points w.r.t. to <em>x</em></strong>. From this perspective, the formula is less mystifying, right?</p>
+
+<p>To summarize: The algorithm finds a set of nearby points that affect a datapoint, then shift it towards where most of the points are, and the closest points have more influence than the further points. Repeat this for all datapoints until nothing changes.</p>
+
+<h1 id="code">Code</h1>
+
+<p>Define the kernel, euclidean distance, neighbourhood functions we need first:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">euclid_distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">xi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">neighbourhood_points</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">x_centroid</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="n">eligible_X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">:</span>
+        <span class="n">distance_between</span> <span class="o">=</span> <span class="n">euclid_distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_centroid</span><span class="p">)</span>
+        <span class="c"># print('Evaluating: [%s vs %s] yield dist=%.2f' % (x, x_centroid, distance_between))</span>
+        <span class="k">if</span> <span class="n">distance_between</span> <span class="o">&lt;=</span> <span class="n">distance</span><span class="p">:</span>
+            <span class="n">eligible_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">eligible_X</span>
+
+<span class="k">def</span> <span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">bandwidth</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">distance</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">val</span>
+</code></pre>
+</div>
+
+<p>Next, we will implement Meanshift by translating the algorithm as described above.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">original_X</span><span class="p">)</span>
+
+<span class="n">past_X</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n_iterations</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+        <span class="c">### Step 1. For each datapoint x ∈ X, find the neighbouring points N(x) of x.</span>
+        <span class="n">neighbours</span> <span class="o">=</span> <span class="n">neighbourhood_points</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">look_distance</span><span class="p">)</span>
+        
+        <span class="c">### Step 2. For each datapoint x ∈ X, calculate the mean shift m(x).</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">neighbours</span><span class="p">:</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="n">euclid_distance</span><span class="p">(</span><span class="n">neighbour</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="n">kernel_bandwidth</span><span class="p">)</span>
+            <span class="n">numerator</span> <span class="o">+=</span> <span class="p">(</span><span class="n">weight</span> <span class="o">*</span> <span class="n">neighbour</span><span class="p">)</span>
+            <span class="n">denominator</span> <span class="o">+=</span> <span class="n">weight</span>
+        
+        <span class="n">new_x</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+        
+        <span class="c">### Step 3. For each datapoint x ∈ X, update x ← m(x).</span>
+        <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_x</span>
+    
+    <span class="n">past_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<p>This code is a naive implementation of Meanshift algorithm. There are a lot of optimizations that can be done to improve this code’s speed. For instance, 1) Vectorize the implementation above, 2) Use a Ball Tree to calculate the neighbourhood points much more efficiently, etc.</p>
+
+<p>The code is available on <a href="https://github.com/log0/build-your-own-meanshift/blob/master/Meanshift%20In%202D.ipynb">Github</a>.</p>
+
+<h1 id="k-means-vs-meanshift">K-Means VS Meanshift</h1>
+
+<p>Meanshift looks very similar to K-Means, they both move the point closer to the cluster centroids. One may wonder: How is this different from K-Means? K-Means is faster in terms of runtime complexity!</p>
+
+<p>The key difference is that <strong>Meanshift does not require the user to specify the number of clusters</strong>. In some cases, it is not straightforward to guess the right number of clusters to use. In K-Means, the output may end up having too few clusters or too many clusters to be useful. At the cost of larger time complexity, Meanshift determines the number of clusters suitable to the dataset provided.</p>
+
+<p>Another commonly cited difference is that K-Means can only learn circle or ellipsoidal clusters. However, this is not true. The reason that Meanshift can learn arbitrary shapes is because the features are mapped to another higher dimensional feature space through the kernel. The arbitrary shapes are due to the algorithm finding circle or ellipsoidal clusters in higher dimensional feature space. When the features are mapped back to 1D/2D/3D, the resulting clusters look like strange shapes. This is also the trick as used in Support Vector Machines.</p>
+
+<p>A traditional K-means does not use kernels, but <a href="http://www.stat.cmu.edu/~rnugent/ULWG/spring2004/KernelKMeans.ppt">Kernel K-means</a> is available. Kernel K-Means is useful if 1) the number of clusters is known or can be reasonably estimated, and 2) dataset needs learning non-ellipsoidal cluster shapes. So, you can enjoy the better runtime complexity of K-Means and learn arbitrary clusters if you can determine the number of clusters to use.</p>
+
+<h1 id="applications">Applications</h1>
+
+<h3 id="image-processing">Image Processing</h3>
+
+<p>Meanshift is used as an image segmentation algorithm. Here is what Meanshift can do for us:</p>
+
+<p><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/bread-segmentation.png" alt="bread segmentation" /></p>
+
+<p>The idea is that similar colors are grouped to use the same color. Using a library called <a href="http://scikit-learn.org">Scikit-Learn</a>, this can be done very easily. The gist of the code is this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">ms</span> <span class="o">=</span> <span class="n">MeanShift</span><span class="p">(</span><span class="n">bandwidth</span><span class="o">=</span><span class="n">bandwidth</span><span class="p">,</span> <span class="n">bin_seeding</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You can find an end-to-end working code on Github in <a href="https://github.com/log0/build-your-own-meanshift/blob/master/Meanshift%20Image%20Segmentation.ipynb">this notebook</a>.</p>
+
+<p><a href="http://efavdb.com/mean-shift/">EFavDB</a> has an excellent article on this topic which I highly recommend.</p>
+
+<h3 id="computer-vision">Computer Vision</h3>
+
+<p>Meanshift is used as an object tracking algorithm. The idea is that you need to identify the target to track, and build a color histogram of this target, and then keep on sliding the tracking window to the closest match (the cluster center) to keep up with the target to track. Here is an animated gif from OpenCV that illustrates this:</p>
+
+<p><a href="/wp-content/uploads/2016/05/meanshift-face.gif"><img class="aligncenter size-full wp-image-640" src="/wp-content/uploads/2016/05/meanshift-face.gif" alt="meanshift face" /></a></p>
+
+<p>You can find more details and OpenCV code demonstration <a href="http://docs.opencv.org/3.1.0/db/df8/tutorial_py_meanshift.html#gsc.tab=0">here</a>.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>By now we should understand that Meanshift is a simple and versatile algorithm that finds applications in general data clustering, image processing and object tracking. It has similarities with K-Means but there are differences. Meanshift is essentially iterations of weighted average of the datapoints. Hopefully this article unravels some of the technical details that bothers you.</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Mean_shift">https://en.wikipedia.org/wiki/Mean_shift</a></li>
+  <li><a href="https://spin.atomicobject.com/2015/05/26/mean-shift-clustering/">https://spin.atomicobject.com/2015/05/26/mean-shift-clustering/</a></li>
+  <li><a href="http://stackoverflow.com/questions/4831813/image-segmentation-using-mean-shift-explained">http://stackoverflow.com/questions/4831813/image-segmentation-using-mean-shift-explained</a></li>
+  <li><a href="http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/TUZEL1/MeanShift.pdf">http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/TUZEL1/MeanShift.pdf</a></li>
+  <li><a href="http://scikit-learn.org/stable/modules/clustering.html">http://scikit-learn.org/stable/modules/clustering.html</a></li>
+  <li><a href="https://saravananthirumuruganathan.wordpress.com/2010/04/01/introduction-to-mean-shift-algorithm/">https://saravananthirumuruganathan.wordpress.com/2010/04/01/introduction-to-mean-shift-algorithm/</a></li>
+  <li><a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=1055330">The estimation of the gradient of a density function, with applications in pattern recognition</a></li>
+</ul>
+
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="footer center">
+
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8676829-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>

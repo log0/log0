@@ -5,9 +5,225 @@
     <description>Things I left Hanging Around</description>
     <link>http://www.chioka.in/</link>
     <atom:link href="http://www.chioka.in/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 14 May 2016 11:35:01 -0700</pubDate>
-    <lastBuildDate>Sat, 14 May 2016 11:35:01 -0700</lastBuildDate>
+    <pubDate>Sun, 15 May 2016 17:43:09 -0700</pubDate>
+    <lastBuildDate>Sun, 15 May 2016 17:43:09 -0700</lastBuildDate>
     <generator>Jekyll v3.1.3</generator>
+    
+      <item>
+        <title>Meanshift Algorithm for the Rest of Us (Python)</title>
+        <description>&lt;h1 id=&quot;what-is-meanshift&quot;&gt;What is Meanshift?&lt;/h1&gt;
+
+&lt;p&gt;Meanshift is a clustering algorithm that assigns the datapoints to the clusters iteratively by shifting points towards the mode. The &lt;a href=&quot;https://en.wikipedia.org/wiki/Mode_(statistics)&quot;&gt;mode&lt;/a&gt; can be understood as the highest density of datapoints (in the region, in the context of the Meanshift). As such, it is also known as the mode-seeking algorithm. Meanshift algorithm has applications in the field of image processing and computer vision.&lt;/p&gt;
+
+&lt;p&gt;Given a set of datapoints, the algorithm iteratively assign each datapoint towards the closest cluster centroid. The direction to the closest cluster centroid is determined by where most of the points nearby are at. So each iteration each data point will move closer to where the most points are at, which is or will lead to the cluster center. When the algorithm stops, each point is assigned to a cluster.&lt;/p&gt;
+
+&lt;p&gt;Unlike the popular &lt;a href=&quot;https://en.wikipedia.org/wiki/K-means_clustering&quot;&gt;K-Means algorithm&lt;/a&gt;, meanshift does not require specifying the number of clusters in advance. The number of clusters is determined by the algorithm with respect to the data.&lt;/p&gt;
+
+&lt;p&gt;I wrote this article in case I forgot what Meanshift is. Hopefully I won’t. =]&lt;/p&gt;
+
+&lt;p&gt;The Meanshift code is available as a notebook on &lt;a href=&quot;https://github.com/log0/build-your-own-meanshift/blob/master/Meanshift%20In%202D.ipynb&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;meanshift-by-example&quot;&gt;Meanshift by Example&lt;/h1&gt;
+
+&lt;p&gt;Here is a diagram that shows what happens step-by-step in Meanshift.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2016/05/meanshift-step-by-step.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/meanshift-step-by-step.png&quot; alt=&quot;meanshift step-by-step&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The blue datapoints are the initial datapoints and red are the positions of those datapoints at each iteration. Description for each step:&lt;/p&gt;
+
+&lt;p&gt;Iteration:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Initial state. The red and blue datapoints overlap completely in the first iteration before the Meanshift algorithm starts.&lt;/li&gt;
+  &lt;li&gt;End of iteration 1. All the red datapoints move closer to clusters. Looks like there will be 4 clusters.&lt;/li&gt;
+  &lt;li&gt;End of iteration 2. The clusters of upper right and lower left seems to have reached convergence just using two iterations. The center and lower right clusters looks like they are merging, since the two centroids are very close.&lt;/li&gt;
+  &lt;li&gt;End of iteration 3. No change in the upper right and lower left centroids. The other two centroids’ have pulled each other together as the datapoints affect each clusters. &lt;strong&gt;This is a signature of Meanshift, the number of clusters are not pre-determined&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;End of iteration 4. All the clusters should have converged.&lt;/li&gt;
+  &lt;li&gt;End of iteration 5. All the clusters indeed have no movement. The algorithm stops here since no change is detected for all red datapoints.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2016/05/meanshift-final-state.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/meanshift-final-state.png&quot; alt=&quot;meanshift final-state&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Meanshift found 3 clusters here, which I circled out above. The original data is actually generated from 4 clusters of data, but Meanshift thinks 3 can represent the set of data better, and it’s not too bad. I used Scikit-Learn’s datasets &lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_blobs.html&quot;&gt;make_blobs&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make_blobs(100, 2, centers=4, cluster_std=1.3)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now we have a big picture of how Meanshift works overall. Let’s look into what is a single datapoint is doing, and generalize that to all points.&lt;/p&gt;
+
+&lt;h1 id=&quot;just-a-single-datapoint&quot;&gt;Just A Single Datapoint&lt;/h1&gt;
+
+&lt;p&gt;Below we run a single datapoint through Meanshift iteratively on a new set of datapoints. The single datapoint is pointed to by the black arrow.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2016/05/meanshift-path-start.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/meanshift-path-start.png&quot; alt=&quot;meanshift initial state&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The closest cluster of points could be south or north of the initial datapoint. One can tell by inspecting the data that running the Meanshift algorithm should bring the datapoint closer either to the datapoints to the south or north.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2016/05/meanshift-path.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/meanshift-path.png&quot; alt=&quot;meanshift path&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The red path shows that the point moves closer to the southern cluster center after each iteration. One may notice the movement decreases gradually after each iteration, and that is because the datapoint is closer to the centroid so the shift is less drastic. After 10 iterations, the point is really close to the centroid. The meanshift does this for all datapoints for &lt;em&gt;K&lt;/em&gt; iterations. In most cases, 5 iterations should suffice for convergence. From this we can tell &lt;strong&gt;the algorithm’s runtime complexity is &lt;em&gt;O(KN&lt;sup&gt;2&lt;/sup&gt;)&lt;/em&gt;&lt;/strong&gt;, where &lt;em&gt;N&lt;/em&gt; is the number of datapoints and &lt;em&gt;K&lt;/em&gt; is the number of iterations of Meanshift.&lt;/p&gt;
+
+&lt;p&gt;Note that this implementation to demonstrate a single point moving is slightly different to where all the datapoints are moving, but the idea is basically the same. For the curious, if all the datapoints move, it will affect each neighbouring datapoints more drastically. The result is that the algorithm converges faster: ~3 iterations above versus ~10 iterations in this version.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-meanshift-algorithm&quot;&gt;The Meanshift Algorithm&lt;/h1&gt;
+
+&lt;p&gt;I will have to touch lightly on the mathematics for this part. I hate math so I will try my best to explain in terms for non-math people.&lt;/p&gt;
+
+&lt;p&gt;You will need a few things before you start to run Meanshift on a set of datapoints &lt;em&gt;X&lt;/em&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;A function &lt;em&gt;N(x)&lt;/em&gt; to determine what are the neighbours of a point &lt;em&gt;x&lt;/em&gt; ∈ &lt;em&gt;X&lt;/em&gt;. The neighbouring points are the points within a certain distance. The distance metric is usually &lt;a href=&quot;https://en.wikipedia.org/wiki/Euclidean_distance&quot;&gt;Euclidean Distance&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;A kernel &lt;em&gt;K(d)&lt;/em&gt; to use in Meanshift. K is usually a &lt;a href=&quot;https://en.wikipedia.org/wiki/Radial_basis_function_kernel&quot;&gt;Gaussian Kernel&lt;/a&gt;, and d is the distance between two datapoints.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now, with the above, this is the Meanshift algorithm for a set of datapoints &lt;em&gt;X&lt;/em&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;For each datapoint &lt;em&gt;x&lt;/em&gt; ∈ &lt;em&gt;X&lt;/em&gt;, find the neighbouring points &lt;em&gt;N(x)&lt;/em&gt; of &lt;em&gt;x&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;For each datapoint &lt;em&gt;x&lt;/em&gt; ∈ &lt;em&gt;X&lt;/em&gt;, calculate the &lt;strong&gt;&lt;em&gt;mean shift&lt;/em&gt;&lt;/strong&gt; &lt;em&gt;m(x)&lt;/em&gt; from this equation: &lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/formula-1.png&quot; alt=&quot;meanshift formula 1&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;For each datapoint &lt;em&gt;x&lt;/em&gt; ∈ &lt;em&gt;X&lt;/em&gt;, update &lt;em&gt;x&lt;/em&gt; ← &lt;em&gt;m(x)&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Repeat 1. for &lt;em&gt;n_iteations&lt;/em&gt; or until the points are almost not moving or not moving.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The most important piece is calculating the mean shift &lt;em&gt;m(x)&lt;/em&gt;. The formula in step 2. looks daunting but let’s break it down. Notice the red red encircled parts are essentially the same:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/formula-2.png&quot; alt=&quot;meanshift formula 2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s replace that with &lt;em&gt;W&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt;, so the formula becomes this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/formula-3.png&quot; alt=&quot;meanshift formula 3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Look at the general formula for &lt;a href=&quot;https://en.wikipedia.org/wiki/Weighted_arithmetic_mean&quot;&gt;weighted average&lt;/a&gt; in Wikipedia gives us this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/weighted-average.png&quot; alt=&quot;weighted average formula&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Which is just the same thing! Essentially, the meanshift is just calculating &lt;strong&gt;the &lt;em&gt;weighted average&lt;/em&gt; of the affected points w.r.t. to &lt;em&gt;x&lt;/em&gt;&lt;/strong&gt;. From this perspective, the formula is less mystifying, right?&lt;/p&gt;
+
+&lt;p&gt;To summarize: The algorithm finds a set of nearby points that affect a datapoint, then shift it towards where most of the points are, and the closest points have more influence than the further points. Repeat this for all datapoints until nothing changes.&lt;/p&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;p&gt;Define the kernel, euclidean distance, neighbourhood functions we need first:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;euclid_distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;neighbourhood_points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_centroid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;eligible_X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;distance_between&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;euclid_distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x_centroid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;# print(&#39;Evaluating: [%s vs %s] yield dist=%.2f&#39; % (x, x_centroid, distance_between))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;distance_between&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;eligible_X&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eligible_X&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;gaussian_kernel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bandwidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bandwidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bandwidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Next, we will implement Meanshift by translating the algorithm as described above.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;original_X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;past_X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n_iterations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_iterations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;### Step 1. For each datapoint x ∈ X, find the neighbouring points N(x) of x.&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;neighbours&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbourhood_points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;look_distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+        &lt;span class=&quot;c&quot;&gt;### Step 2. For each datapoint x ∈ X, calculate the mean shift m(x).&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;numerator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;denominator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbour&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbours&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;euclid_distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neighbour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;weight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gaussian_kernel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kernel_bandwidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;numerator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;weight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;denominator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;weight&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;new_x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numerator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;denominator&lt;/span&gt;
+        
+        &lt;span class=&quot;c&quot;&gt;### Step 3. For each datapoint x ∈ X, update x ← m(x).&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_x&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;past_X&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This code is a naive implementation of Meanshift algorithm. There are a lot of optimizations that can be done to improve this code’s speed. For instance, 1) Vectorize the implementation above, 2) Use a Ball Tree to calculate the neighbourhood points much more efficiently, etc.&lt;/p&gt;
+
+&lt;p&gt;The code is available on &lt;a href=&quot;https://github.com/log0/build-your-own-meanshift/blob/master/Meanshift%20In%202D.ipynb&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;k-means-vs-meanshift&quot;&gt;K-Means VS Meanshift&lt;/h1&gt;
+
+&lt;p&gt;Meanshift looks very similar to K-Means, they both move the point closer to the cluster centroids. One may wonder: How is this different from K-Means? K-Means is faster in terms of runtime complexity!&lt;/p&gt;
+
+&lt;p&gt;The key difference is that &lt;strong&gt;Meanshift does not require the user to specify the number of clusters&lt;/strong&gt;. In some cases, it is not straightforward to guess the right number of clusters to use. In K-Means, the output may end up having too few clusters or too many clusters to be useful. At the cost of larger time complexity, Meanshift determines the number of clusters suitable to the dataset provided.&lt;/p&gt;
+
+&lt;p&gt;Another commonly cited difference is that K-Means can only learn circle or ellipsoidal clusters. However, this is not true. The reason that Meanshift can learn arbitrary shapes is because the features are mapped to another higher dimensional feature space through the kernel. The arbitrary shapes are due to the algorithm finding circle or ellipsoidal clusters in higher dimensional feature space. When the features are mapped back to 1D/2D/3D, the resulting clusters look like strange shapes. This is also the trick as used in Support Vector Machines.&lt;/p&gt;
+
+&lt;p&gt;A traditional K-means does not use kernels, but &lt;a href=&quot;http://www.stat.cmu.edu/~rnugent/ULWG/spring2004/KernelKMeans.ppt&quot;&gt;Kernel K-means&lt;/a&gt; is available. Kernel K-Means is useful if 1) the number of clusters is known or can be reasonably estimated, and 2) dataset needs learning non-ellipsoidal cluster shapes. So, you can enjoy the better runtime complexity of K-Means and learn arbitrary clusters if you can determine the number of clusters to use.&lt;/p&gt;
+
+&lt;h1 id=&quot;applications&quot;&gt;Applications&lt;/h1&gt;
+
+&lt;h3 id=&quot;image-processing&quot;&gt;Image Processing&lt;/h3&gt;
+
+&lt;p&gt;Meanshift is used as an image segmentation algorithm. Here is what Meanshift can do for us:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/bread-segmentation.png&quot; alt=&quot;bread segmentation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The idea is that similar colors are grouped to use the same color. Using a library called &lt;a href=&quot;http://scikit-learn.org&quot;&gt;Scikit-Learn&lt;/a&gt;, this can be done very easily. The gist of the code is this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MeanShift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bandwidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bandwidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bin_seeding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can find an end-to-end working code on Github in &lt;a href=&quot;https://github.com/log0/build-your-own-meanshift/blob/master/Meanshift%20Image%20Segmentation.ipynb&quot;&gt;this notebook&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://efavdb.com/mean-shift/&quot;&gt;EFavDB&lt;/a&gt; has an excellent article on this topic which I highly recommend.&lt;/p&gt;
+
+&lt;h3 id=&quot;computer-vision&quot;&gt;Computer Vision&lt;/h3&gt;
+
+&lt;p&gt;Meanshift is used as an object tracking algorithm. The idea is that you need to identify the target to track, and build a color histogram of this target, and then keep on sliding the tracking window to the closest match (the cluster center) to keep up with the target to track. Here is an animated gif from OpenCV that illustrates this:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2016/05/meanshift-face.gif&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-640&quot; src=&quot;/wp-content/uploads/2016/05/meanshift-face.gif&quot; alt=&quot;meanshift face&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can find more details and OpenCV code demonstration &lt;a href=&quot;http://docs.opencv.org/3.1.0/db/df8/tutorial_py_meanshift.html#gsc.tab=0&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
+
+&lt;p&gt;By now we should understand that Meanshift is a simple and versatile algorithm that finds applications in general data clustering, image processing and object tracking. It has similarities with K-Means but there are differences. Meanshift is essentially iterations of weighted average of the datapoints. Hopefully this article unravels some of the technical details that bothers you.&lt;/p&gt;
+
+&lt;h3 id=&quot;references&quot;&gt;References&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Mean_shift&quot;&gt;https://en.wikipedia.org/wiki/Mean_shift&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spin.atomicobject.com/2015/05/26/mean-shift-clustering/&quot;&gt;https://spin.atomicobject.com/2015/05/26/mean-shift-clustering/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/4831813/image-segmentation-using-mean-shift-explained&quot;&gt;http://stackoverflow.com/questions/4831813/image-segmentation-using-mean-shift-explained&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/TUZEL1/MeanShift.pdf&quot;&gt;http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/TUZEL1/MeanShift.pdf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://scikit-learn.org/stable/modules/clustering.html&quot;&gt;http://scikit-learn.org/stable/modules/clustering.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://saravananthirumuruganathan.wordpress.com/2010/04/01/introduction-to-mean-shift-algorithm/&quot;&gt;https://saravananthirumuruganathan.wordpress.com/2010/04/01/introduction-to-mean-shift-algorithm/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=1055330&quot;&gt;The estimation of the gradient of a density function, with applications in pattern recognition&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 14 May 2016 05:05:15 -0700</pubDate>
+        <link>http://www.chioka.in/meanshift-algorithm-for-the-rest-of-us-python/</link>
+        <guid isPermaLink="true">http://www.chioka.in/meanshift-algorithm-for-the-rest-of-us-python/</guid>
+        
+        <category>Machine Learning</category>
+        
+        <category>Tutorial</category>
+        
+        
+        <category>In Practice</category>
+        
+        <category>Machine Learning</category>
+        
+      </item>
     
       <item>
         <title>How Does the Number of Hidden Neurons Affect a Neural Network&amp;#8217;s Performance</title>
@@ -1650,61 +1866,6 @@ if __name__ == &#39;__main__&#39;:
         
         
         <category>Kaggle</category>
-        
-        <category>Machine Learning</category>
-        
-      </item>
-    
-      <item>
-        <title>Do You Re-train on the Whole Dataset After Validating the Model?</title>
-        <description>&lt;p&gt;Suppose we have a dataset split into 80% for training and 20% for validation, do you do A) or B?&lt;/p&gt;
-
-&lt;p&gt;Method A)&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Train on 80%&lt;/li&gt;
-  &lt;li&gt;Validate on 20%&lt;/li&gt;
-  &lt;li&gt;Model is good, train on 100%.&lt;/li&gt;
-  &lt;li&gt;Predict test set.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Method B)&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Train on 80%&lt;/li&gt;
-  &lt;li&gt;Validate on 20%&lt;/li&gt;
-  &lt;li&gt;Model is good, use this model as is.&lt;/li&gt;
-  &lt;li&gt;Predict test set.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;In this post, I’ve posted &lt;a href=&quot;http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/&quot; target=&quot;_blank&quot;&gt;this question on Kaggle&lt;/a&gt; and I’ll summarize the answers here.&lt;/p&gt;
-
-&lt;p&gt;For myself, I do A), with the following reasons aggregated:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/35179.pdf&quot; target=&quot;_blank&quot;&gt;More data is better&lt;/a&gt;. In case of time time series, including more recent data is always better.&lt;/li&gt;
-  &lt;li&gt;Cross validation is used to validate the hyper-parameters to train a model, rather than the model itself. You then pick the best parameters to re-train a model.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;References:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation&quot; target=&quot;_blank&quot;&gt;http://stats.stackexchange.com/questions/11602/training-with-the-full-dataset-after-cross-validation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/&quot; target=&quot;_blank&quot;&gt;http://www.kaggle.com/forums/t/9831/do-you-re-train-on-the-whole-dataset-after-validating-the-model/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 28 Jul 2014 02:48:48 -0700</pubDate>
-        <link>http://www.chioka.in/do-you-re-train-on-the-whole-dataset-after-validating-the-model/</link>
-        <guid isPermaLink="true">http://www.chioka.in/do-you-re-train-on-the-whole-dataset-after-validating-the-model/</guid>
-        
-        <category>Cross Validation</category>
-        
-        <category>Machine Learning</category>
-        
-        <category>Python</category>
-        
-        
-        <category>In Practice</category>
         
         <category>Machine Learning</category>
         

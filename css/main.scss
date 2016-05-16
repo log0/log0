@@ -25,7 +25,11 @@ $content-width:    700px;
 $on-palm:          700px;
 $on-laptop:        700px;
 
-
+.center-image
+{
+    margin: 0 auto;
+    display: block;
+}
 
 // Using media queries with like this:
 // @include media-query($on-palm) {
