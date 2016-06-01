@@ -1,0 +1,13 @@
+<p>Is your Python script refusing to use all CPU scores on your server, and just using 1 CPU core out of the 16 CPU cores?</p>
+
+<p>It could be that the core affinity is messed up.</p>
+
+<p>As it turns out, some modules mess with the core affinity on import, which end up forcing your Python script to use only one CPU core in the end. Just add this before you run the Python script:</p>
+
+<pre class="lang-py prettyprint prettyprinted" style="color: #000000;"><code>&lt;span class="pln"&gt;os&lt;/span&gt;&lt;span class="pun"&gt;.&lt;/span&gt;&lt;span class="pln"&gt;system&lt;/span&gt;&lt;span class="pun"&gt;(&lt;/span&gt;&lt;span class="str" style="color: #800000;"&gt;"taskset -p 0xffffffff %d"&lt;/span&gt;&lt;span class="pun"&gt;%&lt;/span&gt;&lt;span class="pln"&gt; os&lt;/span&gt;&lt;span class="pun"&gt;.&lt;/span&gt;&lt;span class="pln"&gt;getpid&lt;/span&gt;&lt;span class="pun"&gt;())&lt;/span&gt;</code></pre>
+
+<p>And then voila! It looks right now!</p>
+
+<p><a href="/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg"><img class="aligncenter size-full wp-image-469" src="/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg" alt="10495829_10204248476553916_8213806856117433374_o" width="1154" height="853" srcset="/wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o.jpg 1154w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-580x428.jpg 580w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-940x694.jpg 940w, /wp-content/uploads/2014/07/10495829_10204248476553916_8213806856117433374_o-624x461.jpg 624w" sizes="(max-width: 1154px) 100vw, 1154px" /></a></p>
+
+<p>You can find more details in this StackOverflow <a href="http://stackoverflow.com/questions/15639779/what-determines-whether-different-python-processes-are-assigned-to-the-same-or-d">thread</a>.</p>

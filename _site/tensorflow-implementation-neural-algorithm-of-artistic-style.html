@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>TensorFlow Implementation of "A Neural Algorithm of Artistic Style"</title>
+  <meta name="description" content="This notebook illustrates a Tensorflow implementation of the paper “A Neural Algorithm of Artistic Style” which is used to transfer the art style of one pict...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.chioka.in/tensorflow-implementation-neural-algorithm-of-artistic-style">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+</head>
+
+
+  <body>
+
+    <div class="site-header">
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <i class="fa fa-navicon fa-lg"></i>
+      </a>
+
+      <div class="trigger">
+          <a class="page-link" href="/">Home</a>
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+     <h1 class="post-title">TensorFlow Implementation of "A Neural Algorithm of Artistic Style"</h1>
+     <p class="post-meta">Posted on May 31, 2016 • lo</p>
+  </header>
+
+  <article class="post-content">
+    <p>This notebook illustrates a Tensorflow implementation of the paper “<a href="http://arxiv.org/abs/1508.06576">A Neural Algorithm of Artistic Style</a>” which is used to transfer the art style of one picture to another picture’s contents.</p>
+
+<p>If you like to run this notebook, you will need to install TensorFlow, Scipy and Numpy.
+You will need to download the <a href="http://www.vlfeat.org/matconvnet/models/imagenet-vgg-verydeep-19.mat">VGG-19 model</a>. Feel free to play with the constants a bit to get a feel how the bits and pieces play together to affect the final image generated.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># Import what we need</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.io</span>
+<span class="kn">import</span> <span class="nn">scipy.misc</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>  <span class="c"># Import TensorFlow after Scipy or Scipy will break</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">imshow</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</code></pre>
+</div>
+
+<h3 id="overview">Overview</h3>
+
+<p>We will build a model to paint a picture using a style we desire. The style of painting of one image will be transferred to the content image.</p>
+
+<p>The idea is to use the filter responses from different layers of a convolutional network to build the style. Using filter responses from different layers (ranging from lower to higher) captures from low level details (strokes, points, corners) to high level details (patterns, objects, etc) which we will used to perturb the content image, which gives the final “painted” image:</p>
+
+<p><img src="wp-content/uploads/2016/05/hongkong-painted.jpg" alt="Hong Kong Painted" /></p>
+
+<p>Using Guernica’s style painting and Hong Kong’s Peak Tram to yield this:</p>
+
+<p><img src="wp-content/uploads/2016/05/hongkong-guernica-side-by-side.jpg" alt="Hong Kong" /></p>
+
+<h3 id="code">Code</h3>
+
+<p>We need to define come constants for the image. If you want to use another style or image, just modify the STYLE_IMAGE or CONTENT_IMAGE. For this notebook, I hardcoded the image width to be 800 x 600, but you can easily modify the code to accommodate different sizes.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">###############################################################################</span>
+<span class="c"># Constants for the image input and output.</span>
+<span class="c">###############################################################################</span>
+
+<span class="c"># Output folder for the images.</span>
+<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s">'output/'</span>
+<span class="c"># Style image to use.</span>
+<span class="n">STYLE_IMAGE</span> <span class="o">=</span> <span class="s">'images/guernica.jpg'</span>
+<span class="c"># Content image to use.</span>
+<span class="n">CONTENT_IMAGE</span> <span class="o">=</span> <span class="s">'images/hongkong.jpg'</span>
+<span class="c"># Image dimensions constants. </span>
+<span class="n">IMAGE_WIDTH</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">IMAGE_HEIGHT</span> <span class="o">=</span> <span class="mi">600</span>
+<span class="n">COLOR_CHANNELS</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre>
+</div>
+
+<p>Now we define some constants which is related to the algorithm. Given that the style image and the content image remains the same, these can be tweaked to achieve different outcomes. Comments are added before each constant.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">###############################################################################</span>
+<span class="c"># Algorithm constants</span>
+<span class="c">###############################################################################</span>
+<span class="c"># Noise ratio. Percentage of weight of the noise for intermixing with the</span>
+<span class="c"># content image.</span>
+<span class="n">NOISE_RATIO</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="c"># Constant to put more emphasis on content loss.</span>
+<span class="n">BETA</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="c"># Constant to put more emphasis on style loss.</span>
+<span class="n">ALPHA</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="c"># Path to the deep learning model. This is more than 500MB so will not be</span>
+<span class="c"># included in the repository, but available to download at the model Zoo:</span>
+<span class="c"># Link: https://github.com/BVLC/caffe/wiki/Model-Zoo</span>
+<span class="c">#</span>
+<span class="c"># Pick the VGG 19-layer model by from the paper "Very Deep Convolutional </span>
+<span class="c"># Networks for Large-Scale Image Recognition".</span>
+<span class="n">VGG_MODEL</span> <span class="o">=</span> <span class="s">'imagenet-vgg-verydeep-19.mat'</span>
+<span class="c"># The mean to subtract from the input to the VGG model. This is the mean that</span>
+<span class="c"># when the VGG was used to train. Minor changes to this will make a lot of</span>
+<span class="c"># difference to the performance of model.</span>
+<span class="n">MEAN_VALUES</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">123.68</span><span class="p">,</span> <span class="mf">116.779</span><span class="p">,</span> <span class="mf">103.939</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<p>Now we need to define the model that “paints” the image. Rather than training a completely new model from scratch, we will use a pre-trained model to achieve our purpose - called “transfer learning”.</p>
+
+<p>We will use the VGG19 model. You can download the VGG19 model from <a href="http://www.vlfeat.org/matconvnet/models/imagenet-vgg-verydeep-19.mat">here</a>. The comments below describes the dimensions of the VGG19 model. We will replace the max pooling layers with average pooling layers as the paper suggests, and discard all fully connected layers.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">load_vgg_model</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="s">"""
+    Returns a model for the purpose of 'painting' the picture.
+    Takes only the convolution layer weights and wrap using the TensorFlow
+    Conv2d, Relu and AveragePooling layer. VGG actually uses maxpool but
+    the paper indicates that using AveragePooling yields better results.
+    The last few fully connected layers are not used.
+    Here is the detailed configuration of the VGG model:
+        0 is conv1_1 (3, 3, 3, 64)
+        1 is relu
+        2 is conv1_2 (3, 3, 64, 64)
+        3 is relu    
+        4 is maxpool
+        5 is conv2_1 (3, 3, 64, 128)
+        6 is relu
+        7 is conv2_2 (3, 3, 128, 128)
+        8 is relu
+        9 is maxpool
+        10 is conv3_1 (3, 3, 128, 256)
+        11 is relu
+        12 is conv3_2 (3, 3, 256, 256)
+        13 is relu
+        14 is conv3_3 (3, 3, 256, 256)
+        15 is relu
+        16 is conv3_4 (3, 3, 256, 256)
+        17 is relu
+        18 is maxpool
+        19 is conv4_1 (3, 3, 256, 512)
+        20 is relu
+        21 is conv4_2 (3, 3, 512, 512)
+        22 is relu
+        23 is conv4_3 (3, 3, 512, 512)
+        24 is relu
+        25 is conv4_4 (3, 3, 512, 512)
+        26 is relu
+        27 is maxpool
+        28 is conv5_1 (3, 3, 512, 512)
+        29 is relu
+        30 is conv5_2 (3, 3, 512, 512)
+        31 is relu
+        32 is conv5_3 (3, 3, 512, 512)
+        33 is relu
+        34 is conv5_4 (3, 3, 512, 512)
+        35 is relu
+        36 is maxpool
+        37 is fullyconnected (7, 7, 512, 4096)
+        38 is relu
+        39 is fullyconnected (1, 1, 4096, 4096)
+        40 is relu
+        41 is fullyconnected (1, 1, 4096, 1000)
+        42 is softmax
+    """</span>
+    <span class="n">vgg</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">vgg_layers</span> <span class="o">=</span> <span class="n">vgg</span><span class="p">[</span><span class="s">'layers'</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">_weights</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">expected_layer_name</span><span class="p">):</span>
+        <span class="s">"""
+        Return the weights and bias from the VGG model for a given layer.
+        """</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">vgg_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">layer</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">vgg_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">layer</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">layer_name</span> <span class="o">=</span> <span class="n">vgg_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">layer</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">layer_name</span> <span class="o">==</span> <span class="n">expected_layer_name</span>
+        <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span>
+
+    <span class="k">def</span> <span class="nf">_relu</span><span class="p">(</span><span class="n">conv2d_layer</span><span class="p">):</span>
+        <span class="s">"""
+        Return the RELU function wrapped over a TensorFlow layer. Expects a
+        Conv2d layer input.
+        """</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">conv2d_layer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_conv2d</span><span class="p">(</span><span class="n">prev_layer</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">):</span>
+        <span class="s">"""
+        Return the Conv2D layer using the weights, biases from the VGG
+        model at 'layer'.
+        """</span>
+        <span class="n">W</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">_weights</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">)</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">size</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span>
+            <span class="n">prev_layer</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s">'SAME'</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+
+    <span class="k">def</span> <span class="nf">_conv2d_relu</span><span class="p">(</span><span class="n">prev_layer</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">):</span>
+        <span class="s">"""
+        Return the Conv2D + RELU layer using the weights, biases from the VGG
+        model at 'layer'.
+        """</span>
+        <span class="k">return</span> <span class="n">_relu</span><span class="p">(</span><span class="n">_conv2d</span><span class="p">(</span><span class="n">prev_layer</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_avgpool</span><span class="p">(</span><span class="n">prev_layer</span><span class="p">):</span>
+        <span class="s">"""
+        Return the AveragePooling layer.
+        """</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">avg_pool</span><span class="p">(</span><span class="n">prev_layer</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">strides</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s">'SAME'</span><span class="p">)</span>
+
+    <span class="c"># Constructs the graph model.</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'input'</span><span class="p">]</span>   <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">IMAGE_HEIGHT</span><span class="p">,</span> <span class="n">IMAGE_WIDTH</span><span class="p">,</span> <span class="n">COLOR_CHANNELS</span><span class="p">)),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s">'float32'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv1_1'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'input'</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="s">'conv1_1'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv1_2'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv1_1'</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'conv1_2'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'avgpool1'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_avgpool</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv1_2'</span><span class="p">])</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv2_1'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'avgpool1'</span><span class="p">],</span> <span class="mi">5</span><span class="p">,</span> <span class="s">'conv2_1'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv2_2'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv2_1'</span><span class="p">],</span> <span class="mi">7</span><span class="p">,</span> <span class="s">'conv2_2'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'avgpool2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_avgpool</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv2_2'</span><span class="p">])</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv3_1'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'avgpool2'</span><span class="p">],</span> <span class="mi">10</span><span class="p">,</span> <span class="s">'conv3_1'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv3_2'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv3_1'</span><span class="p">],</span> <span class="mi">12</span><span class="p">,</span> <span class="s">'conv3_2'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv3_3'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv3_2'</span><span class="p">],</span> <span class="mi">14</span><span class="p">,</span> <span class="s">'conv3_3'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv3_4'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv3_3'</span><span class="p">],</span> <span class="mi">16</span><span class="p">,</span> <span class="s">'conv3_4'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'avgpool3'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_avgpool</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv3_4'</span><span class="p">])</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv4_1'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'avgpool3'</span><span class="p">],</span> <span class="mi">19</span><span class="p">,</span> <span class="s">'conv4_1'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv4_2'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv4_1'</span><span class="p">],</span> <span class="mi">21</span><span class="p">,</span> <span class="s">'conv4_2'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv4_3'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv4_2'</span><span class="p">],</span> <span class="mi">23</span><span class="p">,</span> <span class="s">'conv4_3'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv4_4'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv4_3'</span><span class="p">],</span> <span class="mi">25</span><span class="p">,</span> <span class="s">'conv4_4'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'avgpool4'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_avgpool</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv4_4'</span><span class="p">])</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv5_1'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'avgpool4'</span><span class="p">],</span> <span class="mi">28</span><span class="p">,</span> <span class="s">'conv5_1'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv5_2'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv5_1'</span><span class="p">],</span> <span class="mi">30</span><span class="p">,</span> <span class="s">'conv5_2'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv5_3'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv5_2'</span><span class="p">],</span> <span class="mi">32</span><span class="p">,</span> <span class="s">'conv5_3'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'conv5_4'</span><span class="p">]</span>  <span class="o">=</span> <span class="n">_conv2d_relu</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv5_3'</span><span class="p">],</span> <span class="mi">34</span><span class="p">,</span> <span class="s">'conv5_4'</span><span class="p">)</span>
+    <span class="n">graph</span><span class="p">[</span><span class="s">'avgpool5'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_avgpool</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s">'conv5_4'</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">graph</span>
+</code></pre>
+</div>
+
+<p>Define the equation (1) from the paper to model the content loss. We are only concerned with the “conv4_2” layer of the model.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">content_loss_func</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="s">"""
+    Content loss function as defined in the paper.
+    """</span>
+    <span class="k">def</span> <span class="nf">_content_loss</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c"># N is the number of filters (at layer l).</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="c"># M is the height times the width of the feature map (at layer l).</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="c"># Interestingly, the paper uses this form instead:</span>
+        <span class="c">#</span>
+        <span class="c">#   0.5 * tf.reduce_sum(tf.pow(x - p, 2)) </span>
+        <span class="c">#</span>
+        <span class="c"># But this form is very slow in "painting" and thus could be missing</span>
+        <span class="c"># out some constants (from what I see in other source code), so I'll</span>
+        <span class="c"># replicate the same normalization constant as used in style loss.</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N</span> <span class="o">*</span> <span class="n">M</span><span class="p">))</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="nb">pow</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">p</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">_content_loss</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s">'conv4_2'</span><span class="p">]),</span> <span class="n">model</span><span class="p">[</span><span class="s">'conv4_2'</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<p>Define the equation (5) from the paper to model the style loss. The style loss is a multi-scale representation. It is a summation from conv1_1 (lower layer) to conv5_1 (higher layer). Intuitively, the style loss across multiple layers captures lower level features (hard strokes, points, etc) to higher level features (styles, patterns, even objects).</p>
+
+<p>You can tune the weights in the STYLE_LAYERS to yield very different results. See the Bonus part at the bottom for more illustrations.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># Layers to use. We will use these layers as advised in the paper.</span>
+<span class="c"># To have softer featur</span>
+<span class="n">es</span><span class="p">,</span> <span class="n">increase</span> <span class="n">the</span> <span class="n">weight</span> <span class="n">of</span> <span class="n">the</span> <span class="n">higher</span> <span class="n">layers</span>
+<span class="c"># (conv5_1) and decrease the weight of the lower layers (conv1_1).</span>
+<span class="c"># To have harder features, decrease the weight of the higher layers</span>
+<span class="c"># (conv5_1) and increase the weight of the lower layers (conv1_1).</span>
+<span class="n">STYLE_LAYERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s">'conv1_1'</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'conv2_1'</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'conv3_1'</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'conv4_1'</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'conv5_1'</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">style_loss_func</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="s">"""
+    Style loss function as defined in the paper.
+    """</span>
+    <span class="k">def</span> <span class="nf">_gram_matrix</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+        <span class="s">"""
+        The gram matrix G.
+        """</span>
+        <span class="n">Ft</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Ft</span><span class="p">),</span> <span class="n">Ft</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_style_loss</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="s">"""
+        The style loss calculation.
+        """</span>
+        <span class="c"># N is the number of filters (at layer l).</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="c"># M is the height times the width of the feature map (at layer l).</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="c"># A is the style representation of the original image (at layer l).</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">_gram_matrix</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+        <span class="c"># G is the style representation of the generated image (at layer l).</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">_gram_matrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">M</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="nb">pow</span><span class="p">(</span><span class="n">G</span> <span class="o">-</span> <span class="n">A</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="n">E</span> <span class="o">=</span> <span class="p">[</span><span class="n">_style_loss</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="n">layer_name</span><span class="p">]),</span> <span class="n">model</span><span class="p">[</span><span class="n">layer_name</span><span class="p">])</span> <span class="k">for</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">STYLE_LAYERS</span><span class="p">]</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">STYLE_LAYERS</span><span class="p">]</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">W</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">E</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">STYLE_LAYERS</span><span class="p">))])</span>
+    <span class="k">return</span> <span class="n">loss</span>
+</code></pre>
+</div>
+
+<p>Define the rest of the auxiliary functions.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">generate_noise_image</span><span class="p">(</span><span class="n">content_image</span><span class="p">,</span> <span class="n">noise_ratio</span> <span class="o">=</span> <span class="n">NOISE_RATIO</span><span class="p">):</span>
+    <span class="s">"""
+    Returns a noise image intermixed with the content image at a certain ratio.
+    """</span>
+    <span class="n">noise_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">IMAGE_HEIGHT</span><span class="p">,</span> <span class="n">IMAGE_WIDTH</span><span class="p">,</span> <span class="n">COLOR_CHANNELS</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">'float32'</span><span class="p">)</span>
+    <span class="c"># White noise image from the content representation. Take a weighted average</span>
+    <span class="c"># of the values</span>
+    <span class="n">input_image</span> <span class="o">=</span> <span class="n">noise_image</span> <span class="o">*</span> <span class="n">noise_ratio</span> <span class="o">+</span> <span class="n">content_image</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">noise_ratio</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">input_image</span>
+
+<span class="k">def</span> <span class="nf">load_image</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="c"># Resize the image for convnet input, there is no change but just</span>
+    <span class="c"># add an extra dimension.</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+    <span class="c"># Input to the VGG model expects the mean to be subtracted.</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span> <span class="o">-</span> <span class="n">MEAN_VALUES</span>
+    <span class="k">return</span> <span class="n">image</span>
+
+<span class="k">def</span> <span class="nf">save_image</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+    <span class="c"># Output should add back the mean.</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span> <span class="o">+</span> <span class="n">MEAN_VALUES</span>
+    <span class="c"># Get rid of the first useless dimension, what remains is the image.</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">'uint8'</span><span class="p">)</span>
+    <span class="n">scipy</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">imsave</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Create an TensorFlow session.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">InteractiveSession</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>Now we load the content image “Hong Kong”. The model expects an image with MEAN_VALUES subtracted to function correctly. “load_image” already handles this. The showed image will look funny.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">content_image</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="n">CONTENT_IMAGE</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">content_image</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;matplotlib.image.AxesImage at 0x7fd90c111240&gt;
+</code></pre>
+</div>
+
+<p><img src="wp-content/uploads/2016/05/output_19_1.png" alt="png" /></p>
+
+<p>Now we load the style image using Guernica. Similarly, the color will look distorted but that’s what the model needs:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">style_image</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="n">STYLE_IMAGE</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">style_image</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;matplotlib.image.AxesImage at 0x7fd90c041780&gt;
+</code></pre>
+</div>
+
+<p><img src="wp-content/uploads/2016/05/output_21_1.png" alt="png" /></p>
+
+<p>Build the model now.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">load_vgg_model</span><span class="p">(</span><span class="n">VGG_MODEL</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">'conv1_1':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">600,</span><span class="w"> </span><span class="err">800,</span><span class="w"> </span><span class="err">64)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv5_4':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_15:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">38,</span><span class="w"> </span><span class="err">50,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv2_2':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_3:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">300,</span><span class="w"> </span><span class="err">400,</span><span class="w"> </span><span class="err">128)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv4_2':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_9:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">75,</span><span class="w"> </span><span class="err">100,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'avgpool1':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'AvgPool:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">300,</span><span class="w"> </span><span class="err">400,</span><span class="w"> </span><span class="err">64)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'input':</span><span class="w"> </span><span class="err">&lt;tensorflow.python.ops.variables.Variable</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="err">at</span><span class="w"> </span><span class="err">0x7fd90c0536a0&gt;,</span><span class="w"> </span><span class="err">'conv1_2':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_1:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">600,</span><span class="w"> </span><span class="err">800,</span><span class="w"> </span><span class="err">64)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv3_3':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_6:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">150,</span><span class="w"> </span><span class="err">200,</span><span class="w"> </span><span class="err">256)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv3_2':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_5:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">150,</span><span class="w"> </span><span class="err">200,</span><span class="w"> </span><span class="err">256)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'avgpool3':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'AvgPool_2:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">75,</span><span class="w"> </span><span class="err">100,</span><span class="w"> </span><span class="err">256)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'avgpool2':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'AvgPool_1:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">150,</span><span class="w"> </span><span class="err">200,</span><span class="w"> </span><span class="err">128)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv3_1':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_4:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">150,</span><span class="w"> </span><span class="err">200,</span><span class="w"> </span><span class="err">256)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv4_3':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_10:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">75,</span><span class="w"> </span><span class="err">100,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv5_3':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_14:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">38,</span><span class="w"> </span><span class="err">50,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv2_1':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_2:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">300,</span><span class="w"> </span><span class="err">400,</span><span class="w"> </span><span class="err">128)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'avgpool4':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'AvgPool_3:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">38,</span><span class="w"> </span><span class="err">50,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv4_4':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_11:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">75,</span><span class="w"> </span><span class="err">100,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv4_1':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_8:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">75,</span><span class="w"> </span><span class="err">100,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv3_4':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_7:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">150,</span><span class="w"> </span><span class="err">200,</span><span class="w"> </span><span class="err">256)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv5_2':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_13:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">38,</span><span class="w"> </span><span class="err">50,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'avgpool5':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'AvgPool_4:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">19,</span><span class="w"> </span><span class="err">25,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;,</span><span class="w"> </span><span class="err">'conv5_1':</span><span class="w"> </span><span class="err">&lt;tf.Tensor</span><span class="w"> </span><span class="err">'Relu_12:0'</span><span class="w"> </span><span class="err">shape=(1,</span><span class="w"> </span><span class="err">38,</span><span class="w"> </span><span class="err">50,</span><span class="w"> </span><span class="err">512)</span><span class="w"> </span><span class="err">dtype=float32&gt;</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># Generate the white noise and content presentation mixed image</span>
+<span class="c"># which will be the basis for the algorithm to "paint".</span>
+<span class="n">input_image</span> <span class="o">=</span> <span class="n">generate_noise_image</span><span class="p">(</span><span class="n">content_image</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">input_image</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;matplotlib.image.AxesImage at 0x7fd9047c0c18&gt;
+</code></pre>
+</div>
+
+<p><img src="wp-content/uploads/2016/05/output_24_1.png" alt="png" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">initialize_all_variables</span><span class="p">())</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># Construct content_loss using content_image.</span>
+<span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s">'input'</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">content_image</span><span class="p">))</span>
+<span class="n">content_loss</span> <span class="o">=</span> <span class="n">content_loss_func</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># Construct style_loss using style_image.</span>
+<span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s">'input'</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">style_image</span><span class="p">))</span>
+<span class="n">style_loss</span> <span class="o">=</span> <span class="n">style_loss_func</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># Instantiate equation 7 of the paper.</span>
+<span class="n">total_loss</span> <span class="o">=</span> <span class="n">BETA</span> <span class="o">*</span> <span class="n">content_loss</span> <span class="o">+</span> <span class="n">ALPHA</span> <span class="o">*</span> <span class="n">style_loss</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># From the paper: jointly minimize the distance of a white noise image</span>
+<span class="c"># from the content representation of the photograph in one layer of</span>
+<span class="c"># the neywork and the style representation of the painting in a number</span>
+<span class="c"># of layers of the CNN.</span>
+<span class="c">#</span>
+<span class="c"># The content is built from one layer, while the style is from five</span>
+<span class="c"># layers. Then we minimize the total_loss, which is the equation 7.</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">train_step</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">total_loss</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">initialize_all_variables</span><span class="p">())</span>
+<span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s">'input'</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">input_image</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>array([[[[-38.80082321,   2.36044788,  53.06735229],
+         [-36.208992  ,  -8.92279434,  52.68152237],
+         [-44.56254196,   2.56879926,  42.36888885],
+         ..., 
+         [-21.99048233,   6.0762639 ,  39.36758041],
+         [-35.85998535,  -3.56352782,  44.86796951],
+         [-42.85255051,  -6.79411459,  52.11099625]],
+
+        [[-35.10824203, -10.4971714 ,  38.89696884],
+         [-37.86809921,  -5.79524469,  39.4394722 ],
+         [-27.90998077,   1.6464256 ,  52.97366714],
+         ..., 
+         [-44.19208527, -13.92263412,  36.78689194],
+         [-39.15240097,  -2.04686642,  49.2306633 ],
+         [-35.7723732 , -12.24501419,  44.17518997]],
+
+        [[-43.50813675,  -7.48234081,  48.60139465],
+         [-34.67430878,  -7.62575102,  36.58321762],
+         [-34.54434586, -15.8774004 ,  38.89173126],
+         ..., 
+         [-32.95817947,  -3.49402404,  38.15805054],
+         [-25.93852997, -14.92780209,  49.86390686],
+         [-44.59893417,  -8.43691158,  41.84837723]],
+
+        ..., 
+        [[-55.29382324, -57.94036865, -47.33403397],
+         [-47.22367859, -47.09892654, -43.59551239],
+         [-58.79758072, -43.68718719, -52.4673996 ],
+         ..., 
+         [-51.44662857, -39.4832077 , -46.86067581],
+         [-37.68956375, -39.0056076 , -41.35289383],
+         [-46.67458725, -46.07319641, -42.1647644 ]],
+
+        [[-40.65664291, -39.99607086, -50.46044159],
+         [-39.84476471, -47.29466629, -42.65992355],
+         [-46.70065689, -56.47098923, -33.3544693 ],
+         ..., 
+         [-57.43079376, -49.95788956, -34.21024704],
+         [-42.41124344, -44.70735168, -40.68310928],
+         [-48.97134781, -41.0301857 , -48.75336456]],
+
+        [[-46.85499191, -52.87174606, -42.00823975],
+         [-52.52578354, -50.29984665, -49.69490814],
+         [-54.52784348, -39.16690063, -42.48467255],
+         ..., 
+         [-56.66353226, -34.45768356, -31.35286331],
+         [-42.40987396, -31.03708076, -38.9402504 ],
+         [-44.44059753, -45.45861435, -38.15160751]]]], dtype=float32)
+</code></pre>
+</div>
+
+<p>Change the ITERATIONS to run 5000 iterations if you can wait. It takes about 90 minutes to run 5000 iterations. So in this notebook I will just run 1000 iterations so no one waits too long.</p>
+
+<p>Run the model which outputs the painted image every 100 iterations. The final image is what we need:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># Number of iterations to run.</span>
+<span class="n">ITERATIONS</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c"># The art.py uses 5000 iterations, and yields far more appealing results. If you can wait, use 5000.</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">initialize_all_variables</span><span class="p">())</span>
+<span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s">'input'</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">input_image</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ITERATIONS</span><span class="p">):</span>
+    <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_step</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">it</span><span class="o">%</span><span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c"># Print every 100 iteration.</span>
+        <span class="n">mixed_image</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s">'input'</span><span class="p">])</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Iteration </span><span class="si">%</span><span class="s">d'</span> <span class="o">%</span> <span class="p">(</span><span class="n">it</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'sum : '</span><span class="p">,</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">mixed_image</span><span class="p">)))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'cost: '</span><span class="p">,</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">total_loss</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="s">'output/</span><span class="si">%</span><span class="s">d.png'</span> <span class="o">%</span> <span class="p">(</span><span class="n">it</span><span class="p">)</span>
+        <span class="n">save_image</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mixed_image</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Iteration 0
+sum :  -4.70464e+06
+cost:  7.69395e+10
+Iteration 100
+sum :  -2.9841e+06
+cost:  3.54706e+09
+Iteration 200
+sum :  -2.43492e+06
+cost:  1.39629e+09
+Iteration 300
+sum :  -1.32645e+06
+cost:  7.6313e+08
+Iteration 400
+sum :  -39769.0
+cost:  4.84996e+08
+Iteration 500
+sum :  1.18856e+06
+cost:  3.54245e+08
+Iteration 600
+sum :  2.1015e+06
+cost:  3.0398e+08
+Iteration 700
+sum :  3.1431e+06
+cost:  2.04405e+08
+Iteration 800
+sum :  4.07144e+06
+cost:  1.6504e+08
+Iteration 900
+sum :  4.9075e+06
+cost:  1.34236e+08
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">save_image</span><span class="p">(</span><span class="s">'output/art.jpg'</span><span class="p">,</span> <span class="n">mixed_image</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>This is our final art for 1000 iterations. It is different the one above which I have ran for 5000 iterations. However, you can certainly generate your own painting now.</p>
+
+<p><img src="wp-content/uploads/2016/05/art.jpg" alt="Art" /></p>
+
+<h3 id="bonus--style-weights-illustrated">Bonus : Style Weights Illustrated</h3>
+
+<p>By tweaking the weights in the style layer loss function, you may be able to put more emphasis on lower level features or higher level features yielding quite a different painting. Here is what is shown in the original paper. Using this picture “Composition” as style and “Tubingen” as content:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">)</span>
+<span class="n">fig_1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig_1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="nb">open</span><span class="p">(</span><span class="s">'article/composition.jpg'</span><span class="p">)))</span>
+<span class="n">fig_1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig_1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="nb">open</span><span class="p">(</span><span class="s">'article/tubingen.jpg'</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;matplotlib.image.AxesImage at 0x7f092e9add30&gt;
+</code></pre>
+</div>
+
+<p><img src="wp-content/uploads/2016/05/output_37_1.png" alt="png" /></p>
+
+<p>The upper leftmost corner indicates a picture that puts more weight on the lower level features, and the resulting image is completely deformed and only included low level features. The lower right uses mostly the higher level features and less lower level features, and the image is less deformed and quite appealing, which is what this notebook is doing as well. Feel free to play with the weights above.</p>
+
+<p><img src="wp-content/uploads/2016/05/different_outcomes.jpg" alt="Outcomes" /></p>
+
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="footer center">
+
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8676829-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>

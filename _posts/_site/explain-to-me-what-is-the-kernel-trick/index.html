@@ -1,0 +1,42 @@
+<p>The Kernel Trick is a technique in machine learning to avoid some intensive computation in some algorithms, which makes some computation goes from infeasible to feasible.</p>
+
+<h2 id="so-how-is-it-applied">So how is it applied?</h2>
+
+<p>Concretely, when you see the pattern of <strong>x<sub>i</sub><sup>T</sup></strong> <strong>x<sub>j</sub></strong> ( the dot product of <strong>x<sub>i</sub></strong> transpose and <strong>x<sub>j</sub></strong> , where <strong>x</strong> is an observation ): <strong>x<sub>i</sub><sup>T</sup> x<sub>j</sub></strong> can be replaced by K(<strong>x<sub>i</sub></strong> <strong>x<sub>j</sub></strong>). Here, K is a kernel, which has many implementations: linear, polynomial, RBF, etc.</p>
+
+<h2 id="give-me-an-example">Give me an example.</h2>
+
+<p>The most well-known case would be the Support Vector Machines. The problem state of SVM is a constrained optimization problem as follows:</p>
+
+<p><a href="/wp-content/uploads/2013/11/pic1.png"><img class="size-full wp-image-175 aligncenter" alt="SVM problem statement" src="/wp-content/uploads/2013/11/pic1.png" width="319" height="86" /></a></p>
+
+<p>To solve the above efficiently, usually the problem is modeled by as a Lagrange primal problem statement<sup>[1]</sup> (above) but solved by the dual version of problem statement, which becomes the following:</p>
+
+<p><a href="/wp-content/uploads/2013/11/pic2.png"><img class="size-full wp-image-176 aligncenter" alt="SVM problem statement dual" src="/wp-content/uploads/2013/11/pic2.png" width="381" height="145" /></a></p>
+
+<p>Notice the red I boxed above, that is a <strong>very</strong> computationally intensive operation. Suppose <strong>x</strong> is a (10000 x 1) vector, the dot product would introduce 10000 * 10000 = 100000000 multiplications. Suppose you use a linear kernel K(<strong>x<sub>i</sub>, x<sub>j</sub></strong>) to replace the above red boxed part, there will be only ~10000 multiplications.</p>
+
+<p><strong>It means it is ~10000 times faster.</strong></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Machine learning, in practice, will always try to model problems into above or other ways such that the problem can be solved much more efficiently. The Kernel Trick is one of the most important one. The above is an extremely simplified version of what happened only, interested readers should dive deeper into related literature.</p>
+
+<p> </p>
+
+<p><sup>[1]</sup> – The primal and dual (together called the duality) are the two sides of the problem, which solving the dual problem statement gives the optimal solution to the primal problem statement (under some constraints). This is grossly simplified.</p>
+
+<h4 style="color: #333333; font-style: normal;">
+  Ref:
+</h4>
+
+<ul style="color: #333333; font-style: normal; line-height: 24px;">
+  <li>
+    <a style="font-style: normal;" href="http://www.cs.berkeley.edu/~jordan/courses/294-fall09/lectures/optimization/slides.pdf">Introduction to Convex Optimization by Machine Learning</a>
+  </li>
+  <li>
+    <a style="font-style: normal;" href="http://en.wikipedia.org/wiki/Kernel_trick">The Kernel Trick</a>
+  </li>
+</ul>
+
+<p> </p>

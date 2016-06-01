@@ -1,0 +1,89 @@
+<p><strong>What are ensemble methods?</strong></p>
+
+<p>Ensemble methods refer to an machine learning algorithm that is combination of classifiers to tackle a classification problem by using the results from all these classifications to determine a label (usually by a vote).</p>
+
+<p>A vote is a majority based voting mechanism. For instance, of 10 classifiers, 4 voted for label X and 6 voted for label Y, the voting result is label Y has 6 &gt; 4.</p>
+
+<p><strong>Why is it useful?</strong></p>
+
+<p>It can be better than using a single classifier in many cases. Suppose there are 4 independent classifiers classifying two labels X and Y, then observe that a data instance with label Y predicted by these classifiers:</p>
+
+<table border="1">
+  <tr>
+    <th>
+      Classifier
+    </th>
+    
+    <th>
+      1
+    </th>
+    
+    <th>
+      2
+    </th>
+    
+    <th>
+      3
+    </th>
+    
+    <th>
+      4
+    </th>
+  </tr>
+  
+  <tr>
+    <td>
+      Label
+    </td>
+    
+    <td>
+      Y
+    </td>
+    
+    <td>
+      X
+    </td>
+    
+    <td>
+      Y
+    </td>
+    
+    <td>
+      Y
+    </td>
+  </tr>
+</table>
+
+<p>Even though classifier 2 predicted X (which is wrong), through voting, the final result is still Y (3 Y &gt; 1 X).</p>
+
+<p>Thus, the result is wrong only if more than half of the classifiers are wrong.</p>
+
+<p><strong>When does it fail?</strong></p>
+
+<p>If the error rate is larger than 0.5 for each classifier, then the classifiers will be correct only if more than half of the classifiers are correct. The net result is that the set of classifiers predict more wrong answers, in this case do not use ensemble methods.</p>
+
+<p><strong>What is the error rate of the ensemble method, assuming the error rate of each classifier is 0.15?</strong></p>
+
+<p>It is given by the general formula of:</p>
+
+<blockquote>
+  <p>error_rate_of_ensemble = 0</p>
+</blockquote>
+
+<blockquote>
+  <p>for i in [floor(n/2)+1, n]:</p>
+</blockquote>
+
+<blockquote>
+  <p>error_rate_of_ensemble += nCr(i, n) * error_rate^i * (1 – error_rate)^(n-i)</p>
+
+  <p>where n = number of classifiers,</p>
+</blockquote>
+
+<blockquote>
+  <p>error_rate = error rate of each classifier (assumed equal here)</p>
+</blockquote>
+
+<p>In our case, if the error rate of a single classifier is 0.15, the error rate of the ensemble would be only 0.01.</p>
+
+<p> </p>

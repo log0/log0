@@ -1,0 +1,152 @@
+<h2 id="span-stylefont-size-1285714286rem-line-height-16what-are-theyspan"><span style="font-size: 1.285714286rem; line-height: 1.6;">What are they?</span></h2>
+
+<p>It is a categorization of classifiers in Bayesian perspective. Recall in <a href="/explain-to-me-bayes-theorem/">Bayes Theorem</a>, we have this formula below:</p>
+
+<p><a href="/wp-content/uploads/2014/01/bayes-theorem.png"><img class="aligncenter size-full wp-image-281" alt="bayes theorem" src="/wp-content/uploads/2014/01/bayes-theorem.png" width="265" height="69" /></a></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Our goal is to find the best **P(Y</td>
+      <td>X).** This reads: Given features <strong>X</strong>, what is the probability of class <strong>Y</strong>. Concretely with an example, given that a software engineer lives in Silicon Valley <strong>(X)</strong>, what is the probability he makes over 100K salary <strong>(Y)</strong>, i.e. **P(Y</td>
+      <td>X)**?</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="generative-classifiers">Generative Classifiers</h2>
+
+<p>A generative classifier tries to learn the model that generates the data behind the scenes by <em>**</em>estimating the assumptions and distributions of the model. It then uses this to predict unseen data, because it assumes the model that was learned captures the real model. As we will see, this is often not true. An example is the Naive Bayes Classifier.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>To get **P(Y</td>
+      <td>X)**, generative classifiers do this:</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Estimate **P(X</td>
+          <td>Y)** and <strong>P(Y)</strong> from the data.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Multiply **P(X</td>
+          <td>Y)** and <strong>P(Y)</strong> according to Bayes Theorem, P(X) is a constant.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Get **P(Y</td>
+          <td>X).**</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ol>
+
+<table>
+  <tbody>
+    <tr>
+      <td>To continue with our example, a generative classifier first estimate from the data what is the probability a software developer living in Silicon Valley <strong>(X)</strong> given he makes over 100K <strong>(Y)</strong>, i.e. together it means **P(X</td>
+      <td>Y)<strong>. Then, it estimates how many software engineers make over 100K, regardless of if he is in Silicon Valley or not, i.e. **P(Y)</strong>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="discriminative-classifiers">Discriminative Classifiers</h2>
+
+<p>A discriminative classifier tries to model by just depending on the observed data. It makes fewer assumptions on the distributions but depends heavily on the quality of the data (Is it representative? Are there a lot of data?). An example is the Logistic Regression.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>To get **P(Y</td>
+      <td>X)**, discriminative classifiers do this:</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Estimate **P(Y</td>
+          <td>X)** from the data.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ol>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Yes, only one step. As with our example, a discriminative classifier estimates the probability of a software engineer making over 100K salary given he lives in Silicon Valley, i.e. **P(Y</td>
+      <td>X)**.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="when-to-use-a-generative-classifier-or-a-discriminative-classifier">When to use a generative classifier or a discriminative classifier?</h2>
+
+<p><strong>In practice, discriminative classifiers outperform generative classifiers, if you have a lot of data.</strong></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Generative classifiers learn **P(Y</td>
+      <td>X)** indirectly and can get the wrong assumptions of the data distribution. Quoting Vapnik from Statistical Learning Theory:</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>one should solve the [classification] problem directly and never solve a more general problem as an intermediate step [such as modeling **P(X</td>
+        <td>Y)**].</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>A very good paper from <a href="http://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf">Andrew Ng in NIPS 2001</a> concludes that:</p>
+
+<blockquote>
+  <p>a) The generative model does indeed have a higher asymptotic error (as the number of training examples become large) than the discriminative model but,</p>
+
+  <p>b) The generative model may also approach its asymptotic error much faster than the discriminative model – possibly with a number of training examples that is only logarithmic, rather than linear, in the number of parameters.</p>
+</blockquote>
+
+<p>So, simply said, if you have a lot of data, stick with the discriminative models.</p>
+
+<p> </p>
+
+<p>References:</p>
+
+<ul>
+  <li><a href="http://www.cs.cmu.edu/~guestrin/Class/10701-S07/Slides/logisticregression-decisiontrees.pdf">http://www.cs.cmu.edu/~guestrin/Class/10701-S07/Slides/logisticregression-decisiontrees.pdf</a></li>
+  <li><a href="http://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-discriminative-algorithm">http://stackoverflow.com/questions/879432/what-is-the-difference-between-a-generative-and-discriminative-algorithm</a></li>
+  <li><a href="http://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf">http://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/Generative_model">http://en.wikipedia.org/wiki/Generative_model</a></li>
+</ul>
+
+<p> </p>

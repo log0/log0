@@ -1,0 +1,29 @@
+<h2 id="summary">Summary</h2>
+
+<p>Use <a href="http://aws.amazon.com/ec2/">AWS Elastic Cloud</a> for machine learning to:</p>
+
+<ul>
+  <li>Decrease machine learning computing time, so you can try more new stuff faster.</li>
+  <li>Use specialized toolset requiring GPUs, like CUDA-CONVNET, which your old computer may not have.</li>
+  <li>Avoid hurting your computer health because you keep your computer busy for hours repeatedly.</li>
+  <li>You / your company got some money to spend. =]</li>
+</ul>
+
+<h2 id="long-version">Long Version</h2>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">You might think your 16GB of RAM and 8 CPU cores notebook is good enough to run your machine learning algorithms. However, if you really did get hands-on, you most likely have encountered these major problems:</span></p>
+
+<ul>
+  <li><strong>Slow.</strong> Searching for the right parameters with multiple degrees of freedom takes a long time, even if each takes a minute or two. e.g. grid search the best C and gamma for SVMs.</li>
+  <li><strong>Low memory.</strong> Your dataset expands after preprocessing or feature engineering, suddenly takes 22GB of RAM on your 16GB notebook. Suddenly, your algorithm slows down drastically.</li>
+</ul>
+
+<p>But, really, the problems that really hurts are:</p>
+
+<ul>
+  <li><strong>Hampers creativity.</strong> <em>You don’t know why it works, but it works anyway.</em> Sometimes results are discovered through sheer try-and-error, and being able to explore without waiting too long (hours!) helps a lot. It is not fun to wait for 5 minutes per iteration on a 150 fit.</li>
+  <li><strong>Durability.</strong> Topping your CPU to 100% for dozen hours repeatedly shorten your computer’s life really easily, e.g. getting busy a lot clogs your CPU fan with dust.</li>
+  <li><strong>Limited toolsets.</strong> For example, if you want to run the CUDA-CONVNET, you will need to have Fermi-generation GPUs, which you might not have it. It’s one of the more powerful deep learning tools out there now. The GPU instances on AWS are Fermi-generation GPU instances.</li>
+</ul>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">Of course, these are just those that come out the top of my head. I use the Elastic Cloud to get a very powerful instance which maybe I only need for a few hours. This is especially useful for </span><span style="line-height: 1.714285714; font-size: 1rem;">Kaggle competitions, which you will have a big dataset and a lot of ideas to try. It may be costly in the long run, but you won’t need to buy a new computer for it… and then decide you don’t need it.</span></p>

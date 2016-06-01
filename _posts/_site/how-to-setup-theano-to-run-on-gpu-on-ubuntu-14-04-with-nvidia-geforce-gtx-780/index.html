@@ -1,0 +1,274 @@
+<p>Documenting the steps how to setup Theano to run on GPU on Ubuntu 14.04 so I can refer to this in the future. With this successfully installed, you can run Keras, convnet, Theano, etc properly.</p>
+
+<h1 id="whythis-article">Why This Article?</h1>
+
+<p>Have you ever met those painful issues just trying to setup your GPU for scientific programming:</p>
+
+<ul>
+  <li>Getting a blinking cursor after installing the “latest” Nvidia drivers?</li>
+  <li>Getting a blinking cursor after installing the “latest” CUDA toolkit?</li>
+  <li>Login loop in Ubuntu login screen?</li>
+  <li>NVRM: rm_init_adapter(0) failed?</li>
+  <li>NVIDIA: could not open the device file /dev/nvidia0 (input/output error)</li>
+  <li>…</li>
+</ul>
+
+<p>If yes, then read on.</p>
+
+<p><span style="color: #ff0000;"><strong>I cannot guarantee your OS does not break after running the steps below, so please backup everything, run as your own risk.</strong></span></p>
+
+<p>You may want to read the <em>Things That Does Not Work For Me</em> part below first before following the <em>instructions</em>.</p>
+
+<h1 id="specifications">Specifications</h1>
+
+<p>My server has the following specifications:</p>
+
+<ul>
+  <li>OS: Ubuntu 14.04 LTS, X64</li>
+  <li>GPU: Nvidia Geforce GTX 780</li>
+  <li>Fresh install of Ubuntu 14.04 LTS</li>
+</ul>
+
+<h1 id="instructions">Instructions</h1>
+
+<p>If you fail in the middle of any of this steps, you are advised to restart and follow the steps carefully again. Use common sense. and if you don’t know how to fix it, too bad,</p>
+
+<ol>
+  <li>Download latest (or very recent) Nvidia display driver for Linux:</li>
+</ol>
+
+<pre>wget http://us.download.nvidia.com/XFree86/Linux-x86_64/352.63/NVIDIA-Linux-x86_64-352.63.run</pre>
+
+<p>2. Download latest (or very recent) CUDA Installation Run file for Ubuntu 14.04:</p>
+
+<pre>wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run</pre>
+
+<p>3. Get into recovery mode to install the files, because you cannot install your display driver with X server on.</p>
+
+<pre>reboot</pre>
+
+<ol>
+  <li>
+    <p>Once you are in GRUB, select “Advanced Options for Ubuntu”.</p>
+  </li>
+  <li>
+    <p>In the recovery mode, select “network”, press yes. Once the networking has been enabled, this will also set your drive to read/write mode.</p>
+  </li>
+</ol>
+
+<p>6. In the recovery mode, select “root” to get a root prompt.</p>
+
+<ol>
+  <li>Go to where you downloaded the previous files at, and <strong>run NVIDIA-Linux-x86_64-352.63.run </strong>.</li>
+</ol>
+
+<pre>chmod +x NVIDIA-Linux-x86_64-352.63.run # Make it executable
+
+./NVIDIA-Linux-x86_64-352.63.run # Install Nvidia display driver</pre>
+
+<p>For yes/no questions, take “yes”. For locations, press “enter” to take default values.</p>
+
+<ol>
+  <li>Setup your environment variables.</li>
+</ol>
+
+<p>Make sure your LD_LIBRARY_PATH, LIBRARY_PATH and PATH includes the places it needs to include:</p>
+
+<pre># ~/.bashrc
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:
+export LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:
+export PATH=$PATH:/usr/local/cuda-7.5/bin</pre>
+
+<p>Don’t forget to:</p>
+
+<pre>$ source ~./.bashrc</pre>
+
+<ol>
+  <li><strong>Run nvidia-smi</strong> to confirm that your setup is correct.</li>
+</ol>
+
+<pre>nvidia-smi</pre>
+
+<p>nvidia-smi should be on your path already, so this should work. If it doesn’t:</p>
+
+<ul>
+  <li>You must have done something wrong, better go back to step 1. and do it all over again.</li>
+  <li>You can see if it’s at /usr/bin/nvidia-smi .</li>
+</ul>
+
+<p>You should then see something similar to this:</p>
+
+<pre>Mon Nov 23 21:01:17 2015 
++------------------------------------------------------+ 
+| NVIDIA-SMI 352.39 Driver Version: 352.39 | 
+|-------------------------------+----------------------+----------------------+
+| GPU Name Persistence-M| Bus-Id Disp.A | Volatile Uncorr. ECC |
+| Fan Temp Perf Pwr:Usage/Cap| Memory-Usage | GPU-Util Compute M. |
+|===============================+======================+======================|
+| 0 GeForce GTX 780 Off | 0000:01:00.0 N/A | N/A |
+| 34% 33C P0 N/A / N/A | 137MiB / 3068MiB | N/A Default |
++-------------------------------+----------------------+----------------------+
+ 
++-----------------------------------------------------------------------------+
+| Processes: GPU Memory |
+| GPU PID Type Process name Usage |
+|=============================================================================|
+| 0 Not Supported |
++-----------------------------------------------------------------------------+</pre>
+
+<ol>
+  <li>Go to where you downloaded the previous files at, and <strong>run cuda_7.5.18_linux.run</strong> .</li>
+</ol>
+
+<pre>chmod +x cuda_7.5.18_linux.run # Make it executable
+
+./cuda_7.5.18_linux.run # Install Nvidia display driver</pre>
+
+<p>For yes/no questions, take “yes”. For locations, press “enter” to take default values.</p>
+
+<ol>
+  <li><strong>Re-run nvidia-smi</strong> just to be sure everything is still working well.</li>
+</ol>
+
+<pre>nvidia-smi</pre>
+
+<p>You should then (again) see something similar to this:</p>
+
+<pre>Mon Nov 23 21:08:56 2015 
++------------------------------------------------------+ 
+| NVIDIA-SMI 352.39 Driver Version: 352.39 | 
+|-------------------------------+----------------------+----------------------+
+| GPU Name Persistence-M| Bus-Id Disp.A | Volatile Uncorr. ECC |
+| Fan Temp Perf Pwr:Usage/Cap| Memory-Usage | GPU-Util Compute M. |
+|===============================+======================+======================|
+| 0 GeForce GTX 780 Off | 0000:01:00.0 N/A | N/A |
+| 34% 28C P8 N/A / N/A | 271MiB / 3068MiB | N/A Default |
++-------------------------------+----------------------+----------------------+
+ 
++-----------------------------------------------------------------------------+
+| Processes: GPU Memory |
+| GPU PID Type Process name Usage |
+|=============================================================================|
+| 0 Not Supported |
++-----------------------------------------------------------------------------+</pre>
+
+<p>11. Reboot now back to desktop.</p>
+
+<pre>reboot</pre>
+
+<ol>
+  <li>Time to install Theano and python, basically the first part of <a href="http://deeplearning.net/software/theano/install_ubuntu.html" target="_blank">this guide</a>. Run the following commands:</li>
+</ol>
+
+<pre>sudo apt-get install python-numpy python-scipy python-dev python-pip python-nose g++ libopenblas-dev git
+sudo pip install Theano</pre>
+
+<ol>
+  <li><strong>Copy and paste the below code into check1.py</strong>. Now we need to make sure GPU is indeed working. I am copying the instructions from <a href="http://deeplearning.net/software/theano/tutorial/using_gpu.html" target="_blank">deeplearning.net</a>.</li>
+</ol>
+
+<pre><span class="kn">from</span> <span class="nn">theano</span> <span class="kn">import</span> <span class="n">function</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">shared</span><span class="p">,</span> <span class="n">sandbox</span>
+<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="kn">as</span> <span class="nn">T</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">vlen</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">768</span>  <span class="c"># 10 x #cores x # threads per core</span>
+<span class="n">iters</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">22</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">shared</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">vlen</span><span class="p">),</span> <span class="n">config</span><span class="o">.</span><span class="n">floatX</span><span class="p">))</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">function</span><span class="p">([],</span> <span class="n">T</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">maker</span><span class="o">.</span><span class="n">fgraph</span><span class="o">.</span><span class="n">toposort</span><span class="p">())</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">iters</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="p">()</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Looping </span><span class="si">%d</span><span class="s"> times took </span><span class="si">%f</span><span class="s"> seconds"</span> <span class="o">%</span> <span class="p">(</span><span class="n">iters</span><span class="p">,</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Result is </span><span class="si">%s</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">r</span><span class="p">,))</span>
+<span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">Elemwise</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">maker</span><span class="o">.</span><span class="n">fgraph</span><span class="o">.</span><span class="n">toposort</span><span class="p">()]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Used the cpu'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Used the gpu'</span><span class="p">)</span></pre>
+
+<ol>
+  <li><strong>Run the check1.py to confirm that Theano is working correctly with CPU</strong>.</li>
+</ol>
+
+<pre>THEANO_FLAGS=mode=FAST_RUN,device=cpu,floatX=float32 python check1.py</pre>
+
+<p>This should give:</p>
+
+<pre>[Elemwise{exp,no_inplace}(&lt;TensorType(float32, vector)&gt;)]
+Looping 1000 times took 1.999963 seconds
+Result is [ 1.23178029 1.61879337 1.52278066 ..., 2.20771813 2.29967761
+ 1.62323284]
+<strong>Used the cpu</strong></pre>
+
+<ol>
+  <li><strong>Run the check.py to confirm that Theano is working correctly with GPU</strong>.</li>
+</ol>
+
+<pre>THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python check1.py</pre>
+
+<p>This should give:</p>
+
+<pre>Using gpu device 0: GeForce GTX 780
+[GpuElemwise{exp,no_inplace}(&lt;CudaNdarrayType(float32, vector)&gt;), HostFromGpu(GpuElemwise{exp,no_inplace}.0)]
+Looping 1000 times took 0.583838 seconds
+Result is [ 1.23178029 1.61879349 1.52278066 ..., 2.20771813 2.29967761
+ 1.62323296]
+<strong>Used the gpu</strong></pre>
+
+<p>Note that: computation time has decreased, and it is indeed using GPU now.</p>
+
+<ol>
+  <li>Done! If you reached here and did not meet any issues, I hope you can comment and confirm that this does help you, so others can trust this guide. If you have still spent hours/days, <strong>blame Linux.</strong> =]</li>
+</ol>
+
+<h1 id="things-that-does-not-work-for-me">Things That Does Not Work For Me</h1>
+
+<ol>
+  <li>Installing current nvidia drivers from apt-get.</li>
+</ol>
+
+<pre>$ apt-get install nvidia-current</pre>
+
+<p>Normally you would think apt-get install the latest nvidia drivers would be the best to go. Nope, after the installation 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log</p>
+
+<ol>
+  <li>Install CUDA from apt-get.</li>
+</ol>
+
+<pre>$ apt-get install nvidia-cuda-toolkit</pre>
+
+<p>The same as 1., equally disastrous: 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log</p>
+
+<p>3. Installing current nvidia from another “defacto” repository.</p>
+
+<pre>sudo apt-add-repository ppa:ubuntu-x-swat/x-updates
+sudo apt-get update
+sudo apt-get install nvidia-current</pre>
+
+<p>The same as 1., equally disastrous: 1) nvidia-smi does not work 2) I cannot get back into desktop 3) get error messages like RmInitAdapter failed in dmesg 4) no monitor found in /var/log/Xorg.0.log</p>
+
+<p>4. Anything about Bumblebee.</p>
+
+<p>Not sure what this is, just not related. Forget about it.</p>
+
+<p>5. Also, I don’t have advice trying to repair a broken Ubuntu if you did anything of the above. But maybe you can try removing nvidia drivers and reinstalling the desktop, but doesn’t work for me either.</p>
+
+<pre>apt-get remove --purge nvidia*
+apt-get install --reinstall ubuntu-desktop unity
+apt-get install nvidia-current</pre>
+
+<ol>
+  <li>Using any nvidia driver like 340 or 304 version. They do not work.</li>
+</ol>
+
+<p><em><strong>The only thing that works for me is a fresh reinstall of Ubuntu 14.04. Nothing else.</strong></em></p>
+
+<h1 id="final-words">Final Words</h1>
+
+<p>The <a href="http://deeplearning.net/software/theano/install_ubuntu.html" target="_blank">installation guide</a> from DeepLearning.net is very helpful, but it contains poison advice that messed up my display of my OS completely.</p>
+
+<p>BTW, ever heard of <strong>“Linux is user-friendly but it is very selective of its friends.”</strong>? I know I am certainly not its friend… 😉</p>

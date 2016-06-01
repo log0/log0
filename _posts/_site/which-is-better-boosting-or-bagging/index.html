@@ -1,0 +1,11 @@
+<p>A question we sometimes encounter during applying machine learning is : Should we use <a href="http://en.wikipedia.org/wiki/Bootstrap_aggregating">bagging</a>, <a href="http://en.wikipedia.org/wiki/Boosting_(machine_learning)">boosting</a> or even just plain classifier?</p>
+
+<p>Both bagging and boosting falls into an umbrella technique called <a href="http://en.wikipedia.org/wiki/Ensemble_learning">ensemble learning</a>.</p>
+
+<p>Bagging is to have multiple classifiers trained on different under-sampled subsets and allow these classifiers to vote on a final decision, contrasting with just using one classifier.</p>
+
+<p>Boosting is to have a series of classifiers to train on the dataset, but gradually putting more emphasis on training examples that the previous classifiers have failed (i.e. harder for classifiers to get it right), in the hope of that the next classifier will focus on these harder examples. So in the end, you will have a series of classifiers who are in general balanced but slightly more focused on the hard training examples.</p>
+
+<p><strong>In practice, boosting beats bagging in general, but either bagging and boosting will beat a plain classifier. </strong>This is shown in the paper <a href="http://home.eng.iastate.edu/~julied/classes/ee547/Handouts/q.aaai96.pdf">Bagging, Boosting and C4.5</a> where the author makes comparisons between bagging, boosting and C4.5 over two dozens of datasets, and shows that boosting performs better in most cases.</p>
+
+<p>If you’re like me who wants something out-of-the-box first, for bagging, Scikit-Learn’s bleeding edge has this <a href="http://scikit-learn.org/dev/modules/generated/sklearn.ensemble.BaggingClassifier.html">BaggingClassifier</a> which you can try, or can be implemented by yourself fairly easily. For boosting, try two algorithms on a dataset using any algorithm you like (non-bagged non-boosted) and using <a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html">GradientBoostingClassifier</a>, in general I found the GB is quite slow but does better in general.</p>

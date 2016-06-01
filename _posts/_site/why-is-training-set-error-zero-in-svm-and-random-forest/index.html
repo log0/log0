@@ -1,0 +1,9 @@
+<h3 id="questions">QUESTIONS</h3>
+
+<p><strong>Q: Why if a model like SVM or Random Forest is trained and evaluated for training error, you will get zero error? (And on the other hand, when a model like a Gaussian Naive Bayes classifier is used instead, the training error is non-zero in general.)</strong></p>
+
+<p><strong>**</strong>A: SVM and decision-tree based variants are instance based classifiers, and thus can fit with the data perfectly. a Guassian Naives Bayes classifier is not.**</p>
+
+<h3 id="more-explanation"><strong>More explanation</strong></h3>
+
+<p>For the case of SVM, an SVM model is actually a representation of the examples in space where a margin is picked to separate the examples with a gap as wide as possible. For Random Forest (a decision tree based classifier) model, the classifying rules are all derived exactly from the examples and thus has the capability to classify perfectly to the examples given.</p>

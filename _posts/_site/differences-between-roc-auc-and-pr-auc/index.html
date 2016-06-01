@@ -1,0 +1,120 @@
+<p>[edit 2014/04/19: Some mistakes were made, but the interpretation follows. Sorry about that.]</p>
+
+<h1 id="tldr">TL;DR</h1>
+
+<p>Use Precision Recall area under curve for <a href="/class-imbalance-problem/" target="_blank">class imbalance problems</a>. If not, Receiver Operating Characteristic area under curve otherwise.</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>When being confronted with the <a href="/class-imbalance-problem/" target="_blank">class imbalance problem</a>, accuracy is a <a href="/class-imbalance-problem/" target="_blank">wrong metric to use</a>. Usually, there are two candidates as metrics:</p>
+
+<ol>
+  <li>Receiver Operating Characteristic area under curve (ROC AUC)</li>
+  <li>Precision Recall area under curve (PR AUC)</li>
+</ol>
+
+<p>Which is better? What are the differences?</p>
+
+<h1 id="receiver-operating-characteristic-curve-roc-curve">Receiver Operating Characteristic Curve (ROC curve)</h1>
+
+<p>A ROC curve is plotting True Positive Rate (TPR) against False Positive Rate (FPR).</p>
+
+<p>TPR is defined as:</p>
+
+<p><a href="/wp-content/uploads/2014/04/tpr-formula.png"><img class="aligncenter" src="/wp-content/uploads/2014/04/tpr-formula.png" alt="tpr-formula" width="244" height="82" /></a></p>
+
+<p>FPR is defined as:</p>
+
+<p><a href="/wp-content/uploads/2014/04/fpr-formula.png"><img class="aligncenter size-full wp-image-391" src="/wp-content/uploads/2014/04/fpr-formula.png" alt="fpr-formula" width="217" height="79" /></a></p>
+
+<p>where TP = true positive, TN = true negative, FP = false positive, FN = false negative.</p>
+
+<p>A typical ROC curve looks like this, which shows two ROC curves for Algorithm 1 and Algorithm 2.</p>
+
+<p><a href="/wp-content/uploads/2014/04/sample-ROC-curve.png"><img class="aligncenter size-full wp-image-393" src="/wp-content/uploads/2014/04/sample-ROC-curve.png" alt="sample-ROC-curve" width="385" height="362" /></a></p>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">The goal is to have a model be at the upper left corner, which is basically getting no false positives – a perfect classifier.</span></p>
+
+<p><strong>The receiver operating characteristic area under curve (ROC AUC) is just the area under the ROC curve.</strong> The higher it is, the better the model is.</p>
+
+<h1 id="precision-recall-curve-pr-curve">Precision Recall Curve (PR Curve)</h1>
+
+<p>A PR curve is plotting Precision against Recall.</p>
+
+<p>Precision is defined as:</p>
+
+<p><a href="/wp-content/uploads/2014/04/precision-formula.png"><img class="aligncenter size-full wp-image-394" src="/wp-content/uploads/2014/04/precision-formula.png" alt="precision-formula" width="248" height="79" /></a></p>
+
+<p>Recall is defined as:</p>
+
+<p><a href="/wp-content/uploads/2014/04/recall-formula.png"><img class="aligncenter size-full wp-image-395" src="/wp-content/uploads/2014/04/recall-formula.png" alt="recall-formula" width="201" height="65" /></a>A typical PR curve looks like this, which shows two PR curves for Algorithm 1 and Algorithm 2.</p>
+
+<p><a href="/wp-content/uploads/2014/04/sample-PR-curve.png"><img class="aligncenter size-full wp-image-396" src="/wp-content/uploads/2014/04/sample-PR-curve.png" alt="sample-PR-curve" width="389" height="354" /></a></p>
+
+<p>The goal is to have a model be at the upper right corner, which is basically getting only the true positives with no false positives and no false negatives – a perfect classifier.</p>
+
+<p><strong>The precision recall area under curve (PR AUC) is just the area under the PR curve.</strong> The higher it is, the better the model is.</p>
+
+<h1 id="differences-between-the-roc-auc-and-pr-auc">Differences between the ROC AUC and PR AUC</h1>
+
+<p><a href="https://www.kaggle.com/users/46202/randy-c" target="_blank">Randy</a> has given a great explanation <a href="https://www.kaggle.com/forums/t/7517/precision-recall-auc-vs-roc-auc-for-class-imbalance-problems/41179#post41179" target="_blank">here</a>, plus a little of my understanding.</p>
+
+<p>Since PR does not account for true negatives (as TN is not a component of either Precision or Recall), or there are many more negatives than positives (a characteristic of class imbalance problem), use PR. If not, use ROC.</p>
+
+<p>A small example from Randy to illustrate this more clearly, with some <strong>bold text</strong> added myself:</p>
+
+<blockquote>
+  <p>For illustration, let’s take an example of an information retrieval problem where we want to find a set of, say, 100 relevant documents out of a list of 1 million possibilities based on some query. Let’s say we’ve got two algorithms we want to compare with the following performance:</p>
+
+  <ul>
+    <li>Method 1: 100 retrieved documents, 90 relevant. <strong>Thus, TP = 90, TN = 999890, FP = 10, FN = 10.</strong></li>
+    <li>Method 2: 2000 retrieved documents, 90 relevant. <strong>Thus, TP = 90, TN = 997990, FP = 1910, FN = 10.</strong></li>
+  </ul>
+
+  <p>Clearly, Method 1’s result is preferable since they both come back with the same number of relevant results, but Method 2 brings a ton of false positives with it. The ROC measures of TPR and FPR will reflect that, but since the number of irrelevant documents dwarfs the number of relevant ones, the difference is mostly lost:</p>
+
+  <ul>
+    <li>Method 1: 0.9 TPR, 0.00001 FPR
+      <ul>
+        <li><strong>TPR = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
+        <li><strong>FPR = FP/(FP + TN) = 10/(10 + 999890) = 0.00001</strong></li>
+      </ul>
+    </li>
+    <li>Method 2: 0.9 TPR, 0.00191 FPR (difference of 0.0019)
+      <ul>
+        <li><strong>TPR = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
+        <li><strong>FPR = FP/(FP + TN) = 1910/(1910 + 997990) = 0.0019</strong></li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>Precision and recall, however, don’t consider true negatives and thus won’t be affected by the relative imbalance (which is precisely why they’re used for these types of problems):</p>
+
+  <ul>
+    <li>Method 1: 0.9 precision, 0.9 recall
+      <ul>
+        <li><strong>Precision = TP/(TP + FP) = 90/(90 + 10) = 0.9</strong></li>
+        <li><strong>Recall = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
+      </ul>
+    </li>
+    <li><del>Method 2: 0.9 precision, 0.045 recall (difference of 0.855) &lt;= Randy’s post made a mistake here.</del></li>
+    <li><strong>Method 2: 0.045 precision (difference of 0.855), 0.9 recall</strong>
+      <ul>
+        <li><strong>Precision = TP/(TP + FP) = 90/(90 + 1910) = 0.045</strong></li>
+        <li><strong>Recall = TP/(TP + FN) = 90/(90 + 10) = 0.9</strong></li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>Obviously, those are just single points in ROC and PR space, but if these differences persist across various scoring thresholds, using ROC AUC, we’d see a very small difference between the two algorithms, whereas PR AUC would show quite a large difference.</p>
+</blockquote>
+
+<p>To compare both methods, using ROC_AUC, we see that the FPR has a difference of 0.0019, which is very small. However, using PR_AUC, we see that the Precision has a difference of 0.855 which is much more pronounced.</p>
+
+<p>Clearly, the PR is much better in illustrating the differences of the algorithms in the case where there are a lot more negative examples than the positive examples.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Use PR AUC for cases where the class imbalance problem occurs, otherwise use ROC AUC.</p>
+
+<p>One note though, if your problem set is small (thus having fewer points in PR curve), the PR AUC metric could be over-optimistic because AUC is calculated via the trapezoid rule, but linear interpolation on the PR curve does not work very well, which the PR curve example above looks very wiggly. Interested readers may consult this paper of <a href="http://pages.cs.wisc.edu/~jdavis/davisgoadrichcamera2.pdf">The Relationship between Precision-Recall and ROC Curves</a>. Though, practically in a class imbalance problem nowadays, you should have a lot of examples so this should not be a problem.</p>
