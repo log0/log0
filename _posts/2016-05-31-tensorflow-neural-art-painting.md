@@ -27,6 +27,7 @@ tags:
   - Deep Learning
   - Tutorial
 ---
+This notebook and code are available on [Github](https://github.com/log0/neural-style-painting).
 
 This notebook illustrates a Tensorflow implementation of the paper "[A Neural Algorithm of Artistic Style](http://arxiv.org/abs/1508.06576)" which is used to transfer the art style of one picture to another picture's contents.
 
