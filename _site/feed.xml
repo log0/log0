@@ -5,13 +5,15 @@
     <description>Things I left Hanging Around</description>
     <link>http://www.chioka.in/</link>
     <atom:link href="http://www.chioka.in/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 31 May 2016 20:46:59 -0700</pubDate>
-    <lastBuildDate>Tue, 31 May 2016 20:46:59 -0700</lastBuildDate>
+    <pubDate>Tue, 31 May 2016 20:50:16 -0700</pubDate>
+    <lastBuildDate>Tue, 31 May 2016 20:50:16 -0700</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
         <title>TensorFlow Implementation of &quot;A Neural Algorithm of Artistic Style&quot;</title>
-        <description>&lt;p&gt;This notebook illustrates a Tensorflow implementation of the paper “&lt;a href=&quot;http://arxiv.org/abs/1508.06576&quot;&gt;A Neural Algorithm of Artistic Style&lt;/a&gt;” which is used to transfer the art style of one picture to another picture’s contents.&lt;/p&gt;
+        <description>&lt;p&gt;This notebook and code are available on &lt;a href=&quot;https://github.com/log0/neural-style-painting&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This notebook illustrates a Tensorflow implementation of the paper “&lt;a href=&quot;http://arxiv.org/abs/1508.06576&quot;&gt;A Neural Algorithm of Artistic Style&lt;/a&gt;” which is used to transfer the art style of one picture to another picture’s contents.&lt;/p&gt;
 
 &lt;p&gt;If you like to run this notebook, you will need to install TensorFlow, Scipy and Numpy.
 You will need to download the &lt;a href=&quot;http://www.vlfeat.org/matconvnet/models/imagenet-vgg-verydeep-19.mat&quot;&gt;VGG-19 model&lt;/a&gt;. Feel free to play with the constants a bit to get a feel how the bits and pieces play together to affect the final image generated.&lt;/p&gt;
