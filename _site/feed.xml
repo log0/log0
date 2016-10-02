@@ -5,8 +5,8 @@
     <description>Things I left Hanging Around</description>
     <link>http://www.chioka.in/</link>
     <atom:link href="http://www.chioka.in/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 31 May 2016 20:50:16 -0700</pubDate>
-    <lastBuildDate>Tue, 31 May 2016 20:50:16 -0700</lastBuildDate>
+    <pubDate>Sun, 02 Oct 2016 13:51:50 -0700</pubDate>
+    <lastBuildDate>Sun, 02 Oct 2016 13:51:50 -0700</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -2248,7 +2248,7 @@ if __name__ == &#39;__main__&#39;:
     
       <item>
         <title>Visualizing the Differences In L1-norm and L2-norm Loss Function</title>
-        <description>&lt;p&gt;In an earlier post about the &lt;a href=&quot;www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/&quot; target=&quot;_blank&quot;&gt;differences between L1 and L2 as loss function and regularization&lt;/a&gt;, one of the graph about L1-norm and L2-norm loss function is rather confusing to many readers, as I have seen from the comments. Reviewing it after a year, it wasn’t very clear as well, so today I generated some data and run a model over them. Here is how it looks like:&lt;/p&gt;
+        <description>&lt;p&gt;In an earlier post about the &lt;a href=&quot;http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/&quot; target=&quot;_blank&quot;&gt;differences between L1 and L2 as loss function and regularization&lt;/a&gt;, one of the graph about L1-norm and L2-norm loss function is rather confusing to many readers, as I have seen from the comments. Reviewing it after a year, it wasn’t very clear as well, so today I generated some data and run a model over them. Here is how it looks like:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-515&quot; src=&quot;/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png&quot; alt=&quot;programmatic L1 vs L2 visualization&quot; width=&quot;1096&quot; height=&quot;716&quot; srcset=&quot;/wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization.png 1096w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-580x378.png 580w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-940x614.png 940w, /wp-content/uploads/2013/12/programmatic-L1-vs-L2-visualization-624x407.png 624w&quot; sizes=&quot;(max-width: 1096px) 100vw, 1096px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -2344,7 +2344,7 @@ if __name__ == &#39;__main__&#39;:
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.gopano.com&quot; target=&quot;_blank&quot;&gt;GoPano &lt;/a&gt;– A special lens attachable to iPhone that allows you to take panoramas and panoramic videos. It works by having a 360 degree lens and bend the light into the iPhone camera. Works for iPhone only. 360 degrees horizontally only.&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://kogeto.com/&quot; target=&quot;_blank&quot;&gt;Kageto&lt;/a&gt; – A company manufacturing the Dot, Lucy, and Jo. They are successive versions of a special lens attachable to iPhone or Android to take panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;www.bubblescope.com&quot; target=&quot;_blank&quot;&gt;BubbleScope&lt;/a&gt; – Another attachable lens to iPhone for capturing panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.bubblescope.com&quot; target=&quot;_blank&quot;&gt;BubbleScope&lt;/a&gt; – Another attachable lens to iPhone for capturing panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Software Apps that takes panoramic pictures without using another external cam/device. Apparently, you cannot do panoramic videos from these (it’ll look like a mess):&lt;/p&gt;
