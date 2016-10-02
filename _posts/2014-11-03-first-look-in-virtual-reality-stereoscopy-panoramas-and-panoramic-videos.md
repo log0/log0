@@ -66,7 +66,7 @@ Devices that can capture (360) degrees panorama:
 
   * <a href="http://www.gopano.com" target="_blank">GoPano </a>&#8211; A special lens attachable to iPhone that allows you to take panoramas and panoramic videos. It works by having a 360 degree lens and bend the light into the iPhone camera. Works for iPhone only. 360 degrees horizontally only.
   * <a href="http://kogeto.com/" target="_blank">Kageto</a> &#8211; A company manufacturing the Dot, Lucy, and Jo. They are successive versions of a special lens attachable to iPhone or Android to take panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.
-  * <a href="www.bubblescope.com" target="_blank">BubbleScope</a> &#8211; Another attachable lens to iPhone for capturing panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.
+  * <a href="http://www.bubblescope.com" target="_blank">BubbleScope</a> &#8211; Another attachable lens to iPhone for capturing panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.
 
 Software Apps that takes panoramic pictures without using another external cam/device. Apparently, you cannot do panoramic videos from these (it&#8217;ll look like a mess):
 
