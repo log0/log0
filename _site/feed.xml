@@ -5,9 +5,91 @@
     <description>Things I left Hanging Around</description>
     <link>http://www.chioka.in/</link>
     <atom:link href="http://www.chioka.in/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 02 Oct 2016 13:51:50 -0700</pubDate>
-    <lastBuildDate>Sun, 02 Oct 2016 13:51:50 -0700</lastBuildDate>
+    <pubDate>Mon, 03 Oct 2016 01:10:41 -0700</pubDate>
+    <lastBuildDate>Mon, 03 Oct 2016 01:10:41 -0700</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>What is &quot;Embedding&quot; in Deep Learning?</title>
+        <description>&lt;p&gt;An &lt;em&gt;embedding&lt;/em&gt; is a way to represent sparse high dimensional vectors in a compact low dimensional vector to make it easier for a machine learning model to learn.&lt;/p&gt;
+
+&lt;p&gt;Machine learning models expects numeric inputs. Neural networks are no exceptions. If the input is a piece of text, then each word needs to be converted to numerics before passing to the neural network as input. One way to represent a word is using a “one hot” vector. A “one hot” vector is usually a sparse vector with only one non-zero entry. The non-zero entry represents the word.&lt;/p&gt;
+
+&lt;p&gt;For instance, if a vocabulary has only three words: “Lettuce”, “Boat” and “Spinach”. Then to represent the word “Lettuce”, the vector is [1 0 0]^T. For “Boat”, the vector is [0 1 0]^T. For “Spinach”, it will be [0 0 1]^T.&lt;/p&gt;
+
+&lt;p&gt;[TODO: insert image to visualize one hot vector of size 3]&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;one-hot-vectors-seems-to-do-the-job-fine-what-is-the-problem-here&quot;&gt;One Hot Vectors Seems to Do the Job Fine. What is the Problem Here?&lt;/h3&gt;
+
+&lt;p&gt;There are a couple of problems:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Large weight matrices results in more training data needed, increased memory requirements and longer training time.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;One Hot Vector does not give meaning between words. The index of the words in the vector carries no meaning.&lt;/strong&gt; “Lettuce” and “Boat” is one distance untis apart, but “Lettuce” and “Spinach” are two distance units apart. Shouldn’t “Lettuce” and “Spinach” be closer since they are much closely related?&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We will explain more in the next section.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;large-weight-matrices&quot;&gt;Large Weight Matrices&lt;/h3&gt;
+
+&lt;p&gt;If the vocabulary is very large (e.g. a one hot vector of size 200000), and the connecting neural network layer has 500 neurons, there will be a total of (200000 x 500 = 100000000) weights. This requires 0.37G of memory to represent the weight matrix in memory.&lt;/p&gt;
+
+&lt;p&gt;[TODO: insert image to visualize one hot vector connecting to neural network layer with weight connections shown, highlighting the weight matrix.]&lt;/p&gt;
+
+&lt;p&gt;Having large weight matrices introduce these issues:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Need more training data.&lt;/strong&gt; More data is needed for the model to learn the weights. If the training data is expensive to get, your model may not learn properly.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Unable to run model or reduced batch size.&lt;/strong&gt; Since more memory is needed to represent the weight matrix, if the GPU does not have enough memory, the model may not run or at least your batch size is significantly reduced. The reduced batch size will result in longer training time.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Longer training time.&lt;/strong&gt; More computational cost as more mathematical operations are needed for a larger weight matrix.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To mitigate these issues, the straight forward way is to reduce the size of the weight matrix, we can reduce the vocabulary size or number of neurons in the neural network layer, but can we do better?&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;lack-of-information-between-words-in-one-hot-vector&quot;&gt;Lack of Information Between Words In One Hot Vector&lt;/h3&gt;
+
+&lt;p&gt;The other problem is that the word order in a one hot vector does not carry any meaning other than some word appeared earlier during construction of the vocabulary. So the fact that “Lettuce” and “Boat” is closer in a one hot vector does not mean “Lettuce” and “Boat” is closer than to “Lettuce” and “Spinach” in meaning. In fact, there is no meaning conveyed. This information can be used to allow machine learning models to learn better.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;how-does-embedding-help&quot;&gt;How does embedding help?&lt;/h3&gt;
+
+&lt;p&gt;What if we can reduce the one hot vector from size 200000 to size 500? There will be a total of (500 x 500 = 250000) weights. It has 400 times fewer weights. Embedding does exactly this.&lt;/p&gt;
+
+&lt;p&gt;[TODO: Explain the reduced dimensionality.]&lt;/p&gt;
+
+&lt;p&gt;[TODO: Explain the W(A) - (B) ~= W(C) - W(D) concept. for problem 2]&lt;/p&gt;
+
+&lt;p&gt;[TODO: Alternatives]&lt;/p&gt;
+
+&lt;p&gt;[TODO: How to use embedding in machine learning?]&lt;/p&gt;
+
+&lt;p&gt;[TODO: Talking about reusable.]&lt;/p&gt;
+
+&lt;p&gt;[TODO: Talk about how to train W(W)]&lt;/p&gt;
+
+&lt;p&gt;[TODO: Code?]&lt;/p&gt;
+</description>
+        <pubDate>Sun, 02 Oct 2016 17:05:19 -0700</pubDate>
+        <link>http://www.chioka.in/what-is-embedding-in-deep-learning</link>
+        <guid isPermaLink="true">http://www.chioka.in/what-is-embedding-in-deep-learning</guid>
+        
+        <category>Machine Learning</category>
+        
+        <category>Deep Learning</category>
+        
+        <category>Tutorial</category>
+        
+        
+        <category>Machine Learning</category>
+        
+      </item>
     
       <item>
         <title>TensorFlow Implementation of &quot;A Neural Algorithm of Artistic Style&quot;</title>
@@ -2282,105 +2364,6 @@ if __name__ == &#39;__main__&#39;:
         <category>Machine Learning</category>
         
         <category>Mathematics</category>
-        
-      </item>
-    
-      <item>
-        <title>First Look in Virtual Reality: Stereoscopy, Panoramas and Panoramic Videos</title>
-        <description>&lt;p&gt;I got the &lt;a href=&quot;http://g.co/cardboard&quot; target=&quot;_blank&quot;&gt;Google Cardboard&lt;/a&gt; recently, and I’m playing with it. Google Cardboard is a very simple piece of gadget that turns your phone into a virtual reality headset. It was released in &lt;a href=&quot;https://www.google.com/events/io&quot; target=&quot;_blank&quot;&gt;Google I/O 2014&lt;/a&gt;. If you have an Android phone, you can download the &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.google.samples.apps.cardboarddemo&amp;amp;hl=en&quot; target=&quot;_blank&quot;&gt;Cardboard application&lt;/a&gt; which has works very well with Google Cardboard.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-505&quot; src=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg&quot; alt=&quot;google cardboard&quot; width=&quot;490&quot; height=&quot;490&quot; srcset=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg 490w, /wp-content/uploads/2014/11/google-cardboard-150x150.jpg 150w&quot; sizes=&quot;(max-width: 490px) 100vw, 490px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;One of the function provided by the Cardboard application is viewing Photo Sphere in a virtual reality setting. &lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; is a kind of photo that is (360 x 180) degrees panoramic, that is, not just 360 degrees horizontally, but also you can look up and down. It is very cool.&lt;/p&gt;
-
-&lt;p&gt;Check out &lt;a href=&quot;http://360gigapixels.com/tokyo-tower-panorama-photo/&quot; target=&quot;_blank&quot;&gt;this panoramic view&lt;/a&gt; from Tokyo Tower by 360cities for something similar in concept.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-506&quot; src=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot; alt=&quot;tokyo tower panorama&quot; width=&quot;1353&quot; height=&quot;683&quot; srcset=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png 1353w, /wp-content/uploads/2014/11/tokyo-tower-panorama-580x292.png 580w, /wp-content/uploads/2014/11/tokyo-tower-panorama-940x474.png 940w, /wp-content/uploads/2014/11/tokyo-tower-panorama-624x314.png 624w&quot; sizes=&quot;(max-width: 1353px) 100vw, 1353px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Here is the cool thing:  The Cardboard application pushes the Photo Sphere further by putting you in an immersive experience. The experience is as if you’re at the scene looking around &lt;em&gt;in person&lt;/em&gt;. Yes, I know it’s not stereoscopic, but hey!&lt;/p&gt;
-
-&lt;p&gt;I know I know! It’s hard to visualize that. You can only really experience that when you acutally play with a virtual reality headset. In that case, I highly encourage you to get a virtual reality headset like Google Cardboard, or even build one yourself! =]&lt;/p&gt;
-
-&lt;h1 id=&quot;panoramic-videos&quot;&gt;Panoramic Videos!&lt;/h1&gt;
-
-&lt;p&gt;However, I am actually more excited not just with photos, but videos. Check these out:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bubl.io/experiences/648c1828-17dc-48b6-b7c1-4f859389f66b&quot; target=&quot;_blank&quot;&gt;Panoramic video of a tour around NYC in a Taxi&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bubl.io/experiences/ca20efe4-925e-458f-826f-4c7cb77d2e39&quot; target=&quot;_blank&quot;&gt;Panoramic video of skydiving in Toronto&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Google Cardboard doesn’t work with these though. So I haven’t try viewing it in a Cardboard for now. I will hope to try it out.&lt;/p&gt;
-
-&lt;h1 id=&quot;stereoscopic-panoramic-videos&quot;&gt;Stereoscopic Panoramic Videos?!!&lt;/h1&gt;
-
-&lt;p&gt;What if the panoramic videos are stereoscopic? WOW!&lt;/p&gt;
-
-&lt;p&gt;Though, I don’t think we’re there yet. This area seems to be still in its infancy. The closest thing I’ve seen is the &lt;a href=&quot;http://www.panocam3d.com/&quot; target=&quot;_blank&quot;&gt;Panocam3D&lt;/a&gt;, which is a hexagonal device with 2 cameras on each direction.&lt;/p&gt;
-
-&lt;p&gt;The idea to capture stereoscopic panoramic videos is explained &lt;a href=&quot;http://www.video-stitch.com/whats-stereographic-3d-panoramic-video/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;, though this may not be the ideal solution since we still only get 360 degrees and not (360 x 180) degrees.&lt;/p&gt;
-
-&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
-
-&lt;p&gt;I studied a little bit about stereoscopy, panoramas and panoramic videos. Here are some resources if you’re interested (and notes for myself).&lt;/p&gt;
-
-&lt;p&gt;Demonstration of panoramic images and videos:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://video.airpano.com/Video-Dubai-UAE/video-normal-en.html&quot; target=&quot;_blank&quot;&gt;Dubai panoramic video by AirPano&lt;/a&gt; – They have a lot of other panoramic videos too.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.360cities.net/&quot; target=&quot;_blank&quot;&gt;360cities&lt;/a&gt; – Panoramic images of many cities in the world.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Devices that can capture (360 x 180) degrees panorama:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bublcam.com&quot; target=&quot;_blank&quot;&gt;Bublcam&lt;/a&gt; – A spherical device with multiple cameras on it. The above videos are from Bublcam. It looks a pixelated but still acceptable. Not available for sale yet.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://geonaute.com&quot; target=&quot;_blank&quot;&gt;Geonaute&lt;/a&gt; – Another one that looks pretty good, though the demos seem to see the apex (the top area where the corners join) seems to be a bit badly stitched. Still very good.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.360heros.com/&quot; target=&quot;_blank&quot;&gt;360heros&lt;/a&gt; – Actually it’s a gadget to clamp together 6 GoPro cameras in all 6 directions (front back left right up and down). I would think getting the Bublcam and Geonaute may be better, but GoPro probably have better resolution.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Devices that can capture (360) degrees panorama:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.gopano.com&quot; target=&quot;_blank&quot;&gt;GoPano &lt;/a&gt;– A special lens attachable to iPhone that allows you to take panoramas and panoramic videos. It works by having a 360 degree lens and bend the light into the iPhone camera. Works for iPhone only. 360 degrees horizontally only.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://kogeto.com/&quot; target=&quot;_blank&quot;&gt;Kageto&lt;/a&gt; – A company manufacturing the Dot, Lucy, and Jo. They are successive versions of a special lens attachable to iPhone or Android to take panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bubblescope.com&quot; target=&quot;_blank&quot;&gt;BubbleScope&lt;/a&gt; – Another attachable lens to iPhone for capturing panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Software Apps that takes panoramic pictures without using another external cam/device. Apparently, you cannot do panoramic videos from these (it’ll look like a mess):&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; – Take panoramic photos using built-in Android Camera app developed by Google.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.photosynth.net&quot; target=&quot;_blank&quot;&gt;Photo Synth&lt;/a&gt; – Take panoramic photos using this app developed by Microsoft Research.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Readings about stereoscopy, panoramas, and panoramic videos;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://nzphoto.tripod.com/stereo/3dtake/&quot; target=&quot;_blank&quot;&gt;Principles of stereoscopic photography using an ordinary camera&lt;/a&gt; – How to shoot your own stereoscopic photo. Seems like a very old page but the ideas are very clearly explained.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.video-stitch.com/whats-stereographic-3d-panoramic-video/&quot; target=&quot;_blank&quot;&gt;What’s up with stereographic 3D panoramic video&lt;/a&gt; – An article that talks about how to shoot stereoscopic panoramic videos, in theory. We don’t know if this is the best way though.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Stereoscopy&quot; target=&quot;_blank&quot;&gt;Stereoscopy on Wikipedia&lt;/a&gt; – As usual, Wikipedia is a good place to look at.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://photocreations.ca/3D/index.html&quot; target=&quot;_blank&quot;&gt;PhotoCreation&lt;/a&gt; – Apparently someone very enthusiastic in stereoscopic panoramic videos.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 03 Nov 2014 02:53:56 -0800</pubDate>
-        <link>http://www.chioka.in/first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/</link>
-        <guid isPermaLink="true">http://www.chioka.in/first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/</guid>
-        
-        <category>Android</category>
-        
-        <category>Computer Vision</category>
-        
-        <category>Google Cardboard</category>
-        
-        <category>Panomara</category>
-        
-        <category>Stereoscopy</category>
-        
-        <category>Virtual Reality</category>
-        
-        
-        <category>Virtual Reality</category>
         
       </item>
     

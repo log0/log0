@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>What is "Embedding" in Deep Learning?</title>
+  <meta name="description" content="An embedding is a way to represent sparse high dimensional vectors in a compact low dimensional vector to make it easier for a machine learning model to learn.">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.chioka.in/what-is-embedding-in-deep-learning">
+  <link rel="alternate" type="application/rss+xml" title="Garbled Notes" href="http://www.chioka.in/feed.xml" />
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+</head>
+
+
+  <body>
+
+    <div class="site-header">
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <i class="fa fa-navicon fa-lg"></i>
+      </a>
+
+      <div class="trigger">
+          <a class="page-link" href="/">Home</a>
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+     <h1 class="post-title">What is "Embedding" in Deep Learning?</h1>
+     <p class="post-meta">Posted on Oct 2, 2016 • lo</p>
+  </header>
+
+  <article class="post-content">
+    <p>An <em>embedding</em> is a way to represent sparse high dimensional vectors in a compact low dimensional vector to make it easier for a machine learning model to learn.</p>
+
+<p>Machine learning models expects numeric inputs. Neural networks are no exceptions. If the input is a piece of text, then each word needs to be converted to numerics before passing to the neural network as input. One way to represent a word is using a “one hot” vector. A “one hot” vector is usually a sparse vector with only one non-zero entry. The non-zero entry represents the word.</p>
+
+<p>For instance, if a vocabulary has only three words: “Lettuce”, “Boat” and “Spinach”. Then to represent the word “Lettuce”, the vector is [1 0 0]^T. For “Boat”, the vector is [0 1 0]^T. For “Spinach”, it will be [0 0 1]^T.</p>
+
+<p>[TODO: insert image to visualize one hot vector of size 3]</p>
+
+<p><br /></p>
+
+<h3 id="one-hot-vectors-seems-to-do-the-job-fine-what-is-the-problem-here">One Hot Vectors Seems to Do the Job Fine. What is the Problem Here?</h3>
+
+<p>There are a couple of problems:</p>
+
+<ol>
+  <li><strong>Large weight matrices results in more training data needed, increased memory requirements and longer training time.</strong></li>
+  <li><strong>One Hot Vector does not give meaning between words. The index of the words in the vector carries no meaning.</strong> “Lettuce” and “Boat” is one distance untis apart, but “Lettuce” and “Spinach” are two distance units apart. Shouldn’t “Lettuce” and “Spinach” be closer since they are much closely related?</li>
+</ol>
+
+<p>We will explain more in the next section.</p>
+
+<p><br /></p>
+
+<h3 id="large-weight-matrices">Large Weight Matrices</h3>
+
+<p>If the vocabulary is very large (e.g. a one hot vector of size 200000), and the connecting neural network layer has 500 neurons, there will be a total of (200000 x 500 = 100000000) weights. This requires 0.37G of memory to represent the weight matrix in memory.</p>
+
+<p>[TODO: insert image to visualize one hot vector connecting to neural network layer with weight connections shown, highlighting the weight matrix.]</p>
+
+<p>Having large weight matrices introduce these issues:</p>
+
+<ul>
+  <li><strong>Need more training data.</strong> More data is needed for the model to learn the weights. If the training data is expensive to get, your model may not learn properly.</li>
+  <li><strong>Unable to run model or reduced batch size.</strong> Since more memory is needed to represent the weight matrix, if the GPU does not have enough memory, the model may not run or at least your batch size is significantly reduced. The reduced batch size will result in longer training time.</li>
+  <li><strong>Longer training time.</strong> More computational cost as more mathematical operations are needed for a larger weight matrix.</li>
+</ul>
+
+<p>To mitigate these issues, the straight forward way is to reduce the size of the weight matrix, we can reduce the vocabulary size or number of neurons in the neural network layer, but can we do better?</p>
+
+<p><br /></p>
+
+<h3 id="lack-of-information-between-words-in-one-hot-vector">Lack of Information Between Words In One Hot Vector</h3>
+
+<p>The other problem is that the word order in a one hot vector does not carry any meaning other than some word appeared earlier during construction of the vocabulary. So the fact that “Lettuce” and “Boat” is closer in a one hot vector does not mean “Lettuce” and “Boat” is closer than to “Lettuce” and “Spinach” in meaning. In fact, there is no meaning conveyed. This information can be used to allow machine learning models to learn better.</p>
+
+<p><br /></p>
+
+<h3 id="how-does-embedding-help">How does embedding help?</h3>
+
+<p>What if we can reduce the one hot vector from size 200000 to size 500? There will be a total of (500 x 500 = 250000) weights. It has 400 times fewer weights. Embedding does exactly this.</p>
+
+<p>[TODO: Explain the reduced dimensionality.]</p>
+
+<p>[TODO: Explain the W(A) - (B) ~= W(C) - W(D) concept. for problem 2]</p>
+
+<p>[TODO: Alternatives]</p>
+
+<p>[TODO: How to use embedding in machine learning?]</p>
+
+<p>[TODO: Talking about reusable.]</p>
+
+<p>[TODO: Talk about how to train W(W)]</p>
+
+<p>[TODO: Code?]</p>
+
+  </article>
+
+  <div align="center">
+  	<a href="#">
+  	<i class="fa fa-arrow-circle-up fa-2x"></i>
+  	</a>
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+       */
+      /*
+      var disqus_config = function () {
+          this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() {  // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          
+          s.src = '//log0.disqus.com/embed.js';
+          
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="footer center">
+
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8676829-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
