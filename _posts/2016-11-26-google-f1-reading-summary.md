@@ -49,7 +49,7 @@ A summary of the Google published whitepaper: [F1 - A Distributed SQL Database T
 - There are 3 transaction types:
    - Snapshot: read-only transactions at a fixed Spanner snapshot timestamp ST. This means it only sees data up to ST, but will remain consistent. The default snapshot read timestamp is the F1 global safe timestamp which is 5-10 seconds old. F1 global safe timestamp is the timestamp where reads in any F1 cluster is consistent.
    - Pessmistic: [pessimistic transaction](https://en.wikipedia.org/wiki/Concurrency_control#Categories) as we know it. Directly mapped to Spanner transactions. Needs to maintain states to hold locks and handled by single F1 server. Bottleneck. This has high latency but can be useful if conflict writes are frequent.
-   - Optimistic: [optimistic transaction](https://en.wikipedia.org/wiki/Concurrency_control#Categories) as we know it. No Spanner locks taken. To detect row
+   - Optimistic: [optimistic transaction](https://en.wikipedia.org/wiki/Concurrency_control#Categories) as we know it. No Spanner locks taken. To detect row level conflicts, each row has an associated last modification timestamp when returned to the client. When the write is passed to F1, F1 compares the last modification timestamps of these rows to the ones re-fetched from Spanner, if the last modification timestamps do not agree, return conflict.
 - Read latency impact can be improved by co-locating F1 and Spanner instances. However, F1 servers and F1 slaves can talk to Spanner servers in other data centers (presumably when under load to load balance).
 - A read flow in code is:
    - Code uses the F1 client to issue a query to read data.
