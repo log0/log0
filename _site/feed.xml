@@ -5,9 +5,101 @@
     <description>Things I left Hanging Around</description>
     <link>http://www.chioka.in/</link>
     <atom:link href="http://www.chioka.in/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 02 Oct 2016 13:51:50 -0700</pubDate>
-    <lastBuildDate>Sun, 02 Oct 2016 13:51:50 -0700</lastBuildDate>
+    <pubDate>Sat, 26 Nov 2016 10:52:19 -0800</pubDate>
+    <lastBuildDate>Sat, 26 Nov 2016 10:52:19 -0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>Google F1 Server Reading Summary</title>
+        <description>&lt;p&gt;A summary of the Google published whitepaper: &lt;a href=&quot;http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41344.pdf&quot;&gt;F1 - A Distributed SQL Database That Scales&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;F1 is a distributed database built on top of &lt;a href=&quot;http://research.google.com/archive/spanner.html&quot;&gt;Spanner&lt;/a&gt; from Google. F1 was devised when MySQL was unable to service Google AdWords traffic. MySQL offers many functionalities that must still be supported by any replacements such as traditional SQL analysis, indexing, optimistic and pessimistic transactions, etc. Some of the required features are already supported by Spanner, but some other features such as optimistic transactions, automatic change history generation, transactionally consistent secondary indexes was not supported by Spanner. F1 builds on Spanner to provide those functionalities.&lt;/li&gt;
+  &lt;li&gt;F1 offers consistency, scalability, high availability, and SQL-like syntax for traditional query analysis. F1 design choices offer many of the features (automatic change history generation, automatic indexing, consistency, etc) required in AdWords affected reads/writes latency.&lt;/li&gt;
+  &lt;li&gt;Global consistency is backed by Spanner’s strongly consistent model.&lt;/li&gt;
+  &lt;li&gt;F1 table are comprised of columns, which is a &lt;a href=&quot;https://developers.google.com/protocol-buffers/&quot;&gt;protobuf&lt;/a&gt;. Each row is an instance of data. This allows reads to be very granular and only get what is needed: some rows of some columns. For large tables, loading all columns by default means most data is not needed with read latency impact.&lt;/li&gt;
+  &lt;li&gt;F1 supports row-level granularity locks by default, and has column-level lock granularity.&lt;/li&gt;
+  &lt;li&gt;Read latency impact is mitigated by forcing the tables to be hierarchical so that data is clustered together explicitly. The implication is that this makes F1 less suitable for patterns that involves many tables that require joins but are not hierarchically related. Heavy batching, parallelism and asynchronous reads also helps. The F1 client library also systematically prevents common ORM library issues including serial reads, implicit traversals (load everything “just in case”).
+    &lt;ul&gt;
+      &lt;li&gt;For instance, this is an example from the paper and some hypothetical tables:
+        &lt;ul&gt;
+          &lt;li&gt;Customer
+            &lt;ul&gt;
+              &lt;li&gt;Campaign
+                &lt;ul&gt;
+                  &lt;li&gt;CampaignData&lt;/li&gt;
+                  &lt;li&gt;CampaignOtherData&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;Payment&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;MyOtherData&lt;/li&gt;
+          &lt;li&gt;SomeOtherData
+            &lt;ul&gt;
+              &lt;li&gt;DetailedInfo&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Then, these queries should be fast: joining CampaignData with CampaignOtherData. Payment with Campaign. Payment and CampaignData (should still be fast).&lt;/li&gt;
+      &lt;li&gt;However, these queries should be slow: MyOtherData with Payment. DetailedInfo with CampaignData. DetailedInfo with MyOtherData.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;There are 3 transaction types:
+    &lt;ul&gt;
+      &lt;li&gt;Snapshot: read-only transactions at a fixed Spanner snapshot timestamp ST. This means it only sees data up to ST, but will remain consistent. The default snapshot read timestamp is the F1 global safe timestamp which is 5-10 seconds old. F1 global safe timestamp is the timestamp where reads in any F1 cluster is consistent.&lt;/li&gt;
+      &lt;li&gt;Pessmistic: &lt;a href=&quot;https://en.wikipedia.org/wiki/Concurrency_control#Categories&quot;&gt;pessimistic transaction&lt;/a&gt; as we know it. Directly mapped to Spanner transactions. Needs to maintain states to hold locks and handled by single F1 server. Bottleneck. This has high latency but can be useful if conflict writes are frequent.&lt;/li&gt;
+      &lt;li&gt;Optimistic: &lt;a href=&quot;https://en.wikipedia.org/wiki/Concurrency_control#Categories&quot;&gt;optimistic transaction&lt;/a&gt; as we know it. No Spanner locks taken. To detect row&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Read latency impact can be improved by co-locating F1 and Spanner instances. However, F1 servers and F1 slaves can talk to Spanner servers in other data centers (presumably when under load to load balance).&lt;/li&gt;
+  &lt;li&gt;A read flow in code is:
+    &lt;ul&gt;
+      &lt;li&gt;Code uses the F1 client to issue a query to read data.&lt;/li&gt;
+      &lt;li&gt;Load Balancer assigns query an F1 cluster.&lt;/li&gt;
+      &lt;li&gt;Query hits F1 server. In distributed execution (see below), it is also the query coordinator.&lt;/li&gt;
+      &lt;li&gt;F1 server decides whether centralized execution or distributed execution favours query processing latency. Distributed execution would mean queries will be distributed to F1 slaves, which handles joins and read requests.&lt;/li&gt;
+      &lt;li&gt;If centralized execution:
+        &lt;ul&gt;
+          &lt;li&gt;F1 query is forwarded to Spanner, presumably converted to something that Spanner understands.&lt;/li&gt;
+          &lt;li&gt;The “Spanner Query” gets served and Spanner returns a data stream back to F1 server.&lt;/li&gt;
+          &lt;li&gt;F1 server streams the returned Spanner data stream to F1 client.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;If distributed execution:
+        &lt;ul&gt;
+          &lt;li&gt;F1 query is repartitioned and forwarded to N slaves, which handle joins and aggregations.&lt;/li&gt;
+          &lt;li&gt;Each F1 slave will issue their part of the F1 query to Spanner.&lt;/li&gt;
+          &lt;li&gt;The “Spanner Query” gets served and Spanner returns a data stream back to F1 slaves.&lt;/li&gt;
+          &lt;li&gt;The query coordinator aggregates the streamed results from F1 slaves. The implication is that ordering properties of input data are lost. The query coordinator can be a bottleneck and F1 queries can be distributed to be consumed by more than one consumer in parallel.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;For writes, latency is about 50-150ms due to using Paxos algorithm to finally determine between different F1 replicas, if a write is allowed to commit. Web application read latency averages 200ms after using F1 largely due to the use of explicit clustering, heavy data streaming, asynchronous reads and systematic prevention anti-ORM patterns (e.g. serial reads, implicit traversal).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Why I wrote this? On this Thanksgiving weekend, I was sick and in this nightmarish dream I was asked to explain F1 to my audience in some university lecture. So here I am, my I-don’t-know-who audience and what you asked, hopefully this answers your questions. Time to take meds and rest.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 31 May 2016 11:05:15 -0700</pubDate>
+        <link>http://www.chioka.in/google-f1-server-reading-summary</link>
+        <guid isPermaLink="true">http://www.chioka.in/google-f1-server-reading-summary</guid>
+        
+        <category>Google</category>
+        
+        <category>Database</category>
+        
+        <category>Scalability</category>
+        
+        <category>Distributed Systems</category>
+        
+        
+        <category>Distributed Systems</category>
+        
+        <category>Reading Summary</category>
+        
+      </item>
     
       <item>
         <title>TensorFlow Implementation of &quot;A Neural Algorithm of Artistic Style&quot;</title>
@@ -2282,105 +2374,6 @@ if __name__ == &#39;__main__&#39;:
         <category>Machine Learning</category>
         
         <category>Mathematics</category>
-        
-      </item>
-    
-      <item>
-        <title>First Look in Virtual Reality: Stereoscopy, Panoramas and Panoramic Videos</title>
-        <description>&lt;p&gt;I got the &lt;a href=&quot;http://g.co/cardboard&quot; target=&quot;_blank&quot;&gt;Google Cardboard&lt;/a&gt; recently, and I’m playing with it. Google Cardboard is a very simple piece of gadget that turns your phone into a virtual reality headset. It was released in &lt;a href=&quot;https://www.google.com/events/io&quot; target=&quot;_blank&quot;&gt;Google I/O 2014&lt;/a&gt;. If you have an Android phone, you can download the &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.google.samples.apps.cardboarddemo&amp;amp;hl=en&quot; target=&quot;_blank&quot;&gt;Cardboard application&lt;/a&gt; which has works very well with Google Cardboard.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-505&quot; src=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg&quot; alt=&quot;google cardboard&quot; width=&quot;490&quot; height=&quot;490&quot; srcset=&quot;/wp-content/uploads/2014/11/google-cardboard.jpg 490w, /wp-content/uploads/2014/11/google-cardboard-150x150.jpg 150w&quot; sizes=&quot;(max-width: 490px) 100vw, 490px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;One of the function provided by the Cardboard application is viewing Photo Sphere in a virtual reality setting. &lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; is a kind of photo that is (360 x 180) degrees panoramic, that is, not just 360 degrees horizontally, but also you can look up and down. It is very cool.&lt;/p&gt;
-
-&lt;p&gt;Check out &lt;a href=&quot;http://360gigapixels.com/tokyo-tower-panorama-photo/&quot; target=&quot;_blank&quot;&gt;this panoramic view&lt;/a&gt; from Tokyo Tower by 360cities for something similar in concept.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot;&gt;&lt;img class=&quot;aligncenter size-full wp-image-506&quot; src=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png&quot; alt=&quot;tokyo tower panorama&quot; width=&quot;1353&quot; height=&quot;683&quot; srcset=&quot;/wp-content/uploads/2014/11/tokyo-tower-panorama.png 1353w, /wp-content/uploads/2014/11/tokyo-tower-panorama-580x292.png 580w, /wp-content/uploads/2014/11/tokyo-tower-panorama-940x474.png 940w, /wp-content/uploads/2014/11/tokyo-tower-panorama-624x314.png 624w&quot; sizes=&quot;(max-width: 1353px) 100vw, 1353px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Here is the cool thing:  The Cardboard application pushes the Photo Sphere further by putting you in an immersive experience. The experience is as if you’re at the scene looking around &lt;em&gt;in person&lt;/em&gt;. Yes, I know it’s not stereoscopic, but hey!&lt;/p&gt;
-
-&lt;p&gt;I know I know! It’s hard to visualize that. You can only really experience that when you acutally play with a virtual reality headset. In that case, I highly encourage you to get a virtual reality headset like Google Cardboard, or even build one yourself! =]&lt;/p&gt;
-
-&lt;h1 id=&quot;panoramic-videos&quot;&gt;Panoramic Videos!&lt;/h1&gt;
-
-&lt;p&gt;However, I am actually more excited not just with photos, but videos. Check these out:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bubl.io/experiences/648c1828-17dc-48b6-b7c1-4f859389f66b&quot; target=&quot;_blank&quot;&gt;Panoramic video of a tour around NYC in a Taxi&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bubl.io/experiences/ca20efe4-925e-458f-826f-4c7cb77d2e39&quot; target=&quot;_blank&quot;&gt;Panoramic video of skydiving in Toronto&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Google Cardboard doesn’t work with these though. So I haven’t try viewing it in a Cardboard for now. I will hope to try it out.&lt;/p&gt;
-
-&lt;h1 id=&quot;stereoscopic-panoramic-videos&quot;&gt;Stereoscopic Panoramic Videos?!!&lt;/h1&gt;
-
-&lt;p&gt;What if the panoramic videos are stereoscopic? WOW!&lt;/p&gt;
-
-&lt;p&gt;Though, I don’t think we’re there yet. This area seems to be still in its infancy. The closest thing I’ve seen is the &lt;a href=&quot;http://www.panocam3d.com/&quot; target=&quot;_blank&quot;&gt;Panocam3D&lt;/a&gt;, which is a hexagonal device with 2 cameras on each direction.&lt;/p&gt;
-
-&lt;p&gt;The idea to capture stereoscopic panoramic videos is explained &lt;a href=&quot;http://www.video-stitch.com/whats-stereographic-3d-panoramic-video/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;, though this may not be the ideal solution since we still only get 360 degrees and not (360 x 180) degrees.&lt;/p&gt;
-
-&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
-
-&lt;p&gt;I studied a little bit about stereoscopy, panoramas and panoramic videos. Here are some resources if you’re interested (and notes for myself).&lt;/p&gt;
-
-&lt;p&gt;Demonstration of panoramic images and videos:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://video.airpano.com/Video-Dubai-UAE/video-normal-en.html&quot; target=&quot;_blank&quot;&gt;Dubai panoramic video by AirPano&lt;/a&gt; – They have a lot of other panoramic videos too.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.360cities.net/&quot; target=&quot;_blank&quot;&gt;360cities&lt;/a&gt; – Panoramic images of many cities in the world.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Devices that can capture (360 x 180) degrees panorama:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bublcam.com&quot; target=&quot;_blank&quot;&gt;Bublcam&lt;/a&gt; – A spherical device with multiple cameras on it. The above videos are from Bublcam. It looks a pixelated but still acceptable. Not available for sale yet.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://geonaute.com&quot; target=&quot;_blank&quot;&gt;Geonaute&lt;/a&gt; – Another one that looks pretty good, though the demos seem to see the apex (the top area where the corners join) seems to be a bit badly stitched. Still very good.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.360heros.com/&quot; target=&quot;_blank&quot;&gt;360heros&lt;/a&gt; – Actually it’s a gadget to clamp together 6 GoPro cameras in all 6 directions (front back left right up and down). I would think getting the Bublcam and Geonaute may be better, but GoPro probably have better resolution.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Devices that can capture (360) degrees panorama:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.gopano.com&quot; target=&quot;_blank&quot;&gt;GoPano &lt;/a&gt;– A special lens attachable to iPhone that allows you to take panoramas and panoramic videos. It works by having a 360 degree lens and bend the light into the iPhone camera. Works for iPhone only. 360 degrees horizontally only.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://kogeto.com/&quot; target=&quot;_blank&quot;&gt;Kageto&lt;/a&gt; – A company manufacturing the Dot, Lucy, and Jo. They are successive versions of a special lens attachable to iPhone or Android to take panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bubblescope.com&quot; target=&quot;_blank&quot;&gt;BubbleScope&lt;/a&gt; – Another attachable lens to iPhone for capturing panoramas and panoramic videos. Similar to GoPano, 360 degrees horizontally only.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Software Apps that takes panoramic pictures without using another external cam/device. Apparently, you cannot do panoramic videos from these (it’ll look like a mess):&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.google.com/maps/about/contribute/photosphere/&quot; target=&quot;_blank&quot;&gt;Photo Sphere&lt;/a&gt; – Take panoramic photos using built-in Android Camera app developed by Google.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.photosynth.net&quot; target=&quot;_blank&quot;&gt;Photo Synth&lt;/a&gt; – Take panoramic photos using this app developed by Microsoft Research.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Readings about stereoscopy, panoramas, and panoramic videos;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://nzphoto.tripod.com/stereo/3dtake/&quot; target=&quot;_blank&quot;&gt;Principles of stereoscopic photography using an ordinary camera&lt;/a&gt; – How to shoot your own stereoscopic photo. Seems like a very old page but the ideas are very clearly explained.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.video-stitch.com/whats-stereographic-3d-panoramic-video/&quot; target=&quot;_blank&quot;&gt;What’s up with stereographic 3D panoramic video&lt;/a&gt; – An article that talks about how to shoot stereoscopic panoramic videos, in theory. We don’t know if this is the best way though.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Stereoscopy&quot; target=&quot;_blank&quot;&gt;Stereoscopy on Wikipedia&lt;/a&gt; – As usual, Wikipedia is a good place to look at.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://photocreations.ca/3D/index.html&quot; target=&quot;_blank&quot;&gt;PhotoCreation&lt;/a&gt; – Apparently someone very enthusiastic in stereoscopic panoramic videos.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 03 Nov 2014 02:53:56 -0800</pubDate>
-        <link>http://www.chioka.in/first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/</link>
-        <guid isPermaLink="true">http://www.chioka.in/first-look-in-virtual-reality-stereoscopy-panoramas-and-panoramic-videos/</guid>
-        
-        <category>Android</category>
-        
-        <category>Computer Vision</category>
-        
-        <category>Google Cardboard</category>
-        
-        <category>Panomara</category>
-        
-        <category>Stereoscopy</category>
-        
-        <category>Virtual Reality</category>
-        
-        
-        <category>Virtual Reality</category>
         
       </item>
     
