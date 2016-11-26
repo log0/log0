@@ -67,4 +67,14 @@ A summary of the Google published whitepaper: [F1 - A Distributed SQL Database T
       - The query coordinator aggregates the streamed results from F1 slaves. The implication is that ordering properties of input data are lost. The query coordinator can be a bottleneck and F1 queries can be distributed to be consumed by more than one consumer in parallel.
 - For writes, latency is about 50-150ms due to using Paxos algorithm to finally determine between different F1 replicas, if a write is allowed to commit. Web application read latency averages 200ms after using F1 largely due to the use of explicit clustering, heavy data streaming, asynchronous reads and systematic prevention anti-ORM patterns (e.g. serial reads, implicit traversal).
 
+&nbsp;
+
+Meta points:
+
+- Know about more than just relational database, and how databases are designed. Most of us just use databases.
+- An Google-ish view on how distributed system works, and ideas on how to work on latency/bottlenecks.
+- Perspectives on how to deal with anti-ORM patterns that works in practice.
+
+&nbsp;
+
 Why I wrote this? On this Thanksgiving weekend, I was sick and in this nightmarish dream I was asked to explain F1 to my audience in some university lecture. So here I am, my I-don't-know-who audience and what you asked, hopefully this answers your questions. Time to take meds and rest.
